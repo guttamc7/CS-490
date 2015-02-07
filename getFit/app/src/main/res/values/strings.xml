@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">getFit</string>
+    <string name="app_name">gym8</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
 
@@ -20,6 +20,7 @@
     <string name="title_section1">Trending</string>
     <string name="title_section2">Find Nearby</string>
     <string name="title_section3">Profile</string>
+    <string name="Welcome">Welcome!</string>
 
 
 </resources>
