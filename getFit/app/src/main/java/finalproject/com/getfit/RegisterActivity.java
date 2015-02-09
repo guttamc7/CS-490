@@ -88,9 +88,12 @@ public class RegisterActivity extends Activity implements View.OnClickListener
         female.setOnClickListener(this);
     }
 
-    public void onActivityResult(int reqCode, int resCode, Intent data) {
-        if (resCode == RESULT_OK) {
-            if (reqCode == 1) {
+    public void onActivityResult(int reqCode, int resCode, Intent data)
+    {
+        if (resCode == RESULT_OK)
+        {
+            if (reqCode == 1)
+            {
                 imageUri = data.getData();
                 profilePictureImgView.setImageURI(data.getData());
             }
