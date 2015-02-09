@@ -14,11 +14,8 @@ import android.view.Window;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
-
-
-
-
-public class WelcomeNewActivity extends Activity {
+public class WelcomeNewActivity extends Activity
+{
 
     public static Button signInButton;
     public static Button signUpButton;
@@ -46,15 +43,14 @@ public class WelcomeNewActivity extends Activity {
         signUpButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 v.startAnimation(animAlpha);
+                Intent i = new Intent(WelcomeNewActivity.this, RegisterActivity.class);
+                startActivity(i);
+                finish();
                 //TODO
             }
         });
 
     }
-
-
-
-
-    }
+}
 
 

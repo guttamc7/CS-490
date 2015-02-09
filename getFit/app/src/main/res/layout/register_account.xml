@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/welcomegrad"
+    android:scaleType="fitStart"
+    >
+    <ImageView
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:id="@+id/imgViewProfilePic"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="15dp"
+        android:src="@drawable/no_user_logo"
+        />
+
+    <EditText
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:ems="10"
+        android:id="@+id/txtFullName"
+        android:layout_marginTop="20dp"
+        android:hint="Full Name"
+        android:textColor="#eaeff3"
+        android:textSize="20sp"
+
+        />
+
+    <EditText
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:id="@+id/txtEmail"
+        android:layout_gravity="center"
+        android:layout_marginTop="15dp"
+        android:hint="Email Address"
+        android:inputType="textEmailAddress"
+        android:textColor="#eaeff3"
+        android:textSize="20sp"
+        />
+
+    <EditText
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:inputType="date"
+        android:ems="10"
+        android:id="@+id/txtBirthdate"
+        android:layout_gravity="center"
+        android:layout_marginTop="15dp"
+        android:hint="Birth date (mm/dd/yyyy)"
+        android:textColor="#eaeff3"
+        android:textSize="20sp"
+        />
+
+    <RadioGroup
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:id="@+id/radioButtonGender"
+        >
+
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="10dp"
+            android:text="Male"
+            android:id="@+id/radioButtonMale"
+            android:textColor="#eaeff3"
+            android:textSize="20sp"
+            />
+
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Female"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="10dp"
+            android:id="@+id/radioButtonFemale"
+            android:textColor="#eaeff3"
+            android:textSize="20sp"
+            />
+    </RadioGroup>
+
+    <EditText
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:id="@+id/txtWeight"
+        android:layout_gravity="center"
+        android:layout_marginTop="10dp"
+        android:hint="Weight in lbs"
+        android:inputType="numberDecimal"
+        android:textColor="#eaeff3"
+        android:textSize="20sp"
+        />
+
+    <EditText
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:id="@+id/txtHeight"
+        android:layout_gravity="center"
+        android:layout_marginTop="12dp"
+        android:hint="Height in Inches and Feet"
+        android:inputType="numberDecimal"
+        android:textColor="#eaeff3"
+        android:textSize="20sp"
+        />
+
+    <Button
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:text="Register"
+        android:id="@+id/btnRegisterUser"
+        android:layout_gravity="center"
+        android:layout_marginTop="15dp"
+        android:enabled="false"
+        android:padding="5dp"
+        android:background="@drawable/roundedbutton"
+        android:textColor="#eaeff3"
+        android:textSize="20sp"
+        />
+
+</LinearLayout>
