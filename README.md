@@ -22,6 +22,19 @@ There has been an every increasing trend on fitness and health in recent years. 
 
 ##Instructions##
 
+###For adding project to Android Studio###
+
+- Download gitHub application for Windows or Mac
+- Open the application and clone the repo to a specified destination on the local disk
+- Open ANDROID STUDIO and select import existing Android Project
+- Choose getFit which is inside the CS-490 folder (Don't Choose CS-490 as the folder to add to Android Studio, it may cause problem with gradle)
+- On the top left corner it will say Android, click on it ad select Project so that it displays the proper file structure
+
+####For running project####
+
+- For kindle, please have developer options ticked inside settings. It can happen that you connect the kindle to your laptop and Android Studio cannot detect it even though the kindle is getting charged. This means that the kindle is defected and get it changed.
+- The application can be run with an emulator, this can be done by editing run confugurations for the application and selection the reqiured emulatior. This emulator in Android Studio is a lot faster and better then Eclipse.
+
 #####Likely causes for Errors#####
 
 ###Note###
