@@ -8,7 +8,8 @@
 
     <string-array name="drawer_titles">
         <item>Home</item>
-        <item>Base Workouts</item>
+        <item>Workout Library</item>
+        <item>My Schedule</item>
         <item>Create Workout</item>
         <item>Messages</item>
         <item>Settings</item>

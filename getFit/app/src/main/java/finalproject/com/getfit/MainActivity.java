@@ -27,7 +27,7 @@ public class MainActivity extends FragmentActivity {
     private CharSequence mDrawerTitle;
     private CharSequence mTitle;
     private String[] mDrawerItems;
-    private Integer[] imageId = {R.drawable.ic_action_home, R.drawable.ic_action_list,R.drawable.ic_action_add,
+    private Integer[] imageId = {R.drawable.ic_action_home, R.drawable.ic_action_list,R.drawable.ic_action_calendar_month,R.drawable.ic_action_add,
             R.drawable.ic_messages, R.drawable.ic_action_settings, R.drawable.ic_action_arrow_left};
 
     @Override
@@ -135,7 +135,7 @@ public class MainActivity extends FragmentActivity {
             case 1:
                 getSupportFragmentManager()
                         .beginTransaction()
-                        .replace(R.id.content_frame, BaseWorkoutFragment.newInstance(), BaseWorkoutFragment.TAG).commit();
+                        .replace(R.id.content_frame, WorkoutLibFragment.newInstance(), WorkoutLibFragment.TAG).commit();
                 break;
             case 2: //TODO
                 getSupportFragmentManager()

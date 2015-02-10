@@ -6,122 +6,122 @@
     android:background="@drawable/welcomegrad"
     android:scaleType="fitStart"
     >
-    <ImageView
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:id="@+id/imgViewProfilePic"
-        android:layout_gravity="center_horizontal"
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="5dp"
+        android:id="@+id/text2"
+        android:clickable="false"
+        android:text="Create an Account"
+        android:textColor="#eaeff3"
+        android:layout_centerHorizontal="true"
+        android:fontFamily="sans-serif"
+        android:textSize="32sp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="30dp" />
+
+    <TextView
+        android:id="@+id/register_reg_msg"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="sans-serif_light"
         android:layout_marginTop="15dp"
-        android:src="@drawable/no_user_logo"
-        />
+        android:textColor="#eaeff3"
+        android:layout_gravity="center"
+        android:layout_centerHorizontal="true"
+        android:text="Register now with a .edu account"
+        android:textSize = "20dp" />
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@android:color/transparent">
 
     <EditText
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:inputType="textPersonName"
-        android:ems="10"
+        android:padding="10dp"
+        android:background="@drawable/textlines"
         android:id="@+id/txtFullName"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="35dip"
+        android:layout_marginLeft="25dip"
+        android:layout_marginRight="25dip"
         android:hint="Full Name"
+        android:gravity="center"
+        android:textColorHint="#eaeff3"
         android:textColor="#eaeff3"
         android:textSize="20sp"
-
+        android:drawableLeft="@drawable/ic_action_user_white"
         />
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="1dip"
+            android:layout_marginLeft="25dip"
+            android:layout_marginRight="25dip"
+            android:background="#15000000"
+            android:layout_above="@+id/txtEmail"/>
 
     <EditText
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:ems="10"
+        android:padding="10dp"
         android:id="@+id/txtEmail"
         android:layout_gravity="center"
-        android:layout_marginTop="15dp"
-        android:hint="Email Address"
+        android:layout_marginLeft="25dip"
+        android:layout_marginRight="25dip"
+        android:hint="Email"
+        android:textColorHint="#eaeff3"
+        android:gravity="center"
+        android:background="@drawable/textlines"
         android:inputType="textEmailAddress"
         android:textColor="#eaeff3"
         android:textSize="20sp"
+        android:drawableLeft="@drawable/ic_action_mail"
         />
 
-    <EditText
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:inputType="date"
-        android:ems="10"
-        android:id="@+id/txtBirthdate"
-        android:layout_gravity="center"
-        android:layout_marginTop="15dp"
-        android:hint="Birth date (mm/dd/yyyy)"
-        android:textColor="#eaeff3"
-        android:textSize="20sp"
-        />
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="1dip"
+            android:layout_marginLeft="25dip"
+            android:layout_marginRight="25dip"
+            android:background="#15000000"
+            android:layout_above="@+id/register_pass"/>
 
-    <RadioGroup
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:id="@+id/radioButtonGender"
-        >
-
-        <RadioButton
-            android:layout_width="wrap_content"
+        <EditText android:id="@+id/register_pass"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:layout_marginLeft="10dp"
-            android:text="Male"
-            android:id="@+id/radioButtonMale"
+            android:padding="10dp"
+            android:layout_marginLeft="25dip"
+            android:layout_marginRight="25dip"
+            android:inputType="textPassword"
+            android:gravity="center"
+            android:singleLine="true"
+            android:textColorHint="#eaeff3"
             android:textColor="#eaeff3"
             android:textSize="20sp"
-            />
-
-        <RadioButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Female"
-            android:layout_marginTop="10dp"
-            android:layout_marginLeft="10dp"
-            android:id="@+id/radioButtonFemale"
-            android:textColor="#eaeff3"
-            android:textSize="20sp"
-            />
-    </RadioGroup>
-
-    <EditText
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:id="@+id/txtWeight"
-        android:layout_gravity="center"
-        android:layout_marginTop="10dp"
-        android:hint="Weight in lbs"
-        android:inputType="numberDecimal"
-        android:textColor="#eaeff3"
-        android:textSize="20sp"
-        />
-
-    <EditText
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:id="@+id/txtHeight"
-        android:layout_gravity="center"
-        android:layout_marginTop="12dp"
-        android:hint="Height in Inches and Feet"
-        android:inputType="numberDecimal"
-        android:textColor="#eaeff3"
-        android:textSize="20sp"
-        />
+            android:background="@drawable/textlines"
+            android:hint="Password"
+            android:drawableLeft="@drawable/ic_action_lock_closed"/>
 
     <Button
-        android:layout_width="200dp"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:text="Register"
         android:id="@+id/btnRegisterUser"
+        android:layout_marginLeft="25dip"
+        android:layout_marginRight="25dip"
         android:layout_gravity="center"
-        android:layout_marginTop="15dp"
-        android:enabled="false"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="50dp"
         android:padding="5dp"
         android:background="@drawable/roundedbutton"
         android:textColor="#eaeff3"
-        android:textSize="20sp"
+        android:textSize="21sp"
         />
+
+    </LinearLayout>
 
 </LinearLayout>

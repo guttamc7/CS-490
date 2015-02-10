@@ -1,5 +1,9 @@
 package finalproject.com.getfit;
 
+/**
+ * Created by Gurumukh on 2/8/15.
+ */
+
 import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
@@ -7,6 +11,7 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -16,8 +21,7 @@ import android.widget.RadioGroup;
 /**
  * Created by rishabhmittal on 2/8/15.
  */
-public class RegisterActivity extends Activity implements View.OnClickListener
-{
+public class NewProfileActivity extends Activity {
     private RadioGroup gender;
     private RadioButton male, female;
     private EditText fullName, emailAddress, birthDate, weight, height;
@@ -25,16 +29,18 @@ public class RegisterActivity extends Activity implements View.OnClickListener
     Uri imageUri = Uri.parse("android.resource://org.intracode.contactmanager/drawable/no_user_logo.png");
 
     @Override
-    protected void onCreate(Bundle savedInstanceState)
-    {
+    protected void onCreate(Bundle savedInstanceState) {
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.register_account);
+        setContentView(R.layout.activity_newprofile);
+    }
+}
 
-        gender = (RadioGroup) findViewById(R.id.radioButtonGender);
+
+       /* gender = (RadioGroup) findViewById(R.id.radioButtonGender);
         male = (RadioButton) findViewById(R.id.radioButtonMale);
         female = (RadioButton) findViewById(R.id.radioButtonFemale);
-        fullName = (EditText) findViewById(R.id.txtFullName);
-        emailAddress = (EditText) findViewById(R.id.txtEmail);
+
         birthDate = (EditText) findViewById(R.id.txtEmail);
         weight = (EditText) findViewById(R.id.txtWeight);
         height = (EditText) findViewById(R.id.txtHeight);
@@ -46,7 +52,7 @@ public class RegisterActivity extends Activity implements View.OnClickListener
             @Override
             public void onClick(View view)
             {
-                Intent i = new Intent(RegisterActivity.this, MainActivity.class);
+                Intent i = new Intent(NewProfileActivity.this, MainActivity.class);
                 startActivity(i);
                 finish();
                 //TODO
@@ -111,7 +117,7 @@ public class RegisterActivity extends Activity implements View.OnClickListener
                 {
                     //TODO
                 }
-            break;
+                break;
 
             case R.id.radioButtonFemale:
                 if(male.isChecked())
@@ -120,5 +126,6 @@ public class RegisterActivity extends Activity implements View.OnClickListener
                 }
                 break;
         }
-    }
-}
+    }*/
+
+

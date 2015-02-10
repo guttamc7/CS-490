@@ -1,7 +1,7 @@
 package finalproject.com.getfit;
 
 /**
- * Created by Gurumukh on 2/4/15.
+ * Created by Gurumukh on 2/10/15.
  */
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -13,14 +13,14 @@ import android.widget.ListView;
 
 import junit.runner.Version;
 
-public class BaseWorkoutFragment extends Fragment {
+public class CustomWorkoutFragment extends Fragment {
 
     public final static String TAG = BaseWorkoutFragment.class.getSimpleName();
     private ListView bWorkoutList;
-    private String[] mItems = {"BEG","BEG","INT","INT", "INT", "ADV", "ADV"};
+    private String[] mItems = {"Novice","Intermediate","Advanced","Professional", "Example", "Example", "example"};
     private Integer[] imageId = {R.drawable.ic_logocenter,R.drawable.ic_logocenter,R.drawable.ic_logocenter,R.drawable.ic_logocenter,R.drawable.ic_logocenter,R.drawable.ic_logocenter,R.drawable.ic_logocenter};
 
-    public BaseWorkoutFragment() {
+    public CustomWorkoutFragment() {
         // TODO Auto-generated constructor stub
     }
 
@@ -31,7 +31,7 @@ public class BaseWorkoutFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        setRetainInstance(true);
+        //setRetainInstance(true);
     }
 
     @Override

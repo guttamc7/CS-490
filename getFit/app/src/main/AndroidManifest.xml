@@ -10,18 +10,21 @@
         <activity
             android:name=".WelcomeActivity"
             >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+        <intent-filter>
+            <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+            <category android:name="android.intent.category.LAUNCHER" />
+        </intent-filter>
+            </activity>
         <activity
-            android:name=".WelcomeNewActivity">
-        </activity>
-        <activity
-            android:name=".RegisterActivity"
+            android:name=".WelcomeNewActivity"
             >
+            </activity>
+        <activity
+            android:name=".RegisterActivity">
+        </activity>
+        <activity
+            android:name=".NewProfileActivity">
         </activity>
         <activity
             android:name="finalproject.com.getfit.MainActivity"
