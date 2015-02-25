@@ -15,7 +15,8 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
 
-
+import com.parse.Parse;
+import com.parse.ParseObject;
 
 
 public class WelcomeNewActivity extends Activity {
@@ -26,6 +27,16 @@ public class WelcomeNewActivity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        // Enable Local Datastore.
+        Parse.enableLocalDatastore(this);
+
+        Parse.initialize(this, "jlPrAU7g3Mx6bH2cFMiEzNlgNSaJ44JmwNdRk2pX", "JDIEhCILA6iSVsRCEPth8LKcMugkQ2I4sPGZti9s");
+
+        ParseObject testObject = new ParseObject("TestObject");
+        testObject.put("foo", "bar");
+        testObject.saveInBackground();
+
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_welcome_after);
