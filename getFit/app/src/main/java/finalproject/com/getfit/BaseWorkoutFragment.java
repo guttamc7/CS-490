@@ -17,8 +17,8 @@ public class BaseWorkoutFragment extends Fragment {
 
     public final static String TAG = BaseWorkoutFragment.class.getSimpleName();
     private ListView bWorkoutList;
-    private String[] mItems = {"BEG","BEG","INT","INT", "INT", "ADV", "ADV"};
-    private Integer[] imageId = {R.drawable.ic_logocenter,R.drawable.ic_logocenter,R.drawable.ic_logocenter,R.drawable.ic_logocenter,R.drawable.ic_logocenter,R.drawable.ic_logocenter,R.drawable.ic_logocenter};
+    private String[] mItems = {"Beginner's Chest Workout","Beginner's Leg Workout","Intermediate Full Body Circuit","Intermediate Back and Biceps", "Intermediate Chest Workout", "Advanced Crossfitt WOD", "Advanced High Intensity Interval Training"};
+    private Integer[] imageId = {R.drawable.ic_level1,R.drawable.ic_level1,R.drawable.ic_level2,R.drawable.ic_level2,R.drawable.ic_level2,R.drawable.ic_level3,R.drawable.ic_level3};
 
     public BaseWorkoutFragment() {
         // TODO Auto-generated constructor stub

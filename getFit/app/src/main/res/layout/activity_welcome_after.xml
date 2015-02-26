@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@drawable/welcomegrad" >
+
+    <ImageView
+        android:id="@+id/imgLogo"
+        android:layout_width="250dp"
+        android:layout_height="match_parent"
+        android:layout_centerInParent="true"
+        android:src="@drawable/ic_logocenter"
+        android:scaleType="fitStart"/>
+
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="1dip"
+        android:background="#eaeff3"
+        android:layout_above="@+id/text2"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="5dp"
+        android:lines="2"
+        android:id="@+id/text2"
+        android:clickable="false"
+        android:text="Connect now"
+        android:textColor="#eaeff3"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:fontFamily="sans-serif"
+        android:textSize="35sp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="100dp" />
+
+    <LinearLayout
+        android:id="@+id/LinearLayout02"
+        android:layout_height="wrap_content"
+        android:layout_width="fill_parent"
+        android:layout_below="@id/text2">
+        <Button
+            android:id="@+id/signUpButton"
+            android:background="@drawable/roundedbutton"
+            android:layout_width="80dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.72"
+            android:textSize="20sp"
+            android:padding="5dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:text="Create account"
+            android:textColor="#eaeff3">
+        </Button>
+        <Button
+            android:id="@+id/signInButton"
+            android:background="@drawable/roundedbutton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.69"
+            android:text="Sign In"
+            android:padding="5dp"
+            android:textSize="20sp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:textColor="#eaeff3"
+            >
+        </Button>
+    </LinearLayout>
+    <Button
+        android:id="@+id/facebookButton"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/roundedbutton"
+        android:textSize="20sp"
+        android:padding="5dp"
+        android:layout_marginTop="39dp"
+        android:text="Login with Facebook"
+        android:textColor="#eaeff3"
+        android:layout_below="@+id/LinearLayout02"
+        android:layout_alignLeft="@+id/imgLogo"
+        android:layout_alignStart="@+id/imgLogo" />
+</RelativeLayout>

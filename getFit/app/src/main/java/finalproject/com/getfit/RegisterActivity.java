@@ -1,6 +1,8 @@
 package finalproject.com.getfit;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -52,5 +54,13 @@ public class RegisterActivity extends Activity
                 //TODO
             }
         });
+    }
+
+
+
+    public void onBackPressed() {
+        Intent i = new Intent(RegisterActivity.this, WelcomeNewActivity.class);
+        startActivity(i);
+        finish();
     }
 }

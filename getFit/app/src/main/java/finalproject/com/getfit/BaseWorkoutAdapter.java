@@ -26,8 +26,8 @@ public class BaseWorkoutAdapter extends ArrayAdapter<String>{
     public View getView(int position, View view, ViewGroup parent) {
         LayoutInflater inflater = context.getLayoutInflater();
         View rowView= inflater.inflate(R.layout.baseworkout_row, null, true);
-        TextView txtTitle = (TextView) rowView.findViewById(R.id.bworkout_txt);
-        ImageView imageView = (ImageView) rowView.findViewById(R.id.bworkout_img);
+        TextView txtTitle = (TextView) rowView.findViewById(R.id.title);
+        ImageView imageView = (ImageView) rowView.findViewById(R.id.thumbnail);
         txtTitle.setText(web[position]);
         imageView.setImageResource(imageId[position]);
         return rowView;
