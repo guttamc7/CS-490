@@ -60,16 +60,7 @@ public class HomePageActivity extends Activity {
         });
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        // Check which request we're responding to
-        if (requestCode == 0) {
-            // The User had successfully logged in
-            if (resultCode == RESULT_OK) {
 
-            }
-        }
-    }
 
 }
 

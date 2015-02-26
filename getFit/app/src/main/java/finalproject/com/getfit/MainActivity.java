@@ -7,6 +7,7 @@ import android.os.Handler;
 import android.view.Window;
 
 import com.parse.Parse;
+import com.parse.ui.ParseLoginBuilder;
 
 /**
  * Created by Gurumukh on 2/5/15.
@@ -45,13 +46,25 @@ public class MainActivity extends Activity {
             public void run() {
                 // This method will be executed once the timer is over
                 // Start your app main activity
-                Intent i = new Intent(MainActivity.this, HomePageActivity.class);
-                startActivity(i);
+                ParseLoginBuilder builder = new ParseLoginBuilder(MainActivity.this);
+                startActivityForResult(builder.build(), 0);
 
                 // close this activity
                 finish();
             }
         }, SPLASH_TIME_OUT);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        // Check which request we're responding to
+        if (requestCode == 0) {
+            // The User had successfully logged in
+            if (resultCode == RESULT_OK) {
+                //Intent i = new Intent(MainActivity.this, WelcomeNewActivity.class);
+               // startActivity(i);
+            }
+        }
     }
 
 }
