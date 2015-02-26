@@ -29,4 +29,6 @@ dependencies {
 
     compile 'com.parse.bolts:bolts-android:1.+'
 
+    compile project(':ParseLoginUI')
+
 }

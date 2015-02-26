@@ -52,7 +52,7 @@ public class NewProfileActivity extends Activity {
             @Override
             public void onClick(View view)
             {
-                Intent i = new Intent(NewProfileActivity.this, MainActivity.class);
+                Intent i = new Intent(NewProfileActivity.this, Change this);
                 startActivity(i);
                 finish();
                 //TODO
