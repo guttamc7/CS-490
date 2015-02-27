@@ -33,7 +33,7 @@ public class HomePageActivity extends FragmentActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_home_page);
 
         mTitle = mDrawerTitle = getTitle();
 

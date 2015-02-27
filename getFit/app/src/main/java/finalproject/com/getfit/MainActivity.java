@@ -22,7 +22,7 @@ public class MainActivity extends Activity {
 
         //Connect to Parse Datastore
         Parse.enableLocalDatastore(this);
-        Parse.initialize(this, "jlPrAU7g3Mx6bH2cFMiEzNlgNSaJ44JmwNdRk2pX", "JDIEhCILA6iSVsRCEPth8LKcMugkQ2I4sPGZti9s");
+        Parse.initialize(this,getResources().getString(R.string.parse_app_id), getResources().getString(R.string.parse_client_key));
 
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -30,13 +30,10 @@ public class MainActivity extends Activity {
                 //WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_main);
     /* adapt the image to the size of the display */
-
-
     /* fill the background ImageView with the resized image */
 
 
         new Handler().postDelayed(new Runnable() {
-
             /*
              * Showing splash screen with a timer. This will be useful when you
              * want to show case your app logo / company
@@ -48,10 +45,8 @@ public class MainActivity extends Activity {
                 // Start your app main activity
                 ParseLoginBuilder builder = new ParseLoginBuilder(MainActivity.this);
                 startActivityForResult(builder.build(), 0);
-
-                // close this activity
-                finish();
             }
+
         }, SPLASH_TIME_OUT);
     }
 
@@ -61,12 +56,42 @@ public class MainActivity extends Activity {
         if (requestCode == 0) {
             // The User had successfully logged in
             if (resultCode == RESULT_OK) {
-                //Intent i = new Intent(MainActivity.this, WelcomeNewActivity.class);
-               // startActivity(i);
+                Intent i = new Intent(MainActivity.this, HomePageActivity.class);
+                startActivity(i);
             }
         }
+        // close this activity
+        finish();
     }
 
+    /*
+    private void getBaseWorkOuts(){
+        ParseQuery<ParseObject> query = ParseQuery.getQuery("Workout");
+        query.whereEqualTo("userId", getResources().getString(R.string.baseUserId));
+        query.findInBackground(new FindCallback<ParseObject>() {
+            public void done(List<ParseObject> workoutList, ParseException e) {
+                if (e == null) {
+                    //All the base workouts retrieved
+                } else {
+                    //Exception
+                }
+            }
+        });
+     }
+     */
+
+    /*
+    private void getExercisesForWorkout(String workoutId) {
+        ParseQuery<ParseObject> query = ParseQuery.getQuery("WorkoutExercises");
+        query.whereEqualTo("workOutId", workoutId);
+        query.findInBackground(new FindCallback<ParseObject>() {
+            public void done(List<ParseObject> exerciseList, ParseException e) {
+                if (e == null) {
+                    //All the exercises for the specified workout retrieved
+                } else {
+                    //Exception
+                }
+            }
+        });
+    }*/
 }
-
-
