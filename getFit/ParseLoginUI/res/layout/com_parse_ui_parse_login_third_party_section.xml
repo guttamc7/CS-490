@@ -6,6 +6,8 @@
         android:layout_marginTop="@dimen/com_parse_ui_small_vertical_spacing"
         android:background="@drawable/com_parse_ui_facebook_login_button_background_selector"
         android:drawableLeft="@drawable/com_parse_ui_facebook_login_logo"
+        android:layout_marginRight="25dip"
+        android:layout_marginLeft="25dip"
         android:text="@string/com_parse_ui_facebook_login_button_label"
         android:visibility="gone" />
 
