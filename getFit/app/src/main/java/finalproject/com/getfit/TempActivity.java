@@ -14,11 +14,9 @@ import android.view.Window;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
+import com.parse.ui.ParseLoginBuilder;
 
-
-
-
-public class WelcomeNewActivity extends Activity {
+public class TempActivity extends Activity {
 
     public static Button signInButton;
     public static Button signUpButton;
@@ -26,39 +24,44 @@ public class WelcomeNewActivity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        // Enable Local Datastore.
+        /*Parse.enableLocalDatastore(this);
+
+        Parse.initialize(this, "jlPrAU7g3Mx6bH2cFMiEzNlgNSaJ44JmwNdRk2pX", "JDIEhCILA6iSVsRCEPth8LKcMugkQ2I4sPGZti9s");
+
+        ParseObject testObject = new ParseObject("TestObject");
+        testObject.put("foo", "bar");
+        testObject.saveInBackground();*/
+
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_welcome_after);
+        setContentView(R.layout.activity_temp);
         final Animation animAlpha = AnimationUtils.loadAnimation(this, R.anim.anim_alpha);
         signInButton = (Button) findViewById(R.id.signInButton);
         signUpButton = (Button) findViewById(R.id.signUpButton);
         facebookButton = (Button) findViewById(R.id.facebookButton);
+
         signInButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 v.startAnimation(animAlpha);
-                Intent i = new Intent(WelcomeNewActivity.this, TempActivity.class);
-                startActivity(i);
+                ParseLoginBuilder builder = new ParseLoginBuilder(TempActivity.this);
+                startActivityForResult(builder.build(), 0);
                 finish();
-                //TODO
-
             }
         });
         signUpButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 v.startAnimation(animAlpha);
-                Intent i = new Intent(WelcomeNewActivity.this, RegisterActivity.class);
+                Intent i = new Intent(TempActivity.this, RegisterActivity.class);
                 startActivity(i);
                 finish();
-
-
             }
         });
-
     }
 
 
 
-
-    }
+}
 
 
