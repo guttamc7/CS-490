@@ -7,6 +7,7 @@ import android.os.Handler;
 import android.view.Window;
 
 import com.parse.Parse;
+import com.parse.ParseUser;
 import com.parse.ui.ParseLoginBuilder;
 
 /**
@@ -32,7 +33,6 @@ public class MainActivity extends Activity {
     /* adapt the image to the size of the display */
     /* fill the background ImageView with the resized image */
 
-
         new Handler().postDelayed(new Runnable() {
             /*
              * Showing splash screen with a timer. This will be useful when you
@@ -56,12 +56,27 @@ public class MainActivity extends Activity {
         if (requestCode == 0) {
             // The User had successfully logged in
             if (resultCode == RESULT_OK) {
-                Intent i = new Intent(MainActivity.this, HomePageActivity.class);
-                startActivity(i);
+                int loginCount = incrementUserLoginCount();
+                    if(loginCount == 1) { //User Logging in for the first time
+                        Intent i = new Intent(MainActivity.this, NewProfileActivity.class);
+                        startActivity(i);
+                    }else{
+                        Intent i = new Intent(MainActivity.this, HomePageActivity.class);
+                        startActivity(i);
+                    }
             }
         }
         // close this activity
         finish();
+    }
+
+    //Increment the user login count and return the latest value
+    private int incrementUserLoginCount() {
+        ParseUser currentUser = ParseUser.getCurrentUser();
+        int currentLoginCount = currentUser.getInt("loginCount");
+        currentUser.put("loginCount",++currentLoginCount);
+        currentUser.saveInBackground();
+        return currentLoginCount;
     }
 
     /*
