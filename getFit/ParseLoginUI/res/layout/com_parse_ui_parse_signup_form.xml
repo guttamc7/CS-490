@@ -3,9 +3,7 @@
     android:layout_height="wrap_content"
     android:gravity="center"
     android:background="@null"
-    android:orientation="vertical"    >
-
-
+    android:orientation="vertical">
 
     <EditText
         android:id="@+id/signup_name_input"
@@ -19,9 +17,10 @@
         android:layout_marginRight="25dip"
         android:textColorHint="#eaeff3"
         android:gravity="center"
+        android:singleLine="true"
         android:background="@drawable/textlines"
         android:textColor="#eaeff3"
-        android:textSize="20sp"
+        android:textSize="18sp"
         android:drawableLeft="@drawable/ic_action_news"/>
 
     <EditText
@@ -36,9 +35,10 @@
         android:layout_marginRight="25dip"
         android:textColorHint="#eaeff3"
         android:gravity="center"
+        android:singleLine="true"
         android:background="@drawable/textlines"
         android:textColor="#eaeff3"
-        android:textSize="20sp"
+        android:textSize="18sp"
         android:drawableLeft="@drawable/ic_action_mail"/>
 
     <EditText
@@ -49,14 +49,14 @@
         android:layout_gravity="center"
         android:layout_marginLeft="25dip"
         android:layout_marginRight="25dip"
-        android:hint="Username"
+        android:hint="@string/com_parse_ui_username_input_hint"
         android:textColorHint="#eaeff3"
         android:gravity="center"
+        android:singleLine="true"
         android:background="@drawable/textlines"
         android:textColor="#eaeff3"
-        android:textSize="20sp"
-        android:drawableLeft="@drawable/ic_action_user_white"
-        />
+        android:textSize="18sp"
+        android:drawableLeft="@drawable/ic_action_user_white"/>
 
     <EditText
         android:id="@+id/signup_password_input"
@@ -70,7 +70,7 @@
         android:singleLine="true"
         android:textColorHint="#eaeff3"
         android:textColor="#eaeff3"
-        android:textSize="20sp"
+        android:textSize="18sp"
         android:background="@drawable/textlines"
         android:drawableLeft="@drawable/ic_action_lock_closed"
         android:fontFamily="sans-serif"
@@ -92,7 +92,7 @@
         android:singleLine="true"
         android:textColorHint="#eaeff3"
         android:textColor="#eaeff3"
-        android:textSize="20sp"
+        android:textSize="18sp"
         android:background="@drawable/textlines"
         android:drawableLeft="@drawable/ic_action_lock_closed"
         android:selectAllOnFocus="true" />
