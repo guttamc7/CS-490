@@ -38,7 +38,7 @@ public class CustomWorkoutFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_baseworkout, container, false);
         bWorkoutList = (ListView)v.findViewById(R.id.base_list);
-        bWorkoutList.setAdapter(new BaseWorkoutAdapter(getActivity(), mItems, imageId));
+        //bWorkoutList.setAdapter(new BaseWorkoutAdapter(getActivity(), mItems, imageId));
         return v;
     }
 

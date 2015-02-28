@@ -16,6 +16,15 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 
+import com.parse.FindCallback;
+import com.parse.ParseException;
+import com.parse.ParseObject;
+import com.parse.ParseQuery;
+import com.parse.ParseUser;
+
+import java.util.ArrayList;
+import java.util.List;
+
 public class HomePageActivity extends FragmentActivity {
 
     private static final String TAG = HomePageActivity.class.getSimpleName();
@@ -124,6 +133,7 @@ public class HomePageActivity extends FragmentActivity {
     }
 
     private void navigateTo(int position) {
+        //System.out.println("In Home Page Activity");
 
         switch(position) {
             case 0:
@@ -133,6 +143,8 @@ public class HomePageActivity extends FragmentActivity {
                         .replace(R.id.content_frame, HomeFragment.newInstance(), HomeFragment.TAG).commit();
                 break;
             case 1:
+
+
                 getSupportFragmentManager()
                         .beginTransaction()
                         .replace(R.id.content_frame, WorkoutLibFragment.newInstance(), WorkoutLibFragment.TAG).commit();
@@ -151,6 +163,8 @@ public class HomePageActivity extends FragmentActivity {
         }
         mDrawerLayout.closeDrawer(mDrawerList);
     }
+
+
 
 
 

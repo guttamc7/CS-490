@@ -42,7 +42,7 @@
         />
 
     <TextView
-        android:id="@+id/profile_photo"
+        android:id="@+id/profile_photo_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="sans-serif_light"
