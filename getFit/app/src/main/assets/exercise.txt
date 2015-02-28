@@ -645,6 +645,7 @@ Biceps
 Hip Circles (prone)
 Abductors
 Hip Crossover
+Empty
 Hip Extension with Bands
 Glutes
 Hip Flexion with Band
@@ -797,6 +798,116 @@ Kneeling Single-Arm High Pulley Row
 Lats
 Kneeling Squat
 Glutes
+Landmine 180's
+Abdominals
+Landmine Linear Jammer
+Shoulders
+Lateral Bound
+Adductors
+Lateral Box Jump
+Adductors
+Lateral Cone Hops
+Adductors
+Lateral Raise - With Bands
+Shoulders
+Latissimus Dorsi-SMR
+Lats
+Leg Extensions
+Quadriceps
+Leg Lift
+Glutes
+Leg Press
+Quadriceps
+Leg Pull-In
+Abdominals
+Leg-Over Floor Press
+Chest
+Leg-Up Hamstring Stretch
+Hamstrings
+Leverage Chest Press
+Chest
+Leverage Deadlift
+Quadriceps
+Leverage Decline Chest Press
+Chest
+Leverage High Row
+Middle Back
+Leverage Incline Chest Press
+Chest
+Leverage Iso Row
+Lats
+Leverage Shoulder Press
+Shoulders
+Leverage Shrug
+Traps
+Linear 3-Part Start Technique
+Hamstrings
+Linear Acceleration Wall Drill
+Hamstrings
+Linear Depth Jump
+Quadriceps
+Log Lift
+Shoulders
+London Bridges
+Lats
+Looking At Ceiling
+Quadriceps
+Low Cable Crossover
+Chest
+Low Cable Triceps Extension
+Triceps
+Low Pulley Row To Neck
+Shoulders
+Lower Back Curl
+Abdominals
+Lower Back-SMR
+Lower Back
+Lunge Pass Through
+Hamstrings
+Lunge Sprint
+Quadriceps
+Lying Bent Leg Groin
+Adductors
+Lying Cable Curl
+Biceps
+Lying Cambered Barbell Row
+Middle Back
+Lying Close-Grip Bar Curl On High Pulley
+Biceps
+Lying Close-Grip Barbell Triceps Extension Behind The Head
+Triceps
+Lying Close-Grip Barbell Triceps Press To Chin
+Triceps
+Lying Crossover
+Abductors
+Lying Dumbbell Tricep Extension
+Triceps
+Lying Face Down Plate Neck Resistance
+Neck
+Lying Face Up Plate Neck Resistance
+Neck
+Lying Glute
+Glutes
+Lying Hamstring
+Hamstrings
+Lying High Bench Barbell Curl
+Biceps
+Lying Leg Curls
+Hamstrings
+Lying Machine Squat
+Quadriceps
+Lying One-Arm Lateral Raise
+Shoulders
+Lying Prone Quadriceps
+Quadriceps
+Lying Rear Delt Raise
+Shoulders
+Lying Supine Dumbbell Curl
+Biceps
+Lying T-Bar Row
+Middle Back
+Lying Triceps Press
+Triceps
 Machine Bench Press
 Chest
 Machine Bicep Curl
@@ -966,6 +1077,7 @@ Glutes
 Plank
 Abdominals
 Plank with Twist
+Empty
 Plate Pinch
 Forearms
 Plate Twist
@@ -1580,7 +1692,7 @@ V-Bar Pullup
 Lats
 Vertical Swing
 Hamstrings
-Walking, Treadmill
+Walking
 Quadriceps
 Weighted Ball Hyperextension
 Lower Back
