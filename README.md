@@ -11,7 +11,7 @@ There has been an every increasing trend on fitness and health in recent years. 
 - [x] Code Repository Setup, Project Name, Product Backlog - Fri, Jan 23 
 - [x] Design Document - Fri, Jan 30
 - [x] Iteration ONE Sprint Planning Document - Mon, Feb 2
-- [ ] Iteration ONE Sprint Review Meeting - Fri, Feb 27 
+- [x] Iteration ONE Sprint Review Meeting - Fri, Feb 27 
 - [ ] Iteration ONE Sprint Retrospective - Mon, Mar 2
 - [ ] Iteration TWO Sprint Planning Document - Mon, Mar 2
 - [ ] Iteration TWO Sprint Review Meeting - Fri, Apr 3
