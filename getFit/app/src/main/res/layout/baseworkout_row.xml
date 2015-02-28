@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="250dp">
+    android:layout_height="150dp">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -16,40 +16,19 @@
         <ImageView
             android:id="@+id/thumbnail"
             android:layout_width="80dp"
-            android:layout_height="100dp"
+            android:layout_height="80dp"
             android:layout_alignParentLeft="true"
             android:layout_marginRight="8dp" />
 
-        <!-- Movie Title -->
         <TextView
             android:id="@+id/title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignTop="@+id/thumbnail"
+            android:text = "hello"
+            android:layout_gravity="center"
             android:layout_toRightOf="@+id/thumbnail"
-            android:textSize="17dp"
+            android:textSize="20dp"
             android:textStyle="bold" />
-
-        <!-- Rating -->
-        <TextView
-            android:id="@+id/rating"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/title"
-            android:layout_marginTop="1dip"
-            android:layout_toRightOf="@+id/thumbnail"
-            android:textSize="15dip" />
-
-        <!-- Genre -->
-        <TextView
-            android:id="@+id/genre"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/rating"
-            android:layout_marginTop="5dp"
-            android:layout_toRightOf="@+id/thumbnail"
-
-            android:textSize="13dip" />
 
 
 

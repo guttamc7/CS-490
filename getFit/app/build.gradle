@@ -28,6 +28,7 @@ dependencies {
     compile 'de.hdodenhof:circleimageview:1.2.1'
     compile 'com.parse.bolts:bolts-android:1.+'
     compile 'com.facebook.android:facebook-android-sdk:3.21.1'
+    compile 'de.hdodenhof:circleimageview:1.2.2'
 
     compile project(':ParseLoginUI')
 }
