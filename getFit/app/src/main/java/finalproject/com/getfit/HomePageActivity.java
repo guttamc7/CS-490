@@ -143,8 +143,6 @@ public class HomePageActivity extends FragmentActivity {
                         .replace(R.id.content_frame, HomeFragment.newInstance(), HomeFragment.TAG).commit();
                 break;
             case 1:
-
-
                 getSupportFragmentManager()
                         .beginTransaction()
                         .replace(R.id.content_frame, WorkoutLibFragment.newInstance(), WorkoutLibFragment.TAG).commit();

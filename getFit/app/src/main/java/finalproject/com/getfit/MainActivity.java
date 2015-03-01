@@ -51,7 +51,7 @@ public class MainActivity extends Activity {
         ArrayList<String> arraylistAllImageLinks = new ArrayList<String>();
 
         int counter=0;
-        try
+       /* try
         {
             AssetManager am=getAssets();
             InputStream inputStreamForExercises = am.open("exercise.txt");
@@ -107,7 +107,7 @@ public class MainActivity extends Activity {
         catch(IOException e)
         {
             Log.e("login activity", "File not found: " + e.toString());
-        }
+        }*/
         new Handler().postDelayed(new Runnable() {
             /*
              * Showing splash screen with a timer. This will be useful when you

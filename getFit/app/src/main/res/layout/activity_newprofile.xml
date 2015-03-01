@@ -84,45 +84,35 @@
         android:orientation="horizontal"
         android:layout_marginLeft="25dip"
         android:layout_gravity="center"
+        android:gravity="center"
         android:layout_marginRight="25dip"
         android:background="#15000000"
         android:id="@+id/radioButtonGender"
         >
-        <FrameLayout
-            android:layout_width="0dip"
-            android:layout_height="wrap_content"
-            android:layout_weight="1">
-
-
         <RadioButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-
             android:text="Male"
             android:gravity="center"
+            android:padding="10dp"
+            android:layout_marginRight="25dp"
             android:id="@+id/radioButtonMale"
             android:textColor="#eaeff3"
             android:textSize="20sp"
             />
-        </FrameLayout>
-
-        <FrameLayout
-            android:layout_width="0dip"
-            android:layout_height="wrap_content"
-            android:layout_weight="1">
-
         <RadioButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Female"
             android:layout_gravity="center"
             android:gravity="center"
+            android:padding="10dp"
             android:id="@+id/radioButtonFemale"
             android:textColor="#eaeff3"
             android:textSize="20sp"
+
             />
-        </FrameLayout>
     </RadioGroup>
 
     <View
