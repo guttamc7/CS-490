@@ -24,7 +24,7 @@
             android:id="@+id/title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text = "hello"
+            android:textColor="@color/com_facebook_likebutton_text_color"
             android:layout_gravity="center"
             android:layout_toRightOf="@+id/thumbnail"
             android:textSize="20dp"

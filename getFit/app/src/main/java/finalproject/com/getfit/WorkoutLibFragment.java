@@ -38,8 +38,6 @@ public class WorkoutLibFragment extends Fragment {
     public static final String TAG = WorkoutLibFragment.class.getSimpleName();
     SectionsPagerAdapter mSectionsPagerAdapter;
     ViewPager mViewPager;
-    int level = 0;
-    public static ArrayList<BaseWorkout> baseworkoutresults;
     public static WorkoutLibFragment newInstance() {
         return new WorkoutLibFragment();
     }
@@ -56,85 +54,11 @@ public class WorkoutLibFragment extends Fragment {
                 getChildFragmentManager());
         PagerTabStrip pagerTabStrip = (PagerTabStrip) v.findViewById(R.id.pager_title_strip);
         pagerTabStrip.setDrawFullUnderline(true);
-        pagerTabStrip.setTabIndicatorColor(Color.parseColor("#34678a"));
-        WorkoutLibFragment w;
-        w = new WorkoutLibFragment();
-        w.getBaseWorkOuts();
+        pagerTabStrip.setTabIndicatorColor(Color.parseColor("#E6A457"));
         mViewPager = (ViewPager) v.findViewById(R.id.pager);
         mViewPager.setAdapter(mSectionsPagerAdapter);
-
-
-        mViewPager.setOnPageChangeListener(new OnPageChangeListener() {
-
-            // This method will be invoked when a new page becomes selected.
-            @Override
-            public void onPageSelected(int position) {
-                System.out.println("Page position" + position);
-                WorkoutLibFragment w = new WorkoutLibFragment();
-                if(position == 0){
-                   w.getBaseWorkOuts();
-                }
-
-            }
-
-            // This method will be invoked when the current page is scrolled
-            @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-                System.out.println("Page Scrolled" + position);
-                WorkoutLibFragment w = new WorkoutLibFragment();
-                if(position == 0) {
-                        w.getBaseWorkOuts();
-                    System.out.println("Base Workouts Called");
-                }
-                // Code goes here
-            }
-
-            // Called when the scroll state changes:
-            // SCROLL_STATE_IDLE, SCROLL_STATE_DRAGGING, SCROLL_STATE_SETTLING
-            @Override
-            public void onPageScrollStateChanged(int state) {
-                // Code goes here
-            }
-        });
-
         return v;
     }
-
-    public void getBaseWorkOuts() {
-        baseworkoutresults = new ArrayList<BaseWorkout>();
-
-        ParseQuery<ParseObject> query = ParseQuery.getQuery("Workout");
-        query.whereEqualTo("userId", ParseUser.getCurrentUser());
-        query.findInBackground(new FindCallback<ParseObject>() {
-
-            public void done(List<ParseObject> workoutList, ParseException e) {
-                if ( e == null) {
-                    BaseWorkout baseWorkoutData;
-                    for(int i=0; i< workoutList.size();i++) {
-                        baseWorkoutData= new BaseWorkout();
-                        ParseObject obj = workoutList.get(i);
-                        int level  = obj.getInt("level");
-                        baseWorkoutData.setBaseWorkoutLevel(Integer.toString(level));
-                        baseWorkoutData.setBaseWorkoutDescription(obj.getString("Description"));
-                        baseWorkoutData.setBaseWorkoutName(obj.getString("workoutName"));
-                        baseworkoutresults.add(baseWorkoutData);
-                    }
-                    System.out.println(baseworkoutresults.get(0));
-
-                    //All the base workouts retrieved
-                } else {
-                    System.out.println(e.getMessage());
-                    //Exception
-                }
-            }
-        });
-    }
-
-    public ArrayList<BaseWorkout> getWorkoutData() {
-        return baseworkoutresults;
-    }
-
-
 
     public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
@@ -146,9 +70,6 @@ public class WorkoutLibFragment extends Fragment {
         public Fragment getItem(int position) {
             switch (position) {
                 case 0:
-
-                    System.out.println("Base workout created here?");
-                    //System.out.println(baseworkoutresults.size());
                     BaseWorkoutFragment basetab = new BaseWorkoutFragment();
                     return basetab;
                 case 1:

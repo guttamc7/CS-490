@@ -43,7 +43,7 @@ public class HomeFragment extends Fragment {
                 getChildFragmentManager());
         PagerTabStrip pagerTabStrip = (PagerTabStrip) v.findViewById(R.id.pager_title_strip);
         pagerTabStrip.setDrawFullUnderline(true);
-        pagerTabStrip.setTabIndicatorColor(Color.parseColor("#34678a"));
+        pagerTabStrip.setTabIndicatorColor(Color.parseColor("#E6A457"));
 
         mViewPager = (ViewPager) v.findViewById(R.id.pager);
         mViewPager.setAdapter(mSectionsPagerAdapter);
