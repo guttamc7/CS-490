@@ -2,6 +2,9 @@ package finalproject.com.getfit;
 /**
  * Created by Gurumukh on 2/4/15.
  */
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -143,8 +146,6 @@ public class HomePageActivity extends FragmentActivity {
                         .replace(R.id.content_frame, HomeFragment.newInstance(), HomeFragment.TAG).commit();
                 break;
             case 1:
-
-
                 getSupportFragmentManager()
                         .beginTransaction()
                         .replace(R.id.content_frame, WorkoutLibFragment.newInstance(), WorkoutLibFragment.TAG).commit();
@@ -158,6 +159,21 @@ public class HomePageActivity extends FragmentActivity {
                 getSupportFragmentManager()
                         .beginTransaction()
                         .replace(R.id.content_frame, BaseWorkoutFragment.newInstance(), BaseWorkoutFragment.TAG).commit();
+                break;
+            case 6: //SignOut
+                AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                builder.setMessage("Signing Out. Have a Great Day. ");
+                builder.setTitle("Sign Out");
+               // builder.setIcon(R.drawable.ic_action_accept);
+                builder.setPositiveButton("Ok",new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.cancel();
+                        ParseUser.getCurrentUser().logOut();
+                        System.exit(0);
+                    }
+                });
+                AlertDialog dialog = builder.create();
+                dialog.show();
                 break;
 
         }
