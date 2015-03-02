@@ -43,7 +43,7 @@ public class HomeFragment extends Fragment {
                 getChildFragmentManager());
         PagerTabStrip pagerTabStrip = (PagerTabStrip) v.findViewById(R.id.pager_title_strip);
         pagerTabStrip.setDrawFullUnderline(true);
-        pagerTabStrip.setTabIndicatorColor(Color.parseColor("#34678a"));
+        pagerTabStrip.setTabIndicatorColor(Color.parseColor("#E6A457"));
 
         mViewPager = (ViewPager) v.findViewById(R.id.pager);
         mViewPager.setAdapter(mSectionsPagerAdapter);
@@ -98,7 +98,7 @@ public class HomeFragment extends Fragment {
                     sb1.setSpan(span1, 0, 1, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
                     return sb1;
                 case 2:
-                    Drawable myDrawable2 = getResources().getDrawable( R.drawable.ic_action_user );
+                    Drawable myDrawable2 = getResources().getDrawable( R.drawable.ic_action_user_white );
                     SpannableStringBuilder sb2 = new SpannableStringBuilder("    PROFILE"); // space added before text for convenience
                     myDrawable2.setBounds(0, 0, myDrawable2.getIntrinsicWidth(), myDrawable2.getIntrinsicHeight());
                     ImageSpan span2 = new ImageSpan(myDrawable2, ImageSpan.ALIGN_BASELINE);

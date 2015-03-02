@@ -31,4 +31,8 @@
         <item>user_friends</item>
     </string-array>
 
+    <string name="level1_color">#47BBAF</string>
+    <string name="level2_color">#378DAD</string>
+    <string name="level3_color">#C2606F</string>
+
 </resources>

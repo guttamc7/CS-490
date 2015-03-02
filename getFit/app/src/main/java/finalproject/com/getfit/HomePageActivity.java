@@ -35,7 +35,6 @@ public class HomePageActivity extends FragmentActivity {
     private DrawerLayout mDrawerLayout;
     private ListView mDrawerList;
     private ActionBarDrawerToggle mDrawerToggle;
-
     private CharSequence mDrawerTitle;
     private CharSequence mTitle;
     private String[] mDrawerItems;
@@ -67,7 +66,7 @@ public class HomePageActivity extends FragmentActivity {
         getActionBar().setHomeButtonEnabled(true);
         //getActionBar().setIcon(R.color.transparent);
         getActionBar().setDisplayShowTitleEnabled(true);
-        getActionBar().setBackgroundDrawable(new ColorDrawable(Color.parseColor("#34678a")));
+        //getActionBar().setBackgroundDrawable(new ColorDrawable(Color.parseColor("#1A5573")));
 
         mDrawerToggle = new ActionBarDrawerToggle(
                 this,
@@ -179,6 +178,8 @@ public class HomePageActivity extends FragmentActivity {
         }
         mDrawerLayout.closeDrawer(mDrawerList);
     }
+
+
 
 
 
