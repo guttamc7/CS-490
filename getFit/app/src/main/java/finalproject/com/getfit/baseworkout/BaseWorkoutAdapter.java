@@ -14,8 +14,6 @@ import java.util.List;
 
 import android.content.Context;
 
-import com.fortysevendeg.swipelistview.SwipeListView;
-
 import finalproject.com.getfit.R;
 import finalproject.com.getfit.baseworkout.BaseWorkout;
 
