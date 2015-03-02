@@ -8,7 +8,7 @@ public class BaseWorkout {
     private String baseWorkoutLevel;
     private String baseWorkoutDescription;
     private String baseWorkoutName;
-
+    private String baseWorkoutUrl;
     public String getWorkoutLevel(){
         return baseWorkoutLevel;
     }
@@ -21,6 +21,10 @@ public class BaseWorkout {
         return baseWorkoutName;
     }
 
+    public String getWorkoutUrl() {
+        return baseWorkoutUrl;
+    }
+
     public void setBaseWorkoutLevel(String baseWorkoutLevel) {
         this.baseWorkoutLevel = baseWorkoutLevel;
     }
@@ -31,6 +35,10 @@ public class BaseWorkout {
 
     public void setBaseWorkoutName(String baseWorkoutName){
         this.baseWorkoutName = baseWorkoutName;
+    }
+
+    public void setBaseWorkoutUrl(String baseWorkoutUrl) {
+        this.baseWorkoutUrl = baseWorkoutUrl;
     }
 
 }
