@@ -1,34 +1,23 @@
-package finalproject.com.getfit;
+package finalproject.com.getfit.baseworkout;
 
 /**
  * Created by Gurumukh on 2/7/15.
  */
-import android.app.Activity;
-import android.content.Intent;
-import android.graphics.Movie;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.TimeoutException;
 
-import android.app.Activity;
 import android.content.Context;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.BaseAdapter;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import com.fortysevendeg.swipelistview.SwipeListView;
+
+import finalproject.com.getfit.R;
+import finalproject.com.getfit.baseworkout.BaseWorkout;
 
 public class BaseWorkoutAdapter extends BaseAdapter {
     private LayoutInflater inflater;

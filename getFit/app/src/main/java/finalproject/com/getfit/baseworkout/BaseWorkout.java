@@ -1,4 +1,4 @@
-package finalproject.com.getfit;
+package finalproject.com.getfit.baseworkout;
 
 /**
  * Created by Gurumukh on 2/27/15.

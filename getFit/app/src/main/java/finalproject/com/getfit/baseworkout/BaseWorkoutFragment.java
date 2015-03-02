@@ -1,25 +1,16 @@
-package finalproject.com.getfit;
+package finalproject.com.getfit.baseworkout;
 
 /**
  * Created by Gurumukh on 2/4/15.
  */
-import android.app.ProgressDialog;
-import android.graphics.Bitmap;
-import android.graphics.Movie;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Adapter;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.ListAdapter;
 import android.widget.ListView;
-import android.widget.SimpleAdapter;
-import android.widget.Toast;
 import android.widget.AdapterView.OnItemClickListener;
 import com.parse.FindCallback;
 import com.parse.ParseException;
@@ -27,10 +18,11 @@ import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
 
-import junit.runner.Version;
-
 import java.util.ArrayList;
 import java.util.List;
+
+import finalproject.com.getfit.R;
+import finalproject.com.getfit.viewpager.RootFragment;
 
 public class BaseWorkoutFragment extends RootFragment {
 

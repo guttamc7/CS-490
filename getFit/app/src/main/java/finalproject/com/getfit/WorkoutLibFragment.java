@@ -21,6 +21,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import finalproject.com.getfit.baseworkout.BaseWorkoutFragment;
+import finalproject.com.getfit.customworkout.CustomWorkoutFragment;
+import finalproject.com.getfit.viewpager.OnBackPressListener;
+
 public class WorkoutLibFragment extends Fragment {
 
     public static final String TAG = WorkoutLibFragment.class.getSimpleName();

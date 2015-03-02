@@ -1,4 +1,4 @@
-package finalproject.com.getfit;
+package finalproject.com.getfit.viewpager;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 

@@ -1,4 +1,4 @@
-package finalproject.com.getfit;
+package finalproject.com.getfit.findnearby;
 
 /**
  * Created by Gurumukh on 2/4/15.
@@ -8,6 +8,8 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import finalproject.com.getfit.R;
 
 public class FindNearbyFragment extends Fragment {
 

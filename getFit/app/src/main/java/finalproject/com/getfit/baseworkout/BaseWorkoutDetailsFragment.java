@@ -1,12 +1,13 @@
-package finalproject.com.getfit;
+package finalproject.com.getfit.baseworkout;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebView;
-import android.support.v4.app.Fragment;
-import android.widget.ListView;
+
+import finalproject.com.getfit.R;
+import finalproject.com.getfit.viewpager.RootFragment;
 
 /**
  * Created by Gurumukh on 3/2/15.

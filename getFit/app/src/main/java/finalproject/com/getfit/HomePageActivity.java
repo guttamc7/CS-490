@@ -4,9 +4,7 @@ package finalproject.com.getfit;
  */
 import android.app.AlertDialog;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.content.res.Configuration;
 import android.support.v4.app.ActionBarDrawerToggle;
@@ -19,14 +17,9 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 
-import com.parse.FindCallback;
-import com.parse.ParseException;
-import com.parse.ParseObject;
-import com.parse.ParseQuery;
 import com.parse.ParseUser;
 
-import java.util.ArrayList;
-import java.util.List;
+import finalproject.com.getfit.baseworkout.BaseWorkoutFragment;
 
 public class HomePageActivity extends FragmentActivity {
 
@@ -178,13 +171,5 @@ public class HomePageActivity extends FragmentActivity {
         }
         mDrawerLayout.closeDrawer(mDrawerList);
     }
-
-
-
-
-
-
-
 }
-
 

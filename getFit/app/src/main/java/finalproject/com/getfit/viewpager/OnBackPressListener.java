@@ -1,4 +1,4 @@
-package finalproject.com.getfit;
+package finalproject.com.getfit.viewpager;
 
 /**
  * Created by Gurumukh on 3/2/15.
