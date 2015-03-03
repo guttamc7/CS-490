@@ -3,6 +3,7 @@ package finalproject.com.getfit.baseworkout;
 /**
  * Created by Gurumukh on 2/4/15.
  */
+import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
@@ -12,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.AdapterView.OnItemClickListener;
+
 import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseObject;
@@ -31,7 +33,9 @@ public class BaseWorkoutFragment extends RootFragment {
     private ListView listView;
     View v;
     public static String webLink;
+    private Context mContext;
     private BaseWorkoutAdapter adapter;
+
     public BaseWorkoutFragment() {
         // Auto-generated constructor stub
     }
@@ -49,6 +53,9 @@ public class BaseWorkoutFragment extends RootFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         v = inflater.inflate(R.layout.fragment_baseworkout, container, false);
         listView = (ListView) v.findViewById(R.id.base_list);
+
+
+
 
         return v;
     }

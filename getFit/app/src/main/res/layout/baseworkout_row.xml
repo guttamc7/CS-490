@@ -4,7 +4,7 @@
     android:layout_height="210dp"
     android:descendantFocusability="blocksDescendants">
 
-    <RelativeLayout
+        <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginLeft="12dp"
@@ -13,6 +13,44 @@
         android:layout_marginBottom="10dp"
         android:id="@+id/front"
         android:background="@drawable/bg_card">
+
+            <com.daimajia.swipe.SwipeLayout
+                xmlns:android="http://schemas.android.com/apk/res/android"
+                android:id="@+id/swipe"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:tag="Bottom4"
+                android:id="@+id/bottom_wrapper_2"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:id="@+id/like_imview"
+                    android:src="@drawable/ic_action_like_white"
+                    android:layout_width="70dp"
+                    android:background="#FA6A66"
+                    android:paddingLeft="25dp"
+                    android:paddingRight="25dp"
+                    android:layout_height="110dp" />
+
+                <ImageView
+                    android:id="@+id/schedule_imview"
+                    android:src="@drawable/ic_action_calendar_day_white"
+                    android:layout_width="70dp"
+                    android:background="#E6A457"
+                    android:paddingLeft="25dp"
+                    android:paddingRight="25dp"
+                    android:layout_height="110dp" />
+
+            </LinearLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            >
+
 
         <!-- Thumbnail Image -->
         <ImageView
@@ -69,7 +107,7 @@
             android:id="@+id/like"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text = "Like"
+            android:text = "1,2345"
             android:layout_gravity="center_horizontal"
             android:textSize = "16sp"
             android:textColor="#FA6A66"
@@ -86,7 +124,7 @@
             android:id="@+id/add_to_calendar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text = "Add To Schedule"
+            android:text = "1,5678"
             android:layout_gravity="center_horizontal"
             android:textSize = "16sp"
             android:textColor="#E6A457"
@@ -98,7 +136,9 @@
             android:layout_alignParentEnd="true" />
 
         </RelativeLayout>
-
+        </RelativeLayout>
+            </com.daimajia.swipe.SwipeLayout>
     </RelativeLayout>
+
 
 </FrameLayout>
