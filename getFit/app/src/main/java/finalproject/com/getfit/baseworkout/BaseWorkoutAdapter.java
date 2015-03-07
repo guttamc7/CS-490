@@ -9,6 +9,12 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+import com.parse.FindCallback;
+import com.parse.GetCallback;
+import com.parse.ParseException;
+import com.parse.ParseObject;
+import com.parse.ParseQuery;
+import com.parse.ParseUser;
 
 import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
@@ -27,6 +33,7 @@ public class BaseWorkoutAdapter extends BaseSwipeAdapter {
     private LayoutInflater inflater;
     private List<BaseWorkout> workoutItems;
     private Context context;
+    private String workoutId;
     public BaseWorkoutAdapter(Context context, List<BaseWorkout> workoutItems) {
         inflater = LayoutInflater.from(context);
         this.context = context;
@@ -39,9 +46,9 @@ public class BaseWorkoutAdapter extends BaseSwipeAdapter {
     }
 
     @Override
-    public View generateView(int position, ViewGroup parent) {
+    public View generateView(final int position, ViewGroup parent) {
         View v = LayoutInflater.from(context).inflate(R.layout.baseworkout_row, null);
-        SwipeLayout swipeLayout = (SwipeLayout)v.findViewById(getSwipeLayoutResourceId(position));
+        SwipeLayout swipeLayout = (SwipeLayout) v.findViewById(getSwipeLayoutResourceId(position));
 
         swipeLayout.addSwipeListener(new SimpleSwipeListener() {
             @Override
@@ -61,6 +68,8 @@ public class BaseWorkoutAdapter extends BaseSwipeAdapter {
             @Override
             public void onClick(View v) {
                 Toast.makeText(context, "Like", Toast.LENGTH_SHORT).show();
+                BaseWorkout m = workoutItems.get(position);
+               updateLikes( m.getWorkoutId());
             }
         });
 
@@ -78,19 +87,17 @@ public class BaseWorkoutAdapter extends BaseSwipeAdapter {
         ImageView thumbNail = (ImageView) convertView
                 .findViewById(R.id.thumbnail);
         TextView title = (TextView) convertView.findViewById(R.id.title);
-        TextView description = (TextView)convertView.findViewById(R.id.description);
+        TextView description = (TextView) convertView.findViewById(R.id.description);
         BaseWorkout m = workoutItems.get(position);
         // thumbnail image
-        if(m.getWorkoutLevel().equals("1")){
+        if (m.getWorkoutLevel().equals("1")) {
             thumbNail.setImageResource(R.drawable.ic_level1);
             title.setTextColor(R.string.level1_color);
-        }
-        else if(m.getWorkoutLevel().equals("2")){
+        } else if (m.getWorkoutLevel().equals("2")) {
             thumbNail.setImageResource(R.drawable.ic_level2);
             title.setTextColor(R.string.level2_color);
 
-        }
-        else {
+        } else {
             thumbNail.setImageResource(R.drawable.ic_level3);
             title.setTextColor(R.string.level3_color);
         }
@@ -98,6 +105,7 @@ public class BaseWorkoutAdapter extends BaseSwipeAdapter {
         // title
         title.setText(m.getWorkoutName());
         description.setText(m.getWorkoutDescription());
+        //setWorkoutId(m.getWorkoutId());
     }
 
     @Override
@@ -115,5 +123,13 @@ public class BaseWorkoutAdapter extends BaseSwipeAdapter {
         return position;
     }
 
+    public void updateLikes(String id) {
+
+        ParseObject workout = ParseObject.createWithoutData("Workout",id);
+        workout.increment("likes");
+        workout.saveInBackground();
+
+
+    }
 
 }
