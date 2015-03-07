@@ -16,6 +16,12 @@ import com.daimajia.swipe.SimpleSwipeListener;
 import com.daimajia.swipe.SwipeLayout;
 import com.daimajia.swipe.adapters.BaseSwipeAdapter;
 import java.util.List;
+import com.parse.FindCallback;
+import com.parse.ParseException;
+import com.parse.ParseObject;
+import com.parse.ParseQuery;
+import com.parse.ParseUser;
+
 
 import android.content.Context;
 import android.widget.Toast;
@@ -39,7 +45,7 @@ public class BaseWorkoutAdapter extends BaseSwipeAdapter {
     }
 
     @Override
-    public View generateView(int position, ViewGroup parent) {
+    public View generateView(final int position, ViewGroup parent) {
         View v = LayoutInflater.from(context).inflate(R.layout.baseworkout_row, null);
         SwipeLayout swipeLayout = (SwipeLayout)v.findViewById(getSwipeLayoutResourceId(position));
 
@@ -61,6 +67,9 @@ public class BaseWorkoutAdapter extends BaseSwipeAdapter {
             @Override
             public void onClick(View v) {
                 Toast.makeText(context, "Like", Toast.LENGTH_SHORT).show();
+                BaseWorkout m= workoutItems.get(position);
+
+                updatelikes( m.getWorkoutId());
             }
         });
 
@@ -113,6 +122,15 @@ public class BaseWorkoutAdapter extends BaseSwipeAdapter {
     @Override
     public long getItemId(int position) {
         return position;
+    }
+
+    void updatelikes(String id)
+    {
+        ParseObject workout = ParseObject.createWithoutData("Workout", id);
+        workout.increment("likes");
+        workout.saveInBackground();
+
+
     }
 
 
