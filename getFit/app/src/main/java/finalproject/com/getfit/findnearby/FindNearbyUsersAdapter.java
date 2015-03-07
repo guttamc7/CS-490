@@ -6,12 +6,10 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.parse.ParseFile;
-import com.parse.ParseGeoPoint;
 import com.parse.ParseImageView;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.ParseQueryAdapter;
-import com.parse.ParseUser;
 
 import finalproject.com.getfit.R;
 
@@ -24,16 +22,8 @@ public class FindNearbyUsersAdapter extends ParseQueryAdapter<ParseObject> {
         super(context, new ParseQueryAdapter.QueryFactory<ParseObject>() {
             public ParseQuery create() {
                 //TODO Write Query Here
-                //Save the current Users location
-                ParseGeoPoint userLocation = new ParseGeoPoint(FindNearbyFragment.getLatitude(), FindNearbyFragment.getLongitude());
-                ParseUser currentUser = ParseUser.getCurrentUser();
-                currentUser.put("location",userLocation);
-                currentUser.saveInBackground();
-
-                ParseQuery<ParseUser> query = ParseQuery.getQuery("_User");
-                query.whereNotEqualTo("objectId",currentUser.getObjectId());
-                query.whereWithinMiles("location", userLocation, 50.0);
-                query.setLimit(10);
+                ParseQuery query = new ParseQuery("Todo");
+                query.whereEqualTo("highPri", true);
                 return query;
             }
         });
@@ -48,8 +38,7 @@ public class FindNearbyUsersAdapter extends ParseQueryAdapter<ParseObject> {
 
         // Add and download the image
         ParseImageView todoImage = (ParseImageView) v.findViewById(R.id.grid_profile_image);
-        ParseFile imageFile = object.getParseFile("profilePic");
-
+        ParseFile imageFile = object.getParseFile("image");
         if (imageFile != null) {
             todoImage.setParseFile(imageFile);
             todoImage.loadInBackground();
@@ -57,7 +46,7 @@ public class FindNearbyUsersAdapter extends ParseQueryAdapter<ParseObject> {
 
         // Add the title view
         TextView titleTextView = (TextView) v.findViewById(R.id.grid_name);
-        titleTextView.setText(object.getString("name"));
+        titleTextView.setText(object.getString("title"));
         return v;
     }
 }

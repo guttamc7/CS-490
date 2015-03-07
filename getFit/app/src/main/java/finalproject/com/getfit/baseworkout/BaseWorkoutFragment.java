@@ -134,7 +134,6 @@ public class BaseWorkoutFragment extends RootFragment {
                             baseWorkoutData = new BaseWorkout();
                             ParseObject obj = workoutList.get(i);
                             int level = obj.getInt("level");
-                            baseWorkoutData.setBaseWorkoutId(obj.getObjectId());
                             baseWorkoutData.setBaseWorkoutLevel(Integer.toString(level));
                             baseWorkoutData.setBaseWorkoutDescription(obj.getString("description"));
                             baseWorkoutData.setBaseWorkoutName(obj.getString("name"));
