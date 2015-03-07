@@ -42,7 +42,7 @@ public class FindNearbyUsersFragment extends RootFragment {
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity().getApplicationContext(),
                 android.R.layout.simple_list_item_1,numbers);
 
-        gridView.setAdapter(adapter);
+        gridView.setAdapter(nearbyUsersAdapter);
         nearbyUsersAdapter.loadObjects();
         gridView.setOnItemClickListener(new OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View v,

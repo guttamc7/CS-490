@@ -49,17 +49,21 @@ public class NewProfileActivity extends Activity {
     private TextView profilePicText;
     private ImageView profilePictureImgView;
     private Uri imageUri;
+    private Bitmap resizedBitmap = null;
     private boolean imageChanged = false;
     private Button doneButton;
     private Button skipButton;
     private String genderText;
-    private  int weightText;
-    private  int heightText;
+    private int weightText = -1;
+    private int heightText = -1;
     private int mYear, mMonth, mDay;
-    private Date birthD;
+    private Date birthD = null;
     private String birthDateText;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_newprofile);
@@ -84,16 +88,13 @@ public class NewProfileActivity extends Activity {
             public void onClick (View view){
                 if (!weight.getText().toString().equals("") && weight.getText().toString().length() > 0)
                     weightText = Integer.parseInt(weight.getText().toString());
-                else
-                    weightText = -1;
+
                 if (!height.getText().toString().equals("") && height.getText().toString().length() > 0)
                 heightText = Integer.parseInt(height.getText().toString());
-                else
-                    heightText = -1;
+
                 if (!birthDate.getText().toString().equals("") && birthDate.getText().toString().length() > 0)
                     birthDateText = weight.getText().toString();
-                else
-                    birthD = null;
+
                 RadioButton selectRadio = (RadioButton) findViewById(gender
                         .getCheckedRadioButtonId());
                 genderText = selectRadio.getText().toString();
@@ -126,19 +127,17 @@ public class NewProfileActivity extends Activity {
     public void onActivityResult(int reqCode, int resCode, Intent data) {
         if (resCode == RESULT_OK) {
             if (reqCode == 1) {
-                Bitmap bitmap = null;
                 imageUri = data.getData();
                 try {
-                    bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), imageUri);
+                    resizedBitmap = getResizedBitmap(MediaStore.Images.Media.getBitmap(this.getContentResolver(), imageUri),400,400);
+                    profilePictureImgView.setImageBitmap(resizedBitmap);
+                    profilePicText.setText("");
+                    this.imageChanged = true;
                 } catch (FileNotFoundException e) {
                     e.printStackTrace();
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-                bitmap = getResizedBitmap(bitmap,400,400);
-                profilePictureImgView.setImageBitmap(bitmap);
-                profilePicText.setText("");
-                this.imageChanged = true;
             }
         }
     }
@@ -151,7 +150,7 @@ public class NewProfileActivity extends Activity {
             if(birthDate != null) currentUser.put("birthDate",birthDate);
 
         if(this.imageChanged == true) {
-            byte[] profilePic = convertImageToByte(imageUri);
+            byte[] profilePic = convertBitmapToBytes();
             ParseFile file = new ParseFile(currentUser.get("name") + ".jpg", profilePic);
             currentUser.put("profilePic", file);
         }
@@ -159,20 +158,11 @@ public class NewProfileActivity extends Activity {
     }
 
     //Should throw the exception..must be caught somewhere else..
-    private byte[] convertImageToByte(Uri uri){
+    private byte[] convertBitmapToBytes(){
         byte[] data = null;
-        try {
-            ContentResolver cr = getBaseContext().getContentResolver();
-            InputStream inputStream = cr.openInputStream(uri);
-            Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
-            ByteArrayOutputStream baos = new ByteArrayOutputStream();
-            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
-            data = baos.toByteArray();
-
-        } catch (FileNotFoundException e) {
-            e.printStackTrace(); //Problem with reading the stream
-        }
-        return data;
+        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+        resizedBitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
+        return stream.toByteArray();
     }
 
     public Bitmap getResizedBitmap(Bitmap bm, int newHeight, int newWidth) {
