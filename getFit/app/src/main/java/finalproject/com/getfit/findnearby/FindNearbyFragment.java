@@ -20,8 +20,8 @@ import finalproject.com.getfit.viewpager.RootFragment;
 public class FindNearbyFragment extends RootFragment {
     private ImageView findNearbyImageView;
     GPSTracker gps;
-    private double latitude;
-    private double longitude;
+    private static double latitude;
+    private static double longitude;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -34,8 +34,8 @@ public class FindNearbyFragment extends RootFragment {
             public void onClick(View v) {
                 gps = new GPSTracker(getActivity());
                 if(gps.canGetLocation()) {
-                    latitude = gps.getLatitude();
-                    longitude = gps.getLongitude();
+                    FindNearbyFragment.latitude = gps.getLatitude();
+                    FindNearbyFragment.longitude = gps.getLongitude();
                 }
                 Animation anim = AnimationUtils.loadAnimation(getActivity().getApplicationContext(), R.anim.pulse);
                 findNearbyImageView.setAnimation(anim);
@@ -51,11 +51,11 @@ public class FindNearbyFragment extends RootFragment {
         return rootView;
     }
 
-    public double getLatitude() {
+    public static double getLatitude() {
         return latitude;
     }
 
-    public double getLongitude() {
+    public static double getLongitude() {
         return longitude;
     }
 }
