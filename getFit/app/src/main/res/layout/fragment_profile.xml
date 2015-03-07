@@ -21,7 +21,6 @@
             android:layout_marginTop="12dp"
             android:layout_marginRight="10dp"
             android:background="@null"
-            android:onClick="showDialog"
             android:layout_gravity="right"
             android:contentDescription="Edit Your Profile"
             android:src="@drawable/ic_action_edit" />
