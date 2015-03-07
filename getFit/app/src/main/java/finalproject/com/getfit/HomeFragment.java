@@ -16,6 +16,7 @@ import android.support.v4.view.ViewPager;
 import android.text.SpannableStringBuilder;
 import android.text.Spanned;
 import android.text.style.ImageSpan;
+import android.util.SparseArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -54,7 +55,7 @@ public class HomeFragment extends Fragment {
     }
 
     public class SectionsPagerAdapter extends FragmentPagerAdapter {
-
+        SparseArray<Fragment> registeredFragments = new SparseArray<Fragment>();
         public SectionsPagerAdapter(FragmentManager fm) {
             super(fm);
         }
@@ -100,7 +101,7 @@ public class HomeFragment extends Fragment {
                     sb1.setSpan(span1, 0, 1, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
                     return sb1;
                 case 2:
-                    Drawable myDrawable2 = getResources().getDrawable( R.drawable.ic_action_user_white );
+                    Drawable myDrawable2 = getResources().getDrawable( R.drawable.ic_action_user );
                     SpannableStringBuilder sb2 = new SpannableStringBuilder("    PROFILE"); // space added before text for convenience
                     myDrawable2.setBounds(0, 0, myDrawable2.getIntrinsicWidth(), myDrawable2.getIntrinsicHeight());
                     ImageSpan span2 = new ImageSpan(myDrawable2, ImageSpan.ALIGN_BASELINE);
@@ -109,5 +110,35 @@ public class HomeFragment extends Fragment {
             }
             return null;
         }
+        public Object instantiateItem(ViewGroup container, int position) {
+            Fragment fragment = (Fragment) super.instantiateItem(container, position);
+            registeredFragments.put(position, fragment);
+            return fragment;
+        }
+
+        /**
+         * Remove the saved reference from our Map on the Fragment destroy
+         *
+         * @param container
+         * @param position
+         * @param object
+         */
+        @Override
+        public void destroyItem(ViewGroup container, int position, Object object) {
+            registeredFragments.remove(position);
+            super.destroyItem(container, position, object);
+        }
+
+
+        /**
+         * Get the Fragment by position
+         *
+         * @param position tab position of the fragment
+         * @return
+         */
+        public Fragment getRegisteredFragment(int position) {
+            return registeredFragments.get(position);
+        }
+
     }
 }
