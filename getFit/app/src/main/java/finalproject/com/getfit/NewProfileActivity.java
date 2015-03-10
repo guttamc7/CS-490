@@ -11,6 +11,14 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.Path;
+import android.graphics.PorterDuff;
+import android.graphics.PorterDuffXfermode;
+import android.graphics.Rect;
+import android.graphics.RectF;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
@@ -38,6 +46,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Calendar;
 import java.util.Date;
+import android.graphics.Bitmap.Config;
+import android.graphics.PorterDuffXfermode;
 import android.provider.MediaStore.Images;
 /**
  * Created by rishabhmittal on 2/8/15.
@@ -197,6 +207,7 @@ public class NewProfileActivity extends Activity {
                 }, mYear, mMonth, mDay);
         dpd.show();
     }
+
 
 }
 

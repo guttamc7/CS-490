@@ -22,6 +22,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import finalproject.com.getfit.findnearby.FindNearbyFragment;
+import finalproject.com.getfit.viewpager.OnBackPressListener;
 
 public class HomeFragment extends Fragment {
 
@@ -54,8 +55,18 @@ public class HomeFragment extends Fragment {
         return v;
     }
 
+    public boolean onBackPressed() {
+        // currently visible tab Fragment
+        OnBackPressListener currentFragment = (OnBackPressListener)mSectionsPagerAdapter.getRegisteredFragment(mViewPager.getCurrentItem());
+        if (currentFragment != null) {
+            return currentFragment.onBackPressed();
+        }
+
+        return false;
+    }
+
     public class SectionsPagerAdapter extends FragmentPagerAdapter {
-        SparseArray<Fragment> registeredFragments = new SparseArray<Fragment>();
+        SparseArray<Fragment> registeredFragments1 = new SparseArray<Fragment>();
         public SectionsPagerAdapter(FragmentManager fm) {
             super(fm);
         }
@@ -112,7 +123,7 @@ public class HomeFragment extends Fragment {
         }
         public Object instantiateItem(ViewGroup container, int position) {
             Fragment fragment = (Fragment) super.instantiateItem(container, position);
-            registeredFragments.put(position, fragment);
+            registeredFragments1.put(position, fragment);
             return fragment;
         }
 
@@ -125,7 +136,7 @@ public class HomeFragment extends Fragment {
          */
         @Override
         public void destroyItem(ViewGroup container, int position, Object object) {
-            registeredFragments.remove(position);
+            registeredFragments1.remove(position);
             super.destroyItem(container, position, object);
         }
 
@@ -137,7 +148,7 @@ public class HomeFragment extends Fragment {
          * @return
          */
         public Fragment getRegisteredFragment(int position) {
-            return registeredFragments.get(position);
+            return registeredFragments1.get(position);
         }
 
     }

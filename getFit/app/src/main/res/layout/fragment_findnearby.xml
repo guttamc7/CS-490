@@ -6,14 +6,45 @@
     android:id="@+id/findnearby_frag"
     android:background="#D6D6D4">
 
-    <de.hdodenhof.circleimageview.CircleImageView
-        android:layout_width="350dp"
-        android:layout_height="300dp"
-        android:id="@+id/imgViewfindNearby"
-        android:layout_gravity="center_horizontal"
-        android:src="@drawable/ic_action_user"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="128dp" />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
+        <TextView
+            android:id="@+id/tap_msg"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif_light"
+            android:gravity="center"
+            android:padding="10dp"
+            android:textColor="#22313F"
+            android:layout_gravity="center"
+            android:text="Tap Below to Find a Gym8.."
+            android:textSize = "20dp"
+            android:textStyle="bold"
+            android:layout_marginTop="30dp"
+            android:layout_marginBottom="103dp"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true" />
+
+        <com.skyfishjy.library.RippleBackground
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="com.example.gurumukh.getfit"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/content_ripple"
+            app:rb_color="#F62459"
+            app:rb_radius="24dp"
+            app:rb_rippleAmount="4"
+            app:rb_duration="4000"
+            app:rb_scale="6">
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:layout_width="275dp"
+        android:layout_height="275dp"
+        android:id="@+id/imgViewfindNearby"
+        android:layout_centerInParent = "true"
+        />
+       </com.skyfishjy.library.RippleBackground>
+    </RelativeLayout>
 </FrameLayout>

@@ -1,6 +1,7 @@
 package finalproject.com.getfit.findnearby;
 
 import android.content.Context;
+import android.media.Image;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -47,12 +48,12 @@ public class FindNearbyUsersAdapter extends ParseQueryAdapter<ParseObject> {
         super.getItemView(object, v, parent);
 
         // Add and download the image
-        ParseImageView todoImage = (ParseImageView) v.findViewById(R.id.grid_profile_image);
+        ParseImageView profileImage = (ParseImageView) v.findViewById(R.id.grid_profile_image);
         ParseFile imageFile = object.getParseFile("profilePic");
 
         if (imageFile != null) {
-            todoImage.setParseFile(imageFile);
-            todoImage.loadInBackground();
+            profileImage.setParseFile(imageFile);
+            profileImage.loadInBackground();
         }
 
         // Add the title view

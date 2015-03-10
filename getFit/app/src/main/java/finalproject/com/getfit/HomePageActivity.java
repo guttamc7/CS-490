@@ -24,8 +24,9 @@ import finalproject.com.getfit.baseworkout.BaseWorkoutFragment;
 public class HomePageActivity extends FragmentActivity {
 
     private static final String TAG = HomePageActivity.class.getSimpleName();
-
+    private WorkoutLibFragment workoutLibFragment;
     private DrawerLayout mDrawerLayout;
+    private HomeFragment homeFragment;
     private ListView mDrawerList;
     private ActionBarDrawerToggle mDrawerToggle;
     private CharSequence mDrawerTitle;
@@ -118,6 +119,20 @@ public class HomePageActivity extends FragmentActivity {
         mDrawerToggle.onConfigurationChanged(newConfig);
     }
 
+    @Override
+    public void onBackPressed() {
+
+        if (!workoutLibFragment.onBackPressed()) {
+            // container Fragment or its associates couldn't handle the back pressed task
+            // delegating the task to super class
+            super.onBackPressed();
+
+        } else {
+            // carousel handled the back pressed task
+            // do not call super
+        }
+    }
+
     private class DrawerItemClickListener implements OnItemClickListener {
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -132,15 +147,16 @@ public class HomePageActivity extends FragmentActivity {
 
         switch(position) {
             case 0:
-
+                homeFragment = new HomeFragment();
                 getSupportFragmentManager()
                         .beginTransaction()
-                        .replace(R.id.content_frame, HomeFragment.newInstance(), HomeFragment.TAG).commit();
+                        .replace(R.id.content_frame, homeFragment, HomeFragment.TAG).commit();
                 break;
             case 1:
+                workoutLibFragment = new WorkoutLibFragment();
                 getSupportFragmentManager()
                         .beginTransaction()
-                        .replace(R.id.content_frame, WorkoutLibFragment.newInstance(), WorkoutLibFragment.TAG).commit();
+                        .replace(R.id.content_frame, workoutLibFragment, WorkoutLibFragment.TAG).commit();
                 break;
             case 2: //TODO
                 getSupportFragmentManager()
