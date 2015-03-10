@@ -13,7 +13,7 @@
     android:id="@+id/front_grid"
     android:elevation="5dp"
     android:background="@drawable/bg_card">
-<!--
+
     <com.parse.ParseImageView
         android:id="@+id/grid_profile_image"
         android:layout_width="125dp"
@@ -21,7 +21,6 @@
         android:src="@drawable/ic_action_user"
         android:layout_marginTop = "50dp"
         android:layout_centerHorizontal="true" />
-        -->
 
     <TextView
         android:id="@+id/grid_name"
