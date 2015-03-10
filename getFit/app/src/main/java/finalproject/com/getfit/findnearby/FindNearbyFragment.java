@@ -28,10 +28,13 @@ import finalproject.com.getfit.viewpager.RootFragment;
 
 public class FindNearbyFragment extends RootFragment {
     private ImageView findNearbyImageView;
+<<<<<<< HEAD
     private TextView tapMsgTextView;
     GPSTracker gps;
     private static double latitude;
     private static double longitude;
+=======
+>>>>>>> FETCH_HEAD
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -40,6 +43,7 @@ public class FindNearbyFragment extends RootFragment {
         View rootView = inflater.inflate(R.layout.fragment_findnearby, container, false);
         final RippleBackground rippleBackground=(RippleBackground)rootView.findViewById(R.id.content_ripple);
         findNearbyImageView = (ImageView) rootView.findViewById(R.id.imgViewfindNearby);
+<<<<<<< HEAD
         tapMsgTextView = (TextView) rootView.findViewById(R.id.tap_msg);
         ParseUser currentUser = ParseUser.getCurrentUser();
         final Handler handler=new Handler();
@@ -69,11 +73,24 @@ public class FindNearbyFragment extends RootFragment {
                             foundUsers();
                     }
                 },4000);
+=======
+        findNearbyImageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Animation anim = AnimationUtils.loadAnimation(getActivity().getApplicationContext(), R.anim.pulse);
+                findNearbyImageView.setAnimation(anim);
+                FragmentTransaction ft = getChildFragmentManager().beginTransaction();
+                ft.replace(R.id.findnearby_frag, new FindNearbyUsersFragment());
+                ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+                ft.addToBackStack(null);
+                ft.commit();
+>>>>>>> FETCH_HEAD
 
             }
         });
         return rootView;
     }
+<<<<<<< HEAD
     public static double getLatitude() {
         return latitude;
     }
@@ -95,4 +112,6 @@ public class FindNearbyFragment extends RootFragment {
         ft.addToBackStack(null);
         ft.commit();
     }
+=======
+>>>>>>> FETCH_HEAD
 }

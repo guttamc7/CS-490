@@ -31,7 +31,14 @@ public class FindNearbyUsersFragment extends RootFragment {
         v = inflater.inflate(R.layout.fragment_find_nearby_users, container, false);
         gridView = (GridView) v.findViewById(R.id.find_nearby_grid);
         nearbyUsersAdapter = new FindNearbyUsersAdapter(getActivity().getApplicationContext());
+<<<<<<< HEAD
         gridView.setAdapter(nearbyUsersAdapter);
+=======
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity().getApplicationContext(),
+                android.R.layout.simple_list_item_1,numbers);
+
+        gridView.setAdapter(adapter);
+>>>>>>> FETCH_HEAD
         nearbyUsersAdapter.loadObjects();
         gridView.setOnItemClickListener(new OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View v,
