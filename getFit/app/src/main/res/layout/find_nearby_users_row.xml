@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="225dp"
-    android:layout_height="300dp"
+    android:layout_height="400dp"
     >
 <RelativeLayout
     android:layout_width="match_parent"
@@ -14,11 +14,13 @@
     android:elevation="5dp"
     android:background="@drawable/bg_card">
 
-    <com.parse.ParseImageView
+    <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/grid_profile_image"
         android:layout_width="125dp"
         android:layout_height="125dp"
         android:src="@drawable/ic_action_user"
+        android:background="@drawable/rounded"
+        android:scaleType="centerCrop"
         android:layout_marginTop = "50dp"
         android:layout_centerHorizontal="true" />
 

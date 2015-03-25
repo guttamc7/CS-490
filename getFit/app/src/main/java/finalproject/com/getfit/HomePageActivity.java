@@ -127,9 +127,10 @@ public class HomePageActivity extends FragmentActivity {
             // delegating the task to super class
             super.onBackPressed();
 
-        } else {
-            // carousel handled the back pressed task
-            // do not call super
+        } else if(!homeFragment.onBackPressed()) {
+            super.onBackPressed();
+        }
+        else {
         }
     }
 

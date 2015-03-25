@@ -17,6 +17,8 @@ import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.os.Handler;
+import android.view.View.OnClickListener;
+import com.getbase.floatingactionbutton.FloatingActionButton;
 import com.parse.GetDataCallback;
 import com.parse.ParseFile;
 import com.parse.ParseUser;
@@ -32,6 +34,7 @@ public class FindNearbyFragment extends RootFragment {
     GPSTracker gps;
     private static double latitude;
     private static double longitude;
+    private FloatingActionButton discoverySettings;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -40,6 +43,11 @@ public class FindNearbyFragment extends RootFragment {
         View rootView = inflater.inflate(R.layout.fragment_findnearby, container, false);
         final RippleBackground rippleBackground=(RippleBackground)rootView.findViewById(R.id.content_ripple);
         findNearbyImageView = (ImageView) rootView.findViewById(R.id.imgViewfindNearby);
+        discoverySettings = (FloatingActionButton) rootView.findViewById(R.id.discovery_settings);
+        discoverySettings.setSize(FloatingActionButton.SIZE_NORMAL);
+        discoverySettings.setColorNormalResId(R.color.button_red);
+        discoverySettings.setColorPressedResId(R.color.button_yellow);
+        discoverySettings.setIcon(R.drawable.ic_action_settings);
         tapMsgTextView = (TextView) rootView.findViewById(R.id.tap_msg);
         ParseUser currentUser = ParseUser.getCurrentUser();
         final Handler handler=new Handler();
@@ -57,6 +65,14 @@ public class FindNearbyFragment extends RootFragment {
             }
         });
 
+        discoverySettings.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+
+            }
+         });
+
         findNearbyImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -66,9 +82,9 @@ public class FindNearbyFragment extends RootFragment {
                 handler.postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                            foundUsers();
+                        foundUsers();
                     }
-                },4000);
+                }, 4000);
 
             }
         });

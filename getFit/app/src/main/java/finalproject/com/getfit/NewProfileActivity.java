@@ -6,27 +6,11 @@ package finalproject.com.getfit;
 
 import android.app.Activity;
 import android.app.DatePickerDialog;
-import android.content.ContentResolver;
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.Paint;
-import android.graphics.Path;
-import android.graphics.PorterDuff;
-import android.graphics.PorterDuffXfermode;
-import android.graphics.Rect;
-import android.graphics.RectF;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.text.Editable;
-import android.text.TextWatcher;
-import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
@@ -36,22 +20,15 @@ import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
-import android.widget.RadioGroup.OnCheckedChangeListener;
 import com.parse.ParseFile;
 import com.parse.ParseUser;
 import android.graphics.Matrix;
 import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.Calendar;
 import java.util.Date;
-import android.graphics.Bitmap.Config;
-import android.graphics.PorterDuffXfermode;
-import android.provider.MediaStore.Images;
-/**
- * Created by rishabhmittal on 2/8/15.
- */
+
 public class NewProfileActivity extends Activity {
     private RadioGroup gender;
     private EditText  weight, height;
@@ -107,7 +84,8 @@ public class NewProfileActivity extends Activity {
 
                 RadioButton selectRadio = (RadioButton) findViewById(gender
                         .getCheckedRadioButtonId());
-                genderText = selectRadio.getText().toString();
+                if (!selectRadio.getText().toString().equals("") && selectRadio.getText().toString().length() > 0)
+                    genderText = selectRadio.getText().toString();
                 storeAdditionalUserDetails(genderText, weightText, heightText, birthD);
                 Intent i = new Intent(NewProfileActivity.this, HomePageActivity.class);
                 startActivity(i);
@@ -182,8 +160,8 @@ public class NewProfileActivity extends Activity {
         float scaleHeight = ((float) newHeight) / height;
         Matrix matrix = new Matrix();
         matrix.postScale(scaleWidth, scaleHeight);
-        Bitmap resizedBitmap = Bitmap.createBitmap(bm, 0, 0, width, height, matrix, false);
-        return resizedBitmap;
+        Bitmap resizedBitmap1 = Bitmap.createBitmap(bm, 0, 0, width, height, matrix, false);
+        return resizedBitmap1;
     }
 
     public void displayDatePicker() {
@@ -207,7 +185,6 @@ public class NewProfileActivity extends Activity {
                 }, mYear, mMonth, mDay);
         dpd.show();
     }
-
 
 }
 

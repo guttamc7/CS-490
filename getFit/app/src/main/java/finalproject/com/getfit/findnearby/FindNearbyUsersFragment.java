@@ -1,6 +1,7 @@
 package finalproject.com.getfit.findnearby;
 
 import android.os.Bundle;
+import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -36,7 +37,11 @@ public class FindNearbyUsersFragment extends RootFragment {
         gridView.setOnItemClickListener(new OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View v,
                                     int position, long id) {
-                //TODO
+                FragmentTransaction ft = getChildFragmentManager().beginTransaction();
+                ft.replace(R.id.findnearby_user_frag, new FindNearbyUserProfile());
+                ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+                ft.addToBackStack(null);
+                ft.commit();
 
                 }
             });

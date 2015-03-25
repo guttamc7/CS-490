@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -7,32 +7,23 @@
     android:scaleType="fitStart"
     >
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="300dp"
+        android:id="@+id/header_profile"
         android:scaleType="fitStart"
         android:orientation="vertical"
         android:background="@drawable/ic_background">
-
-        <ImageButton
-            android:id="@+id/imageButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            android:layout_marginRight="10dp"
-            android:background="@null"
-            android:layout_gravity="right"
-            android:contentDescription="Edit Your Profile"
-            android:src="@drawable/ic_action_edit" />
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:layout_width="125dp"
         android:layout_height="125dp"
         android:id="@+id/ProfilePic"
+        android:layout_marginTop="40dp"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="15dp"
         android:src="@drawable/default_user_icon"
-        />
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
 
     <TextView
         android:id="@+id/username"
@@ -43,6 +34,7 @@
         android:layout_marginTop="5dp"
         android:textColor="#eaeff3"
         android:layout_gravity="center"
+        android:layout_below="@+id/ProfilePic"
         android:layout_centerHorizontal="true"
         android:text="Gurumukh Uttamchandani"
         android:textSize = "18dp" />
@@ -50,7 +42,8 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-               >
+            android:layout_below="@id/username"
+            android:id="@+id/layout_profile_info">
 
         <TextView
             android:id="@+id/height"
@@ -93,9 +86,37 @@
                 android:textSize = "17dp"
                 android:layout_alignParentRight="true" />
 
+            <TextView
+                android:id="@+id/age"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif"
+                android:textStyle="italic"
+                android:gravity="left"
+                android:textColor="#eaeff3"
+                android:layout_gravity="center"
+                android:text="21 years old"
+                android:textSize = "17dp"
+                android:layout_marginTop="10dp"
+                android:layout_below="@+id/height"
+                android:layout_centerHorizontal="true" />
         </RelativeLayout>
+    </RelativeLayout>
+    <com.getbase.floatingactionbutton.FloatingActionButton
+        android:id="@+id/edit_profile_fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="-32dp"
+        android:layout_marginRight="15dp"
+        android:layout_alignParentRight="true"
+        android:layout_alignBottom="@id/header_profile" />
 
-    </LinearLayout>
+    <ListView
+        android:id="@+id/user_likes"
+        android:layout_below="@id/header_profile"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent">
+    </ListView>
 
 
-</LinearLayout>
+</RelativeLayout>
