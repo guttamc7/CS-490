@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#eaeff3"
+    android:scaleType="fitStart"
+    >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:scaleType="fitStart"
+        android:orientation="vertical"
+        android:id="@+id/header_userProfile"
+        android:background="@drawable/ic_background">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:layout_width="125dp"
+            android:layout_height="125dp"
+            android:id="@+id/nearbyUserProfilePic"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="35dp"
+            android:src="@drawable/default_user_icon"
+            />
+
+        <TextView
+            android:id="@+id/nearbyUserName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif"
+            android:textStyle="bold"
+            android:layout_marginTop="5dp"
+            android:textColor="#eaeff3"
+            android:layout_gravity="center"
+            android:layout_centerHorizontal="true"
+            android:text="Gurumukh Uttamchandani"
+            android:textSize = "18dp" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            >
+
+            <TextView
+                android:id="@+id/nearbyUserHeight"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif"
+                android:layout_alignParentLeft="true"
+                android:textStyle="italic"
+                android:layout_marginTop="10dp"
+                android:textColor="#eaeff3"
+                android:gravity="right"
+                android:layout_marginRight="15dp"
+                android:layout_toLeftOf="@+id/stroke"
+                android:text="178 cm"
+                android:textSize = "17dp" />
+
+
+            <View
+                android:layout_width="2dp"
+                android:layout_height="20dp"
+                android:layout_marginTop="10dp"
+                android:layout_centerHorizontal="true"
+                android:id = "@+id/stroke"
+                android:background="#eaeff3"
+                android:padding="5dp" />
+
+            <TextView
+                android:id="@+id/nearbyUserWeight"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif"
+                android:layout_toRightOf="@id/stroke"
+                android:textStyle="italic"
+                android:layout_marginTop="10dp"
+                android:gravity="left"
+                android:layout_marginLeft="15dp"
+                android:textColor="#eaeff3"
+                android:layout_gravity="center"
+                android:text="160 lbs"
+                android:textSize = "17dp"
+                android:layout_alignParentRight="true" />
+
+            <TextView
+                android:id="@+id/nearbyUserAge"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif"
+                android:layout_below="@id/nearbyUserHeight"
+                android:textStyle="italic"
+                android:layout_marginTop="10dp"
+                android:gravity="left"
+                android:layout_marginLeft="15dp"
+                android:textColor="#eaeff3"
+                android:layout_gravity="center"
+                android:text="21 years old"
+                android:textSize = "17dp"
+                android:layout_centerHorizontal="true"
+                />
+
+
+
+        </RelativeLayout>
+        <com.getbase.floatingactionbutton.FloatingActionButton
+            android:id="@+id/nearbyUserAction"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="end"
+            android:layout_marginRight="5dp"
+            android:layout_marginEnd="5dp"
+            android:layout_gravity = "right"
+             />
+    </LinearLayout>
+
+    <com.getbase.floatingactionbutton.FloatingActionsMenu
+        android:id="@+id/user_profile_actions"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="-32dp"
+        android:layout_marginRight="15dp"
+        android:layout_alignParentRight="true"
+        android:layout_alignBottom="@id/header_userProfile"
+        >
+        <com.getbase.floatingactionbutton.FloatingActionButton
+            android:id="@+id/chat_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            />
+        <com.getbase.floatingactionbutton.FloatingActionButton
+            android:id="@+id/view_workouts_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            />
+    </com.getbase.floatingactionbutton.FloatingActionsMenu>
+
+    <ListView
+        android:id="@+id/nearbyUser_Likes"
+        android:layout_below="@id/header_userProfile"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent">
+    </ListView>
+
+
+</RelativeLayout>
