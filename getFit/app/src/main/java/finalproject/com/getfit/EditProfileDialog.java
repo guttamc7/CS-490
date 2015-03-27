@@ -7,6 +7,7 @@ import android.app.DialogFragment;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.ColorFilter;
 import android.graphics.LightingColorFilter;
@@ -26,13 +27,17 @@ import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
+import java.text.DateFormat;
 
+import com.parse.GetDataCallback;
+import com.parse.ParseException;
 import com.parse.ParseFile;
 import com.parse.ParseUser;
 
 import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -44,6 +49,8 @@ import finalproject.com.getfit.R;
 public class EditProfileDialog extends DialogFragment
 {
     private RadioGroup gender;
+    private RadioButton male;
+    private RadioButton female;
     private EditText weight, height;
     private Button birthDate;
     private TextView userNameTextView;
@@ -73,8 +80,38 @@ public class EditProfileDialog extends DialogFragment
         profilePictureImgView = (ImageView) rootView.findViewById(R.id.imgViewProfilePic_edit_profile);
         submitButton = (Button) rootView.findViewById(R.id.submitButton_edit_profile);
         cancelButton= (Button) rootView.findViewById(R.id.cancelButton_edit_profile);
+        male = (RadioButton) rootView.findViewById(R.id.radioButtonMale_edit_profile);
+        female = (RadioButton) rootView.findViewById(R.id.radioButtonFemale_edit_profile);
         ParseUser currentUser = ParseUser.getCurrentUser();
-        userNameTextView.setText(currentUser.getUsername());
+        ParseFile imageFile = currentUser.getParseFile("profilePic");
+        imageFile.getDataInBackground(new GetDataCallback() {
+            public void done(byte[] data, ParseException e) {
+                if (e == null) {
+                    Bitmap bmp = BitmapFactory.decodeByteArray(data, 0,
+                            data.length);
+                    profilePictureImgView.setImageBitmap(bmp);
+                    // data has the bytes for the image
+                } else {
+                    // something went wrong
+                }
+            }
+        });
+        userNameTextView.setText(currentUser.getString("name"));
+        if(currentUser.getString("gender").equals("Male"))
+            male.setChecked(true);
+        else
+            female.setChecked(true);
+        weight.setText(Integer.toString(currentUser.getInt("weight")) + " lbs");
+        height.setText(Integer.toString(currentUser.getInt("height")) + " cm");
+        Date date = currentUser.getDate("birthDate");
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(date);
+        int year = cal.get(Calendar.YEAR);
+        int month = cal.get(Calendar.MONTH);
+        int day = cal.get(Calendar.DAY_OF_MONTH);
+        String dateString = Integer.toString(month) +"/" + Integer.toString(day) + "/" + Integer.toString(year);
+        birthDate.setText(dateString);
+
         birthDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

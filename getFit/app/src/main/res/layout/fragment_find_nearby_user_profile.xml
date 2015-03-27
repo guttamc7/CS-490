@@ -16,8 +16,11 @@
         android:background="@drawable/ic_background">
 
         <de.hdodenhof.circleimageview.CircleImageView
+            xmlns:app="http://schemas.android.com/apk/res-auto"
             android:layout_width="125dp"
             android:layout_height="125dp"
+            app:border_color="@color/primary_white"
+            app:border_width="3dp"
             android:id="@+id/nearbyUserProfilePic"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="35dp"
@@ -112,17 +115,23 @@
         android:layout_marginBottom="-32dp"
         android:layout_marginRight="15dp"
         android:layout_alignParentRight="true"
+        xmlns:fab="http://schemas.android.com/apk/res-auto"
+        fab:fab_addButtonColorNormal="@color/button_red"
+        fab:fab_labelStyle="@style/menu_labels_style"
+        fab:fab_labelsPosition="left"
         android:layout_alignBottom="@id/header_userProfile"
         >
         <com.getbase.floatingactionbutton.FloatingActionButton
             android:id="@+id/chat_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            fab:fab_title="Message"
             />
         <com.getbase.floatingactionbutton.FloatingActionButton
             android:id="@+id/view_workouts_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            fab:fab_title="View Workouts"
             />
     </com.getbase.floatingactionbutton.FloatingActionsMenu>
 

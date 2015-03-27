@@ -40,14 +40,12 @@ public class FindNearbyUserProfileFragment extends RootFragment {
         userProfileActions = (FloatingActionsMenu) rootView.findViewById(R.id.user_profile_actions);
         chatButton = (FloatingActionButton) rootView.findViewById(R.id.chat_button);
         chatButton.setSize(FloatingActionButton.SIZE_NORMAL);
-        chatButton.setColorNormalResId(R.color.button_red);
-        chatButton.setColorPressedResId(R.color.button_yellow);
-        chatButton.setIcon(R.drawable.ic_action_settings);
+        chatButton.setColorNormalResId(R.color.button_yellow);
+        chatButton.setIcon(R.drawable.ic_messages);
         viewWorkoutButton = (FloatingActionButton) rootView.findViewById(R.id.view_workouts_button);
         viewWorkoutButton.setSize(FloatingActionButton.SIZE_NORMAL);
-        viewWorkoutButton.setColorNormalResId(R.color.button_red);
-        viewWorkoutButton.setColorPressedResId(R.color.button_yellow);
-        viewWorkoutButton.setIcon(R.drawable.ic_action_settings);
+        viewWorkoutButton.setColorNormalResId(R.color.button_green);
+        viewWorkoutButton.setIcon(R.drawable.ic_action_list);
 
         chatButton.setOnClickListener(new View.OnClickListener() {
             @Override

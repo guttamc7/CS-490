@@ -16,6 +16,9 @@
         android:background="@drawable/ic_background">
 
     <de.hdodenhof.circleimageview.CircleImageView
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        app:border_width="3dp"
+        app:border_color="@color/primary_white"
         android:layout_width="125dp"
         android:layout_height="125dp"
         android:id="@+id/ProfilePic"
@@ -26,7 +29,7 @@
         android:layout_centerHorizontal="true" />
 
     <TextView
-        android:id="@+id/username"
+        android:id="@+id/username_profile"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="sans-serif"
@@ -42,11 +45,11 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_below="@id/username"
+            android:layout_below="@id/username_profile"
             android:id="@+id/layout_profile_info">
 
         <TextView
-            android:id="@+id/height"
+            android:id="@+id/height_profile"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="sans-serif"
@@ -71,7 +74,7 @@
             android:padding="5dp" />
 
             <TextView
-                android:id="@+id/weight"
+                android:id="@+id/weight_profile"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="sans-serif"
@@ -87,7 +90,7 @@
                 android:layout_alignParentRight="true" />
 
             <TextView
-                android:id="@+id/age"
+                android:id="@+id/age_profile"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="sans-serif"
@@ -98,7 +101,7 @@
                 android:text="21 years old"
                 android:textSize = "17dp"
                 android:layout_marginTop="10dp"
-                android:layout_below="@+id/height"
+                android:layout_below="@+id/height_profile"
                 android:layout_centerHorizontal="true" />
         </RelativeLayout>
     </RelativeLayout>
