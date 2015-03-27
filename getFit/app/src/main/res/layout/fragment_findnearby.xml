@@ -29,18 +29,19 @@
 
         <com.skyfishjy.library.RippleBackground
             xmlns:android="http://schemas.android.com/apk/res/android"
-            xmlns:app="com.example.gurumukh.getfit"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:id="@+id/content_ripple"
-            app:rb_color="#F62459"
-            app:rb_radius="24dp"
-            app:rb_rippleAmount="4"
-            app:rb_duration="4000"
-            app:rb_scale="6">
+            app:rb_color="#3498DB"
+            app:rb_radius="32dp"
+            >
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:layout_width="200dp"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        app:border_width="3dp"
+        app:border_color="@color/white"
         android:layout_height="200dp"
         android:id="@+id/imgViewfindNearby"
         android:layout_centerInParent = "true"

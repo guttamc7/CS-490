@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
+    <color name="primary_blue">#34678a</color>
+    <color name="primary_white">#eaeff3</color>
+    <color name="primary_green">#019875</color>
     <color name="button_red">#F62459</color>
     <color name="button_yellow">#E6A457</color>
     <color name="button_green">#019875</color>

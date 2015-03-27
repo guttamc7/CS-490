@@ -53,10 +53,6 @@ public class BaseWorkoutFragment extends RootFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         v = inflater.inflate(R.layout.fragment_baseworkout, container, false);
         listView = (ListView) v.findViewById(R.id.base_list);
-
-
-
-
         return v;
     }
 

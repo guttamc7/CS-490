@@ -16,7 +16,7 @@ import finalproject.com.getfit.viewpager.RootFragment;
 /**
  * Created by Gurumukh on 3/12/15.
  */
-public class FindNearbyUserProfile extends RootFragment {
+public class FindNearbyUserProfileFragment extends RootFragment {
 
 
     private TextView nearbyUserName;

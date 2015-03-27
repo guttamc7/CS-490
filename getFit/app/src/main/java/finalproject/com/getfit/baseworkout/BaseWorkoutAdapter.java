@@ -68,8 +68,7 @@ public class BaseWorkoutAdapter extends BaseSwipeAdapter {
             public void onClick(View v) {
                 Toast.makeText(context, "Like", Toast.LENGTH_SHORT).show();
                 BaseWorkout m= workoutItems.get(position);
-
-                updatelikes( m.getWorkoutId());
+                updateLikes( m.getWorkoutId());
             }
         });
 
@@ -124,13 +123,11 @@ public class BaseWorkoutAdapter extends BaseSwipeAdapter {
         return position;
     }
 
-    void updatelikes(String id)
+    private void updateLikes(String id)
     {
         ParseObject workout = ParseObject.createWithoutData("Workout", id);
         workout.increment("likes");
         workout.saveInBackground();
-
-
     }
 
 
