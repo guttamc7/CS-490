@@ -11,23 +11,23 @@
         android:layout_marginRight="12dp"
         android:layout_marginTop="10dp"
         android:layout_marginBottom="10dp"
-        android:id="@+id/front_trendingWorkout"
+        android:id="@+id/front_user_like"
         android:background="@drawable/bg_card">
 
         <com.daimajia.swipe.SwipeLayout
             xmlns:android="http://schemas.android.com/apk/res/android"
-            android:id="@+id/swipe_trendingWorkout"
+            android:id="@+id/swipe_user_like"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
             <LinearLayout
                 android:tag="Bottom4"
-                android:id="@+id/bottom_wrapper_2_trendingWorkout"
+                android:id="@+id/bottom_wrapper_2_user_like"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent">
 
                 <ImageView
-                    android:id="@+id/like_imview_trendingWorkout"
+                    android:id="@+id/like_imview_user_like"
                     android:src="@drawable/ic_action_like_white"
                     android:layout_width="70dp"
                     android:background="#FA6A66"
@@ -35,6 +35,14 @@
                     android:paddingRight="25dp"
                     android:layout_height="110dp" />
 
+                <ImageView
+                    android:id="@+id/delete_imview_user_like"
+                    android:src="@drawable/ic_action_discard"
+                    android:layout_width="70dp"
+                    android:background="#E6A457"
+                    android:paddingLeft="25dp"
+                    android:paddingRight="25dp"
+                    android:layout_height="110dp" />
 
             </LinearLayout>
 
@@ -46,14 +54,14 @@
 
                 <!-- Thumbnail Image -->
                 <ImageView
-                    android:id="@+id/thumbnail_trendingWorkout"
+                    android:id="@+id/thumbnail_user_like"
                     android:layout_width="80dp"
                     android:layout_height="80dp"
                     android:layout_alignParentLeft="true"
                     android:layout_marginRight="8dp" />
 
                 <TextView
-                    android:id="@+id/title_trendingWorkout"
+                    android:id="@+id/title_user_like"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="#2D343D"
@@ -61,37 +69,21 @@
                     android:fontFamily="sans-serif"
                     android:layout_gravity="center"
                     android:gravity="center"
-                    android:layout_toRightOf="@+id/thumbnail_trendingWorkout"
+                    android:layout_toRightOf="@+id/thumbnail_user_like"
                     android:textSize="20sp"
                     android:textStyle="bold" />
 
                 <TextView
-                    android:id="@+id/description_trendingWorkout"
+                    android:id="@+id/description_user_like"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="#000000"
                     android:layout_gravity="center"
-                    android:layout_marginTop="12dp"
+                    android:layout_marginTop="22dp"
                     android:fontFamily="sans-serif"
-                    android:layout_toRightOf="@+id/thumbnail_trendingWorkout"
-                    android:layout_below="@+id/title_trendingWorkout"
+                    android:layout_toRightOf="@+id/thumbnail_user_like"
+                    android:layout_below="@+id/title_user_like"
                     android:text="Hi I am a sample workout Description"
-                    android:padding="5dp"
-                    android:maxLines="3"
-                    android:textSize="18dp"
-                    />
-
-                <TextView
-                    android:id="@+id/userName_trendingWorkout"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="#000000"
-                    android:layout_gravity="center"
-                    android:layout_marginTop="2dp"
-                    android:fontFamily="sans-serif"
-                    android:layout_toRightOf="@+id/thumbnail_trendingWorkout"
-                    android:layout_below="@+id/description_trendingWorkout"
-                    android:text="Username"
                     android:padding="5dp"
                     android:maxLines="3"
                     android:textSize="18dp"
@@ -102,17 +94,17 @@
                     android:layout_height="1dip"
                     android:layout_marginTop="30dp"
                     android:background="#A5A7A9"
-                    android:layout_below="@+id/description_trendingWorkout"
-                    android:id="@+id/view_row_trendingWorkout" />
+                    android:layout_below="@+id/description_user_like"
+                    android:id="@+id/view_row_user_like" />
 
                 <RelativeLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="right|center_horizontal"
-                    android:layout_below="@+id/view_row_trendingWorkout">
+                    android:layout_below="@+id/view_row_user_like">
 
                     <Button
-                        android:id="@+id/like_trendingWorkout"
+                        android:id="@+id/like_user_like"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text = "1,2345"
@@ -123,12 +115,15 @@
                         android:background="@null"
                         android:padding="5dp"
                         android:layout_alignParentTop="true"
-                        android:layout_alignParentRight="true"
-                        android:layout_alignParentEnd="true"
                         android:layout_marginRight="25dp"
-                        android:layout_marginEnd="5dp" />
+                        android:layout_marginEnd="25dp"
+                        android:layout_alignParentRight="true"
+                        android:layout_alignParentEnd="true"/>
+
                 </RelativeLayout>
             </RelativeLayout>
         </com.daimajia.swipe.SwipeLayout>
     </RelativeLayout>
+
+
 </FrameLayout>
