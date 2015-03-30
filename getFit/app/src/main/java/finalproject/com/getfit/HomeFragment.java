@@ -23,6 +23,7 @@ import android.view.ViewGroup;
 
 import finalproject.com.getfit.findnearby.FindNearbyFragment;
 import finalproject.com.getfit.trendingworkout.TrendingWorkoutFragment;
+import finalproject.com.getfit.userprofile.ProfileFragment;
 import finalproject.com.getfit.viewpager.OnBackPressListener;
 
 public class HomeFragment extends Fragment {

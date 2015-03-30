@@ -1,4 +1,4 @@
-package finalproject.com.getfit;
+package finalproject.com.getfit.userprofile;
 
 /**
  * Created by Gurumukh on 2/4/15.
@@ -20,6 +20,9 @@ import com.parse.GetDataCallback;
 import com.parse.ParseException;
 import com.parse.ParseFile;
 import com.parse.ParseUser;
+
+import finalproject.com.getfit.EditProfileDialog;
+import finalproject.com.getfit.R;
 import finalproject.com.getfit.viewpager.RootFragment;
 
 public class ProfileFragment extends RootFragment
@@ -54,11 +57,40 @@ public class ProfileFragment extends RootFragment
                 }
             }
         });
-        userName.setText(currentUser.getString("name"));
-        userWeight.setText(Integer.toString(currentUser.getInt("weight")) + " lbs");
-        userHeight.setText(Integer.toString(currentUser.getInt("height")) + " cm");
+        if(currentUser.getString("name").isEmpty())
+        {
+            userName.setText("");
+        }
+        else
+        {
+            userName.setText(currentUser.getString("name"));
+        }
+        if(Integer.toString(currentUser.getInt("weight")).isEmpty())
+        {
+            userWeight.setText("");
+        }
+        else
+        {
+            userWeight.setText(Integer.toString(currentUser.getInt("weight")) + " lbs");
+        }
+        if(Integer.toString(currentUser.getInt("height")).isEmpty())
+        {
+            userHeight.setText("");
+        }
+        else
+        {
+            userHeight.setText(Integer.toString(currentUser.getInt("height")) + " cm");
+        }
+
         Date date = currentUser.getDate("birthDate");
-        userAge.setText(Integer.toString(getAge(date)) + " years old");
+        if(date == null)
+        {
+            userAge.setText("");
+        }
+        else
+        {
+            userAge.setText(Integer.toString(getAge(date)) + " years old");
+        }
         editProfileButton = (FloatingActionButton) rootView.findViewById(R.id.edit_profile_fab);
         editProfileButton.setSize(FloatingActionButton.SIZE_NORMAL);
         editProfileButton.setColorNormalResId(R.color.button_red);

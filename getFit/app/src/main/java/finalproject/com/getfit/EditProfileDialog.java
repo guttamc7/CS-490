@@ -96,22 +96,56 @@ public class EditProfileDialog extends DialogFragment
                 }
             }
         });
-        userNameTextView.setText(currentUser.getString("name"));
-        if(currentUser.getString("gender").equals("Male"))
-            male.setChecked(true);
+        if(currentUser.getString("name") == null)
+        {
+            userNameTextView.setText("");
+        }
         else
-            female.setChecked(true);
-        weight.setText(Integer.toString(currentUser.getInt("weight")) + " lbs");
-        height.setText(Integer.toString(currentUser.getInt("height")) + " cm");
+        {
+            userNameTextView.setText(currentUser.getString("name"));
+        }
+        if(currentUser.getString("gender") == null)
+        {
+            //Do nothing
+        }
+        else
+        {
+            if (currentUser.getString("gender").equals("Male"))
+                male.setChecked(true);
+            else
+                female.setChecked(true);
+        }
+        if(Integer.toString(currentUser.getInt("weight")).isEmpty())
+        {
+            weight.setText("");
+        }
+        else
+        {
+            weight.setText(Integer.toString(currentUser.getInt("weight")) + " lbs");
+        }
+        if(Integer.toString(currentUser.getInt("height")).isEmpty())
+        {
+            height.setText("");
+        }
+        else
+        {
+            height.setText(Integer.toString(currentUser.getInt("height")) + " cm");
+        }
         Date date = currentUser.getDate("birthDate");
-        Calendar cal = Calendar.getInstance();
-        cal.setTime(date);
-        int year = cal.get(Calendar.YEAR);
-        int month = cal.get(Calendar.MONTH);
-        int day = cal.get(Calendar.DAY_OF_MONTH);
-        String dateString = Integer.toString(month) +"/" + Integer.toString(day) + "/" + Integer.toString(year);
-        birthDate.setText(dateString);
-
+        if(date == null)
+        {
+            //Do nothing
+        }
+        else
+        {
+            Calendar cal = Calendar.getInstance();
+            cal.setTime(date);
+            int year = cal.get(Calendar.YEAR);
+            int month = cal.get(Calendar.MONTH);
+            int day = cal.get(Calendar.DAY_OF_MONTH);
+            String dateString = Integer.toString(month) + "/" + Integer.toString(day) + "/" + Integer.toString(year);
+            birthDate.setText(dateString);
+        }
         birthDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

@@ -11,6 +11,7 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
@@ -28,6 +29,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.logging.Logger;
 
 public class NewProfileActivity extends Activity {
     private RadioGroup gender;
@@ -73,19 +75,25 @@ public class NewProfileActivity extends Activity {
         doneButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick (View view){
-                if (!weight.getText().toString().equals("") && weight.getText().toString().length() > 0)
+                if (weight.getText().toString() == null || (!weight.getText().toString().equals("") && weight.getText().toString().length() > 0))
                     weightText = Integer.parseInt(weight.getText().toString());
 
-                if (!height.getText().toString().equals("") && height.getText().toString().length() > 0)
+                if (height.getText().toString() == null || (!height.getText().toString().equals("") && height.getText().toString().length() > 0))
                 heightText = Integer.parseInt(height.getText().toString());
 
-                if (!birthDate.getText().toString().equals("") && birthDate.getText().toString().length() > 0)
+                if (birthDate.getText().toString() == null || (!birthDate.getText().toString().equals("") && birthDate.getText().toString().length() > 0))
                     birthDateText = weight.getText().toString();
-
-                RadioButton selectRadio = (RadioButton) findViewById(gender
-                        .getCheckedRadioButtonId());
-                if (!selectRadio.getText().toString().equals("") && selectRadio.getText().toString().length() > 0)
-                    genderText = selectRadio.getText().toString();
+                RadioButton selectRadio = null;
+                Log.d("gender: ",Integer.toString(gender.getCheckedRadioButtonId()));
+                if(gender.getCheckedRadioButtonId() == -1)
+                    genderText = null;
+                else
+                {
+                    selectRadio = (RadioButton) findViewById(gender.getCheckedRadioButtonId());
+                    Log.d("selectRadio: ", selectRadio.getText().toString());
+                    if (selectRadio.getText().toString() == null || (!selectRadio.getText().toString().equals("") && selectRadio.getText().toString().length() > 0))
+                        genderText = selectRadio.getText().toString();
+                }
                 storeAdditionalUserDetails(genderText, weightText, heightText, birthD);
                 Intent i = new Intent(NewProfileActivity.this, HomePageActivity.class);
                 startActivity(i);
