@@ -28,6 +28,11 @@
         <item name="android:windowExitAnimation">@anim/disappear</item>
     </style>
 
+    <style name="menu_labels_style">
+
+        <item name="android:textColor">@color/primary_white</item>
+    </style>
+
 
 
 </resources>

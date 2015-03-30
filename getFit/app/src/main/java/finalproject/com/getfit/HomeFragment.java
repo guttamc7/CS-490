@@ -22,6 +22,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import finalproject.com.getfit.findnearby.FindNearbyFragment;
+import finalproject.com.getfit.trendingworkout.TrendingWorkoutFragment;
 import finalproject.com.getfit.viewpager.OnBackPressListener;
 
 public class HomeFragment extends Fragment {
@@ -75,7 +76,7 @@ public class HomeFragment extends Fragment {
         public Fragment getItem(int position) {
             switch (position) {
                 case 0:
-                    TrendingFragment trendingtab = new TrendingFragment();
+                    TrendingWorkoutFragment trendingtab = new TrendingWorkoutFragment();
                     return trendingtab;
                 case 1:
                     FindNearbyFragment nearbytab = new FindNearbyFragment();

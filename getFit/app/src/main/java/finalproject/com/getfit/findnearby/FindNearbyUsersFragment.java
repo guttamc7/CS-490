@@ -1,21 +1,31 @@
 package finalproject.com.getfit.findnearby;
 
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.GridView;
-import android.widget.ListView;
-import android.widget.TextView;
-import android.widget.Toast;
 
+import com.parse.FindCallback;
+import com.parse.ParseException;
+import com.parse.ParseFile;
+import com.parse.ParseGeoPoint;
 import com.parse.ParseObject;
+import com.parse.ParseQuery;
 import com.parse.ParseQueryAdapter;
+import com.parse.ParseUser;
+
 import android.widget.AdapterView.OnItemClickListener;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import finalproject.com.getfit.R;
+import finalproject.com.getfit.baseworkout.BaseWorkout;
 import finalproject.com.getfit.viewpager.RootFragment;
 
 /**
@@ -25,27 +35,84 @@ public class FindNearbyUsersFragment extends RootFragment {
 
     private ParseQueryAdapter<ParseObject> mainAdapter;
     private FindNearbyUsersAdapter nearbyUsersAdapter;
+    private ArrayList<FindNearbyUsers> findNearbyUsersList = new ArrayList<>();
     private GridView gridView;
     private View v;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         v = inflater.inflate(R.layout.fragment_find_nearby_users, container, false);
         gridView = (GridView) v.findViewById(R.id.find_nearby_grid);
-        nearbyUsersAdapter = new FindNearbyUsersAdapter(getActivity().getApplicationContext());
-        gridView.setAdapter(nearbyUsersAdapter);
-        nearbyUsersAdapter.loadObjects();
+        return v;
+    }
+
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        new GetUserData().execute();
         gridView.setOnItemClickListener(new OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View v,
                                     int position, long id) {
                 FragmentTransaction ft = getChildFragmentManager().beginTransaction();
-                ft.replace(R.id.findnearby_user_frag, new FindNearbyUserProfile());
+                ft.replace(R.id.findnearby_user_frag, new FindNearbyUserProfileFragment());
                 ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
                 ft.addToBackStack(null);
                 ft.commit();
 
                 }
             });
-        return v;
+
     }
+
+    private class GetUserData extends AsyncTask<Void, Void, Void> {
+        @Override
+        protected Void doInBackground(Void... arg0) {
+            ParseGeoPoint userLocation = new ParseGeoPoint(FindNearbyFragment.getLatitude(), FindNearbyFragment.getLongitude());
+            ParseUser currentUser = ParseUser.getCurrentUser();
+            currentUser.put("location", userLocation);
+            currentUser.saveInBackground();
+            ParseQuery<ParseUser> query = ParseQuery.getQuery("_User");
+            query.whereNotEqualTo("objectId", currentUser.getObjectId());
+            query.whereWithinMiles("location", userLocation, 50.0);
+            query.setLimit(10);
+            query.findInBackground(new FindCallback<ParseUser>() {
+                public void done(List<ParseUser> userList, ParseException e) {
+                    if (e == null) {
+                        System.out.println("HERE");
+                        FindNearbyUsers findNearbyUserData;
+                        for (int i = 0; i < userList.size(); i++) {
+                            findNearbyUserData = new FindNearbyUsers();
+                            ParseUser obj = userList.get(i);
+
+                            findNearbyUserData.setNearbyUserId(obj.getObjectId());
+                            findNearbyUserData.setNearbyUserName(obj.getString("name"));
+                            //findNearbyUserData.setNearbyUserActive(obj.getString(""));
+                            //findNearbyUserData.setNearbyUserDistance(obj.getString(""));
+                            ParseFile image = obj.getParseFile("profilePic");
+                            findNearbyUserData.setNearbyUserProfile(image.getUrl());
+                            findNearbyUsersList.add(findNearbyUserData);
+                            nearbyUsersAdapter.notifyDataSetChanged();
+                        }
+                        System.out.println(findNearbyUsersList.size());
+                    } else {
+                        System.out.println(e.getMessage());
+                    }
+                }
+            });
+            return null;
+        }
+
+        protected void onPostExecute(Void result) {
+            //super.onPostExecute(result);
+            //System.out.println(findNearbyUsersList.size());
+            nearbyUsersAdapter = new FindNearbyUsersAdapter(getActivity(), findNearbyUsersList);
+            gridView.setAdapter(nearbyUsersAdapter);
+            nearbyUsersAdapter.notifyDataSetChanged();
+        }
+
+    }
+
+
+
+
+
 
 }

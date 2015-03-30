@@ -23,7 +23,6 @@ import com.parse.ParseQuery;
 import com.parse.ParseUser;
 import com.parse.ParseRelation;
 
-
 import android.content.Context;
 import android.widget.Toast;
 
@@ -71,8 +70,6 @@ public class BaseWorkoutAdapter extends BaseSwipeAdapter {
                 BaseWorkout m= workoutItems.get(position);
 
                 updatelikes( m.getWorkoutId());
-                updateWorkout(m.getWorkoutId());
-                retrieveLikedWorkout();
             }
         });
 
@@ -127,7 +124,7 @@ public class BaseWorkoutAdapter extends BaseSwipeAdapter {
         return position;
     }
 
-    void updatelikes(String id)
+   private void updatelikes(String id)
     {
         ParseObject workout = ParseObject.createWithoutData("Workout", id);
         workout.increment("likes");
@@ -135,7 +132,7 @@ public class BaseWorkoutAdapter extends BaseSwipeAdapter {
 
 
     }
-    void updateWorkout (String id)
+   private void updateWorkout (String id)
     {
         ParseObject workout = ParseObject.createWithoutData("Workout", id);
         ParseUser user = ParseUser.getCurrentUser();
@@ -145,9 +142,7 @@ public class BaseWorkoutAdapter extends BaseSwipeAdapter {
         user.saveInBackground();
 
     }
-
-    void retrieveLikedWorkout ()
-    {
+   private void retrieveLikedWorkout () {
         ParseUser user = ParseUser.getCurrentUser();
         ParseRelation<ParseObject> relation = user.getRelation("likedWorkout");
         ParseQuery<ParseObject> query = relation.getQuery();
@@ -172,8 +167,6 @@ public class BaseWorkoutAdapter extends BaseSwipeAdapter {
         });
 
 
-
     }
 
-
-}
+    }
