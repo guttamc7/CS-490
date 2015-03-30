@@ -35,7 +35,7 @@ public class FindNearbyUsersFragment extends RootFragment {
 
     private ParseQueryAdapter<ParseObject> mainAdapter;
     private FindNearbyUsersAdapter nearbyUsersAdapter;
-    private ArrayList<FindNearbyUsers> findNearbyUsersList = new ArrayList<>();
+    private ArrayList<ParseUser> findNearbyUsersList = new ArrayList<>();
     private GridView gridView;
     private View v;
     @Override
@@ -52,7 +52,9 @@ public class FindNearbyUsersFragment extends RootFragment {
             public void onItemClick(AdapterView<?> parent, View v,
                                     int position, long id) {
                 FragmentTransaction ft = getChildFragmentManager().beginTransaction();
-                ft.replace(R.id.findnearby_user_frag, new FindNearbyUserProfileFragment());
+                FindNearbyUserProfileFragment nearbyUserProfileFragment = new FindNearbyUserProfileFragment();
+                nearbyUserProfileFragment.setParseUser(findNearbyUsersList.get(position));
+                ft.replace(R.id.findnearby_user_frag, nearbyUserProfileFragment);
                 ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
                 ft.addToBackStack(null);
                 ft.commit();
@@ -69,6 +71,7 @@ public class FindNearbyUsersFragment extends RootFragment {
             ParseUser currentUser = ParseUser.getCurrentUser();
             currentUser.put("location", userLocation);
             currentUser.saveInBackground();
+
             ParseQuery<ParseUser> query = ParseQuery.getQuery("_User");
             query.whereNotEqualTo("objectId", currentUser.getObjectId());
             query.whereWithinMiles("location", userLocation, 50.0);
@@ -77,21 +80,10 @@ public class FindNearbyUsersFragment extends RootFragment {
                 public void done(List<ParseUser> userList, ParseException e) {
                     if (e == null) {
                         System.out.println("HERE");
-                        FindNearbyUsers findNearbyUserData;
                         for (int i = 0; i < userList.size(); i++) {
-                            findNearbyUserData = new FindNearbyUsers();
-                            ParseUser obj = userList.get(i);
-
-                            findNearbyUserData.setNearbyUserId(obj.getObjectId());
-                            findNearbyUserData.setNearbyUserName(obj.getString("name"));
-                            //findNearbyUserData.setNearbyUserActive(obj.getString(""));
-                            //findNearbyUserData.setNearbyUserDistance(obj.getString(""));
-                            ParseFile image = obj.getParseFile("profilePic");
-                            findNearbyUserData.setNearbyUserProfile(image.getUrl());
-                            findNearbyUsersList.add(findNearbyUserData);
+                            findNearbyUsersList.add(userList.get(i));
                             nearbyUsersAdapter.notifyDataSetChanged();
                         }
-                        System.out.println(findNearbyUsersList.size());
                     } else {
                         System.out.println(e.getMessage());
                     }

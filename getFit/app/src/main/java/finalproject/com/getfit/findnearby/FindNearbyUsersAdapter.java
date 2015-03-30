@@ -18,6 +18,7 @@ import com.parse.ParseQueryAdapter;
 import com.parse.ParseUser;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 import finalproject.com.getfit.R;
 import finalproject.com.getfit.imageloader.ImageLoader;
@@ -27,11 +28,11 @@ import finalproject.com.getfit.imageloader.ImageLoader;
  */
 public class FindNearbyUsersAdapter extends BaseAdapter {
 
-    private ArrayList<FindNearbyUsers> listData;
+    private ArrayList<ParseUser> listData;
     ImageLoader imageLoader;
     private LayoutInflater layoutInflater;
 
-    public FindNearbyUsersAdapter(Context context, ArrayList<FindNearbyUsers> listData) {
+    public FindNearbyUsersAdapter(Context context, ArrayList<ParseUser> listData) {
         this.listData = listData;
         layoutInflater = LayoutInflater.from(context);
         imageLoader = new ImageLoader(context);
@@ -66,12 +67,37 @@ public class FindNearbyUsersAdapter extends BaseAdapter {
             holder = (ViewHolder1) convertView.getTag();
         }
         //Set all the values in the list
-        System.out.println(listData.get(position).getNearbyUserName());
-        holder.userName.setText(listData.get(position).getNearbyUserName());
+        holder.userName.setText(listData.get(position).getString("name"));
+
+        long timeDiff = new Date(System.currentTimeMillis()).getTime() - listData.get(position).getUpdatedAt().getTime();
+        long diffSeconds = timeDiff / 1000;
+        long diffMinutes = diffSeconds / 60;
+        long diffHours = diffMinutes / 60;
+        long diffDays = diffHours / 24;
+
+        if(diffDays>0) {
+            holder.userActive.setText(diffDays+" days ago");
+        }
+        else
+        if(diffHours>0){
+            holder.userActive.setText(diffHours+" hours ago");
+        }
+        else
+        if(diffMinutes>0){
+            holder.userActive.setText(diffMinutes+" minutes ago");
+        }
+        else{
+            holder.userActive.setText("1 minute ago");
+        }
+
+        int distance = (int)ParseUser.getCurrentUser().getParseGeoPoint("location").distanceInMilesTo(listData.get(position).getParseGeoPoint("location"))+1;
+
+        holder.userDistance.setText("Within "+distance+" miles ,");
         //holder.userDistance.setText(listData.get(position).getNearbyUserDistance());
         //holder.userActive.setText(listData.get(position).getNearbyUserActive());
-        imageLoader.DisplayImage(listData.get(position).getNearbyUserProfile(),holder.userProfile);
+        imageLoader.DisplayImage(listData.get(position).getParseFile("profilePic").getUrl(),holder.userProfile);
         return convertView;
+
     }
     static class ViewHolder1 {
         TextView userName;

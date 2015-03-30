@@ -108,7 +108,7 @@ public class ProfileFragment extends RootFragment
         return rootView;
     }
 
-    private static int getAge(Date dateOfBirth) {
+    public static int getAge(Date dateOfBirth) {
         Calendar dob = Calendar.getInstance();
         dob.setTime(dateOfBirth);
         Calendar today = Calendar.getInstance();
