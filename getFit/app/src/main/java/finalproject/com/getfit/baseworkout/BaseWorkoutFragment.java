@@ -79,11 +79,8 @@ public class BaseWorkoutFragment extends RootFragment {
                 ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
                 ft.addToBackStack(null);
                 ft.commit();
-
             }
         });
-
-
     }
 
     public void onListItemClick(ListView l, View v, int position, long id) {
