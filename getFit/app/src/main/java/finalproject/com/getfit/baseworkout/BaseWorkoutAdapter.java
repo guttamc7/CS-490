@@ -21,6 +21,7 @@ import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
+import com.parse.ParseRelation;
 
 
 import android.content.Context;
@@ -70,6 +71,8 @@ public class BaseWorkoutAdapter extends BaseSwipeAdapter {
                 BaseWorkout m= workoutItems.get(position);
 
                 updatelikes( m.getWorkoutId());
+                updateWorkout(m.getWorkoutId());
+                retrieveLikedWorkout();
             }
         });
 
@@ -129,6 +132,45 @@ public class BaseWorkoutAdapter extends BaseSwipeAdapter {
         ParseObject workout = ParseObject.createWithoutData("Workout", id);
         workout.increment("likes");
         workout.saveInBackground();
+
+
+    }
+    void updateWorkout (String id)
+    {
+        ParseObject workout = ParseObject.createWithoutData("Workout", id);
+        ParseUser user = ParseUser.getCurrentUser();
+        ParseRelation<ParseObject> relation = user.getRelation("likedWorkout");
+        relation.add(workout);
+        workout.saveInBackground();
+        user.saveInBackground();
+
+    }
+
+    void retrieveLikedWorkout ()
+    {
+        ParseUser user = ParseUser.getCurrentUser();
+        ParseRelation<ParseObject> relation = user.getRelation("likedWorkout");
+        ParseQuery<ParseObject> query = relation.getQuery();
+        query.findInBackground(new FindCallback<ParseObject>() {
+
+            public void done(List<ParseObject> workoutList, ParseException e) {
+                if (e == null) {
+                    for (int i = 0; i < workoutList.size(); i++) {
+                        ParseObject obj = workoutList.get(i);
+                        System.out.println(obj.getObjectId());
+                        System.out.println(obj.getString("name"));
+
+                    }
+
+
+                    //All the base workouts retrieved
+                } else {
+                    System.out.println(e.getMessage());
+                    //Exception
+                }
+            }
+        });
+
 
 
     }
