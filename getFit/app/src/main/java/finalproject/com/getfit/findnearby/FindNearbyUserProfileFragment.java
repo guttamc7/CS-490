@@ -81,9 +81,9 @@ public class FindNearbyUserProfileFragment extends RootFragment {
 
     private void setUserDetails(){
         this.nearbyUserName.setText(this.user.getString("name"));
-        this.nearbyUserHeight.setText(this.user.getInt("height"));
-        this.nearbyUserWeight.setText(this.user.getInt("weight"));
-        this.nearbyUserAge.setText(UserProfileFragment.getAge(this.user.getDate("birthDate")));
+        this.nearbyUserHeight.setText(String.valueOf(this.user.getInt("height")) + " cm");
+        this.nearbyUserWeight.setText(String.valueOf(this.user.getInt("weight")) + " lbs");
+        this.nearbyUserAge.setText(Integer.toString(UserProfileFragment.getAge(this.user.getDate("birthDate"))) + " years");
 
         ParseFile imageFile = this.user.getParseFile("profilePic");
         imageFile.getDataInBackground(new GetDataCallback() {

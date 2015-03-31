@@ -137,7 +137,14 @@ public class UserProfileFragment extends RootFragment
 
     public static int getAge(Date dateOfBirth) {
         Calendar dob = Calendar.getInstance();
-        dob.setTime(dateOfBirth);
+        if(dateOfBirth == null)
+        {
+            //do nothing
+        }
+        else
+        {
+            dob.setTime(dateOfBirth);
+        }
         Calendar today = Calendar.getInstance();
         int age = today.get(Calendar.YEAR) - dob.get(Calendar.YEAR);
         if (today.get(Calendar.MONTH) < dob.get(Calendar.MONTH)) {
