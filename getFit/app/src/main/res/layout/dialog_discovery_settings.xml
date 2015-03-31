@@ -8,35 +8,38 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="sans-serif_light"
-        android:layout_marginTop="70dp"
+        android:layout_marginTop="40dp"
         android:gravity="center"
         android:padding="10dp"
         android:textColor="#808080"
         android:layout_gravity="center"
         android:text="Filter Your Preferences"
-        android:textSize = "20dp"
+        android:textSize = "30dp"
         android:textStyle="bold"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true" />
 
     <View
+        android:id="@+id/view1"
         android:layout_width="fill_parent"
         android:layout_height="1dip"
         android:layout_marginLeft="25dip"
         android:layout_marginRight="25dip"
         android:background="#15000000"
-        android:layout_above="@+id/distance"/>
+        android:layout_below="@+id/private_info"
+        android:layout_above="@+id/distanceRangeBar"/>
 
-    <SeekBar
-        android:id="@+id/distanceSeekBar"
+    <com.appyvet.rangebar.RangeBar
+        xmlns:custom="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/distanceRangeBar"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:progress="20"
+        android:layout_height="100dp"
         android:layout_marginLeft="25dp"
         android:layout_marginRight ="25dp"
-        android:secondaryProgress="20"
-        android:layout_marginTop="146dp"
-        android:max = "100"
+        android:layout_marginTop="5dp"
+        custom:tickStart="0"
+        custom:tickInterval="1"
+        custom:tickEnd="100"
         android:layout_below="@+id/private_info"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true" />
@@ -47,7 +50,7 @@
         android:layout_marginLeft="25dp"
         android:layout_gravity = "center"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/distanceSeekBar"
+        android:layout_below="@+id/distanceRangeBar"
         android:text="1 Mile" >
     </TextView>
 
@@ -57,12 +60,127 @@
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_marginRight="25dp"
-        android:layout_below="@+id/distanceSeekBar"
+        android:layout_below="@+id/distanceRangeBar"
         android:text="100 Miles" />
 
+    <com.appyvet.rangebar.RangeBar
+        xmlns:custom="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/ageRangeBar"
+        android:layout_width="fill_parent"
+        android:layout_height="100dp"
+        android:layout_marginLeft="25dp"
+        android:layout_marginRight ="25dp"
+        android:secondaryProgress="20"
+        android:layout_marginTop="25dp"
+        custom:tickStart="16"
+        custom:tickInterval="1"
+        custom:tickEnd="75"
+        android:layout_below="@+id/finalMiles"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
 
+    <TextView
+        android:id="@+id/initialAge"
+        android:layout_width="wrap_content"
+        android:layout_marginLeft="25dp"
+        android:layout_gravity = "center"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/ageRangeBar"
+        android:text="16" >
+    </TextView>
 
+    <TextView
+        android:id="@+id/finalAge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="25dp"
+        android:layout_below="@+id/ageRangeBar"
+        android:text="75" />
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/finalAge"
+        android:orientation="vertical"
+        android:id="@+id/linearlayout1"
+        >
 
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Show Me"
+            android:id="@+id/textViewOne"
+            android:layout_marginLeft="25dp"
+            android:layout_marginTop="50dp"
+            android:textSize="25dp"
+            android:fontFamily="sans-serif_light"
+            android:textColor="#808080"/>
+
+        <CheckedTextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="Male"
+            android:layout_below="@+id/textViewOne"
+            android:layout_marginLeft="25dp"
+            android:layout_marginTop="25dp"
+            android:layout_marginRight="25dp"
+            android:checkMark="?android:attr/listChoiceIndicatorMultiple"
+            android:checked="false"
+            android:textSize="20dp"
+            android:id="@+id/checkedTextMale"
+            android:textColor="#808080"/>
+
+        <CheckedTextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="Female"
+            android:layout_below="@+id/checkedTextMale"
+            android:layout_marginLeft="25dp"
+            android:layout_marginTop="25dp"
+            android:layout_marginRight="25dp"
+            android:checkMark="?android:attr/listChoiceIndicatorMultiple"
+            android:checked="false"
+            android:textSize="20dp"
+            android:id="@+id/checkedTextFemale"
+            android:textColor="#808080"/>
+
+    </LinearLayout>
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/linearlayout1"
+        android:layout_marginTop="25dp">
+        <Button
+            android:id="@+id/cancelButton_dialog_discovery"
+            android:background="#E6A457"
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:textSize="20sp"
+            android:padding="10dp"
+            android:layout_marginTop="25dip"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="25dip"
+            android:layout_marginBottom="25dip"
+            android:text="Cancel"
+            android:textColor="#eaeff3"/>
+
+        <Button
+            android:id="@+id/submitButton_dialog_discovery"
+            android:background="#FA6A66"
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:text="Submit"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="25dip"
+            android:layout_marginBottom="25dip"
+            android:padding="10dp"
+            android:textSize="20sp"
+            android:layout_marginRight="25dip"
+            android:textColor="#eaeff3"
+            >
+        </Button>
+    </RelativeLayout>
 
 </RelativeLayout>

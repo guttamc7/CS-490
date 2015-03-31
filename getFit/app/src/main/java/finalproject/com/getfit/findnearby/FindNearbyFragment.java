@@ -5,6 +5,7 @@ package finalproject.com.getfit.findnearby;
  */
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.app.DialogFragment;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -68,7 +69,8 @@ public class FindNearbyFragment extends RootFragment {
         discoverySettings.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                DialogFragment dialogFrag = new DiscoveryPreferencesDialog();
+                dialogFrag.show(getActivity().getFragmentManager().beginTransaction(), "dialog");
 
             }
          });
