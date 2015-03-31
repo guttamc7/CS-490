@@ -17,7 +17,7 @@ import com.parse.ParseFile;
 import com.parse.ParseUser;
 
 import finalproject.com.getfit.R;
-import finalproject.com.getfit.userprofile.ProfileFragment;
+import finalproject.com.getfit.userprofile.UserProfileFragment;
 import finalproject.com.getfit.viewpager.RootFragment;
 
 /**
@@ -83,7 +83,7 @@ public class FindNearbyUserProfileFragment extends RootFragment {
         this.nearbyUserName.setText(this.user.getString("name"));
         this.nearbyUserHeight.setText(this.user.getInt("height"));
         this.nearbyUserWeight.setText(this.user.getInt("weight"));
-        this.nearbyUserAge.setText(ProfileFragment.getAge(this.user.getDate("birthDate")));
+        this.nearbyUserAge.setText(UserProfileFragment.getAge(this.user.getDate("birthDate")));
 
         ParseFile imageFile = this.user.getParseFile("profilePic");
         imageFile.getDataInBackground(new GetDataCallback() {

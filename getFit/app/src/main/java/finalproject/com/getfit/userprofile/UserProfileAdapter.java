@@ -21,13 +21,13 @@ import finalproject.com.getfit.R;
 /**
  * Created by rishabhmittal on 3/30/15.
  */
-public class ProfileAdapter extends BaseSwipeAdapter
+public class UserProfileAdapter extends BaseSwipeAdapter
 {
     private LayoutInflater inflater;
     private List<UserProfileWorkout> likedWorkoutsProfile;
     private Context context;
 
-    public ProfileAdapter(Context context, List<UserProfileWorkout> workoutItems)
+    public UserProfileAdapter(Context context, List<UserProfileWorkout> workoutItems)
     {
         inflater = LayoutInflater.from(context);
         this.context = context;

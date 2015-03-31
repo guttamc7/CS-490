@@ -8,12 +8,16 @@ import android.app.DialogFragment;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import java.util.Calendar;
 import java.util.Date;
+
+import android.widget.AdapterView;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
 import com.getbase.floatingactionbutton.FloatingActionButton;
 import com.parse.GetDataCallback;
@@ -25,7 +29,7 @@ import finalproject.com.getfit.EditProfileDialog;
 import finalproject.com.getfit.R;
 import finalproject.com.getfit.viewpager.RootFragment;
 
-public class ProfileFragment extends RootFragment
+public class UserProfileFragment extends RootFragment
 {
 
     FloatingActionButton editProfileButton;
@@ -34,6 +38,9 @@ public class ProfileFragment extends RootFragment
     TextView userAge;
     TextView userWeight;
     TextView userHeight;
+    private ListView listView;
+
+
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
 
@@ -43,6 +50,7 @@ public class ProfileFragment extends RootFragment
         userAge = (TextView) rootView.findViewById(R.id.age_profile);
         userWeight = (TextView) rootView.findViewById(R.id.weight_profile);
         userHeight = (TextView) rootView.findViewById(R.id.height_profile);
+        listView = (ListView) rootView.findViewById(R.id.user_likes);
         ParseUser currentUser = ParseUser.getCurrentUser();
         ParseFile imageFile = currentUser.getParseFile("profilePic");
         imageFile.getDataInBackground(new GetDataCallback() {
@@ -107,6 +115,25 @@ public class ProfileFragment extends RootFragment
         });
         return rootView;
     }
+
+    //TODO: I dont know if we need this.
+    
+    /*public void onActivityCreated(Bundle savedInstanceState)
+    {
+        super.onActivityCreated(savedInstanceState);
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener()
+        {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view,
+                                    int position, long id) {
+                UserProfileWorkout data = (UserProfileWorkout)listView.getItemAtPosition(position);
+                FragmentTransaction ft = getChildFragmentManager().beginTransaction();
+                ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+                ft.addToBackStack(null);
+                ft.commit();
+            }
+        });
+    }*/
 
     public static int getAge(Date dateOfBirth) {
         Calendar dob = Calendar.getInstance();
