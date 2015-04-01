@@ -6,6 +6,7 @@ package finalproject.com.getfit.baseworkout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -31,6 +32,7 @@ public class BaseWorkoutAdapter extends BaseSwipeAdapter {
     private LayoutInflater inflater;
     private List<ParseObject> workoutItems;
     private Context context;
+    private SwipeLayout swipeLayout;
     public BaseWorkoutAdapter(Context context, List<ParseObject> workoutItems) {
         inflater = LayoutInflater.from(context);
         this.context = context;
@@ -45,7 +47,8 @@ public class BaseWorkoutAdapter extends BaseSwipeAdapter {
     @Override
     public View generateView(final int position, ViewGroup parent) {
         View v = LayoutInflater.from(context).inflate(R.layout.baseworkout_row, null);
-        SwipeLayout swipeLayout = (SwipeLayout)v.findViewById(getSwipeLayoutResourceId(position));
+
+        swipeLayout = (SwipeLayout)v.findViewById(getSwipeLayoutResourceId(position));
 
         swipeLayout.addSwipeListener(new SimpleSwipeListener() {
             @Override
@@ -64,15 +67,16 @@ public class BaseWorkoutAdapter extends BaseSwipeAdapter {
         swipeLayout.findViewById(R.id.like_imview).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(context, "Like", Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "Liked", Toast.LENGTH_SHORT).show();
                 likeWorkout(workoutItems.get(position));
+                
             }
         });
 
         swipeLayout.findViewById(R.id.schedule_imview).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(context, "Add to Schedule", Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "Added to Schedule", Toast.LENGTH_SHORT).show();
             }
         });
         return v;
@@ -84,7 +88,7 @@ public class BaseWorkoutAdapter extends BaseSwipeAdapter {
                 .findViewById(R.id.thumbnail);
         TextView title = (TextView) convertView.findViewById(R.id.title);
         TextView description = (TextView)convertView.findViewById(R.id.description);
-
+        Button likes  = (Button) convertView.findViewById(R.id.baseworkout_likes);
         ParseObject workout = workoutItems.get(position);
 
         // thumbnail image
@@ -105,6 +109,7 @@ public class BaseWorkoutAdapter extends BaseSwipeAdapter {
         // title
         title.setText(workout.getString("name"));
         description.setText(workout.getString("description"));
+        likes.setText(Integer.toString(workout.getInt("likes")));
     }
 
     @Override
