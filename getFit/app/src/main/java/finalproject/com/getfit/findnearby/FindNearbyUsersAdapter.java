@@ -91,10 +91,7 @@ public class FindNearbyUsersAdapter extends BaseAdapter {
         }
 
         int distance = (int)ParseUser.getCurrentUser().getParseGeoPoint("location").distanceInMilesTo(listData.get(position).getParseGeoPoint("location"))+1;
-
-        holder.userDistance.setText("Within "+distance+" miles ,");
-        //holder.userDistance.setText(listData.get(position).getNearbyUserDistance());
-        //holder.userActive.setText(listData.get(position).getNearbyUserActive());
+        holder.userDistance.setText("Within "+distance+" miles, ");
         imageLoader.DisplayImage(listData.get(position).getParseFile("profilePic").getUrl(),holder.userProfile);
         return convertView;
 

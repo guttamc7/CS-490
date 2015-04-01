@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/primary_white">
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/header_create_workout"
+        android:background="@color/primary_blue">
+
+        <TextView
+            android:id="@+id/workout_exercises"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif_light"
+            android:gravity="center"
+            android:padding="15dp"
+            android:textColor="@color/primary_white"
+            android:layout_gravity="center"
+            android:text="WORKOUT EXERCISES"
+            android:textSize = "20dp"
+            android:textStyle="bold"
+            android:layout_centerHorizontal="true" />
+    </RelativeLayout>
+
+        <ListView
+            android:id="@+id/create_workout_exercises"
+            android:layout_below="@id/header_create_workout"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent">
+        </ListView>
+
+    <Button
+        android:id="@+id/nextButton"
+        android:background="@color/primary_green"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Done"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="25dp"
+        android:layout_marginTop="25dip"
+        android:padding="10dp"
+        android:drawablePadding="10dp"
+        android:textSize="20sp"
+        android:layout_marginRight="25dip"
+        android:textColor="#eaeff3"
+        >
+    </Button>
+
+    <com.getbase.floatingactionbutton.FloatingActionButton
+        android:id="@+id/add_exercise_fab"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_alignParentRight="true"
+        app:fab_colorNormal="@color/button_red"
+        app:fab_colorPressed="@color/button_yellow"
+         />
+</RelativeLayout>

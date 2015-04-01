@@ -4,12 +4,34 @@
     android:layout_height="match_parent"
     android:background="@color/primary_white">
 
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/header_create_workout"
+        android:background="@color/primary_blue">
+
+    <TextView
+        android:id="@+id/workout_info"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="sans-serif_light"
+        android:gravity="center"
+        android:padding="15dp"
+        android:textColor="@color/primary_white"
+        android:layout_gravity="center"
+        android:text="WORKOUT INFORMATION"
+        android:textSize = "20dp"
+        android:textStyle="bold"
+        android:layout_centerHorizontal="true" />
+    </RelativeLayout>
+
     <TextView
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:text="Workout Name: "
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="10dp"
         android:layout_marginLeft="25dp"
+        android:layout_below="@id/header_create_workout"
         android:id="@+id/workoutname"
         android:textSize="20sp"
         android:padding="10dp"
@@ -111,10 +133,26 @@
             android:layout_alignParentTop="true"
             android:layout_toRightOf="@+id/level2Button"
             android:layout_toEndOf="@+id/level2Button" />
-
     </RelativeLayout>
 
-
+    <Button
+        android:id="@+id/nextButton"
+        android:background="@color/primary_green"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Next"
+        android:drawableRight="@drawable/ic_action_next"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="25dp"
+        android:layout_marginTop="25dip"
+        android:padding="10dp"
+        android:drawablePadding="10dp"
+        android:textSize="20sp"
+        android:layout_marginRight="25dip"
+        android:textColor="#eaeff3"
+        >
+    </Button>
 
 
 

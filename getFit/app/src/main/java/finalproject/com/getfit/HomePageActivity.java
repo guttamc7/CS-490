@@ -20,6 +20,7 @@ import android.widget.ListView;
 import com.parse.ParseUser;
 
 import finalproject.com.getfit.baseworkout.BaseWorkoutFragment;
+import finalproject.com.getfit.customworkout.CustomWorkoutFragment;
 
 public class HomePageActivity extends FragmentActivity {
 
@@ -167,7 +168,7 @@ public class HomePageActivity extends FragmentActivity {
             case 3: //TODO
                 getSupportFragmentManager()
                         .beginTransaction()
-                        .replace(R.id.content_frame, BaseWorkoutFragment.newInstance(), BaseWorkoutFragment.TAG).commit();
+                        .replace(R.id.content_frame, CustomWorkoutFragment.newInstance()).commit();
                 break;
             case 6: //SignOut
                 AlertDialog.Builder builder = new AlertDialog.Builder(this);
