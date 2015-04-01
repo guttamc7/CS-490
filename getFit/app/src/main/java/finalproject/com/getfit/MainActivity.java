@@ -20,7 +20,6 @@ public class MainActivity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
         //Connect to Parse Datastore
         Parse.enableLocalDatastore(this);
         Parse.initialize(this, getResources().getString(R.string.parse_app_id), getResources().getString(R.string.parse_client_key));
@@ -44,7 +43,7 @@ public class MainActivity extends Activity {
                 // This method will be executed once the timer is over
                 // Start your app main activity
                 ParseLoginBuilder builder = new ParseLoginBuilder(MainActivity.this);
-                startActivityForResult(builder.build(), 0);
+                startActivityForResult(builder.build(),0);
             }
 
         }, SPLASH_TIME_OUT);
@@ -66,9 +65,15 @@ public class MainActivity extends Activity {
                         startActivity(i);
                     }
             }
+            else
+                if(resultCode == RESULT_CANCELED) {
+                    // close the activity and the app
+                    finish();
+                    System.exit(0);
+                }
         }
         // close this activity
-        finish();
+        //finish();
     }
 
     //Increment the user login count and return the latest value

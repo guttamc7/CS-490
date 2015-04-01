@@ -15,6 +15,7 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.parse.FindCallback;
+import com.parse.Parse;
 import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
@@ -72,7 +73,7 @@ public class TrendingWorkoutFragment extends RootFragment
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id)
             {
-                TrendingWorkout data = (TrendingWorkout)listViewTrendingWorkout.getItemAtPosition(position);
+                ParseObject trendingWorkout = (ParseObject)listViewTrendingWorkout.getItemAtPosition(position);
                 FragmentTransaction ft = getChildFragmentManager().beginTransaction();
                 ft.replace(R.id.frag_trending, new TrendingWorkoutDetailsFragment());
                 ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
@@ -106,7 +107,7 @@ public class TrendingWorkoutFragment extends RootFragment
     private void retrieveTrendingWorkout () {
         ParseUser user = ParseUser.getCurrentUser();
         ParseQuery<ParseObject> query = ParseQuery.getQuery("Workout");
-        query.orderByAscending("level");
+        query.orderByAscending("likes");
         query.findInBackground(new FindCallback<ParseObject>() {
 
             public void done(List<ParseObject> workoutList, ParseException e) {
