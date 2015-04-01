@@ -136,7 +136,7 @@
     </RelativeLayout>
 
     <Button
-        android:id="@+id/nextButton"
+        android:id="@+id/createworkout_nextButton"
         android:background="@color/primary_green"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
