@@ -9,6 +9,7 @@ import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,6 +27,8 @@ import com.parse.ParseFile;
 import com.parse.ParseUser;
 
 import java.io.ByteArrayOutputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -149,7 +152,7 @@ public class EditProfileDialog extends DialogFragment
                     weightText = Integer.parseInt(weight.getText().toString().substring(0,weight.getText().toString().length()-4));
 
                 if (!height.getText().toString().equals("") && height.getText().toString().length() > 0)
-                    heightText = Integer.parseInt(height.getText().toString().substring(0,height.getText().toString().length()-3));
+                    heightText = Integer.parseInt(height.getText().toString().substring(0, height.getText().toString().length() - 3));
 
                 if (!birthDate.getText().toString().equals("") && birthDate.getText().toString().length() > 0)
                     birthDateText = weight.getText().toString();
@@ -183,16 +186,16 @@ public class EditProfileDialog extends DialogFragment
 
         return rootView;
     }
-     //TODO Edit Profile Dialog Tasks : 1. Get Image from Gallery, 2. Create Circular Bitmap, 3. Submit and Cancel Button Transactions
+     //TODO Edit Profile Dialog Tasks : 1. Get Image from Gallery, 2. Create Circular Bitmap
 
-  /*  public void onActivityResult(int reqCode, int resCode, Intent data) {
-        if (resCode == RESULT_OK) {
+  public void onActivityResult(int reqCode, int resCode, Intent data) {
+        if (resCode == getActivity().RESULT_OK) {
             if (reqCode == 1) {
                 imageUri = data.getData();
                 try {
-                    resizedBitmap = getResizedBitmap(MediaStore.Images.Media.getBitmap(this.getContentResolver(), imageUri),400,400);
+                    resizedBitmap = getResizedBitmap(MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), imageUri),400,400);
                     profilePictureImgView.setImageBitmap(resizedBitmap);
-                    profilePicText.setText("");
+                    //profilePicText.setText("");
                     this.imageChanged = true;
                 } catch (FileNotFoundException e) {
                     e.printStackTrace();
@@ -202,7 +205,7 @@ public class EditProfileDialog extends DialogFragment
             }
         }
     }
-    */
+
     @Override
     public void onStart() {
         super.onStart();
