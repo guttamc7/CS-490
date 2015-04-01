@@ -12,17 +12,24 @@ import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import com.getbase.floatingactionbutton.FloatingActionButton;
+import com.parse.FindCallback;
 import com.parse.GetDataCallback;
 import com.parse.ParseException;
 import com.parse.ParseFile;
+import com.parse.ParseObject;
+import com.parse.ParseQuery;
+import com.parse.ParseRelation;
 import com.parse.ParseUser;
 
 import finalproject.com.getfit.EditProfileDialog;
@@ -38,6 +45,7 @@ public class UserProfileFragment extends RootFragment
     TextView userAge;
     TextView userWeight;
     TextView userHeight;
+    private List<ParseObject> likedWorkoutList = new ArrayList<>();
     private ListView listView;
 
 
@@ -154,6 +162,29 @@ public class UserProfileFragment extends RootFragment
             age--;
         }
         return age;
+    }
+
+    private void retrieveLikedWorkout () {
+        ParseUser user = ParseUser.getCurrentUser();
+        ParseRelation<ParseObject> relation = user.getRelation("likedWorkout");
+        ParseQuery<ParseObject> query = relation.getQuery();
+
+        query.findInBackground(new FindCallback<ParseObject>() {
+
+            public void done(List<ParseObject> workoutList, ParseException e) {
+                if (e == null) {
+                    for (int i = 0; i < workoutList.size(); i++) {
+                        likedWorkoutList.add(workoutList.get(i));
+                    }
+                    //All the base workouts retrieved
+                } else {
+                    System.out.println(e.getMessage());
+                    //Exception
+                }
+            }
+        });
+
+
     }
 
 }

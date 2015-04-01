@@ -116,6 +116,7 @@ public class BaseWorkoutFragment extends RootFragment {
         @Override
         protected Void doInBackground(Void... arg0) {
             ParseQuery<ParseObject> query = ParseQuery.getQuery("Workout");
+            query.orderByAscending("level");
             query.whereEqualTo("userId", ParseUser.createWithoutData("_User",getResources().getString(R.string.baseUserId)));
             query.findInBackground(new FindCallback<ParseObject>() {
 

@@ -18,6 +18,7 @@ import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
+import com.parse.ParseRelation;
 import com.parse.ParseUser;
 
 import java.util.ArrayList;
@@ -29,7 +30,7 @@ import finalproject.com.getfit.viewpager.RootFragment;
 public class TrendingWorkoutFragment extends RootFragment
 {
     public final static String TAG = TrendingWorkoutFragment.class.getSimpleName();
-    private List<TrendingWorkout> trendingWorkoutList = new ArrayList<>();
+    private List<ParseObject> trendingWorkoutList = new ArrayList<>();
     private ListView listViewTrendingWorkout;
     View v;
     private TrendingWorkoutAdapter adapter;
@@ -101,4 +102,26 @@ public class TrendingWorkoutFragment extends RootFragment
 
         }
     }*/
+
+    private void retrieveTrendingWorkout () {
+        ParseUser user = ParseUser.getCurrentUser();
+        ParseQuery<ParseObject> query = ParseQuery.getQuery("Workout");
+        query.orderByAscending("level");
+        query.findInBackground(new FindCallback<ParseObject>() {
+
+            public void done(List<ParseObject> workoutList, ParseException e) {
+                if (e == null) {
+                    for (int i = 0; i < workoutList.size(); i++) {
+                        trendingWorkoutList.add(workoutList.get(i));
+                    }
+                    //All the base workouts retrieved
+                } else {
+                    System.out.println(e.getMessage());
+                    //Exception
+                }
+            }
+        });
+
+
+    }
 }

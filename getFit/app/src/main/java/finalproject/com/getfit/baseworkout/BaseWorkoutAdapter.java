@@ -132,31 +132,6 @@ public class BaseWorkoutAdapter extends BaseSwipeAdapter {
         user.saveInBackground();
     }
 
-   private void retrieveLikedWorkout () {
-        ParseUser user = ParseUser.getCurrentUser();
-        ParseRelation<ParseObject> relation = user.getRelation("likedWorkout");
-        ParseQuery<ParseObject> query = relation.getQuery();
-        query.findInBackground(new FindCallback<ParseObject>() {
 
-            public void done(List<ParseObject> workoutList, ParseException e) {
-                if (e == null) {
-                    for (int i = 0; i < workoutList.size(); i++) {
-                        ParseObject obj = workoutList.get(i);
-                        System.out.println(obj.getObjectId());
-                        System.out.println(obj.getString("name"));
-
-                    }
-
-
-                    //All the base workouts retrieved
-                } else {
-                    System.out.println(e.getMessage());
-                    //Exception
-                }
-            }
-        });
-
-
-    }
 
     }
