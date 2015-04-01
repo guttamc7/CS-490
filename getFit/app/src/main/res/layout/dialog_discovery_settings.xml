@@ -38,6 +38,7 @@
         android:layout_marginRight ="25dp"
         android:layout_marginTop="5dp"
         custom:tickStart="0"
+        custom:rangeBar="false"
         custom:tickInterval="1"
         custom:tickEnd="100"
         android:layout_below="@+id/private_info"
@@ -86,7 +87,7 @@
         android:layout_gravity = "center"
         android:layout_height="wrap_content"
         android:layout_below="@+id/ageRangeBar"
-        android:text="16" >
+        android:text="16 years" >
     </TextView>
 
     <TextView
@@ -96,7 +97,7 @@
         android:layout_alignParentRight="true"
         android:layout_marginRight="25dp"
         android:layout_below="@+id/ageRangeBar"
-        android:text="75" />
+        android:text="75 years" />
 
     <LinearLayout
         android:layout_width="match_parent"

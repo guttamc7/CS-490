@@ -5,6 +5,7 @@
     android:layout_height="match_parent"
     android:background="#eaeff3"
     android:scaleType="fitStart"
+    android:id="@+id/userProfileFragment"
     >
 
     <RelativeLayout

@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckedTextView;
+import android.widget.TextView;
 
 import com.appyvet.rangebar.RangeBar;
 
@@ -24,12 +25,20 @@ public class DiscoveryPreferencesDialog extends DialogFragment
     private RangeBar rangeBarAge;
     private CheckedTextView checkedTextViewMale;
     private CheckedTextView checkedTextViewFemale;
-    private String male;
-    private String female;
+    private boolean maleChecked;
+    private boolean femaleChecked;
+    private int initialDistance;
     private int initialAge;
     private int finalAge;
-    private int initialDistance;
     private int finalDistance;
+    public static int returnFinaldistance;
+    public static int returnInitialAge;
+    public static  int returnFinalAge;
+    public static String genderMale;
+    public static String genderFemale;
+    private TextView ageMinimum;
+    private TextView ageMaximun;
+    private TextView distanceMaximum;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
@@ -41,7 +50,11 @@ public class DiscoveryPreferencesDialog extends DialogFragment
         rangeBarAge = (RangeBar) rootView.findViewById(R.id.ageRangeBar);
         checkedTextViewMale = (CheckedTextView) rootView.findViewById(R.id.checkedTextMale);
         checkedTextViewFemale = (CheckedTextView) rootView.findViewById(R.id.checkedTextFemale);
-        
+        distanceMaximum = (TextView) rootView.findViewById(R.id.finalMiles);
+        ageMaximun = (TextView) rootView.findViewById(R.id.finalAge);
+        ageMinimum = (TextView) rootView.findViewById(R.id.initialAge);
+        initialDistance=0;
+
         checkedTextViewMale.setOnClickListener(new View.OnClickListener()
         {
             @Override
@@ -53,6 +66,7 @@ public class DiscoveryPreferencesDialog extends DialogFragment
                 }
                 else
                 {
+                    maleChecked = true;
                     checkedTextViewMale.setChecked(true);
                 }
             }
@@ -69,6 +83,7 @@ public class DiscoveryPreferencesDialog extends DialogFragment
                 }
                 else
                 {
+                    femaleChecked = true;
                     checkedTextViewFemale.setChecked(true);
                 }
             }
@@ -79,6 +94,8 @@ public class DiscoveryPreferencesDialog extends DialogFragment
             @Override
             public void onRangeChangeListener(RangeBar rangeBar, int leftPinIndex, int rightPinIndex, String leftPinValue, String rightPinValue)
             {
+                finalDistance = rightPinIndex;
+                distanceMaximum.setText(rightPinValue+ " miles");
 
             }
         });
@@ -88,6 +105,10 @@ public class DiscoveryPreferencesDialog extends DialogFragment
             @Override
             public void onRangeChangeListener(RangeBar rangeBar, int leftPinIndex, int rightPinIndex, String leftPinValue, String rightPinValue)
             {
+                ageMinimum.setText(leftPinValue+" years");
+                ageMaximun.setText(rightPinValue+" years");
+                initialAge = leftPinIndex;
+                finalAge= rightPinIndex;
 
             }
         });
@@ -97,7 +118,14 @@ public class DiscoveryPreferencesDialog extends DialogFragment
             @Override
             public void onClick (View view)
             {
-
+                returnFinaldistance = finalDistance;
+                returnInitialAge = initialAge;
+                returnFinalAge = finalAge;
+                if(maleChecked)
+                    genderMale="male";
+                if(femaleChecked)
+                    genderFemale="female";
+                getDialog().dismiss();
             }
         });
 
@@ -106,7 +134,7 @@ public class DiscoveryPreferencesDialog extends DialogFragment
             @Override
             public void onClick(View view)
             {
-
+                getDialog().dismiss();
             }
         });
 

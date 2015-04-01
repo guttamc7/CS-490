@@ -1,22 +1,14 @@
 package finalproject.com.getfit;
 
-import android.app.AlertDialog;
 import android.app.DatePickerDialog;
-import android.app.Dialog;
 import android.app.DialogFragment;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.Color;
-import android.graphics.ColorFilter;
-import android.graphics.LightingColorFilter;
+
 import android.graphics.Matrix;
-import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
-import android.provider.MediaStore;
-import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,7 +19,6 @@ import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
-import java.text.DateFormat;
 
 import com.parse.GetDataCallback;
 import com.parse.ParseException;
@@ -35,13 +26,11 @@ import com.parse.ParseFile;
 import com.parse.ParseUser;
 
 import java.io.ByteArrayOutputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
-import finalproject.com.getfit.R;
+import finalproject.com.getfit.userprofile.UserProfileFragment;
+
 
 /**
  * Created by rishabhmittal on 3/2/15.
@@ -157,10 +146,10 @@ public class EditProfileDialog extends DialogFragment
             @Override
             public void onClick (View view){
                 if (!weight.getText().toString().equals("") && weight.getText().toString().length() > 0)
-                    weightText = Integer.parseInt(weight.getText().toString());
+                    weightText = Integer.parseInt(weight.getText().toString().substring(0,weight.getText().toString().length()-4));
 
                 if (!height.getText().toString().equals("") && height.getText().toString().length() > 0)
-                    heightText = Integer.parseInt(height.getText().toString());
+                    heightText = Integer.parseInt(height.getText().toString().substring(0,height.getText().toString().length()-3));
 
                 if (!birthDate.getText().toString().equals("") && birthDate.getText().toString().length() > 0)
                     birthDateText = weight.getText().toString();
@@ -170,13 +159,16 @@ public class EditProfileDialog extends DialogFragment
                     genderText = selectRadio.getText().toString();
                 EditUserDetails(genderText, weightText, heightText, birthD);
 
+                getDialog().dismiss();
+
+
             }
         });
 
         cancelButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                getDialog().dismiss();
             }
         });
         profilePictureImgView.setOnClickListener(new View.OnClickListener() {
