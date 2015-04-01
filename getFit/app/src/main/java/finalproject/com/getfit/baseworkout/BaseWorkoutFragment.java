@@ -15,6 +15,7 @@ import android.widget.ListView;
 import android.widget.AdapterView.OnItemClickListener;
 
 import com.parse.FindCallback;
+import com.parse.Parse;
 import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
@@ -29,7 +30,7 @@ import finalproject.com.getfit.viewpager.RootFragment;
 public class BaseWorkoutFragment extends RootFragment {
 
     public final static String TAG = BaseWorkoutFragment.class.getSimpleName();
-    private List<BaseWorkout> baseWorkoutList = new ArrayList<>();
+    private List<ParseObject> baseWorkoutList = new ArrayList<>();
     private ListView listView;
     View v;
     public static String webLink;
@@ -70,9 +71,8 @@ public class BaseWorkoutFragment extends RootFragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view,
                                     int position, long id) {
-                System.out.println("In Item Click");
-                BaseWorkout data = (BaseWorkout)listView.getItemAtPosition(position);
-                webLink = data.getWorkoutUrl();
+                ParseObject workout = (ParseObject)listView.getItemAtPosition(position);
+                webLink = workout.getString("workoutUrl");
                 System.out.println(webLink);
                 FragmentTransaction ft = getChildFragmentManager().beginTransaction();
                 ft.replace(R.id.frag_base, new BaseWorkoutDetailsFragment());
@@ -121,21 +121,10 @@ public class BaseWorkoutFragment extends RootFragment {
 
                 public void done(List<ParseObject> workoutList, ParseException e) {
                     if (e == null) {
-                        System.out.println("Getting base workouts");
-                        BaseWorkout baseWorkoutData;
                         for (int i = 0; i < workoutList.size(); i++) {
-                            baseWorkoutData = new BaseWorkout();
-                            ParseObject obj = workoutList.get(i);
-                            int level = obj.getInt("level");
-                            baseWorkoutData.setBaseWorkoutId(obj.getObjectId());
-                            baseWorkoutData.setBaseWorkoutLevel(Integer.toString(level));
-                            baseWorkoutData.setBaseWorkoutDescription(obj.getString("description"));
-                            baseWorkoutData.setBaseWorkoutName(obj.getString("name"));
-                            baseWorkoutData.setBaseWorkoutUrl(obj.getString("workoutUrl"));
-                            baseWorkoutList.add(baseWorkoutData);
+                            baseWorkoutList.add(workoutList.get(i));
                             adapter.notifyDataSetChanged();
                         }
-
 
                         //All the base workouts retrieved
                     } else {

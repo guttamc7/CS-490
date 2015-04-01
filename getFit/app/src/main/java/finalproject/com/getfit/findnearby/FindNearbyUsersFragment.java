@@ -3,7 +3,6 @@ package finalproject.com.getfit.findnearby;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,7 +11,6 @@ import android.widget.GridView;
 
 import com.parse.FindCallback;
 import com.parse.ParseException;
-import com.parse.ParseFile;
 import com.parse.ParseGeoPoint;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
@@ -25,7 +23,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import finalproject.com.getfit.R;
-import finalproject.com.getfit.baseworkout.BaseWorkout;
 import finalproject.com.getfit.viewpager.RootFragment;
 
 /**
@@ -79,7 +76,6 @@ public class FindNearbyUsersFragment extends RootFragment {
             query.findInBackground(new FindCallback<ParseUser>() {
                 public void done(List<ParseUser> userList, ParseException e) {
                     if (e == null) {
-                        System.out.println("HERE");
                         for (int i = 0; i < userList.size(); i++) {
                             findNearbyUsersList.add(userList.get(i));
                             nearbyUsersAdapter.notifyDataSetChanged();
