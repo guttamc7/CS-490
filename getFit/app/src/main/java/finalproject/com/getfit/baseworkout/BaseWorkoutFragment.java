@@ -83,27 +83,6 @@ public class BaseWorkoutFragment extends RootFragment {
         });
     }
 
-    public void onListItemClick(ListView l, View v, int position, long id) {
-
-
-    }
-
-    /*private void getExercisesForWorkout(String workoutId) {
-
-        //TODO
-        ParseQuery<ParseObject> query = ParseQuery.getQuery("WorkoutExercises");
-        query.whereEqualTo("workOutId", workoutId);
-        query.findInBackground(new FindCallback<ParseObject>() {
-            public void done(List<ParseObject> exerciseList, ParseException e) {
-                if (e == null) {
-                    //All the exercises for the specified workout retrieved
-                } else {
-                    //Exception
-                }
-            }
-        });
-    }*/
-
     public void onResume() {
         super.onResume();
 
