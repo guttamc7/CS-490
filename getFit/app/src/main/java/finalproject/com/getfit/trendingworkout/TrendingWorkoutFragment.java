@@ -106,7 +106,7 @@ public class TrendingWorkoutFragment extends RootFragment
     private void retrieveTrendingWorkout () {
         ParseUser user = ParseUser.getCurrentUser();
         ParseQuery<ParseObject> query = ParseQuery.getQuery("Workout");
-        query.orderByAscending("level");
+        query.orderByAscending("likes");
         query.findInBackground(new FindCallback<ParseObject>() {
 
             public void done(List<ParseObject> workoutList, ParseException e) {
@@ -124,4 +124,7 @@ public class TrendingWorkoutFragment extends RootFragment
 
 
     }
+
+
+
 }
