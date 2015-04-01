@@ -24,6 +24,12 @@ public class DiscoveryPreferencesDialog extends DialogFragment
     private RangeBar rangeBarAge;
     private CheckedTextView checkedTextViewMale;
     private CheckedTextView checkedTextViewFemale;
+    private String male;
+    private String female;
+    private int initialAge;
+    private int finalAge;
+    private int initialDistance;
+    private int finalDistance;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
@@ -35,7 +41,7 @@ public class DiscoveryPreferencesDialog extends DialogFragment
         rangeBarAge = (RangeBar) rootView.findViewById(R.id.ageRangeBar);
         checkedTextViewMale = (CheckedTextView) rootView.findViewById(R.id.checkedTextMale);
         checkedTextViewFemale = (CheckedTextView) rootView.findViewById(R.id.checkedTextFemale);
-
+        
         checkedTextViewMale.setOnClickListener(new View.OnClickListener()
         {
             @Override
