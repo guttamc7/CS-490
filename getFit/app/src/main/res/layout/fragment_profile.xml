@@ -115,10 +115,38 @@
         android:layout_alignParentRight="true"
         android:layout_alignBottom="@id/header_profile" />
 
+
+
+    <TextView
+        android:id="@+id/user_likes_text"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="sans-serif_light"
+        android:gravity="center"
+        android:padding="15dp"
+        android:textColor="@color/like_color"
+        android:layout_gravity="center"
+        android:text="Liked Workouts"
+        android:textSize = "20dp"
+        android:textStyle="bold"
+
+        android:layout_below="@id/header_profile"
+        android:layout_centerHorizontal="true" />
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="1dp"
+        android:layout_marginLeft="25dip"
+        android:layout_marginRight="25dip"
+        android:id="@+id/user_view"
+        android:layout_below="@id/user_likes_text"
+        android:background="@color/like_color"
+        />
+
     <ListView
         android:id="@+id/user_likes"
-        android:layout_below="@id/header_profile"
+        android:layout_below="@id/user_view"
         android:layout_height="wrap_content"
+        android:background="#D6D6D4"
         android:layout_width="match_parent">
     </ListView>
 

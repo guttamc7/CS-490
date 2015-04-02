@@ -4,6 +4,8 @@ package finalproject.com.getfit.trendingworkout;
  * Created by Gurumukh on 2/4/15.
  */
 
+//TODO: Loading trending again
+
 import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -67,6 +69,7 @@ public class TrendingWorkoutFragment extends RootFragment
 
     public void onActivityCreated(Bundle savedInstanceState)
     {
+        System.out.println("On Activity Created");
         super.onActivityCreated(savedInstanceState);
         new GetTrendingWorkouts().execute();
         listViewTrendingWorkout.setOnItemClickListener(new AdapterView.OnItemClickListener()
@@ -88,6 +91,8 @@ public class TrendingWorkoutFragment extends RootFragment
     public void onResume()
     {
         super.onResume();
+        adapter.notifyDataSetChanged();
+
     }
 
     private class GetTrendingWorkouts extends AsyncTask<Void, Void, Void> {

@@ -7,6 +7,7 @@ import android.app.Dialog;
 import android.app.DialogFragment;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
@@ -34,6 +35,7 @@ import com.parse.ParseUser;
 
 import finalproject.com.getfit.EditProfileDialog;
 import finalproject.com.getfit.R;
+import finalproject.com.getfit.baseworkout.BaseWorkoutAdapter;
 import finalproject.com.getfit.viewpager.RootFragment;
 
 public class UserProfileFragment extends RootFragment
@@ -47,7 +49,7 @@ public class UserProfileFragment extends RootFragment
     TextView userHeight;
     private List<ParseObject> likedWorkoutList = new ArrayList<>();
     private ListView listView;
-
+    private UserProfileAdapter adapter;
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
@@ -124,24 +126,23 @@ public class UserProfileFragment extends RootFragment
         return rootView;
     }
 
-    //TODO: I dont know if we need this.
-    
-    /*public void onActivityCreated(Bundle savedInstanceState)
+    public void onActivityCreated(Bundle savedInstanceState)
     {
         super.onActivityCreated(savedInstanceState);
+        new GetLikedWorkouts().execute();
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener()
         {
             @Override
             public void onItemClick(AdapterView<?> parent, View view,
                                     int position, long id) {
-                UserProfileWorkout data = (UserProfileWorkout)listView.getItemAtPosition(position);
+                //UserProfileWorkout data = (UserProfileWorkout)listView.getItemAtPosition(position);
                 FragmentTransaction ft = getChildFragmentManager().beginTransaction();
                 ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
                 ft.addToBackStack(null);
                 ft.commit();
             }
         });
-    }*/
+    }
 
     public static int getAge(Date dateOfBirth) {
         Calendar dob = Calendar.getInstance();
@@ -164,27 +165,46 @@ public class UserProfileFragment extends RootFragment
         return age;
     }
 
-    private void retrieveLikedWorkout () {
-        ParseUser user = ParseUser.getCurrentUser();
-        ParseRelation<ParseObject> relation = user.getRelation("likedWorkout");
-        ParseQuery<ParseObject> query = relation.getQuery();
+    public void onResume()
+    {
+        super.onResume();
+        adapter.notifyDataSetChanged();
 
-        query.findInBackground(new FindCallback<ParseObject>() {
+    }
 
-            public void done(List<ParseObject> workoutList, ParseException e) {
-                if (e == null) {
-                    for (int i = 0; i < workoutList.size(); i++) {
-                        likedWorkoutList.add(workoutList.get(i));
+
+    private class GetLikedWorkouts extends AsyncTask<Void, Void, Void> {
+        @Override
+        protected Void doInBackground(Void... arg0) {
+            ParseUser user = ParseUser.getCurrentUser();
+            ParseRelation<ParseObject> relation = user.getRelation("likedWorkout");
+            ParseQuery<ParseObject> query = relation.getQuery();
+
+            query.findInBackground(new FindCallback<ParseObject>() {
+
+                public void done(List<ParseObject> workoutList, ParseException e) {
+                    if (e == null) {
+                        System.out.println(workoutList.size());
+                        for (int i = 0; i < workoutList.size(); i++) {
+                            likedWorkoutList.add(workoutList.get(i));
+
+                        }
+                        //All the base workouts retrieved
+                    } else {
+                        System.out.println(e.getMessage());
+                        //Exception
                     }
-                    //All the base workouts retrieved
-                } else {
-                    System.out.println(e.getMessage());
-                    //Exception
                 }
-            }
-        });
+            });
+            return null;
+        }
+        protected void onPostExecute(Void result) {
+            super.onPostExecute(result);
+            adapter = new UserProfileAdapter(getActivity().getApplicationContext(), likedWorkoutList);
+            listView.setAdapter(adapter);
+            adapter.notifyDataSetChanged();
 
-
+        }
     }
 
 }

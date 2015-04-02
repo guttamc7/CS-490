@@ -30,7 +30,7 @@
                     android:id="@+id/like_imview"
                     android:src="@drawable/ic_action_like_white"
                     android:layout_width="70dp"
-                    android:background="#FA6A66"
+                    android:background="@color/like_color"
                     android:paddingLeft="25dp"
                     android:paddingRight="25dp"
                     android:layout_height="110dp" />
@@ -39,11 +39,10 @@
                     android:id="@+id/schedule_imview"
                     android:src="@drawable/ic_action_calendar_day_white"
                     android:layout_width="70dp"
-                    android:background="#E6A457"
+                    android:background="@color/schedule_color"
                     android:paddingLeft="25dp"
                     android:paddingRight="25dp"
                     android:layout_height="110dp" />
-
             </LinearLayout>
 
             <RelativeLayout
