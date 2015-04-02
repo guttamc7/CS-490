@@ -33,6 +33,17 @@
         <item name="android:textColor">@color/primary_white</item>
     </style>
 
+    <style name="cust_dialog" parent="@android:style/Theme.Dialog">
+        <item name="android:windowTitleStyle">@style/dialog_title_style</item>
+    </style>
+
+    <style name="dialog_title_style" parent="android:Widget.TextView">
+        <item name="android:background">@color/primary_blue</item>
+        <item name="android:padding">10dp</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textColor">@color/primary_white</item>
+    </style>
 
 
 </resources>

@@ -3,20 +3,16 @@ package finalproject.com.getfit.customworkout;
 /**
  * Created by Gurumukh on 2/10/15.
  */
-import android.app.DialogFragment;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ListView;
 
 import com.getbase.floatingactionbutton.FloatingActionButton;
 
-import finalproject.com.getfit.EditProfileDialog;
 import finalproject.com.getfit.R;
-import finalproject.com.getfit.baseworkout.BaseWorkoutFragment;
-import finalproject.com.getfit.createworkout.CreateWorkoutInformationDialog;
+import finalproject.com.getfit.createworkout.CreateWorkoutDialog;
 
 public class CustomWorkoutFragment extends Fragment {
     private FloatingActionButton createWorkoutButton;
@@ -29,8 +25,8 @@ public class CustomWorkoutFragment extends Fragment {
         createWorkoutButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DialogFragment dialogFrag = new CreateWorkoutInformationDialog();
-                dialogFrag.show(getActivity().getFragmentManager().beginTransaction(), "");
+                CreateWorkoutDialog newFragment = CreateWorkoutDialog.newInstance();
+                newFragment.show(getFragmentManager(), "dialog");
 
             }
         });

@@ -4,7 +4,6 @@
 
     <ListView
         android:id="@+id/custom_workout_list"
-        android:layout_below="@id/header_create_workout"
         android:layout_height="wrap_content"
         android:layout_width="match_parent">
     </ListView>
@@ -19,6 +18,7 @@
         android:layout_marginRight="15dp"
         android:layout_alignParentRight="true"
         app:fab_colorNormal="@color/button_red"
+        app:fab_icon="@drawable/ic_dumbbell"
         app:fab_colorPressed="@color/button_yellow"
          />
 

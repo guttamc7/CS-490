@@ -25,7 +25,6 @@ import finalproject.com.getfit.customworkout.CustomWorkoutFragment;
 public class HomePageActivity extends FragmentActivity {
 
     private static final String TAG = HomePageActivity.class.getSimpleName();
-    private WorkoutLibFragment workoutLibFragment;
     private DrawerLayout mDrawerLayout;
     private HomeFragment homeFragment;
     private ListView mDrawerList;
@@ -33,8 +32,8 @@ public class HomePageActivity extends FragmentActivity {
     private CharSequence mDrawerTitle;
     private CharSequence mTitle;
     private String[] mDrawerItems;
-    private Integer[] imageId = {R.drawable.ic_action_home, R.drawable.ic_action_list,R.drawable.ic_action_calendar_month,R.drawable.ic_action_add,
-            R.drawable.ic_messages, R.drawable.ic_action_settings, R.drawable.ic_action_arrow_left};
+    private Integer[] imageId = {R.drawable.ic_action_home, R.drawable.ic_action_list,R.drawable.ic_action_pin,
+            R.drawable.ic_messages, R.drawable.ic_action_arrow_left};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -123,12 +122,7 @@ public class HomePageActivity extends FragmentActivity {
     @Override
     public void onBackPressed() {
 
-        if (!workoutLibFragment.onBackPressed()) {
-            // container Fragment or its associates couldn't handle the back pressed task
-            // delegating the task to super class
-            super.onBackPressed();
-
-        } else if(!homeFragment.onBackPressed()) {
+        if(!homeFragment.onBackPressed()) {
             super.onBackPressed();
         }
         else {
@@ -155,22 +149,21 @@ public class HomePageActivity extends FragmentActivity {
                         .replace(R.id.content_frame, homeFragment, HomeFragment.TAG).commit();
                 break;
             case 1:
-                workoutLibFragment = new WorkoutLibFragment();
                 getSupportFragmentManager()
                         .beginTransaction()
-                        .replace(R.id.content_frame, workoutLibFragment, WorkoutLibFragment.TAG).commit();
+                        .replace(R.id.content_frame, BaseWorkoutFragment.newInstance(), BaseWorkoutFragment.TAG).commit();
                 break;
             case 2: //TODO
                 getSupportFragmentManager()
                         .beginTransaction()
-                        .replace(R.id.content_frame, BaseWorkoutFragment.newInstance(), BaseWorkoutFragment.TAG).commit();
+                        .replace(R.id.content_frame, CustomWorkoutFragment.newInstance()).commit();
                 break;
             case 3: //TODO
                 getSupportFragmentManager()
                         .beginTransaction()
                         .replace(R.id.content_frame, CustomWorkoutFragment.newInstance()).commit();
                 break;
-            case 6: //SignOut
+            case 4: //SignOut
                 AlertDialog.Builder builder = new AlertDialog.Builder(this);
                 builder.setMessage("Signing Out. Have a Great Day. ");
                 builder.setTitle("Sign Out");

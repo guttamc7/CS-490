@@ -91,7 +91,7 @@ public class TrendingWorkoutFragment extends RootFragment
     public void onResume()
     {
         super.onResume();
-        adapter.notifyDataSetChanged();
+
 
     }
 

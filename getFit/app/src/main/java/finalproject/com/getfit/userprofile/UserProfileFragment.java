@@ -168,7 +168,7 @@ public class UserProfileFragment extends RootFragment
     public void onResume()
     {
         super.onResume();
-        adapter.notifyDataSetChanged();
+        //adapter.notifyDataSetChanged();
 
     }
 

@@ -107,7 +107,7 @@
                 <View
                     android:layout_width="fill_parent"
                     android:layout_height="1dip"
-                    android:layout_marginTop="30dp"
+                    android:layout_marginTop="20dp"
                     android:background="#A5A7A9"
                     android:layout_below="@+id/userName_trendingWorkout"
                     android:id="@+id/view_row_trendingWorkout" />
