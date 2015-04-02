@@ -34,4 +34,13 @@ public class CreateWorkoutInformationDialog extends DialogFragment {
         });
         return rootView;
     }
+    public void onStart() {
+        super.onStart();
+        if (this.getDialog() == null) {
+            return;
+        }
+        int dialogWidth = ViewGroup.LayoutParams.MATCH_PARENT;
+        int dialogHeight =ViewGroup.LayoutParams.MATCH_PARENT;
+        getDialog().getWindow().setLayout(dialogWidth, dialogHeight);
+    }
 }
