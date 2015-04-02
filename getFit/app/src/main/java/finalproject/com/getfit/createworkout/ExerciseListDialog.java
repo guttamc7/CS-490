@@ -89,12 +89,15 @@ public class ExerciseListDialog extends DialogFragment {
         protected Void doInBackground(Void... arg0) {
             ParseQuery<ParseObject> query = ParseQuery.getQuery("Exercise");
             query.orderByAscending("name");
+            query.setLimit(1000);
             query.findInBackground(new FindCallback<ParseObject>() {
 
                 public void done(List<ParseObject> workoutList, ParseException e) {
                     if (e == null) {
+                        System.out.println(workoutList.size());
                         for (int i = 0; i < workoutList.size(); i++) {
                             exerciseList.add(workoutList.get(i).getString("name"));
+
                         }
                         //All the base workouts retrieved
                     } else {

@@ -12,18 +12,17 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.view.Window;
+import android.widget.Button;
 
 import com.viewpagerindicator.CirclePageIndicator;
 
 import finalproject.com.getfit.R;
-import finalproject.com.getfit.findnearby.FindNearbyFragment;
-import finalproject.com.getfit.trendingworkout.TrendingWorkoutFragment;
-import finalproject.com.getfit.userprofile.UserProfileFragment;
-
 /**
  * Created by Gurumukh on 4/2/15.
  */
 public class CreateWorkoutDialog extends DialogFragment {
+    private Button positiveButton;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,7 +39,6 @@ public class CreateWorkoutDialog extends DialogFragment {
 
         View view = inflater.inflate(R.layout.dialog_create_workout, container);
         getDialog().setTitle("Create Workout");
-
         ViewPager pager = (ViewPager) view.findViewById(R.id.create_workout_pager);
         MyFragmentAdapter adapter = new MyFragmentAdapter(getChildFragmentManager());
         pager.setAdapter(adapter);
@@ -58,7 +56,7 @@ public class CreateWorkoutDialog extends DialogFragment {
         int dialogWidth = ViewGroup.LayoutParams.MATCH_PARENT;
         int dialogHeight =ViewGroup.LayoutParams.MATCH_PARENT;
         getDialog().getWindow().setLayout(dialogWidth, dialogHeight);
-        
+
     }
 
     public class MyFragmentAdapter extends FragmentPagerAdapter {
