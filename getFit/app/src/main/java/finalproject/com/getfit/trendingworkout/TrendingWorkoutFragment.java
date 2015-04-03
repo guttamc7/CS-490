@@ -100,7 +100,7 @@ public class TrendingWorkoutFragment extends RootFragment
        protected Void doInBackground(Void... arg0) {
            ParseUser user = ParseUser.getCurrentUser();
            ParseQuery<ParseObject> query = ParseQuery.getQuery("Workout");
-           query.orderByAscending("likes");
+           query.orderByDescending("likes");
            query.findInBackground(new FindCallback<ParseObject>() {
 
                public void done(List<ParseObject> workoutList, ParseException e) {

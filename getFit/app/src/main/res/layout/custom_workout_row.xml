@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="210dp"
+    android:descendantFocusability="blocksDescendants">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="12dp"
+        android:layout_marginRight="12dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:id="@+id/front_custom_workout"
+        android:background="@drawable/bg_card">
+
+        <com.daimajia.swipe.SwipeLayout
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/swipe_custom_workout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:tag="Bottom4"
+                android:id="@+id/bottom_wrapper_2_custom_workout"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent">
+
+
+                <ImageView
+                    android:id="@+id/schedule_imview_custom_workout"
+                    android:src="@drawable/ic_action_calendar_day_white"
+                    android:layout_width="70dp"
+                    android:background="#1BBC9B"
+                    android:paddingLeft="25dp"
+                    android:paddingRight="25dp"
+                    android:layout_height="110dp" />
+
+                <ImageView
+                    android:id="@+id/delete_imview_custom_workout"
+                    android:src="@drawable/ic_action_discard"
+                    android:layout_width="70dp"
+                    android:background="@color/delete_color"
+                    android:paddingLeft="25dp"
+                    android:paddingRight="25dp"
+                    android:layout_height="110dp" />
+
+            </LinearLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                >
+
+
+                <!-- Thumbnail Image -->
+                <ImageView
+                    android:id="@+id/thumbnail_custom_workout"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:layout_alignParentLeft="true"
+                    android:layout_marginRight="8dp" />
+
+                <TextView
+                    android:id="@+id/title_custom_workout"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="#2D343D"
+                    android:text="Title"
+                    android:fontFamily="sans-serif"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:layout_toRightOf="@+id/thumbnail_custom_workout"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/description_custom_workout"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="#000000"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="22dp"
+                    android:fontFamily="sans-serif"
+                    android:layout_toRightOf="@+id/thumbnail_custom_workout"
+                    android:layout_below="@+id/title_user_like"
+                    android:text="Hi I am a sample workout Description"
+                    android:padding="5dp"
+                    android:maxLines="3"
+                    android:textSize="18dp"
+                    />
+
+                <View
+                    android:layout_width="fill_parent"
+                    android:layout_height="1dip"
+                    android:layout_marginTop="30dp"
+                    android:background="#A5A7A9"
+                    android:layout_below="@+id/description_custom_workout"
+                    android:id="@+id/view_row_custom_workout" />
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="right|center_horizontal"
+                    android:layout_below="@+id/view_row_custom_workout">
+
+                    <Button
+                        android:id="@+id/like_custom_workout"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text = "1,2345"
+                        android:layout_gravity="center_horizontal"
+                        android:textSize = "16sp"
+                        android:textColor="#E6A457"
+                        android:drawableLeft="@drawable/ic_action_like"
+                        android:background="@null"
+                        android:padding="5dp"
+                        android:layout_alignParentTop="true"
+                        android:layout_marginRight="25dp"
+                        android:layout_marginEnd="25dp"
+                        android:layout_alignParentRight="true"
+                        android:layout_alignParentEnd="true"/>
+
+                </RelativeLayout>
+            </RelativeLayout>
+        </com.daimajia.swipe.SwipeLayout>
+    </RelativeLayout>
+
+
+</FrameLayout>
