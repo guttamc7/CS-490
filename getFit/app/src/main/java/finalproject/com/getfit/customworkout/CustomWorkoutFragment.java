@@ -19,6 +19,7 @@ import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
+import com.parse.ParseRelation;
 import com.parse.ParseUser;
 
 import java.util.ArrayList;
@@ -67,7 +68,7 @@ public class CustomWorkoutFragment extends Fragment {
                 FragmentTransaction ft = getChildFragmentManager().beginTransaction();
                 ft.replace(R.id.frag_custom, new CustomWorkoutDetailsFragment());
                 ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
-                ft.addToBackStack(null);
+                ft.addToBackStack("create_workouts_dialog");
                 ft.commit();
             }
         });
@@ -86,7 +87,37 @@ public class CustomWorkoutFragment extends Fragment {
     private class GetWorkouts extends AsyncTask<Void, Void, Void> {
         @Override
         protected Void doInBackground(Void... arg0) {
-            //TODO:Get Custom Workouts PARSE QUERY
+            ParseQuery<ParseObject> query = ParseQuery.getQuery("Workout");
+            query.whereEqualTo("userId", ParseUser.getCurrentUser());
+            query.findInBackground(new FindCallback<ParseObject>() {
+                public void done(List<ParseObject> workoutList, ParseException e) {
+                    if (e == null) {
+
+                        for(int n=0;n<workoutList.size();n++){
+                            customWorkoutList.add(workoutList.get(n));
+                            ParseRelation<ParseObject> exercises = workoutList.get(n).getRelation("exercises");
+                            List<ParseObject> workoutExercises = null;
+                            try {
+                                workoutExercises = exercises.getQuery().find();
+
+                                for(int m=0;n<workoutExercises.size();m++){
+                                    workoutExercises.get(m).get("reps");
+                                    workoutExercises.get(m).get("sets");
+                                    ParseObject exercise = workoutExercises.get(m).getParseObject("exerciseId");
+                                }
+
+                            } catch (ParseException e1) {
+                                e1.printStackTrace();
+                            }
+
+
+                        }
+
+                    } else {
+                        //  Log.d("score", "Error: " + e.getMessage());
+                    }
+                }
+            });
             return null;
         }
         protected void onPostExecute(Void result) {

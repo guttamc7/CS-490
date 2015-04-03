@@ -8,6 +8,8 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.parse.ParseObject;
+
 import java.util.ArrayList;
 
 import finalproject.com.getfit.R;
@@ -18,11 +20,11 @@ import finalproject.com.getfit.imageloader.ImageLoader;
  */
 public class CreateWorkoutExerciseAdapter extends BaseAdapter {
 
-    private ArrayList<Exercise> listData;
+    private ArrayList<ParseObject> listData;
     ImageLoader imageLoader;
     private LayoutInflater layoutInflater;
 
-    public CreateWorkoutExerciseAdapter(Context context, ArrayList<Exercise> listData) {
+    public CreateWorkoutExerciseAdapter(Context context, ArrayList<ParseObject> listData) {
         this.listData = listData;
         layoutInflater = LayoutInflater.from(context);
         imageLoader = new ImageLoader(context,100);
@@ -47,6 +49,7 @@ public class CreateWorkoutExerciseAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         ViewHolder1 holder;
+        ParseObject exercise = listData.get(position);
         if (convertView == null) {
             convertView = layoutInflater.inflate(R.layout.create_workout_exercise_row, null);
             holder = new ViewHolder1();
@@ -60,11 +63,11 @@ public class CreateWorkoutExerciseAdapter extends BaseAdapter {
             holder = (ViewHolder1) convertView.getTag();
         }
         //Set all the values in the list
-        holder.nameView.setText(listData.get(position).getExerciseName());
-        holder.setsView.setText(listData.get(position).getExerciseSets()+" sets");
-        holder.repsView.setText(listData.get(position).getExerciseReps()+"  reps");
-        imageLoader.DisplayImage(listData.get(position).getExerciseImage1(),holder.exerciseImage1);
-        imageLoader.DisplayImage(listData.get(position).getExerciseImage2(),holder.exerciseImage2);
+        holder.nameView.setText(exercise.getString("name"));
+        holder.setsView.setText(Integer.toString(exercise.getInt("sets")) + " sets");
+        holder.repsView.setText(Integer.toString(exercise.getInt("reps")) + " reps");
+        imageLoader.DisplayImage(exercise.getString("maleImg1"),holder.exerciseImage1);
+        imageLoader.DisplayImage(exercise.getString("maleImg2"),holder.exerciseImage2);
         return convertView;
     }
 
