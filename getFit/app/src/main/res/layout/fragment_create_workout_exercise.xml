@@ -1,43 +1,98 @@
 <?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:id="@+id/frag_create_workout_exercise"
+    android:background="@color/primary_white">
+
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/primary_white">
+
+    >
+
+    <TextView
+        android:id="@+id/workout_exercise_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="sans-serif_light"
+        android:layout_marginTop="30dp"
+        android:gravity="center"
+        android:padding="10dp"
+        android:textColor="#808080"
+        android:layout_gravity="center"
+        android:text="Workout Exercises"
+        android:textSize = "22dp"
+        android:textStyle="bold"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
+
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="1dip"
+        android:layout_marginLeft="25dip"
+        android:layout_marginRight="25dip"
+        android:background="#15000000"
+        android:id="@+id/stroke_workout_exercise"
+        android:layout_below="@id/workout_exercise_text"
+       />
+
         <ListView
-            android:id="@+id/create_workout_exercises"
+            android:id="@+id/create_workout_exercises_list"
             android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_above="@+id/createworkout_footer"
+            android:layout_below="@id/stroke_workout_exercise"
             android:layout_width="match_parent">
         </ListView>
 
-    <Button
-        android:id="@+id/nextButton"
-        android:background="@color/primary_green"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Done"
-        android:layout_centerHorizontal="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="25dp"
-        android:layout_marginTop="25dip"
-        android:padding="10dp"
-        android:drawablePadding="10dp"
-        android:textSize="20sp"
-        android:layout_marginRight="25dip"
-        android:textColor="#eaeff3"
-        >
-    </Button>
+    <TextView android:id="@+id/empty_list"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:textSize="23sp"
+        android:layout_marginLeft="25dp"
+        android:layout_marginRight="25dp"
+        android:text="Tap the Plus Icon to Create A Workout"
+        android:gravity="center_vertical|center_horizontal"/>
+
+
 
     <com.getbase.floatingactionbutton.FloatingActionButton
         android:id="@+id/add_exercise_fab"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="15dp"
-        android:layout_marginRight="15dp"
-        android:layout_alignParentRight="true"
         app:fab_icon="@drawable/ic_action_add"
         app:fab_colorNormal="@color/button_red"
         app:fab_colorPressed="@color/button_yellow"
-         />
+        android:layout_above="@+id/createworkout_footer"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="60dp"
+        android:id="@+id/createworkout_footer"
+        android:layout_alignParentBottom="true"
+
+        >
+
+
+    <Button
+        android:id="@+id/createWorkout_Button"
+        android:background="@drawable/round_text"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:text="Done"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
+        android:padding="10dp"
+        android:drawablePadding="10dp"
+        android:textSize="20sp"
+        android:textColor="#6C7A89"
+        android:layout_alignParentTop="true">
+    </Button>
+    </RelativeLayout>
 </RelativeLayout>
+</FrameLayout>

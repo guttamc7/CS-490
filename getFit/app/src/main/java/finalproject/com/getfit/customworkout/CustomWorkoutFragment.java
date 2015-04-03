@@ -4,6 +4,7 @@ package finalproject.com.getfit.customworkout;
  * Created by Gurumukh on 2/10/15.
  */
 import android.os.Bundle;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -27,6 +28,7 @@ public class CustomWorkoutFragment extends Fragment {
             public void onClick(View v) {
                 CreateWorkoutDialog newFragment = CreateWorkoutDialog.newInstance();
                 newFragment.show(getFragmentManager(), "dialog");
+
 
             }
         });

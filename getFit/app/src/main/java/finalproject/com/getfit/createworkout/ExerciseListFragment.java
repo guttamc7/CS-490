@@ -3,7 +3,7 @@ package finalproject.com.getfit.createworkout;
 import android.app.DialogFragment;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.v4.app.FragmentTransaction;
+import android.support.v4.app.Fragment;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
@@ -19,29 +19,28 @@ import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
-import com.parse.ParseUser;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import finalproject.com.getfit.MainActivity;
 import finalproject.com.getfit.R;
-import finalproject.com.getfit.trendingworkout.TrendingWorkoutAdapter;
-import finalproject.com.getfit.trendingworkout.TrendingWorkoutDetailsFragment;
+
 
 /**
  * Created by Gurumukh on 4/1/15.
  */
-public class ExerciseListDialog extends DialogFragment {
+public class ExerciseListFragment extends Fragment {
     private View rootView;
     private Button nextButton;
     private ListView lv;
     private ArrayAdapter<String> adapter;
     private EditText inputSearch;
     private ArrayList<String> exerciseList = new ArrayList<>();
-
+    private List<ParseObject> workList = new ArrayList<>();
+    public static ParseObject selectedExercise;
+    public static CreateWorkoutDialog.CalendarPageFragmentListener listener;
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        rootView = inflater.inflate(R.layout.dialog_exercise_list, null);
+        rootView = inflater.inflate(R.layout.fragment_exercise_list, null);
         lv = (ListView) rootView.findViewById(R.id.all_exercises_list);
         inputSearch = (EditText) rootView.findViewById(R.id.inputSearch);
         inputSearch.addTextChangedListener(new TextWatcher() {
@@ -66,21 +65,29 @@ public class ExerciseListDialog extends DialogFragment {
         return rootView;
     }
 
-    @Override
-    public void onStart() {
-        super.onStart();
-        if (this.getDialog() == null) {
-            return;
-        }
-        int dialogWidth = ViewGroup.LayoutParams.MATCH_PARENT;
-        int dialogHeight =ViewGroup.LayoutParams.MATCH_PARENT;
-        getDialog().getWindow().setLayout(dialogWidth, dialogHeight);
+    public static ExerciseListFragment newInstance(CreateWorkoutDialog.CalendarPageFragmentListener listener) {
+        ExerciseListFragment f = new ExerciseListFragment();
+        ExerciseListFragment.listener = listener;
+        return f;
     }
 
     public void onActivityCreated(Bundle savedInstanceState)
     {
         super.onActivityCreated(savedInstanceState);
         new GetExercises().execute();
+        lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view,
+                                    int position, long id) {
+                String temp =(String) parent.getItemAtPosition(position);
+                int pos = exerciseList.indexOf(temp);
+                selectedExercise  = workList.get(pos);
+                DialogFragment dialogFrag = new ExerciseListDetailsDialog();
+                dialogFrag.show(getActivity().getFragmentManager().beginTransaction(), "dialog");
+
+            }
+        });
+
         //Set Item Click Listener
     }
 
@@ -94,7 +101,7 @@ public class ExerciseListDialog extends DialogFragment {
 
                 public void done(List<ParseObject> workoutList, ParseException e) {
                     if (e == null) {
-                        System.out.println(workoutList.size());
+                        workList = workoutList;
                         for (int i = 0; i < workoutList.size(); i++) {
                             exerciseList.add(workoutList.get(i).getString("name"));
 
@@ -120,7 +127,6 @@ public class ExerciseListDialog extends DialogFragment {
 
 
     }
-
 
 
 }

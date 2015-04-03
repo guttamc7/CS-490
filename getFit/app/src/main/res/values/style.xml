@@ -1,6 +1,7 @@
 <resources>
     <style name="AppTheme" parent="@android:style/Theme.Holo.Light">
         <item name="android:actionBarStyle">@style/MyActionBar</item>
+
     </style>
 
     <style name="MyActionBar" parent="@android:style/Widget.Holo.Light.ActionBar">
@@ -35,6 +36,9 @@
 
     <style name="cust_dialog" parent="@android:style/Theme.Dialog">
         <item name="android:windowTitleStyle">@style/dialog_title_style</item>
+        <item name="android:windowSoftInputMode">stateHidden</item>
+        <item name="android:gravity">center</item>
+
     </style>
 
     <style name="dialog_title_style" parent="android:Widget.TextView">
@@ -42,6 +46,8 @@
         <item name="android:padding">10dp</item>
         <item name="android:layout_gravity">center</item>
         <item name="android:gravity">center</item>
+        <item name="android:textSize">30sp</item>
+        <item name="android:layout_marginTop">20dp</item>
         <item name="android:textColor">@color/primary_white</item>
     </style>
 

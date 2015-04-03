@@ -35,9 +35,11 @@ public class ImageLoader {
     ExecutorService executorService;
     // Handler to display images in UI thread
     Handler handler = new Handler();
+    private int REQUIRED_SIZE;
 
-    public ImageLoader(Context context) {
+    public ImageLoader(Context context, int requiredSize) {
         fileCache = new FileCache(context);
+        REQUIRED_SIZE = requiredSize;
         executorService = Executors.newFixedThreadPool(5);
     }
 
@@ -101,7 +103,6 @@ public class ImageLoader {
             stream1.close();
 
             // Find the correct scale value. It should be the power of 2.
-            final int REQUIRED_SIZE = 140;
             int width_tmp = o.outWidth, height_tmp = o.outHeight;
             int scale = 1;
             while (true) {

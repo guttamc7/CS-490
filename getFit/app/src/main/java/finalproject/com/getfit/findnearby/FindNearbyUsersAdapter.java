@@ -35,7 +35,7 @@ public class FindNearbyUsersAdapter extends BaseAdapter {
     public FindNearbyUsersAdapter(Context context, ArrayList<ParseUser> listData) {
         this.listData = listData;
         layoutInflater = LayoutInflater.from(context);
-        imageLoader = new ImageLoader(context);
+        imageLoader = new ImageLoader(context,140);
     }
     @Override
     public int getCount() {

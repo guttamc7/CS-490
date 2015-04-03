@@ -38,7 +38,7 @@ public class CreateWorkoutDialog extends DialogFragment {
                              Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.dialog_create_workout, container);
-        getDialog().setTitle("Create Workout");
+        getDialog().getWindow().requestFeature(Window.FEATURE_NO_TITLE);
         ViewPager pager = (ViewPager) view.findViewById(R.id.create_workout_pager);
         MyFragmentAdapter adapter = new MyFragmentAdapter(getChildFragmentManager());
         pager.setAdapter(adapter);
@@ -59,9 +59,28 @@ public class CreateWorkoutDialog extends DialogFragment {
 
     }
 
+
     public class MyFragmentAdapter extends FragmentPagerAdapter {
+        private final FragmentManager mFragmentManager;
+        private Fragment mFragmentAtPos0;
+        CalendarPageListener listener = new CalendarPageListener();;
+
+        private final class CalendarPageListener implements
+                CalendarPageFragmentListener {
+            public void onSwitchToNextFragment() {
+                mFragmentManager.beginTransaction().remove(mFragmentAtPos0)
+                        .commit();
+                if (mFragmentAtPos0 instanceof CreateWorkoutExerciseFragment){
+                    mFragmentAtPos0 = ExerciseListFragment.newInstance(listener);
+                }else{ // Instance of NextFragment
+                    mFragmentAtPos0 = CreateWorkoutExerciseFragment.newInstance(listener);
+                }
+                notifyDataSetChanged();
+            }
+        }
         public MyFragmentAdapter(FragmentManager fm) {
             super(fm);
+            mFragmentManager = fm;
         }
         @Override
         public int getCount() {
@@ -75,13 +94,35 @@ public class CreateWorkoutDialog extends DialogFragment {
                     CreateWorkoutInformationFragment informationTab = new CreateWorkoutInformationFragment();
                     return informationTab;
                 case 1:
-                    CreateWorkoutExerciseFragment exerciseTab = new CreateWorkoutExerciseFragment();
-                    return exerciseTab;
+                    if (mFragmentAtPos0 == null) {
+                        mFragmentAtPos0 =CreateWorkoutExerciseFragment.newInstance(listener);
+                    }
+                    return mFragmentAtPos0;
             }
             return null;
         }
+        @Override
+        public int getItemPosition(Object object) {
+            if (object instanceof CreateWorkoutExerciseFragment && mFragmentAtPos0 instanceof ExerciseListFragment)
+                return POSITION_NONE;
+            if (object instanceof ExerciseListFragment && mFragmentAtPos0 instanceof CreateWorkoutExerciseFragment)
+                return POSITION_NONE;
+            return POSITION_UNCHANGED;
+        }
 
 
+
+    }
+    public interface CalendarPageFragmentListener {
+        void onSwitchToNextFragment();
+    }
+
+    public void onDismiss(DialogInterface dialog)
+    {
+        ExerciseListDetailsDialog.exerciseWorkoutList = null;
+        CreateWorkoutInformationFragment.workoutDescription = "";
+        CreateWorkoutInformationFragment.workoutName = "";
+        CreateWorkoutInformationFragment.workoutLevel = 0;
     }
 
 }
