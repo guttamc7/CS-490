@@ -4,6 +4,7 @@ package finalproject.com.getfit;
  */
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.content.res.Configuration;
@@ -123,7 +124,7 @@ public class HomePageActivity extends FragmentActivity {
     public void onBackPressed() {
 
         if(!homeFragment.onBackPressed()) {
-            super.onBackPressed();
+           // super.onBackPressed();
         }
         else {
         }
@@ -139,7 +140,6 @@ public class HomePageActivity extends FragmentActivity {
     }
 
     private void navigateTo(int position) {
-        //System.out.println("In Home Page Activity");
 
         switch(position) {
             case 0:
@@ -178,9 +178,9 @@ public class HomePageActivity extends FragmentActivity {
                 AlertDialog dialog = builder.create();
                 dialog.show();
                 break;
-
         }
         mDrawerLayout.closeDrawer(mDrawerList);
     }
+
 }
 

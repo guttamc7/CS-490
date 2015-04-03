@@ -194,6 +194,13 @@ public class NewProfileActivity extends Activity {
         dpd.show();
     }
 
+    @Override
+    public void onBackPressed() {
+        Intent i = new Intent(NewProfileActivity.this, HomePageActivity.class);
+        startActivity(i);
+        finish();
+    }
+
 }
 
 
