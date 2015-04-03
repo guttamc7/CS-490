@@ -19,12 +19,7 @@ import com.daimajia.androidanimations.library.YoYo;
 import com.daimajia.swipe.SimpleSwipeListener;
 import com.daimajia.swipe.SwipeLayout;
 import com.daimajia.swipe.adapters.BaseSwipeAdapter;
-import com.parse.FindCallback;
-import com.parse.ParseException;
 import com.parse.ParseObject;
-import com.parse.ParseQuery;
-import com.parse.ParseRelation;
-import com.parse.ParseUser;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -156,71 +151,6 @@ public class CustomWorkoutAdapter extends BaseSwipeAdapter
 
     private void getLikes(String id)
     {
-
-    }
-
-
-    public void addWorkout(){
-     ParseObject workout = new ParseObject("Workout");
-     workout.add("name",""/**/);
-     workout.add("workoutType","custom");
-     workout.add("level",-1/**/);
-     workout.add("likes",0);
-     workout.add("userId", ParseUser.getCurrentUser());
-     workout.add("description",""/**/);
-
-     ParseRelation<ParseObject> relation = workout.getRelation("exercises");
-
-     int numOfExercises = 0;
-    for(int n=0;n <numOfExercises;n++){
-        ParseObject workoutExercises = new ParseObject("WorkoutExercises");
-        workoutExercises.add("sets",0/**/);
-        workoutExercises.add("reps",0/**/);
-        //workoutExercises.add("exerciseId",/*ParseObject of exerrcise*/); //Uncomment
-        workoutExercises.saveInBackground();
-        relation.add(workoutExercises);
-
-    }
-
-    workout.saveInBackground();
-    }
-
-    public void retrieveCustomWorkout(){
-        ParseQuery<ParseObject> query = ParseQuery.getQuery("Workout");
-        query.whereEqualTo("userId", ParseUser.getCurrentUser());
-        query.findInBackground(new FindCallback<ParseObject>() {
-            public void done(List<ParseObject> workoutList, ParseException e) {
-                if (e == null) {
-
-                    for(int n=0;n<workoutList.size();n++){
-                        //name
-                        //description
-                        //likes
-                        //level
-                        ParseRelation<ParseObject> exercises = workoutList.get(n).getRelation("exercises");
-                        List<ParseObject> workoutExercises = null;
-                        try {
-                            workoutExercises = exercises.getQuery().find();
-
-                            for(int m=0;n<workoutExercises.size();m++){
-                                workoutExercises.get(m).get("reps");
-                                workoutExercises.get(m).get("sets");
-                                ParseObject exercise = workoutExercises.get(m).getParseObject("exerciseId");
-                            }
-
-                        } catch (ParseException e1) {
-                            e1.printStackTrace();
-                        }
-
-
-                    }
-
-                } else {
-                  //  Log.d("score", "Error: " + e.getMessage());
-                }
-            }
-        });
-
 
     }
 }

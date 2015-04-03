@@ -81,6 +81,7 @@ public class ExerciseListFragment extends Fragment {
                                     int position, long id) {
                 String temp =(String) parent.getItemAtPosition(position);
                 int pos = exerciseList.indexOf(temp);
+                System.out.println("Position of Selected Exercise" + pos);
                 selectedExercise  = workList.get(pos);
                 DialogFragment dialogFrag = new ExerciseListDetailsDialog();
                 dialogFrag.show(getActivity().getFragmentManager().beginTransaction(), "dialog");
@@ -98,13 +99,12 @@ public class ExerciseListFragment extends Fragment {
             query.orderByAscending("name");
             query.setLimit(1000);
             query.findInBackground(new FindCallback<ParseObject>() {
-
                 public void done(List<ParseObject> workoutList, ParseException e) {
                     if (e == null) {
+
                         workList = workoutList;
                         for (int i = 0; i < workoutList.size(); i++) {
                             exerciseList.add(workoutList.get(i).getString("name"));
-
                         }
                         //All the base workouts retrieved
                     } else {

@@ -23,13 +23,17 @@ import finalproject.com.getfit.R;
  */
 public class CreateWorkoutDialog extends DialogFragment {
     private Button positiveButton;
+    private static CreateWorkoutDialog f;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
     }
 
     public static CreateWorkoutDialog newInstance(){
-        CreateWorkoutDialog f = new CreateWorkoutDialog();
+        f = new CreateWorkoutDialog();
+        return f;
+    }
+    public static CreateWorkoutDialog getInstance() {
         return f;
     }
 

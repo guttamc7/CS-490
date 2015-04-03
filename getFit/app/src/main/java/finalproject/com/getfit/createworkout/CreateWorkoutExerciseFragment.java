@@ -11,11 +11,19 @@ import android.support.v4.app.Fragment;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.support.v4.app.FragmentManager;
 
 import com.getbase.floatingactionbutton.FloatingActionButton;
+import com.parse.ParseObject;
+import com.parse.ParseRelation;
+import com.parse.ParseUser;
+
+import java.util.ArrayList;
 
 import finalproject.com.getfit.R;
 import finalproject.com.getfit.baseworkout.BaseWorkoutDetailsFragment;
+import finalproject.com.getfit.customworkout.CustomWorkoutDetailsFragment;
+import finalproject.com.getfit.customworkout.CustomWorkoutFragment;
 
 /**
  * Created by Gurumukh on 3/30/15.
@@ -55,13 +63,13 @@ public class CreateWorkoutExerciseFragment extends Fragment {
         doneButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                boolean valid = validate();
-                if(valid) {
-                    //TODO: CREATE WORKOUT - Parse Query
-
+                    System.out.println("The Workout Name: " + CreateWorkoutInformationFragment.workoutName);
+                    System.out.println("The Workout Name: " + CreateWorkoutInformationFragment.workoutDescription); //TODO: CREATE WORKOUT - Parse Query
+                    addWorkout("Test Name","Test Description",1,ExerciseListDetailsDialog.exerciseWorkoutList);
+                    CreateWorkoutDialog dialog = CreateWorkoutDialog.getInstance();
+                    dialog.dismiss();
                 }
 
-            }
         });
         return rootView;
     }
@@ -92,6 +100,31 @@ public class CreateWorkoutExerciseFragment extends Fragment {
         CreateWorkoutExerciseFragment f = new CreateWorkoutExerciseFragment();
         CreateWorkoutExerciseFragment.listener = listener;
         return f;
+    }
+
+    public void addWorkout(String name, String description, int level, ArrayList<ParseObject> exercise){
+        System.out.println("Exercise is "+exercise.size());
+
+        ParseObject workout = new ParseObject("Workout");
+        workout.add("name",name);
+        workout.add("workoutType","custom");
+        workout.add("level",level);
+        workout.add("likes",0);
+        workout.add("userId", ParseUser.getCurrentUser());
+        workout.add("description",description);
+        ParseRelation<ParseObject> relation = workout.getRelation("exercises");
+        for(int n=0;n <exercise.size();n++){
+
+            ParseObject workoutExercises = new ParseObject("WorkoutExercises");
+            System.out.println(exercise.get(n).getInt("sets"));
+            System.out.println(exercise.get(n).getString("name"));
+            workoutExercises.add("sets",exercise.get(n).getInt("sets"));
+            workoutExercises.add("reps",exercise.get(n).getInt("reps"));
+            workoutExercises.add("exerciseId",exercise.get(n)); //Uncomment
+            workoutExercises.saveInBackground();
+            relation.add(workoutExercises);
+        }
+        workout.saveInBackground();
     }
 
 

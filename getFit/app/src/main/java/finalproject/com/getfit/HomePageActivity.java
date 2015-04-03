@@ -124,7 +124,7 @@ public class HomePageActivity extends FragmentActivity {
     public void onBackPressed() {
 
         if(!homeFragment.onBackPressed()) {
-           // super.onBackPressed();
+            // super.onBackPressed();
         }
         else {
         }
@@ -167,7 +167,7 @@ public class HomePageActivity extends FragmentActivity {
                 AlertDialog.Builder builder = new AlertDialog.Builder(this);
                 builder.setMessage("Signing Out. Have a Great Day. ");
                 builder.setTitle("Sign Out");
-               // builder.setIcon(R.drawable.ic_action_accept);
+                // builder.setIcon(R.drawable.ic_action_accept);
                 builder.setPositiveButton("Ok",new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         dialog.cancel();
@@ -183,4 +183,3 @@ public class HomePageActivity extends FragmentActivity {
     }
 
 }
-
