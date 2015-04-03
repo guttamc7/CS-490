@@ -34,7 +34,7 @@ public class TrendingWorkoutAdapter extends BaseSwipeAdapter
     private Context context;
     private TextView title;
     private TextView description;
-
+    private Button likes;
     public TrendingWorkoutAdapter(Context context, List<ParseObject> workoutItems)
     {
         inflater = LayoutInflater.from(context);
@@ -70,11 +70,17 @@ public class TrendingWorkoutAdapter extends BaseSwipeAdapter
                 Toast.makeText(context, "DoubleClick", Toast.LENGTH_SHORT).show();
             }
         });
+        final ImageView likeClicked = (ImageView) v.findViewById(R.id.like_imview_trendingWorkout);
         swipeLayout.findViewById(R.id.like_imview_trendingWorkout).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Toast.makeText(context, "Like", Toast.LENGTH_SHORT).show();
                 likeWorkout(workoutItemsTrending.get(position));
+                if(v == likeClicked) {
+                    likes.setText(Integer.toString(workoutItemsTrending.get(position).getInt("likes") + 1));
+                    likeClicked.setImageResource(R.drawable.ic_action_dontlike);
+                    notifyDataSetChanged();
+                }
             }
         });
         swipeLayout.findViewById(R.id.schedule_imview_trendingWorkout).setOnClickListener(new View.OnClickListener()
@@ -105,7 +111,7 @@ public class TrendingWorkoutAdapter extends BaseSwipeAdapter
         title = (TextView) convertView.findViewById(R.id.title_trendingWorkout);
         description = (TextView)convertView.findViewById(R.id.description_trendingWorkout);
         TextView username = (TextView)convertView.findViewById(R.id.userName_trendingWorkout);
-        Button likes  = (Button) convertView.findViewById(R.id.like_trendingWorkout);
+        likes  = (Button) convertView.findViewById(R.id.like_trendingWorkout);
         ParseObject workout = workoutItemsTrending.get(position);
 
         // thumbnail image

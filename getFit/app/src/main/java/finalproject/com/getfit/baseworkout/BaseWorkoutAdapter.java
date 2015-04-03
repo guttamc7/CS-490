@@ -33,6 +33,7 @@ public class BaseWorkoutAdapter extends BaseSwipeAdapter {
     private SwipeLayout swipeLayout;
     private TextView title;
     private TextView description;
+    private Button likes;
     public BaseWorkoutAdapter(Context context, List<ParseObject> workoutItems) {
         inflater = LayoutInflater.from(context);
         this.context = context;
@@ -64,11 +65,17 @@ public class BaseWorkoutAdapter extends BaseSwipeAdapter {
                 Toast.makeText(context, "DoubleClick", Toast.LENGTH_SHORT).show();
             }
         });
+        final ImageView likeClicked = (ImageView) v.findViewById(R.id.like_imview);
         swipeLayout.findViewById(R.id.like_imview).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Toast.makeText(context, "Liked", Toast.LENGTH_SHORT).show();
                 likeWorkout(workoutItems.get(position));
+                if(v == likeClicked) {
+                    likes.setText(Integer.toString(workoutItems.get(position).getInt("likes") + 1));
+                    likeClicked.setImageResource(R.drawable.ic_action_dontlike);
+                    notifyDataSetChanged();
+                }
                 
             }
         });
@@ -97,7 +104,7 @@ public class BaseWorkoutAdapter extends BaseSwipeAdapter {
                 .findViewById(R.id.thumbnail);
         title = (TextView) convertView.findViewById(R.id.title);
         description = (TextView)convertView.findViewById(R.id.description);
-        Button likes  = (Button) convertView.findViewById(R.id.baseworkout_likes);
+        likes  = (Button) convertView.findViewById(R.id.baseworkout_likes);
         ParseObject workout = workoutItems.get(position);
 
         // thumbnail image
