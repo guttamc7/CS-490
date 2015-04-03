@@ -53,7 +53,6 @@ public class UserProfileFragment extends RootFragment
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
-
         View rootView = inflater.inflate(R.layout.fragment_profile, container, false);
         profilePic = (ImageView) rootView.findViewById(R.id.ProfilePic);
         userName = (TextView) rootView.findViewById(R.id.username_profile);
@@ -129,7 +128,7 @@ public class UserProfileFragment extends RootFragment
     public void onActivityCreated(Bundle savedInstanceState)
     {
         super.onActivityCreated(savedInstanceState);
-        new GetLikedWorkouts().execute();
+        getLikedWorkouts();
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener()
         {
             @Override
@@ -169,42 +168,29 @@ public class UserProfileFragment extends RootFragment
     {
         super.onResume();
         //adapter.notifyDataSetChanged();
-
     }
 
+    private void onPostExecute(){
+        //Inform UI
+        adapter = new UserProfileAdapter(getActivity().getApplicationContext(), likedWorkoutList);
+        listView.setAdapter(adapter);
+        adapter.notifyDataSetChanged();
+    }
 
-    private class GetLikedWorkouts extends AsyncTask<Void, Void, Void> {
-        @Override
-        protected Void doInBackground(Void... arg0) {
-            ParseUser user = ParseUser.getCurrentUser();
-            ParseRelation<ParseObject> relation = user.getRelation("likedWorkout");
-            ParseQuery<ParseObject> query = relation.getQuery();
-
-            query.findInBackground(new FindCallback<ParseObject>() {
-
-                public void done(List<ParseObject> workoutList, ParseException e) {
-                    if (e == null) {
-                        System.out.println(workoutList.size());
-                        for (int i = 0; i < workoutList.size(); i++) {
-                            likedWorkoutList.add(workoutList.get(i));
-
-                        }
-                        //All the base workouts retrieved
-                    } else {
-                        System.out.println(e.getMessage());
-                        //Exception
-                    }
+    private void getLikedWorkouts(){
+        ParseUser user = ParseUser.getCurrentUser();
+        ParseRelation<ParseObject> relation = user.getRelation("likedWorkout");
+        ParseQuery<ParseObject> query = relation.getQuery();
+        query.findInBackground(new FindCallback<ParseObject>() {
+            public void done(List<ParseObject> workoutList, ParseException e) {
+                if (e == null) {
+                    likedWorkoutList.addAll(workoutList);
+                } else {
+                    System.out.println(e.getMessage());
                 }
-            });
-            return null;
-        }
-        protected void onPostExecute(Void result) {
-            super.onPostExecute(result);
-            adapter = new UserProfileAdapter(getActivity().getApplicationContext(), likedWorkoutList);
-            listView.setAdapter(adapter);
-            adapter.notifyDataSetChanged();
-
-        }
+                onPostExecute();
+            }
+        });
     }
 
 }

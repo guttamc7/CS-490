@@ -159,7 +159,6 @@ public class CustomWorkoutAdapter extends BaseSwipeAdapter
 
     }
 
-
     public void addWorkout(){
      ParseObject workout = new ParseObject("Workout");
      workout.add("name",""/**/);
@@ -179,7 +178,6 @@ public class CustomWorkoutAdapter extends BaseSwipeAdapter
         //workoutExercises.add("exerciseId",/*ParseObject of exerrcise*/); //Uncomment
         workoutExercises.saveInBackground();
         relation.add(workoutExercises);
-
     }
 
     workout.saveInBackground();
@@ -220,7 +218,6 @@ public class CustomWorkoutAdapter extends BaseSwipeAdapter
                 }
             }
         });
-
 
     }
 }

@@ -74,7 +74,7 @@ public class ExerciseListFragment extends Fragment {
     public void onActivityCreated(Bundle savedInstanceState)
     {
         super.onActivityCreated(savedInstanceState);
-        new GetExercises().execute();
+        getAllExercises();
         lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view,
@@ -91,42 +91,29 @@ public class ExerciseListFragment extends Fragment {
         //Set Item Click Listener
     }
 
-    private class GetExercises extends AsyncTask<Void, Void, Void> {
-
-        protected Void doInBackground(Void... arg0) {
-            ParseQuery<ParseObject> query = ParseQuery.getQuery("Exercise");
-            query.orderByAscending("name");
-            query.setLimit(1000);
-            query.findInBackground(new FindCallback<ParseObject>() {
-
-                public void done(List<ParseObject> workoutList, ParseException e) {
-                    if (e == null) {
-                        workList = workoutList;
-                        for (int i = 0; i < workoutList.size(); i++) {
-                            exerciseList.add(workoutList.get(i).getString("name"));
-
-                        }
-                        //All the base workouts retrieved
-                    } else {
-                        System.out.println(e.getMessage());
-                        //Exception
-                    }
-                }
-            });
-            return null;
-        }
-
-
-        protected void onPostExecute(Void result) {
-            super.onPostExecute(result);
-            adapter = new ArrayAdapter<String>(getActivity(), R.layout.exerciselist_row, R.id.exercise_name, exerciseList);
-            lv.setAdapter(adapter);
-            adapter.notifyDataSetChanged();
-
-        }
-
+    private void onPostExecute() {
+        adapter = new ArrayAdapter<String>(getActivity(), R.layout.exerciselist_row, R.id.exercise_name, exerciseList);
+        lv.setAdapter(adapter);
+        adapter.notifyDataSetChanged();
 
     }
 
+    private void getAllExercises() {
+        ParseQuery<ParseObject> query = ParseQuery.getQuery("Exercise");
+        query.orderByAscending("name");
+        query.setLimit(1000);
+        query.findInBackground(new FindCallback<ParseObject>() {
 
+            public void done(List<ParseObject> parseExerciseList, ParseException e) {
+                if (e == null) {
+                    workList.addAll(parseExerciseList);
+                } else {
+                    System.out.println(e.getMessage());
+                    //Exception
+                }
+            onPostExecute();
+            }
+
+        });
+    }
 }

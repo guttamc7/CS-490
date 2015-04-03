@@ -172,6 +172,7 @@ public class HomePageActivity extends FragmentActivity {
                     public void onClick(DialogInterface dialog, int id) {
                         dialog.cancel();
                         ParseUser.getCurrentUser().logOut();
+                        finish();
                         System.exit(0);
                     }
                 });
@@ -181,6 +182,5 @@ public class HomePageActivity extends FragmentActivity {
         }
         mDrawerLayout.closeDrawer(mDrawerList);
     }
-
 }
 
