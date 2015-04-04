@@ -1,5 +1,5 @@
 # CS-490
-# getFit
+# gym8
 
 **Purpose**
 
