@@ -75,7 +75,10 @@ public class FindNearbyUsersFragment extends RootFragment {
 
         ParseQuery<ParseUser> query = ParseQuery.getQuery("_User");
         query.whereNotEqualTo("objectId", currentUser.getObjectId());
-        query.whereWithinMiles("location", userLocation, 50.0);
+        query.whereWithinMiles("location", userLocation, DiscoveryPreferencesDialog.returnFinaldistance);
+        if(DiscoveryPreferencesDialog.gender!="both") {
+            query.whereEqualTo("gender",DiscoveryPreferencesDialog.gender);
+        }
         query.setLimit(10);
         query.findInBackground(new FindCallback<ParseUser>() {
             public void done(List<ParseUser> userList, ParseException e) {
