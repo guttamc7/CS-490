@@ -27,15 +27,14 @@ public class DiscoveryPreferencesDialog extends DialogFragment
     private CheckedTextView checkedTextViewFemale;
     private boolean maleChecked;
     private boolean femaleChecked;
-    private int initialDistance;
+    private double initialDistance;
     private int initialAge;
     private int finalAge;
-    private int finalDistance;
-    public static int returnFinaldistance;
+    private double finalDistance;
+    public static double returnFinaldistance;
     public static int returnInitialAge;
     public static  int returnFinalAge;
-    public static String genderMale;
-    public static String genderFemale;
+    public static String gender;
     private TextView ageMinimum;
     private TextView ageMaximun;
     private TextView distanceMaximum;
@@ -122,9 +121,11 @@ public class DiscoveryPreferencesDialog extends DialogFragment
                 returnInitialAge = initialAge;
                 returnFinalAge = finalAge;
                 if(maleChecked)
-                    genderMale="male";
+                    gender="Male";
                 if(femaleChecked)
-                    genderFemale="female";
+                    gender="Female";
+                else
+                    gender="both";
                 getDialog().dismiss();
             }
         });
