@@ -193,7 +193,6 @@ public class NewProfileActivity extends Activity {
                 }, mYear, mMonth, mDay);
         dpd.show();
     }
-
     @Override
     public void onBackPressed() {
         Intent i = new Intent(NewProfileActivity.this, HomePageActivity.class);

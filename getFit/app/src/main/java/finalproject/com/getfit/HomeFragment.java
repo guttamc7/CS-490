@@ -32,7 +32,6 @@ public class HomeFragment extends Fragment {
     SectionsPagerAdapter mSectionsPagerAdapter;
     ViewPager mViewPager;
 
-
     public static HomeFragment newInstance() {
         return new HomeFragment();
     }
@@ -53,7 +52,7 @@ public class HomeFragment extends Fragment {
 
         mViewPager = (ViewPager) v.findViewById(R.id.pager);
         mViewPager.setAdapter(mSectionsPagerAdapter);
-
+        mViewPager.setOffscreenPageLimit(3);
         return v;
     }
 

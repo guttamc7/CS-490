@@ -25,6 +25,7 @@ import com.parse.ParseRelation;
 import com.parse.ParseUser;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import finalproject.com.getfit.R;
@@ -33,7 +34,7 @@ import finalproject.com.getfit.viewpager.RootFragment;
 public class TrendingWorkoutFragment extends RootFragment
 {
     public final static String TAG = TrendingWorkoutFragment.class.getSimpleName();
-    private List<ParseObject> trendingWorkoutList = new ArrayList<>();
+    private volatile List<ParseObject> trendingWorkoutList = new ArrayList<>();
     private ListView listViewTrendingWorkout;
     View v;
     private TrendingWorkoutAdapter adapter;
@@ -69,9 +70,8 @@ public class TrendingWorkoutFragment extends RootFragment
 
     public void onActivityCreated(Bundle savedInstanceState)
     {
-        System.out.println("On Activity Created");
         super.onActivityCreated(savedInstanceState);
-        new GetTrendingWorkouts().execute();
+        getTrendingWorkouts();
         listViewTrendingWorkout.setOnItemClickListener(new AdapterView.OnItemClickListener()
         {
             @Override
@@ -91,43 +91,29 @@ public class TrendingWorkoutFragment extends RootFragment
     public void onResume()
     {
         super.onResume();
-
-
     }
 
-    private class GetTrendingWorkouts extends AsyncTask<Void, Void, Void> {
+    private void onPostExecute() {
+        adapter = new TrendingWorkoutAdapter(getActivity().getApplicationContext(), trendingWorkoutList);
+        listViewTrendingWorkout.setAdapter(adapter);
+        adapter.notifyDataSetChanged();
+    }
 
-       protected Void doInBackground(Void... arg0) {
-           ParseUser user = ParseUser.getCurrentUser();
-           ParseQuery<ParseObject> query = ParseQuery.getQuery("Workout");
-           query.orderByDescending("likes");
-           query.findInBackground(new FindCallback<ParseObject>() {
+    private void getTrendingWorkouts(){
+        ParseUser user = ParseUser.getCurrentUser();
+        ParseQuery<ParseObject> query = ParseQuery.getQuery("Workout");
+        query.orderByDescending("likes");
+        query.findInBackground(new FindCallback<ParseObject>() {
 
-               public void done(List<ParseObject> workoutList, ParseException e) {
-                   if (e == null) {
-                       for (int i = 0; i < workoutList.size(); i++) {
-                           trendingWorkoutList.add(workoutList.get(i));
-                       }
-                       //All the base workouts retrieved
-                   } else {
-                       System.out.println(e.getMessage());
-                       //Exception
-                   }
-               }
-           });
-           return null;
-       }
-
-       protected void onPostExecute(Void result) {
-           super.onPostExecute(result);
-           adapter = new TrendingWorkoutAdapter(getActivity().getApplicationContext(), trendingWorkoutList);
-           listViewTrendingWorkout.setAdapter(adapter);
-           adapter.notifyDataSetChanged();
-
-       }
-   }
-
-
-
-
+            public void done(List<ParseObject> workoutList, ParseException e) {
+                if (e == null) {
+                    //All the workouts retrieved
+                    trendingWorkoutList.addAll(workoutList);
+                } else {
+                    System.out.println(e.getMessage());
+                }
+        onPostExecute();
+            }
+        });
+    }
 }

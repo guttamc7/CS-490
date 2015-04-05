@@ -71,7 +71,6 @@ public class FindNearbyFragment extends RootFragment {
             public void onClick(View v) {
                 DialogFragment dialogFrag = new DiscoveryPreferencesDialog();
                 dialogFrag.show(getActivity().getFragmentManager().beginTransaction(), "dialog");
-
             }
          });
 

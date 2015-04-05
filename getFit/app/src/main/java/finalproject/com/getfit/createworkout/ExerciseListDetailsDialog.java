@@ -12,6 +12,8 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.parse.ParseObject;
+
 import java.util.ArrayList;
 
 import finalproject.com.getfit.R;
@@ -31,7 +33,7 @@ public class ExerciseListDetailsDialog extends DialogFragment {
     private View rootView;
     private String numberSets;
     private String numberReps;
-    public static ArrayList<Exercise> exerciseWorkoutList = new ArrayList<>();
+    public static ArrayList<ParseObject> exerciseWorkoutList = new ArrayList<>();
     public Dialog onCreateDialog(Bundle savedInstanceState) {
 
         AlertDialog.Builder b = new AlertDialog.Builder(getActivity())
@@ -39,18 +41,17 @@ public class ExerciseListDetailsDialog extends DialogFragment {
                 .setPositiveButton("Add",
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int whichButton) {
-                                if (sets.getText().toString() == null || (!sets.getText().toString().equals("") && sets.getText().toString().length() > 0))
+                                if (sets.getText().toString() != null || (!sets.getText().toString().equals("") && sets.getText().toString().length() > 0))
                                     numberSets = sets.getText().toString();
 
-                                if (reps.getText().toString() == null || (!reps.getText().toString().equals("") && reps.getText().toString().length() > 0))
+                                if (reps.getText().toString() != null || (!reps.getText().toString().equals("") && reps.getText().toString().length() > 0))
                                     numberReps = reps.getText().toString();
-                                Exercise e = new Exercise();
-                                e.setExerciseName(ExerciseListFragment.selectedExercise.getString("name"));
-                                e.setExerciseSets(numberSets);
-                                e.setExerciseReps(numberReps);
-                                e.setExerciseImage1(ExerciseListFragment.selectedExercise.getString("maleImg1"));
-                                e.setExerciseImage2(ExerciseListFragment.selectedExercise.getString("maleImg2"));
-                                exerciseWorkoutList.add(e);
+
+                                System.out.println("Value is"+ Integer.parseInt(numberSets));
+                                ExerciseListFragment.selectedExercise.put("sets",Integer.parseInt(numberSets));
+                                System.out.println(ExerciseListFragment.selectedExercise.getInt("sets"));
+                                ExerciseListFragment.selectedExercise.put("reps",Integer.parseInt(numberReps));
+                                exerciseWorkoutList.add(ExerciseListFragment.selectedExercise);
                                 dismiss();
                                 ExerciseListFragment.listener.onSwitchToNextFragment();
                             }

@@ -67,7 +67,7 @@ public class BaseWorkoutFragment extends Fragment {
 
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        new GetWorkouts().execute();
+        getBaseWorkouts();
         listView.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view,
@@ -92,37 +92,31 @@ public class BaseWorkoutFragment extends Fragment {
         return webLink;
     }
 
-    private class GetWorkouts extends AsyncTask<Void, Void, Void> {
-        @Override
-        protected Void doInBackground(Void... arg0) {
-            ParseQuery<ParseObject> query = ParseQuery.getQuery("Workout");
-            query.orderByAscending("level");
-            query.whereEqualTo("userId", ParseUser.createWithoutData("_User",getResources().getString(R.string.baseUserId)));
-            query.findInBackground(new FindCallback<ParseObject>() {
+    private void onPostExecute() {
+        adapter = new BaseWorkoutAdapter(getActivity().getApplicationContext(), baseWorkoutList);
+        listView.setAdapter(adapter);
+        adapter.notifyDataSetChanged();
 
-                public void done(List<ParseObject> workoutList, ParseException e) {
-                    if (e == null) {
-                        for (int i = 0; i < workoutList.size(); i++) {
-                            baseWorkoutList.add(workoutList.get(i));
-                            adapter.notifyDataSetChanged();
-                        }
-
-                        //All the base workouts retrieved
-                    } else {
-                        System.out.println(e.getMessage());
-                        //Exception
-                    }
-                }
-            });
-            return null;
-        }
-        protected void onPostExecute(Void result) {
-            super.onPostExecute(result);
-            adapter = new BaseWorkoutAdapter(getActivity().getApplicationContext(), baseWorkoutList);
-            listView.setAdapter(adapter);
-            adapter.notifyDataSetChanged();
-
-        }
     }
+
+    private void getBaseWorkouts(){
+        ParseQuery<ParseObject> query = ParseQuery.getQuery("Workout");
+        query.orderByAscending("level");
+        query.whereEqualTo("userId", ParseUser.createWithoutData("_User",getResources().getString(R.string.baseUserId)));
+        query.findInBackground(new FindCallback<ParseObject>() {
+
+            public void done(List<ParseObject> workoutList, ParseException e) {
+                if (e == null) {
+                    //All the base workouts retrieved
+                    baseWorkoutList.addAll(workoutList);
+                } else {
+                    System.out.println(e.getMessage());
+                    //Exception
+                }
+        onPostExecute();
+            }
+        });
+    }
+
 }
 

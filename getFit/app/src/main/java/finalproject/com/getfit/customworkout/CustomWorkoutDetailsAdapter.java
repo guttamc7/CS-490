@@ -13,7 +13,7 @@ import com.parse.ParseObject;
 import java.util.ArrayList;
 
 import finalproject.com.getfit.R;
-import finalproject.com.getfit.createworkout.Exercise;
+
 import finalproject.com.getfit.imageloader.ImageLoader;
 
 /**
