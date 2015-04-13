@@ -106,7 +106,11 @@ public class ExerciseListFragment extends Fragment {
 
             public void done(List<ParseObject> parseExerciseList, ParseException e) {
                 if (e == null) {
-                    workList.addAll(parseExerciseList);
+                   for(int n=0;n<parseExerciseList.size();n++){
+                       workList.add(parseExerciseList.get(n));
+                       exerciseList.add(parseExerciseList.get(n).getString("name"));
+                   }
+
                 } else {
                     System.out.println(e.getMessage());
                     //Exception

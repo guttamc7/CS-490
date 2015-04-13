@@ -14,11 +14,19 @@ import android.widget.Toast;
 import android.support.v4.app.FragmentManager;
 
 import com.getbase.floatingactionbutton.FloatingActionButton;
+import com.parse.FindCallback;
+import com.parse.Parse;
+import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseRelation;
 import com.parse.ParseUser;
+import com.parse.SaveCallback;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.List;
+
+import javax.security.auth.callback.Callback;
 
 import finalproject.com.getfit.R;
 import finalproject.com.getfit.baseworkout.BaseWorkoutDetailsFragment;
@@ -103,30 +111,40 @@ public class CreateWorkoutExerciseFragment extends Fragment {
     }
 
     public void addWorkout(String name, String description, int level, ArrayList<ParseObject> exercise){
-        System.out.println("Exercise is "+exercise.size());
+        final ArrayList<ParseObject> workoutExercisesList = new ArrayList<ParseObject>();
 
-        ParseObject workout = new ParseObject("Workout");
-        workout.add("name",name);
-        workout.add("workoutType","custom");
-        workout.add("level",level);
-        workout.add("likes",0);
-        workout.add("userId", ParseUser.getCurrentUser());
-        workout.add("description",description);
-        ParseRelation<ParseObject> relation = workout.getRelation("exercises");
         for(int n=0;n <exercise.size();n++){
-
             ParseObject workoutExercises = new ParseObject("WorkoutExercises");
-            System.out.println(exercise.get(n).getInt("sets"));
-            System.out.println(exercise.get(n).getString("name"));
-            workoutExercises.add("sets",exercise.get(n).getInt("sets"));
-            workoutExercises.add("reps",exercise.get(n).getInt("reps"));
-            workoutExercises.add("exerciseId",exercise.get(n)); //Uncomment
-            workoutExercises.saveInBackground();
-            relation.add(workoutExercises);
+            workoutExercises.put("sets",exercise.get(n).getInt("sets"));
+            workoutExercises.put("reps",exercise.get(n).getInt("reps"));
+            workoutExercises.put("exercise", exercise.get(n));
+            workoutExercisesList.add(workoutExercises);
         }
-        workout.saveInBackground();
+
+        ParseObject.saveAllInBackground(workoutExercisesList,new SaveCallback() {
+            public void done(ParseException e) {
+                if (e == null) {
+                    ParseObject workout= new ParseObject("Workout");
+                    workout.put("userId", ParseUser.getCurrentUser());
+                    //ToDo
+                    workout.put("name","test");
+                    workout.put("description","text-description");
+                    //workout.put("level",)
+                    workout.put("workoutType","custom");
+                    workout.put("likes",0);
+
+                    ParseRelation<ParseObject> workoutExercisesRelation = workout.getRelation("exercises");
+
+                    for(int n=0;n< workoutExercisesList.size();n++){
+                        workoutExercisesRelation.add(workoutExercisesList.get(n));
+                    }
+
+                    workout.saveInBackground();
+
+                } else {
+                }
+            }
+        });
     }
-
-
 
 }

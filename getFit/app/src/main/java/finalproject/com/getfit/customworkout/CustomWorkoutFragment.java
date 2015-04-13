@@ -35,7 +35,7 @@ public class CustomWorkoutFragment extends Fragment {
     private ArrayList<ParseObject> customWorkoutList = new ArrayList<>();
     private ListView listView;
     private CustomWorkoutAdapter adapter;
-    public static ParseObject selectedWorkout;
+    private ParseObject selectedWorkout;
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
@@ -66,7 +66,7 @@ public class CustomWorkoutFragment extends Fragment {
                                     int position, long id) {
                 selectedWorkout = (ParseObject)listView.getItemAtPosition(position);
                 FragmentTransaction ft = getChildFragmentManager().beginTransaction();
-                ft.replace(R.id.frag_custom, new CustomWorkoutDetailsFragment());
+                ft.replace(R.id.frag_custom, new CustomWorkoutDetailsFragment(selectedWorkout));
                 ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
                 ft.addToBackStack("create_workouts_dialog");
                 ft.commit();
@@ -92,34 +92,15 @@ public class CustomWorkoutFragment extends Fragment {
             query.findInBackground(new FindCallback<ParseObject>() {
                 public void done(List<ParseObject> workoutList, ParseException e) {
                     if (e == null) {
-
-                        for(int n=0;n<workoutList.size();n++){
-                            customWorkoutList.add(workoutList.get(n));
-                            ParseRelation<ParseObject> exercises = workoutList.get(n).getRelation("exercises");
-                            List<ParseObject> workoutExercises = null;
-                            try {
-                                workoutExercises = exercises.getQuery().find();
-
-                                for(int m=0;n<workoutExercises.size();m++){
-                                    workoutExercises.get(m).get("reps");
-                                    workoutExercises.get(m).get("sets");
-                                    ParseObject exercise = workoutExercises.get(m).getParseObject("exerciseId");
-                                }
-
-                            } catch (ParseException e1) {
-                                e1.printStackTrace();
-                            }
-
-
-                        }
-
-                    } else {
-                        //  Log.d("score", "Error: " + e.getMessage());
+                        customWorkoutList.addAll(workoutList);
+                      }
+                     else {
                     }
                 }
             });
             return null;
         }
+
         protected void onPostExecute(Void result) {
             super.onPostExecute(result);
             adapter = new CustomWorkoutAdapter(getActivity().getApplicationContext(), customWorkoutList);
@@ -128,7 +109,6 @@ public class CustomWorkoutFragment extends Fragment {
 
         }
     }
-
 
 
 }
