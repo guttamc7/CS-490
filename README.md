@@ -35,6 +35,9 @@ There has been an every increasing trend on fitness and health in recent years. 
 - For kindle, please have developer options ticked inside settings. It can happen that you connect the kindle to your laptop and Android Studio cannot detect it even though the kindle is getting charged. This means that the kindle's wire is defected and you can get it changed.
 - The application can be run with an emulator, this can be done by editing run confugurations for the application and selection the reqiured emulatior. This emulator in Android Studio is a lot faster and better then Eclipse.
 
+##Improvements##
+- DataModeling for User linked with workout. Have One-To-Many relations in user to workout. 
+
 #####Likely causes for Errors#####
 
 ###Note###
