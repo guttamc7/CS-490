@@ -1,9 +1,9 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:gravity="center"
     android:background="@null"
-    android:orientation="vertical">
+    >
 
     <EditText
         android:id="@+id/signup_name_input"
@@ -26,6 +26,7 @@
     <EditText
         android:id="@+id/signup_email_input"
         android:layout_width="match_parent"
+        android:layout_below="@id/signup_name_input"
         android:layout_height="wrap_content"
         android:hint="@string/com_parse_ui_email_input_hint"
         android:inputType="textEmailAddress"
@@ -44,6 +45,7 @@
     <EditText
         android:id="@+id/signup_username_input"
         android:layout_width="match_parent"
+        android:layout_below="@id/signup_email_input"
         android:layout_height="wrap_content"
         android:padding="10dp"
         android:layout_gravity="center"
@@ -61,6 +63,7 @@
     <EditText
         android:id="@+id/signup_password_input"
         android:layout_width="match_parent"
+        android:layout_below="@id/signup_username_input"
         android:layout_height="wrap_content"
         android:padding="10dp"
         android:layout_marginLeft="25dip"
@@ -80,6 +83,7 @@
     <EditText
         android:id="@+id/signup_confirm_password_input"
         android:layout_width="match_parent"
+        android:layout_below="@id/signup_password_input"
         android:layout_height="wrap_content"
         style="@style/ParseLoginUI.EditText"
         android:fontFamily="sans-serif"
@@ -100,9 +104,10 @@
     <Button
         android:id="@+id/create_account"
         style="@style/ParseLoginUI.Button"
+        android:layout_below="@id/signup_confirm_password_input"
         android:layout_marginLeft="25dip"
         android:layout_marginRight="25dip"
         android:layout_marginTop="@dimen/com_parse_ui_small_vertical_spacing"
         android:text="@string/com_parse_ui_create_account_button_label" />
 
-</LinearLayout>
+</RelativeLayout>

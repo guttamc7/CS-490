@@ -1,9 +1,9 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center"
     android:background="@null"
-    android:orientation="vertical">
+    >
 
     <TextView
         android:id="@+id/login_help_instructions"
@@ -17,6 +17,7 @@
         android:id="@+id/login_help_email_input"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_below="@id/login_help_instructions"
         android:padding="5dp"
         android:layout_marginTop="@dimen/com_parse_ui_xlarge_vertical_spacing"
         android:hint="@string/com_parse_ui_login_help_email_input_hint"
@@ -36,7 +37,8 @@
         style="@style/ParseLoginUI.Button"
         android:layout_marginTop="@dimen/com_parse_ui_xlarge_vertical_spacing"
         android:layout_gravity="center"
+        android:layout_below="@id/login_help_email_input"
         android:layout_marginLeft="25dip"
         android:layout_marginRight="25dip"
         android:text="@string/com_parse_ui_login_help_submit_button_label" />
-</LinearLayout>
+</RelativeLayout>

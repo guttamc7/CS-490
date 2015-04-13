@@ -1,7 +1,6 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_height="wrap_content"
     android:layout_width="match_parent"
-    android:orientation="vertical"
     android:gravity="center"
     android:id="@+id/parse_login"
     android:background="@null"
@@ -32,6 +31,7 @@
         android:padding="10dp"
         android:layout_marginLeft="25dip"
         android:layout_marginRight="25dip"
+        android:layout_below="@id/login_username_input"
         android:inputType="textPassword"
         android:gravity="center"
         android:singleLine="true"
@@ -46,6 +46,7 @@
         android:id="@+id/parse_buttons"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_below="@id/login_password_input"
         android:layout_marginTop="@dimen/com_parse_ui_large_vertical_spacing">
 
         <Button
@@ -53,7 +54,6 @@
             style="@style/ParseLoginUI.Button"
             android:layout_weight="0.5"
             android:layout_marginLeft="25dip"
-
             android:text="@string/com_parse_ui_parse_login_button_label" />
 
         <Button
@@ -70,6 +70,7 @@
         style="@style/ParseLoginUI.HelpButton"
         android:layout_marginTop="@dimen/com_parse_ui_small_vertical_spacing"
         android:layout_marginBottom="@dimen/com_parse_ui_small_vertical_spacing"
-
+        android:layout_below="@id/parse_buttons"
+        android:layout_centerHorizontal="true"
         android:text="@string/com_parse_ui_forgot_password_button_label" />
-</LinearLayout>
+</RelativeLayout>
