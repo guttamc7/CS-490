@@ -30,13 +30,9 @@ public class CustomWorkoutDetailsFragment extends Fragment {
     private ListView listView;
     private CustomWorkoutDetailsAdapter adapter;
     private ParseObject selectedWorkout;
-    private List<ParseObject> workoutExercisesList;
+    private ArrayList<ParseObject> workoutExercisesList;
     private View rootView;
 
-    public CustomWorkoutDetailsFragment(ParseObject selectedWorkout) {
-        // Auto-generated constructor stub
-        this.selectedWorkout = selectedWorkout;
-    }
 
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -47,10 +43,18 @@ public class CustomWorkoutDetailsFragment extends Fragment {
 
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+        getExercises();
+    }
+
+    private void onPostExecute() {
+        adapter = new CustomWorkoutDetailsAdapter(getActivity().getApplicationContext(), workoutExercisesList);
+        listView.setAdapter(adapter);
+        adapter.notifyDataSetChanged();
+
     }
 
     private void getExercises() {
-        ParseRelation<ParseObject> exercises = selectedWorkout.getRelation("exercises");
+        ParseRelation<ParseObject> exercises = CustomWorkoutFragment.selectedWorkout.getRelation("exercises");
         ParseQuery<ParseObject> query = exercises.getQuery();
         query.findInBackground(new FindCallback<ParseObject>() {
         public void done(List<ParseObject> workoutExercises, ParseException e) {
@@ -58,6 +62,7 @@ public class CustomWorkoutDetailsFragment extends Fragment {
                 workoutExercisesList.addAll(workoutExercises);
             } else {
              }
+            onPostExecute();
             }
         });
 

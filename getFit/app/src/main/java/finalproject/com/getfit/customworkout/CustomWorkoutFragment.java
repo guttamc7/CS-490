@@ -35,7 +35,7 @@ public class CustomWorkoutFragment extends Fragment {
     private ArrayList<ParseObject> customWorkoutList = new ArrayList<>();
     private ListView listView;
     private CustomWorkoutAdapter adapter;
-    private ParseObject selectedWorkout;
+    public static ParseObject selectedWorkout;
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
@@ -64,9 +64,10 @@ public class CustomWorkoutFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view,
                                     int position, long id) {
+                CustomWorkoutDetailsFragment customDetailsFrag = new CustomWorkoutDetailsFragment();
                 selectedWorkout = (ParseObject)listView.getItemAtPosition(position);
                 FragmentTransaction ft = getChildFragmentManager().beginTransaction();
-                ft.replace(R.id.frag_custom, new CustomWorkoutDetailsFragment(selectedWorkout));
+                ft.replace(R.id.frag_custom, customDetailsFrag);
                 ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
                 ft.addToBackStack("create_workouts_dialog");
                 ft.commit();
@@ -78,6 +79,8 @@ public class CustomWorkoutFragment extends Fragment {
         super.onResume();
 
     }
+
+
 
     public static CustomWorkoutFragment newInstance() {
         return new CustomWorkoutFragment();

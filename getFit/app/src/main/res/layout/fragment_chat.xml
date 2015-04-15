@@ -21,6 +21,14 @@
         android:layout_alignParentBottom="true"
         android:background="@color/primary_white" >
 
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="2dp"
+            android:id="@+id/user_view"
+            android:layout_below="@id/user_likes_text"
+            android:background="@color/primary_blue"
+            />
+
         <ImageButton
             android:id="@+id/send_message_button"
             android:layout_width="wrap_content"
@@ -37,13 +45,12 @@
             android:layout_height="wrap_content"
             android:padding="10dp"
             android:fontFamily="sans-serif"
-            android:hint="@string/com_parse_ui_confirm_password_input_hint"
-            android:inputType="textPassword"
+            android:inputType="textMultiLine"
+            android:ems="10"
             android:layout_marginRight="10dip"
             android:gravity="center"
             android:singleLine="true"
-            android:textColorHint="#eaeff3"
-            android:textColor="#eaeff3"
+            android:textColor="@android:color/primary_text_light"
             android:textSize="18sp"
             android:layout_alignBottom="@+id/send_message_button"
             android:layout_toLeftOf="@+id/send_message_button" >
