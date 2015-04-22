@@ -49,7 +49,7 @@
         android:layout_marginLeft="15dp"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
-        android:textSize="20sp"
+        android:textSize="17sp"
         android:textStyle="bold" />
 
     <RelativeLayout
@@ -71,13 +71,13 @@
         android:layout_gravity="center"
         android:padding="2dp"
         android:gravity="center"
-        android:textSize="17sp"
+        android:textSize="15sp"
          />
 
         <ImageView
             android:id="@+id/workout_multiply"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
+            android:layout_width="18dp"
+            android:layout_height="18dp"
             android:padding="2dp"
             android:layout_below="@id/workout_exercise_set"
             android:src="@drawable/ic_action_cancel"
@@ -93,7 +93,7 @@
         android:layout_below="@id/workout_multiply"
         android:layout_gravity="center"
         android:gravity="center"
-        android:textSize="17sp"
+        android:textSize="15sp"
          />
     </RelativeLayout>
 
