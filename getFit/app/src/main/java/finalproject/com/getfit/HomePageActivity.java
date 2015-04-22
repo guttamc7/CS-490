@@ -22,6 +22,7 @@ import com.parse.ParseUser;
 
 import finalproject.com.getfit.baseworkout.BaseWorkoutFragment;
 import finalproject.com.getfit.customworkout.CustomWorkoutFragment;
+import finalproject.com.getfit.messages.MessagesFragment;
 
 public class HomePageActivity extends FragmentActivity {
 
@@ -161,7 +162,7 @@ public class HomePageActivity extends FragmentActivity {
             case 3: //TODO
                 getSupportFragmentManager()
                         .beginTransaction()
-                        .replace(R.id.content_frame, CustomWorkoutFragment.newInstance()).commit();
+                        .replace(R.id.content_frame, MessagesFragment.newInstance()).commit();
                 break;
             case 4: //SignOut
                 AlertDialog.Builder builder = new AlertDialog.Builder(this);
