@@ -22,7 +22,7 @@
             android:inputType="textMultiLine"
             android:ems = "15"
             android:textSize="15sp"
-            android:background="@drawable/speech_bubble_red"
+            android:background="@drawable/speech_bubble_yellow"
             android:textColor="@android:color/primary_text_light" />
         </ScrollView>
     </LinearLayout>

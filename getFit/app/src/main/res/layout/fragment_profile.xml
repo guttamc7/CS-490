@@ -10,20 +10,20 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="300dp"
+        android:layout_height="225dp"
         android:id="@+id/header_profile"
         android:scaleType="fitStart"
         android:orientation="vertical"
-        android:background="@drawable/ic_background">
+        android:background="#3E8193">
 
     <de.hdodenhof.circleimageview.CircleImageView
         xmlns:app="http://schemas.android.com/apk/res-auto"
         app:border_width="3dp"
         app:border_color="@color/primary_white"
-        android:layout_width="125dp"
-        android:layout_height="125dp"
+        android:layout_width="90dp"
+        android:layout_height="90dp"
         android:id="@+id/ProfilePic"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="20dp"
         android:layout_gravity="center_horizontal"
         android:src="@drawable/default_user_icon"
         android:layout_alignParentTop="true"
@@ -41,7 +41,7 @@
         android:layout_below="@+id/ProfilePic"
         android:layout_centerHorizontal="true"
         android:text="Gurumukh Uttamchandani"
-        android:textSize = "18dp" />
+        android:textSize = "16sp" />
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -62,7 +62,7 @@
             android:layout_marginRight="15dp"
             android:layout_toLeftOf="@+id/stroke"
             android:text="178 cm"
-            android:textSize = "17dp" />
+            android:textSize = "15sp" />
 
 
         <View
@@ -87,7 +87,7 @@
                 android:textColor="#eaeff3"
                 android:layout_gravity="center"
                 android:text="160 lbs"
-                android:textSize = "17dp"
+                android:textSize = "15sp"
                 android:layout_alignParentRight="true" />
 
             <TextView
@@ -100,7 +100,7 @@
                 android:textColor="#eaeff3"
                 android:layout_gravity="center"
                 android:text="21 years old"
-                android:textSize = "17dp"
+                android:textSize = "15sp"
                 android:layout_marginTop="10dp"
                 android:layout_below="@+id/height_profile"
                 android:layout_centerHorizontal="true" />
@@ -123,11 +123,11 @@
         android:layout_height="wrap_content"
         android:fontFamily="sans-serif_light"
         android:gravity="center"
-        android:padding="15dp"
+        android:padding="10dp"
         android:textColor="@color/like_color"
         android:layout_gravity="center"
         android:text="Liked Workouts"
-        android:textSize = "20dp"
+        android:textSize = "18sp"
         android:textStyle="bold"
         android:layout_below="@id/header_profile"
         android:layout_centerHorizontal="true" />

@@ -49,7 +49,7 @@ public class HomePageActivity extends FragmentActivity {
 
         // set a custom shadow that overlays the main content when the drawer opens
         mDrawerLayout.setDrawerShadow(R.drawable.drawer_shadow,  GravityCompat.START);
-        mDrawerList.setBackgroundColor(Color.parseColor("#34678a"));
+        mDrawerList.setBackgroundColor(getResources().getColor(R.color.navigation_drawer_color));
         // Add items to the ListView
         mDrawerList.setAdapter(new DrawerListAdapter(this,mDrawerItems,imageId));
         // Set the OnItemClickListener so something happens when a

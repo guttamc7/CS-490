@@ -2,6 +2,7 @@ package finalproject.com.getfit.trendingworkout;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,9 +10,6 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import com.daimajia.androidanimations.library.Techniques;
-import com.daimajia.androidanimations.library.YoYo;
 import com.daimajia.swipe.SimpleSwipeListener;
 import com.daimajia.swipe.SwipeLayout;
 import com.daimajia.swipe.adapters.BaseSwipeAdapter;
@@ -52,6 +50,7 @@ public class TrendingWorkoutAdapter extends BaseSwipeAdapter
     public View generateView(final int position, ViewGroup parent)
     {
         View v = LayoutInflater.from(context).inflate(R.layout.trendingworkout_row, null);
+        View rowColor = v.findViewById(R.id.view_row_trendingWorkout);
         SwipeLayout swipeLayout = (SwipeLayout)v.findViewById(getSwipeLayoutResourceId(position));
 
         swipeLayout.addSwipeListener(
@@ -60,7 +59,6 @@ public class TrendingWorkoutAdapter extends BaseSwipeAdapter
             @Override
             public void onOpen(SwipeLayout layout)
             {
-                YoYo.with(Techniques.Tada).duration(500).delay(100).playOn(layout.findViewById(R.id.like_imview_trendingWorkout));
 
             }
         });
@@ -117,16 +115,13 @@ public class TrendingWorkoutAdapter extends BaseSwipeAdapter
         // thumbnail image
         if(workout.getInt("level") == 1){
             thumbNail.setImageResource(R.drawable.ic_level1);
-            title.setTextColor(R.string.level1_color);
+
         }
         else if(workout.getInt("level") == 2){
             thumbNail.setImageResource(R.drawable.ic_level2);
-            title.setTextColor(R.string.level2_color);
-
         }
         else {
             thumbNail.setImageResource(R.drawable.ic_level3);
-            title.setTextColor(R.string.level3_color);
         }
 
         // title

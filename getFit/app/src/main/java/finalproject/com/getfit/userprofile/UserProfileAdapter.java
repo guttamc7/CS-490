@@ -9,9 +9,6 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import com.daimajia.androidanimations.library.Techniques;
-import com.daimajia.androidanimations.library.YoYo;
 import com.daimajia.swipe.SimpleSwipeListener;
 import com.daimajia.swipe.SwipeLayout;
 import com.daimajia.swipe.adapters.BaseSwipeAdapter;
@@ -58,8 +55,7 @@ public class UserProfileAdapter extends BaseSwipeAdapter
                     @Override
                     public void onOpen(SwipeLayout layout)
                     {
-                        YoYo.with(Techniques.Tada).duration(500).delay(100).playOn(layout.findViewById(R.id.schedule_imview_user_like));
-                        YoYo.with(Techniques.Tada).duration(500).delay(100).playOn(layout.findViewById(R.id.delete_imview_user_like));
+
                     }
                 });
         swipeLayout.setOnDoubleClickListener(new SwipeLayout.DoubleClickListener()
@@ -110,18 +106,15 @@ public class UserProfileAdapter extends BaseSwipeAdapter
         if(m.getInt("level") == 1)
         {
             thumbNail.setImageResource(R.drawable.ic_level1);
-            title.setTextColor(R.string.level1_color);
+
         }
         else if(m.getInt("level") == 2)
         {
             thumbNail.setImageResource(R.drawable.ic_level2);
-            title.setTextColor(R.string.level2_color);
-
         }
         else
         {
             thumbNail.setImageResource(R.drawable.ic_level3);
-            title.setTextColor(R.string.level3_color);
         }
 
         title.setText(m.getString("name"));

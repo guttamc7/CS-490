@@ -4,12 +4,14 @@
 
     <style name="ParseLoginUI.Button" parent="@android:style/Widget.Button">
         <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">48dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:padding">10dp</item>
+        <item name="android:gravity">center</item>
         <item name="android:background">
             @drawable/com_parse_ui_parse_login_button_background_selector
         </item>
         <item name="android:textColor">@color/com_parse_ui_parse_login_display_text</item>
-        <item name="android:textSize">18sp</item>
+        <item name="android:textSize">17sp</item>
     </style>
 
     <style name="ParseLoginUI.Button.ThirdPartyLogin" parent="ParseLoginUI.Button">
@@ -34,5 +36,13 @@
 
     <style name="ParseLoginUI.EditText" parent="@android:style/Widget.EditText">
         <item name="android:singleLine">true</item>
+    </style>
+
+    <style name="MyEditText_Style" parent="@android:style/Widget.EditText">
+        <item name="android:layout_marginLeft">25dip</item>
+        <item name="android:layout_marginRight">25dip</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:padding">10dp</item>
     </style>
 </resources>

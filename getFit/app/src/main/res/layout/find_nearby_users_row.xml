@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="250dp"
     android:layout_height="350dp"
+    android:clickable="true"
     >
 <RelativeLayout
     android:layout_width="match_parent"
@@ -13,7 +14,7 @@
     android:layout_marginBottom="20dp"
     android:orientation="vertical"
     android:background="@drawable/bg_card">
-    
+
     <RelativeLayout
         android:layout_width="fill_parent"
         android:layout_height="175dp"
@@ -26,7 +27,7 @@
             android:text="Name"
             android:textColor = "@color/primary_white"
             android:layout_marginTop="25dp"
-            android:textSize="20dp"
+            android:textSize="20sp"
             android:fontFamily="sans-serif"
             android:layout_centerHorizontal="true">
         </TextView>
@@ -54,7 +55,7 @@
                 android:text="Within 2 miles, "
                 android:textColor = "@color/primary_white"
                 android:textStyle="italic"
-                android:textSize="16dp"
+                android:textSize="16sp"
                 android:fontFamily="sans-serif-light"
                 >
             </TextView>
@@ -64,7 +65,7 @@
                 android:layout_height="wrap_content"
                 android:text="1 hour ago"
                 android:textColor = "@color/primary_white"
-                android:textSize="16dp"
+                android:textSize="16sp"
                 android:textStyle="italic"
                 android:fontFamily="sans-serif-light"
                 android:layout_alignParentTop="true"

@@ -25,7 +25,6 @@
             android:layout_width="fill_parent"
             android:layout_height="2dp"
             android:id="@+id/user_view"
-            android:layout_below="@id/user_likes_text"
             android:background="@color/primary_blue"
             />
 

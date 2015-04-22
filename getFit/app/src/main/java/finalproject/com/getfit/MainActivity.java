@@ -2,9 +2,11 @@ package finalproject.com.getfit;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.Window;
+import android.view.WindowManager;
 
 import com.parse.Parse;
 import com.parse.ParseUser;
@@ -16,7 +18,7 @@ import com.parse.ui.ParseLoginBuilder;
 public class MainActivity extends Activity {
 
     // Splash screen timer
-    private static int SPLASH_TIME_OUT = 5000;
+    private static int SPLASH_TIME_OUT = 3000;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

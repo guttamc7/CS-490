@@ -36,13 +36,14 @@ public class FindNearbyFragment extends RootFragment {
     private static double latitude;
     private static double longitude;
     private FloatingActionButton discoverySettings;
+    private RippleBackground rippleBackground;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
         View rootView = inflater.inflate(R.layout.fragment_findnearby, container, false);
-        final RippleBackground rippleBackground=(RippleBackground)rootView.findViewById(R.id.content_ripple);
+        rippleBackground =(RippleBackground)rootView.findViewById(R.id.content_ripple);
         findNearbyImageView = (ImageView) rootView.findViewById(R.id.imgViewfindNearby);
         discoverySettings = (FloatingActionButton) rootView.findViewById(R.id.discovery_settings);
         discoverySettings.setSize(FloatingActionButton.SIZE_NORMAL);
@@ -85,7 +86,7 @@ public class FindNearbyFragment extends RootFragment {
                     public void run() {
                         foundUsers();
                     }
-                }, 4000);
+                }, 3000);
 
             }
         });
@@ -105,7 +106,8 @@ public class FindNearbyFragment extends RootFragment {
             FindNearbyFragment.latitude = gps.getLatitude();
             FindNearbyFragment.longitude = gps.getLongitude();
         }
-        System.out.println(latitude + "  " +longitude);
+        System.out.println("HERE: " + latitude + "  " +longitude);
+        rippleBackground.stopRippleAnimation();
         FragmentTransaction ft = getChildFragmentManager().beginTransaction();
         ft.replace(R.id.findnearby_frag, new FindNearbyUsersFragment());
         ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);

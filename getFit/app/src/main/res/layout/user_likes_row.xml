@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="210dp"
+    android:layout_height="175dp"
     android:descendantFocusability="blocksDescendants">
 
     <RelativeLayout
@@ -34,7 +34,7 @@
                     android:background="#1BBC9B"
                     android:paddingLeft="25dp"
                     android:paddingRight="25dp"
-                    android:layout_height="110dp" />
+                    android:layout_height="95dp" />
 
                 <ImageView
                     android:id="@+id/delete_imview_user_like"
@@ -43,7 +43,7 @@
                     android:background="@color/delete_color"
                     android:paddingLeft="25dp"
                     android:paddingRight="25dp"
-                    android:layout_height="110dp" />
+                    android:layout_height="95dp" />
 
             </LinearLayout>
 
@@ -56,8 +56,8 @@
                 <!-- Thumbnail Image -->
                 <ImageView
                     android:id="@+id/thumbnail_user_like"
-                    android:layout_width="80dp"
-                    android:layout_height="80dp"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
                     android:layout_alignParentLeft="true"
                     android:layout_marginRight="8dp" />
 
@@ -65,35 +65,34 @@
                     android:id="@+id/title_user_like"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="#2D343D"
+                    android:textColor="@color/text_black"
                     android:text="Title"
-                    android:fontFamily="sans-serif"
-                    android:layout_gravity="center"
-                    android:gravity="center"
+                    android:fontFamily="sans-serif-light"
+                    android:layout_marginLeft="10dp"
                     android:layout_toRightOf="@+id/thumbnail_user_like"
-                    android:textSize="20sp"
+                    android:textSize="18sp"
                     android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/description_user_like"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="#000000"
-                    android:layout_gravity="center"
+                    android:textColor="@color/text_black"
+                    android:layout_marginLeft="10dp"
                     android:layout_marginTop="22dp"
                     android:fontFamily="sans-serif"
                     android:layout_toRightOf="@+id/thumbnail_user_like"
                     android:layout_below="@+id/title_user_like"
                     android:text="Hi I am a sample workout Description"
                     android:padding="5dp"
-                    android:maxLines="3"
-                    android:textSize="18dp"
+                    android:ems="15"
+                    android:textSize="16sp"
                     />
 
                 <View
                     android:layout_width="fill_parent"
                     android:layout_height="1dip"
-                    android:layout_marginTop="30dp"
+                    android:layout_marginTop="10dp"
                     android:background="#A5A7A9"
                     android:layout_below="@+id/description_user_like"
                     android:id="@+id/view_row_user_like" />
@@ -110,7 +109,7 @@
                         android:layout_height="wrap_content"
                         android:text = "1,2345"
                         android:layout_gravity="center_horizontal"
-                        android:textSize = "16sp"
+                        android:textSize = "15sp"
                         android:textColor="#E6A457"
                         android:drawableLeft="@drawable/ic_action_like"
                         android:background="@null"

@@ -13,9 +13,6 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import com.daimajia.androidanimations.library.Techniques;
-import com.daimajia.androidanimations.library.YoYo;
 import com.daimajia.swipe.SimpleSwipeListener;
 import com.daimajia.swipe.SwipeLayout;
 import com.daimajia.swipe.adapters.BaseSwipeAdapter;
@@ -60,8 +57,7 @@ public class CustomWorkoutAdapter extends BaseSwipeAdapter
                     @Override
                     public void onOpen(SwipeLayout layout)
                     {
-                        YoYo.with(Techniques.Tada).duration(500).delay(100).playOn(layout.findViewById(R.id.schedule_imview_custom_workout));
-                        YoYo.with(Techniques.Tada).duration(500).delay(100).playOn(layout.findViewById(R.id.delete_imview_custom_workout));
+
                     }
                 });
         swipeLayout.setOnDoubleClickListener(new SwipeLayout.DoubleClickListener()
