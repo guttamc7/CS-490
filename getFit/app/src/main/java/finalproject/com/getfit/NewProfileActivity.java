@@ -191,6 +191,7 @@ public class NewProfileActivity extends Activity {
 
                     }
                 }, mYear, mMonth, mDay);
+        dpd.getDatePicker().setMaxDate(new Date().getTime());
         dpd.show();
     }
     @Override
