@@ -1,9 +1,11 @@
-package com.gym8.main;
+package finalproject.com.getfit;
 /**
  * Created by Gurumukh on 2/4/15.
  */
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.content.res.Configuration;
 import android.support.v4.app.ActionBarDrawerToggle;
@@ -16,11 +18,11 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 
-import com.gym8.main.R;
 import com.parse.ParseUser;
 
-import com.gym8.baseworkout.BaseWorkoutFragment;
-import com.gym8.customworkout.CustomWorkoutFragment;
+import finalproject.com.getfit.baseworkout.BaseWorkoutFragment;
+import finalproject.com.getfit.customworkout.CustomWorkoutFragment;
+import finalproject.com.getfit.messages.MessagesFragment;
 
 public class HomePageActivity extends FragmentActivity {
 
@@ -160,7 +162,7 @@ public class HomePageActivity extends FragmentActivity {
             case 3: //TODO
                 getSupportFragmentManager()
                         .beginTransaction()
-                        .replace(R.id.content_frame, CustomWorkoutFragment.newInstance()).commit();
+                        .replace(R.id.content_frame, MessagesFragment.newInstance()).commit();
                 break;
             case 4: //SignOut
                 AlertDialog.Builder builder = new AlertDialog.Builder(this);

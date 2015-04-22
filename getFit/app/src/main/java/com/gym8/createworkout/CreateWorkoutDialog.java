@@ -44,6 +44,21 @@ public class CreateWorkoutDialog extends DialogFragment {
         ViewPager pager = (ViewPager) view.findViewById(R.id.create_workout_pager);
         MyFragmentAdapter adapter = new MyFragmentAdapter(getChildFragmentManager());
         pager.setAdapter(adapter);
+        pager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageSelected(int position)
+            {
+            }
+            @Override
+            public void onPageScrollStateChanged(int state)
+            {
+            }
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels)
+            {
+                System.out.println("On Page Scrolled");
+            }
+        });
         CirclePageIndicator mIndicator = (CirclePageIndicator)view.findViewById(R.id.indicator);
         mIndicator.setViewPager(pager);
         mIndicator.setCurrentItem(0);
@@ -79,6 +94,7 @@ public class CreateWorkoutDialog extends DialogFragment {
                 }
                 notifyDataSetChanged();
             }
+
         }
         public MyFragmentAdapter(FragmentManager fm) {
             super(fm);

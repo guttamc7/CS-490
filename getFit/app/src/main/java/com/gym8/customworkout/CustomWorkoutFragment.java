@@ -55,7 +55,7 @@ public class CustomWorkoutFragment extends Fragment {
     }
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        new GetWorkouts().execute();
+        getWorkouts();
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view,
@@ -82,10 +82,7 @@ public class CustomWorkoutFragment extends Fragment {
         return new CustomWorkoutFragment();
     }
 
-
-    private class GetWorkouts extends AsyncTask<Void, Void, Void> {
-        @Override
-        protected Void doInBackground(Void... arg0) {
+    private void getWorkouts() {
             ParseQuery<ParseObject> query = ParseQuery.getQuery("Workout");
             query.whereEqualTo("userId", ParseUser.getCurrentUser());
             query.findInBackground(new FindCallback<ParseObject>() {
@@ -97,17 +94,15 @@ public class CustomWorkoutFragment extends Fragment {
                     }
                 }
             });
-            return null;
+        onPostExecute();
         }
 
-        protected void onPostExecute(Void result) {
-            super.onPostExecute(result);
+        protected void onPostExecute() {
             adapter = new CustomWorkoutAdapter(getActivity().getApplicationContext(), customWorkoutList);
             listView.setAdapter(adapter);
             adapter.notifyDataSetChanged();
 
         }
-    }
 
 
 }

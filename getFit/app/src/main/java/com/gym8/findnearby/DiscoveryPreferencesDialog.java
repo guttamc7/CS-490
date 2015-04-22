@@ -31,10 +31,10 @@ public class DiscoveryPreferencesDialog extends DialogFragment
     private int initialAge;
     private int finalAge;
     private double finalDistance;
-    public static double returnFinaldistance;
-    public static int returnInitialAge;
-    public static  int returnFinalAge;
-    public static String gender;
+    public static double returnFinaldistance = 100;
+    public static int returnInitialAge = 16;
+    public static  int returnFinalAge = 75;
+    public static String gender = "both";
     private TextView ageMinimum;
     private TextView ageMaximun;
     private TextView distanceMaximum;

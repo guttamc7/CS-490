@@ -269,6 +269,10 @@ public class EditProfileDialog extends DialogFragment
 
                     }
                 }, mYear, mMonth, mDay);
+        c.set(mYear-16,mMonth,mDay);
+        Date date = c.getTime();
+        dpd.getDatePicker().setMaxDate(date.getTime());
         dpd.show();
+
     }
 }

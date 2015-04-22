@@ -119,6 +119,7 @@
         fab:fab_addButtonColorNormal="@color/button_red"
         fab:fab_labelStyle="@style/menu_labels_style"
         fab:fab_labelsPosition="left"
+        fab:fab_addButtonSize="mini"
         android:layout_alignBottom="@id/header_userProfile"
         >
         <com.getbase.floatingactionbutton.FloatingActionButton

@@ -11,7 +11,7 @@
         android:layout_height="125dp"
         android:id="@+id/imgViewProfilePic_edit_profile"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="25dp"
         android:src="@drawable/default_user_icon"
         />
 
@@ -27,7 +27,7 @@
         android:layout_gravity="center"
         android:layout_centerHorizontal="true"
         android:text="Your Name"
-        android:textSize = "16dp"
+        android:textSize = "12sp"
         android:textStyle="bold"/>
 
     <TextView
@@ -42,7 +42,7 @@
         android:layout_gravity="center"
         android:layout_centerHorizontal="true"
         android:text="GENERAL INFORMATION"
-        android:textSize = "20dp"
+        android:textSize = "18sp"
         android:textStyle="bold"/>
 
     <View
@@ -57,17 +57,17 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:padding="10dp"
+        android:padding="5dp"
         android:id="@+id/txtBirthdate_edit_profile"
         android:layout_gravity="center"
         android:layout_marginLeft="25dip"
         android:layout_marginRight="25dip"
         android:background="@drawable/textlines"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="10dp"
         android:hint="Birth date (mm/dd/yyyy)"
         android:textColorHint="#808080"
         android:textColor="#808080"
-        android:textSize="20sp"
+        android:textSize="15sp"
         />
 
     <View
@@ -95,11 +95,11 @@
             android:layout_gravity="center"
             android:text="Male"
             android:gravity="center"
-            android:padding="10dp"
+            android:padding="5dp"
             android:layout_marginRight="25dp"
             android:id="@+id/radioButtonMale_edit_profile"
             android:textColor="#808080"
-            android:textSize="20sp"
+            android:textSize="15sp"
             />
         <RadioButton
             android:layout_width="wrap_content"
@@ -107,10 +107,10 @@
             android:text="Female"
             android:layout_gravity="center"
             android:gravity="center"
-            android:padding="10dp"
+            android:padding="5dp"
             android:id="@+id/radioButtonFemale_edit_profile"
             android:textColor="#808080"
-            android:textSize="20sp"
+            android:textSize="15sp"
 
             />
     </RadioGroup>
@@ -135,10 +135,10 @@
         android:textColorHint="#808080"
         android:inputType="numberDecimal"
         android:textColor="#808080"
-        android:textSize="20sp"
+        android:textSize="15sp"
         android:background="@drawable/textlines"
         android:gravity="center"
-        android:padding="10dp"
+        android:padding="5dp"
         />
 
     <View
@@ -159,13 +159,13 @@
         android:hint="Height in cm"
         android:inputType="numberDecimal"
         android:textColor="#808080"
-        android:textSize="20sp"
+        android:textSize="15sp"
         android:layout_marginLeft="25dip"
         android:layout_marginRight="25dip"
         android:background="@drawable/textlines"
         android:textColorHint="#808080"
         android:gravity="center"
-        android:padding="10dp"
+        android:padding="5dp"
         />
     <RelativeLayout
         android:layout_width="fill_parent"
@@ -177,8 +177,8 @@
             android:layout_width="120dp"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
-            android:textSize="20sp"
-            android:padding="10dp"
+            android:textSize="15sp"
+            android:padding="5dp"
             android:layout_marginTop="25dip"
             android:layout_alignParentLeft="true"
             android:layout_marginLeft="25dip"
@@ -195,8 +195,8 @@
             android:layout_alignParentRight="true"
             android:layout_marginTop="25dip"
             android:layout_marginBottom="25dip"
-            android:padding="10dp"
-            android:textSize="20sp"
+            android:padding="5dp"
+            android:textSize="15sp"
             android:layout_marginRight="25dip"
             android:textColor="#eaeff3"
             >

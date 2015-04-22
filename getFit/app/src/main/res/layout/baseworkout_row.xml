@@ -33,7 +33,7 @@
                     android:background="@color/like_color"
                     android:paddingLeft="25dp"
                     android:paddingRight="25dp"
-                    android:layout_height="110dp" />
+                    android:layout_height="95dp" />
 
                 <ImageView
                     android:id="@+id/schedule_imview"
@@ -42,7 +42,7 @@
                     android:background="@color/schedule_color"
                     android:paddingLeft="25dp"
                     android:paddingRight="25dp"
-                    android:layout_height="110dp" />
+                    android:layout_height="95dp" />
             </LinearLayout>
 
             <RelativeLayout
@@ -54,8 +54,8 @@
                 <!-- Thumbnail Image -->
                 <ImageView
                     android:id="@+id/thumbnail"
-                    android:layout_width="80dp"
-                    android:layout_height="80dp"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
                     android:layout_alignParentLeft="true"
                     android:layout_marginRight="8dp" />
 
@@ -63,29 +63,29 @@
                     android:id="@+id/title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/text_black"
+                    android:textColor="#264F73"
                     android:text="Title"
-                    android:fontFamily="sans-serif"
-                    android:layout_gravity="center"
+                    android:fontFamily="sans-serif-light"
+                    android:layout_marginLeft="10dp"
                     android:gravity="center"
                     android:layout_toRightOf="@+id/thumbnail"
-                    android:textSize="20sp"
+                    android:textSize="17sp"
                     android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/description"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="#000000"
-                    android:layout_gravity="center"
+                    android:textColor="#264F73"
+                    android:layout_marginLeft="10dp"
                     android:layout_marginTop="22dp"
                     android:fontFamily="sans-serif"
                     android:layout_toRightOf="@+id/thumbnail"
                     android:layout_below="@+id/title"
                     android:text="Hi I am a sample workout Description"
                     android:padding="5dp"
-                    android:maxLines="3"
-                    android:textSize="18dp"
+                    android:ems="15"
+                    android:textSize="15sp"
                     />
 
                 <View
@@ -102,15 +102,13 @@
                     android:gravity="right|center_horizontal"
                     android:layout_below="@+id/view_row">
 
-
-
                     <Button
                         android:id="@+id/baseworkout_likes"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
-                        android:textSize = "16sp"
-                        android:textColor="#E6A457"
+                        android:textSize = "14sp"
+                        android:textColor="@color/like_color"
                         android:drawableLeft="@drawable/ic_action_like"
                         android:background="@null"
                         android:padding="5dp"

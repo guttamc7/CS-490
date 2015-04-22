@@ -61,12 +61,7 @@ public class TrendingWorkoutAdapter extends BaseSwipeAdapter
 
             }
         });
-        swipeLayout.setOnDoubleClickListener(new SwipeLayout.DoubleClickListener() {
-            @Override
-            public void onDoubleClick(SwipeLayout layout, boolean surface) {
-                Toast.makeText(context, "DoubleClick", Toast.LENGTH_SHORT).show();
-            }
-        });
+
         final ImageView likeClicked = (ImageView) v.findViewById(R.id.like_imview_trendingWorkout);
         swipeLayout.findViewById(R.id.like_imview_trendingWorkout).setOnClickListener(new View.OnClickListener() {
             @Override
