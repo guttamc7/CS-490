@@ -14,6 +14,9 @@ import com.getbase.floatingactionbutton.FloatingActionsMenu;
 import com.parse.GetDataCallback;
 import com.parse.ParseException;
 import com.parse.ParseFile;
+import com.parse.ParseInstallation;
+import com.parse.ParsePush;
+import com.parse.ParseQuery;
 import com.parse.ParseUser;
 
 import com.gym8.main.R;
@@ -59,8 +62,15 @@ public class FindNearbyUserProfileFragment extends RootFragment {
         chatButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                // Create our Installation query
+                ParseQuery pushQuery = ParseInstallation.getQuery();
+                pushQuery.whereEqualTo("user", user);
 
-
+                // Send push notification to query
+                ParsePush push = new ParsePush();
+                push.setQuery(pushQuery); // Set our Installation query
+                push.setMessage("Willie Hayes injured by own pop fly.");
+                push.sendInBackground();
             }
         });
 
