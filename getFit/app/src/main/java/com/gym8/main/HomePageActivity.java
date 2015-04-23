@@ -18,11 +18,13 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 
-import com.parse.ParseUser;
-
 import com.gym8.baseworkout.BaseWorkoutFragment;
 import com.gym8.customworkout.CustomWorkoutFragment;
+import com.gym8.main.DrawerListAdapter;
+import com.gym8.main.HomeFragment;
+import com.gym8.main.R;
 import com.gym8.messages.MessagesFragment;
+import com.parse.ParseUser;
 
 public class HomePageActivity extends FragmentActivity {
 
