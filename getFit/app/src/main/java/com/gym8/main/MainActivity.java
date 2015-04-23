@@ -10,6 +10,7 @@ import android.view.Window;
 import com.gym8.main.R;
 import com.parse.Parse;
 import com.parse.ParseException;
+import com.parse.ParseInstallation;
 import com.parse.ParsePush;
 import com.parse.ParseUser;
 import com.parse.SaveCallback;
@@ -29,19 +30,9 @@ public class MainActivity extends Activity {
 
         Parse.enableLocalDatastore(this);
         Parse.initialize(this, getResources().getString(R.string.parse_app_id), getResources().getString(R.string.parse_client_key));
-        System.out.println("In Application");
 
-        //Register devicce for push notification
-        ParsePush.subscribeInBackground("", new SaveCallback() {
-            @Override
-            public void done(ParseException e) {
-                if (e == null) {
-                    Log.d("com.parse.push", "successfully subscribed to the broadcast channel.");
-                } else {
-                    Log.e("com.parse.push", "failed to subscribe for push", e);
-                }
-            }
-        });
+        //Register device for push notification
+        ParseInstallation.getCurrentInstallation().saveInBackground();
 
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -75,6 +66,12 @@ public class MainActivity extends Activity {
             // The User had successfully logged in
             if (resultCode == RESULT_OK) {
                 int loginCount = incrementUserLoginCount();
+                //Associate user with Push notification
+                // Associate the device with a user
+                ParseInstallation installation = ParseInstallation.getCurrentInstallation();
+                installation.put("user",ParseUser.getCurrentUser());
+                installation.saveInBackground();
+
                     if(loginCount == 1) { //User Logging in for the first time
                         Intent i = new Intent(MainActivity.this, NewProfileActivity.class);
                         startActivity(i);
