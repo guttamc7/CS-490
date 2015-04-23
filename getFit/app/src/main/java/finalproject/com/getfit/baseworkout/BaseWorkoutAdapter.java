@@ -66,13 +66,15 @@ public class BaseWorkoutAdapter extends BaseSwipeAdapter {
             @Override
             public void onClick(View v) {
                 Toast.makeText(context, "Liked", Toast.LENGTH_SHORT).show();
-                likeWorkout(workoutItems.get(position));
+                //likeWorkout(workoutItems.get(position));
+                dislikeWorkout(workoutItems.get(position));
+
                 if(v == likeClicked) {
                     likes.setText(Integer.toString(workoutItems.get(position).getInt("likes") + 1));
                     likeClicked.setImageResource(R.drawable.ic_action_dontlike);
                     notifyDataSetChanged();
                 }
-                
+
             }
         });
 
@@ -147,6 +149,19 @@ public class BaseWorkoutAdapter extends BaseSwipeAdapter {
         ParseRelation<ParseObject> relation = user.getRelation("likedWorkout");
         relation.add(workout);
         user.saveInBackground();
+    }
+        //To do Dislike workout, Delete workout, Delete in trending workout
+    private void dislikeWorkout(ParseObject workout)
+    {
+
+        workout.put("likes",(workout.getInt("likes")-1));
+       // workout.increment("likes",-1);
+        workout.saveInBackground();
+        ParseUser user = ParseUser.getCurrentUser();
+        ParseRelation<ParseObject> relation = user.getRelation("likedWorkout");
+        relation.remove(workout);
+        user.saveInBackground();
+
     }
 
 
