@@ -18,6 +18,8 @@ import java.util.Calendar;
 import java.util.List;
 
 import com.gym8.main.R;
+import com.parse.ParseRelation;
+import com.parse.ParseUser;
 
 /**
  * Created by rishabhmittal on 3/30/15.
@@ -144,4 +146,13 @@ public class UserProfileAdapter extends BaseSwipeAdapter
     {
 
     }
-}
+
+    private void removeWorkout(ParseObject workout)
+    {
+            ParseUser user = ParseUser.getCurrentUser();
+            ParseRelation<ParseObject> relation = user.getRelation("likedWorkout");
+            relation.remove(workout);
+
+
+     }
+    }
