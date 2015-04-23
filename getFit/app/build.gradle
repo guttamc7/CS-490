@@ -6,7 +6,7 @@ android {
     buildToolsVersion "21.1.2"
 
     defaultConfig {
-        applicationId "com.example.gurumukh.getfit"
+        applicationId "com.gym8.main"
         minSdkVersion 15
         targetSdkVersion 21
         versionCode 1
