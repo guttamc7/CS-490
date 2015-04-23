@@ -1,4 +1,4 @@
-package finalproject.com.getfit;
+package com.gym8.main;
 /**
  * Created by Gurumukh on 2/4/15.
  */
@@ -20,9 +20,9 @@ import android.widget.ListView;
 
 import com.parse.ParseUser;
 
-import finalproject.com.getfit.baseworkout.BaseWorkoutFragment;
-import finalproject.com.getfit.customworkout.CustomWorkoutFragment;
-import finalproject.com.getfit.messages.MessagesFragment;
+import com.gym8.baseworkout.BaseWorkoutFragment;
+import com.gym8.customworkout.CustomWorkoutFragment;
+import com.gym8.messages.MessagesFragment;
 
 public class HomePageActivity extends FragmentActivity {
 
