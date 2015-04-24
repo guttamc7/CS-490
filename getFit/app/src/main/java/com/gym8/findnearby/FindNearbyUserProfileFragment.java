@@ -14,9 +14,6 @@ import com.getbase.floatingactionbutton.FloatingActionsMenu;
 import com.parse.GetDataCallback;
 import com.parse.ParseException;
 import com.parse.ParseFile;
-import com.parse.ParseInstallation;
-import com.parse.ParsePush;
-import com.parse.ParseQuery;
 import com.parse.ParseUser;
 
 import com.gym8.main.R;
@@ -48,29 +45,20 @@ public class FindNearbyUserProfileFragment extends RootFragment {
         nearbyUserProfilePic = (ImageView) rootView.findViewById(R.id.nearbyUserProfilePic);
         userProfileActions = (FloatingActionsMenu) rootView.findViewById(R.id.user_profile_actions);
         chatButton = (FloatingActionButton) rootView.findViewById(R.id.chat_button);
-
-        this.setUserDetails();
-
-        chatButton.setSize(FloatingActionButton.SIZE_NORMAL);
+        setUserDetails();
+        chatButton.setSize(FloatingActionButton.SIZE_MINI);
         chatButton.setColorNormalResId(R.color.button_yellow);
         chatButton.setIcon(R.drawable.ic_messages);
         viewWorkoutButton = (FloatingActionButton) rootView.findViewById(R.id.view_workouts_button);
-        viewWorkoutButton.setSize(FloatingActionButton.SIZE_NORMAL);
+        viewWorkoutButton.setSize(FloatingActionButton.SIZE_MINI);
         viewWorkoutButton.setColorNormalResId(R.color.button_green);
         viewWorkoutButton.setIcon(R.drawable.ic_action_list);
 
         chatButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Create our Installation query
-                ParseQuery pushQuery = ParseInstallation.getQuery();
-                pushQuery.whereEqualTo("user", user);
 
-                // Send push notification to query
-                ParsePush push = new ParsePush();
-                push.setQuery(pushQuery); // Set our Installation query
-                push.setMessage("Willie Hayes injured by own pop fly.");
-                push.sendInBackground();
+
             }
         });
 
@@ -90,12 +78,11 @@ public class FindNearbyUserProfileFragment extends RootFragment {
     }
 
     private void setUserDetails(){
-        this.nearbyUserName.setText(this.user.getString("name"));
-        this.nearbyUserHeight.setText(String.valueOf(this.user.getInt("height")) + " cm");
-        this.nearbyUserWeight.setText(String.valueOf(this.user.getInt("weight")) + " lbs");
-        this.nearbyUserAge.setText(Integer.toString(UserProfileFragment.getAge(this.user.getDate("birthDate"))) + " years");
-
-        ParseFile imageFile = this.user.getParseFile("profilePic");
+        nearbyUserName.setText(this.user.getString("name"));
+        nearbyUserHeight.setText(String.valueOf(this.user.getInt("height")) + " cm");
+        nearbyUserWeight.setText(String.valueOf(this.user.getInt("weight")) + " lbs");
+        nearbyUserAge.setText(Integer.toString(UserProfileFragment.getAge(this.user.getDate("birthDate"))) + " years");
+        ParseFile imageFile = user.getParseFile("profilePic");
         imageFile.getDataInBackground(new GetDataCallback() {
             public void done(byte[] data, ParseException e) {
                 if (e == null) {

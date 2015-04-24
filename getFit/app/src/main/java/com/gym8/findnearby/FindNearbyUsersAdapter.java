@@ -1,6 +1,9 @@
 package com.gym8.findnearby;
 
 import android.content.Context;
+import android.graphics.Color;
+import android.graphics.drawable.GradientDrawable;
+import android.graphics.drawable.LayerDrawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +15,7 @@ import com.parse.ParseUser;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Random;
 
 import com.gym8.main.R;
 import com.gym8.imageloader.ImageLoader;
@@ -24,7 +28,6 @@ public class FindNearbyUsersAdapter extends BaseAdapter {
     private ArrayList<ParseUser> listData;
     ImageLoader imageLoader;
     private LayoutInflater layoutInflater;
-
     public FindNearbyUsersAdapter(Context context, ArrayList<ParseUser> listData) {
         this.listData = listData;
         layoutInflater = LayoutInflater.from(context);
@@ -59,6 +62,13 @@ public class FindNearbyUsersAdapter extends BaseAdapter {
         else {
             holder = (ViewHolder1) convertView.getTag();
         }
+
+        View v = convertView.findViewById(R.id.front_findNearby);
+        LayerDrawable bgDrawable = (LayerDrawable)v.getBackground();
+        final GradientDrawable shape = (GradientDrawable)   bgDrawable.findDrawableByLayerId(R.id.shape_id);
+        final GradientDrawable radius = (GradientDrawable)   bgDrawable.findDrawableByLayerId(R.id.radius_id);
+        shape.setColor(Color.parseColor("#5D9EA1"));
+        radius.setColor(Color.parseColor("#5D9EA1"));
         //Set all the values in the list
         holder.userName.setText(listData.get(position).getString("name"));
 

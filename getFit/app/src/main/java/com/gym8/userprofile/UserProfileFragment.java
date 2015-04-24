@@ -106,7 +106,7 @@ public class UserProfileFragment extends RootFragment
             userAge.setText(Integer.toString(getAge(date)) + " years old");
         }
         editProfileButton = (FloatingActionButton) rootView.findViewById(R.id.edit_profile_fab);
-        editProfileButton.setSize(FloatingActionButton.SIZE_NORMAL);
+        editProfileButton.setSize(FloatingActionButton.SIZE_MINI);
         editProfileButton.setColorNormalResId(R.color.button_red);
         editProfileButton.setColorPressedResId(R.color.button_yellow);
         editProfileButton.setIcon(R.drawable.ic_action_edit);

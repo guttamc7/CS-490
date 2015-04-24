@@ -127,7 +127,7 @@ public class HomePageActivity extends FragmentActivity {
     public void onBackPressed() {
 
         if(!homeFragment.onBackPressed()) {
-            // super.onBackPressed();
+            super.onBackPressed();
         }
         else {
         }

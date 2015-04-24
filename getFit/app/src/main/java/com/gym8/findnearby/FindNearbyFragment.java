@@ -42,7 +42,7 @@ public class FindNearbyFragment extends RootFragment {
         rippleBackground =(RippleBackground)rootView.findViewById(R.id.content_ripple);
         findNearbyImageView = (ImageView) rootView.findViewById(R.id.imgViewfindNearby);
         discoverySettings = (FloatingActionButton) rootView.findViewById(R.id.discovery_settings);
-        discoverySettings.setSize(FloatingActionButton.SIZE_NORMAL);
+        discoverySettings.setSize(FloatingActionButton.SIZE_MINI);
         discoverySettings.setColorNormalResId(R.color.button_red);
         discoverySettings.setColorPressedResId(R.color.button_yellow);
         discoverySettings.setIcon(R.drawable.ic_action_settings);
