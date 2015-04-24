@@ -31,7 +31,7 @@
                     android:id="@+id/schedule_imview_user_like"
                     android:src="@drawable/ic_action_calendar_day_white"
                     android:layout_width="70dp"
-                    android:background="#1BBC9B"
+                    android:background="@color/schedule_color"
                     android:paddingLeft="25dp"
                     android:paddingRight="25dp"
                     android:layout_height="95dp" />

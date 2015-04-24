@@ -35,7 +35,7 @@ public class TrendingWorkoutAdapter extends BaseSwipeAdapter {
     private TextView title;
     private TextView description;
     private Button likes;
-
+    private boolean liked = false;
     public TrendingWorkoutAdapter(Context context, List<ParseObject> workoutItems) {
         inflater = LayoutInflater.from(context);
         this.context = context;
@@ -65,11 +65,22 @@ public class TrendingWorkoutAdapter extends BaseSwipeAdapter {
         swipeLayout.findViewById(R.id.like_imview_trendingWorkout).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(context, "Like", Toast.LENGTH_SHORT).show();
-                dislikeWorkout(workoutItemsTrending.get(position));
                 if (v == likeClicked) {
-                    likes.setText(Integer.toString(workoutItemsTrending.get(position).getInt("likes") + 1));
-                    likeClicked.setImageResource(R.drawable.ic_action_dontlike);
+                    if(!liked) {
+                        Toast.makeText(context, "Liked", Toast.LENGTH_SHORT).show();
+                        likeWorkout(workoutItemsTrending.get(position));
+                        likes.setText(Integer.toString(workoutItemsTrending.get(position).getInt("likes") + 1));
+                        likeClicked.setImageResource(R.drawable.ic_action_dontlike);
+                        liked = true;
+                    }
+                    else {
+                        Toast.makeText(context, "Disliked", Toast.LENGTH_SHORT).show();
+                        dislikeWorkout(workoutItemsTrending.get(position));
+                        likes.setText(Integer.toString(workoutItemsTrending.get(position).getInt("likes") - 1));
+                        likeClicked.setImageResource(R.drawable.ic_action_like_white);
+                        liked = false;
+
+                    }
                     notifyDataSetChanged();
                 }
             }
