@@ -31,12 +31,18 @@ public class CreateWorkoutExerciseFragment extends Fragment {
     private CreateWorkoutExerciseAdapter adapter;
     private FloatingActionButton addExerciseButton;
     private TextView emptyList;
+    private String workoutName;
+    private String workoutDescription;
+    private ViewGroup contain;
     private static CreateWorkoutDialog.CalendarPageFragmentListener listener;
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.fragment_create_workout_exercise, null);
         listView = (ListView) rootView.findViewById(R.id.create_workout_exercises_list);
         emptyList = (TextView) rootView.findViewById(R.id.empty_list);
         doneButton = (Button) rootView.findViewById(R.id.createWorkout_Button);
+        contain = container;
+//        workoutName = container.getTag(0).toString();
+  //      workoutDescription = container.getTag(1).toString();
         if(ExerciseListDetailsDialog.exerciseWorkoutList!=null){
             emptyList.setVisibility(View.INVISIBLE);
             adapter = new CreateWorkoutExerciseAdapter(getActivity().getApplicationContext(),ExerciseListDetailsDialog.exerciseWorkoutList);
@@ -59,8 +65,8 @@ public class CreateWorkoutExerciseFragment extends Fragment {
         doneButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                    System.out.println("The Workout Name: " + CreateWorkoutInformationFragment.workoutName);
-                    System.out.println("The Workout Name: " + CreateWorkoutInformationFragment.workoutDescription); //TODO: CREATE WORKOUT - Parse Query
+                    System.out.println("The Workout Name: " + contain.getTag(0).toString());
+                    System.out.println("The Workout Description: " + contain.getTag(1).toString()); //TODO: CREATE WORKOUT - Parse Query
                     addWorkout("Test Name","Test Description",1,ExerciseListDetailsDialog.exerciseWorkoutList);
                     CreateWorkoutDialog dialog = CreateWorkoutDialog.getInstance();
                     dialog.dismiss();
@@ -70,27 +76,6 @@ public class CreateWorkoutExerciseFragment extends Fragment {
         return rootView;
     }
 
-    public boolean validate() {
-        if (CreateWorkoutInformationFragment.workoutName == null || CreateWorkoutInformationFragment.workoutName.length() <= 0) {
-            Toast.makeText(getActivity(), "Please Enter a Valid Workout Name", Toast.LENGTH_SHORT).show();
-            return false;
-        }
-        if (CreateWorkoutInformationFragment.workoutDescription == null ||  CreateWorkoutInformationFragment.workoutDescription.length() <= 0) {
-            Toast.makeText(getActivity(), "Please Enter a Valid Workout Description", Toast.LENGTH_SHORT).show();
-            return false;
-        }
-        if(CreateWorkoutInformationFragment.workoutLevel == 0) {
-            Toast.makeText(getActivity(), "Please Select a Level", Toast.LENGTH_SHORT).show();
-            return false;
-        }
-
-        if(ExerciseListDetailsDialog.exerciseWorkoutList == null || ExerciseListDetailsDialog.exerciseWorkoutList.size() == 0) {
-            Toast.makeText(getActivity(), "Please Add At least One Exercise", Toast.LENGTH_SHORT).show();
-            return false;
-        }
-        return true;
-
-    }
 
     public static CreateWorkoutExerciseFragment newInstance(CreateWorkoutDialog.CalendarPageFragmentListener listener) {
         CreateWorkoutExerciseFragment f = new CreateWorkoutExerciseFragment();

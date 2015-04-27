@@ -75,7 +75,7 @@ public class BaseWorkoutFragment extends Fragment {
                 FragmentTransaction ft = getChildFragmentManager().beginTransaction();
                 ft.replace(R.id.frag_base, new BaseWorkoutDetailsFragment());
                 ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
-                ft.addToBackStack(null);
+                ft.addToBackStack("Base Workout List");
                 ft.commit();
             }
         });

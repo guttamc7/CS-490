@@ -10,7 +10,6 @@
     android:id="@+id/find_nearby_grid"
     android:numColumns="2"
     android:gravity="center"
-    android:columnWidth="200dp"
     android:stretchMode="columnWidth"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent" >

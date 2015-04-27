@@ -17,15 +17,6 @@
         android:layout_width="match_parent">
     </ListView>
 
-    <TextView android:id="@+id/empty_list"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:textSize="21sp"
-        android:layout_marginLeft="25dp"
-        android:layout_marginRight="25dp"
-        android:text="You Have No Workouts Yet"
-        android:gravity="center_vertical|center_horizontal"/>
-
     <com.getbase.floatingactionbutton.FloatingActionButton
         android:id="@+id/create_workout_fab"
         xmlns:app="http://schemas.android.com/apk/res-auto"

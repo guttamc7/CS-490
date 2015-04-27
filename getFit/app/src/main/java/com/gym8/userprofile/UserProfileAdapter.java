@@ -18,6 +18,8 @@ import java.util.Calendar;
 import java.util.List;
 
 import com.gym8.main.R;
+import com.parse.ParseRelation;
+import com.parse.ParseUser;
 
 /**
  * Created by rishabhmittal on 3/30/15.
@@ -44,10 +46,10 @@ public class UserProfileAdapter extends BaseSwipeAdapter
     }
 
     @Override
-    public View generateView(final int position, ViewGroup parent)
+    public View generateView(final int position,final ViewGroup parent)
     {
         View v = LayoutInflater.from(context).inflate(R.layout.user_likes_row, null);
-        SwipeLayout swipeLayout = (SwipeLayout)v.findViewById(getSwipeLayoutResourceId(position));
+        final SwipeLayout swipeLayout = (SwipeLayout)v.findViewById(getSwipeLayoutResourceId(position));
 
         swipeLayout.addSwipeListener(
                 new SimpleSwipeListener()
@@ -63,7 +65,7 @@ public class UserProfileAdapter extends BaseSwipeAdapter
             @Override
             public void onDoubleClick(SwipeLayout layout, boolean surface)
             {
-                Toast.makeText(context, "DoubleClick", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(context, "DoubleClick", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -86,8 +88,11 @@ public class UserProfileAdapter extends BaseSwipeAdapter
         swipeLayout.findViewById(R.id.delete_imview_user_like).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //TODO : Delete user like
-
+               Toast.makeText(context, "Workout Removed", Toast.LENGTH_SHORT).show();
+               removeWorkout(likedWorkouts.get(position));
+               likedWorkouts.remove(position);
+               notifyDataSetChanged();
+               swipeLayout.close(true);
             }
         });
 
@@ -144,4 +149,13 @@ public class UserProfileAdapter extends BaseSwipeAdapter
     {
 
     }
-}
+
+    private void removeWorkout(ParseObject workout)
+    {
+            ParseUser user = ParseUser.getCurrentUser();
+            ParseRelation<ParseObject> relation = user.getRelation("likedWorkout");
+            relation.remove(workout);
+
+
+     }
+    }

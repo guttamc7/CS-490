@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.getbase.floatingactionbutton.FloatingActionButton;
 import com.parse.FindCallback;
@@ -76,8 +77,6 @@ public class CustomWorkoutFragment extends Fragment {
 
     }
 
-
-
     public static CustomWorkoutFragment newInstance() {
         return new CustomWorkoutFragment();
     }
@@ -92,9 +91,10 @@ public class CustomWorkoutFragment extends Fragment {
                       }
                      else {
                     }
+                    onPostExecute();
                 }
             });
-        onPostExecute();
+
         }
 
         protected void onPostExecute() {

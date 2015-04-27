@@ -26,7 +26,7 @@ public class CustomWorkoutDetailsFragment extends Fragment {
     private ListView listView;
     private CustomWorkoutDetailsAdapter adapter;
     private ParseObject selectedWorkout;
-    private ArrayList<ParseObject> workoutExercisesList;
+    private ArrayList<ParseObject> workoutExercisesList = new ArrayList<>();;
     private View rootView;
 
 
@@ -55,6 +55,7 @@ public class CustomWorkoutDetailsFragment extends Fragment {
         query.findInBackground(new FindCallback<ParseObject>() {
         public void done(List<ParseObject> workoutExercises, ParseException e) {
             if (e == null) {
+                System.out.println(workoutExercises.size());
                 workoutExercisesList.addAll(workoutExercises);
             } else {
              }

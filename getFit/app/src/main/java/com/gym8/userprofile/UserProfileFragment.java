@@ -9,16 +9,20 @@ import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.View.MeasureSpec;
 
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ImageView;
+import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 import com.getbase.floatingactionbutton.FloatingActionButton;
@@ -57,6 +61,16 @@ public class UserProfileFragment extends RootFragment
         userWeight = (TextView) rootView.findViewById(R.id.weight_profile);
         userHeight = (TextView) rootView.findViewById(R.id.height_profile);
         listView = (ListView) rootView.findViewById(R.id.user_likes);
+        listView.setOnTouchListener(new View.OnTouchListener() {
+            // Setting on Touch Listener for handling the touch inside ScrollView
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                // Disallow the touch request for parent scroll on touch of child view
+                v.getParent().requestDisallowInterceptTouchEvent(true);
+                return false;
+            }
+        });
+        setListViewHeightBasedOnChildren(listView);
         ParseUser currentUser = ParseUser.getCurrentUser();
         ParseFile imageFile = currentUser.getParseFile("profilePic");
         imageFile.getDataInBackground(new GetDataCallback() {
@@ -106,7 +120,7 @@ public class UserProfileFragment extends RootFragment
             userAge.setText(Integer.toString(getAge(date)) + " years old");
         }
         editProfileButton = (FloatingActionButton) rootView.findViewById(R.id.edit_profile_fab);
-        editProfileButton.setSize(FloatingActionButton.SIZE_NORMAL);
+        editProfileButton.setSize(FloatingActionButton.SIZE_MINI);
         editProfileButton.setColorNormalResId(R.color.button_red);
         editProfileButton.setColorPressedResId(R.color.button_yellow);
         editProfileButton.setIcon(R.drawable.ic_action_edit);
@@ -140,6 +154,29 @@ public class UserProfileFragment extends RootFragment
         });
     }
 
+    public static void setListViewHeightBasedOnChildren(ListView listView) {
+        ListAdapter listAdapter = listView.getAdapter();
+        if (listAdapter == null)
+            return;
+
+        int desiredWidth = MeasureSpec.makeMeasureSpec(listView.getWidth(), MeasureSpec.UNSPECIFIED);
+        int totalHeight = 0;
+        View view = null;
+        for (int i = 0; i < listAdapter.getCount(); i++) {
+            view = listAdapter.getView(i, view, listView);
+            if (i == 0)
+                view.setLayoutParams(new ViewGroup.LayoutParams(desiredWidth, ViewGroup.LayoutParams.WRAP_CONTENT));
+
+            view.measure(desiredWidth, MeasureSpec.UNSPECIFIED);
+
+            totalHeight += view.getMeasuredHeight();
+        }
+        ViewGroup.LayoutParams params = listView.getLayoutParams();
+        params.height = totalHeight + (listView.getDividerHeight() * (listAdapter.getCount() - 1));
+        listView.setLayoutParams(params);
+        listView.requestLayout();
+    }
+
     public static int getAge(Date dateOfBirth) {
         Calendar dob = Calendar.getInstance();
         if(dateOfBirth == null)
@@ -166,6 +203,8 @@ public class UserProfileFragment extends RootFragment
         super.onResume();
         //adapter.notifyDataSetChanged();
     }
+
+
 
     private void onPostExecute(){
         //Inform UI

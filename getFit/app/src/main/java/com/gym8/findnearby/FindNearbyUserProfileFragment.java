@@ -23,9 +23,6 @@ import com.gym8.main.R;
 import com.gym8.userprofile.UserProfileFragment;
 import com.gym8.viewpager.RootFragment;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
 /**
  * Created by Gurumukh on 3/12/15.
  */
@@ -54,11 +51,11 @@ public class FindNearbyUserProfileFragment extends RootFragment {
 
         this.setUserDetails();
 
-        chatButton.setSize(FloatingActionButton.SIZE_NORMAL);
+        chatButton.setSize(FloatingActionButton.SIZE_MINI);
         chatButton.setColorNormalResId(R.color.button_yellow);
         chatButton.setIcon(R.drawable.ic_messages);
         viewWorkoutButton = (FloatingActionButton) rootView.findViewById(R.id.view_workouts_button);
-        viewWorkoutButton.setSize(FloatingActionButton.SIZE_NORMAL);
+        viewWorkoutButton.setSize(FloatingActionButton.SIZE_MINI);
         viewWorkoutButton.setColorNormalResId(R.color.button_green);
         viewWorkoutButton.setIcon(R.drawable.ic_action_list);
 
@@ -72,14 +69,7 @@ public class FindNearbyUserProfileFragment extends RootFragment {
                 // Send push notification to query
                 ParsePush push = new ParsePush();
                 push.setQuery(pushQuery); // Set our Installation query
-                JSONObject message = new JSONObject();
-                try {
-                    message.put("message","This is a new message");
-                    message.put("senderId",ParseUser.getCurrentUser().getObjectId());
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-                push.setMessage(message.toString());
+                push.setMessage("Willie Hayes injured by own pop fly.");
                 push.sendInBackground();
             }
         });
@@ -87,6 +77,8 @@ public class FindNearbyUserProfileFragment extends RootFragment {
         viewWorkoutButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+
             }
         });
 
@@ -115,5 +107,10 @@ public class FindNearbyUserProfileFragment extends RootFragment {
                 }
             }
         });
+
+
+
+
     }
+
 }
