@@ -33,4 +33,7 @@
     <string name="level2_color">#378DAD</string>
     <string name="level3_color">#C2606F</string>
 
+    <string name="workout_name">Workout Name</string>
+    <string name="workout_descr">Workout Description</string>
+
 </resources>

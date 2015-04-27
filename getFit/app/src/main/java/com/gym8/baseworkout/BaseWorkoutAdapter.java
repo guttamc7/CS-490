@@ -31,6 +31,7 @@ public class BaseWorkoutAdapter extends BaseSwipeAdapter {
     private TextView title;
     private TextView description;
     private Button likes;
+    private boolean liked = false;
     public BaseWorkoutAdapter(Context context, List<ParseObject> workoutItems) {
         inflater = LayoutInflater.from(context);
         this.context = context;
@@ -65,13 +66,25 @@ public class BaseWorkoutAdapter extends BaseSwipeAdapter {
         swipeLayout.findViewById(R.id.like_imview).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(context, "Liked", Toast.LENGTH_SHORT).show();
-                likeWorkout(workoutItems.get(position));
-
                 if(v == likeClicked) {
-                    likes.setText(Integer.toString(workoutItems.get(position).getInt("likes") + 1));
-                    likeClicked.setImageResource(R.drawable.ic_action_dontlike);
+                    if(!liked) {
+                        Toast.makeText(context, "Liked", Toast.LENGTH_SHORT).show();
+                        likeWorkout(workoutItems.get(position));
+                        likes.setText(Integer.toString(workoutItems.get(position).getInt("likes") + 1));
+                        likeClicked.setImageResource(R.drawable.ic_action_dontlike);
+                        liked = true;
+
+                    }
+                    else {
+                        Toast.makeText(context, "Disliked", Toast.LENGTH_SHORT).show();
+                        dislikeWorkout(workoutItems.get(position));
+                        likes.setText(Integer.toString(workoutItems.get(position).getInt("likes") - 1));
+                        likeClicked.setImageResource(R.drawable.ic_action_like_white);
+                        liked = false;
+
+                    }
                     notifyDataSetChanged();
+                    swipeLayout.close(true);
                 }
 
             }
@@ -80,6 +93,7 @@ public class BaseWorkoutAdapter extends BaseSwipeAdapter {
         swipeLayout.findViewById(R.id.schedule_imview).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                swipeLayout.close(true);
                 Calendar cal = Calendar.getInstance();
                 Intent calIntent = new Intent(Intent.ACTION_INSERT);
                 calIntent.setType("vnd.android.cursor.item/event");

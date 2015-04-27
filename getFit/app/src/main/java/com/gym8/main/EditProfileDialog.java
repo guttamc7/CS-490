@@ -10,6 +10,8 @@ import android.graphics.Matrix;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,6 +22,7 @@ import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.gym8.main.R;
 import com.parse.GetDataCallback;
@@ -112,7 +115,7 @@ public class EditProfileDialog extends DialogFragment
         }
         else
         {
-            weight.setText(Integer.toString(currentUser.getInt("weight")) + " lbs");
+            weight.setText(Integer.toString(currentUser.getInt("weight")));
         }
         if(Integer.toString(currentUser.getInt("height")).isEmpty())
         {
@@ -120,7 +123,7 @@ public class EditProfileDialog extends DialogFragment
         }
         else
         {
-            height.setText(Integer.toString(currentUser.getInt("height")) + " cm");
+            height.setText(Integer.toString(currentUser.getInt("height")));
         }
         Date date = currentUser.getDate("birthDate");
         if(date == null)
@@ -144,50 +147,73 @@ public class EditProfileDialog extends DialogFragment
             }
         });
 
-        submitButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick (View view){
-                if (!weight.getText().toString().equals("") && weight.getText().toString().length() > 0)
-                    weightText = Integer.parseInt(weight.getText().toString().substring(0,weight.getText().toString().length()-4));
+        submitButton.setOnClickListener(new View.OnClickListener()
+                    {
+                        @Override
+                        public void onClick(View view) {
+                            RadioButton selectRadio = (RadioButton) rootView.findViewById(gender
+                                    .getCheckedRadioButtonId());
+                            if (weight.getText().toString() == null|| weight.getText().toString().equals("")) {
+                                Toast.makeText(getActivity(), "Please Enter your Weight", Toast.LENGTH_SHORT).show();
+                            } else if (height.getText().toString() == null || height.getText().toString().equals("")) {
+                                Toast.makeText(getActivity(), "Please Enter your Height", Toast.LENGTH_SHORT).show();
+                            } else if (birthDate.getText().toString() == null || birthDate.getText().toString().equals("")) {
+                                Toast.makeText(getActivity(), "Please Enter your Birth Date", Toast.LENGTH_SHORT).show();
+                            }
+                            else if (selectRadio.getText().toString() == null || selectRadio.getText().toString().length() == 0){
+                                Toast.makeText(getActivity(), "Please Select a Gender", Toast.LENGTH_SHORT).show();
+                            }
+                            else {
+                                try {
+                                    weightText = Integer.parseInt(weight.getText().toString());
+                                }
+                                catch(NumberFormatException e) {
+                                    Toast.makeText(getActivity(), "Please Enter Weight as a Number", Toast.LENGTH_SHORT).show();
+                                }
+                                try {
+                                    heightText = Integer.parseInt(height.getText().toString());
+                                }
+                                catch(NumberFormatException e) {
+                                    Toast.makeText(getActivity(), "Please Enter Height as a Number", Toast.LENGTH_SHORT).show();
+                                }
+                                birthDateText = birthDate.getText().toString();
+                                genderText = selectRadio.getText().toString();
+                                EditUserDetails(genderText, weightText, heightText, birthD);
+                                getDialog().dismiss();
+                            }
+                        }
+                    }
+            );
 
-                if (!height.getText().toString().equals("") && height.getText().toString().length() > 0)
-                    heightText = Integer.parseInt(height.getText().toString().substring(0, height.getText().toString().length() - 3));
+            cancelButton.setOnClickListener(new View.OnClickListener()
 
-                if (!birthDate.getText().toString().equals("") && birthDate.getText().toString().length() > 0)
-                    birthDateText = weight.getText().toString();
-                RadioButton selectRadio = (RadioButton) rootView.findViewById(gender
-                        .getCheckedRadioButtonId());
-                if (!selectRadio.getText().toString().equals("") && selectRadio.getText().toString().length() > 0)
-                    genderText = selectRadio.getText().toString();
-                EditUserDetails(genderText, weightText, heightText, birthD);
-
+            {
+                @Override
+                public void onClick (View view){
                 getDialog().dismiss();
-
-
             }
-        });
-
-        cancelButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                getDialog().dismiss();
             }
-        });
-        profilePictureImgView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick (View v){
+
+            );
+            profilePictureImgView.setOnClickListener(new View.OnClickListener()
+
+            {
+                @Override
+                public void onClick (View v){
                 Intent intent = new Intent();
                 intent.setType("image/*");
                 intent.setAction(Intent.ACTION_GET_CONTENT);
                 startActivityForResult(Intent.createChooser(intent, "Select Profile Picture"), 1);
             }
-        });
+            }
 
-        return rootView;
-    }
-     //TODO Edit Profile Dialog Tasks : 1. Get Image from Gallery, 2. Create Circular Bitmap
+            );
 
-  public void onActivityResult(int reqCode, int resCode, Intent data) {
+            return rootView;
+        }
+                //TODO Edit Profile Dialog Tasks : 1. Get Image from Gallery, 2. Create Circular Bitmap
+
+    public void onActivityResult(int reqCode, int resCode, Intent data) {
         if (resCode == getActivity().RESULT_OK) {
             if (reqCode == 1) {
                 imageUri = data.getData();

@@ -102,7 +102,6 @@ public class FindNearbyFragment extends RootFragment {
             FindNearbyFragment.latitude = gps.getLatitude();
             FindNearbyFragment.longitude = gps.getLongitude();
         }
-        System.out.println("HERE: " + latitude + "  " +longitude);
         rippleBackground.stopRippleAnimation();
         FragmentTransaction ft = getChildFragmentManager().beginTransaction();
         ft.replace(R.id.findnearby_frag, new FindNearbyUsersFragment());

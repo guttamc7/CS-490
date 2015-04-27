@@ -52,18 +52,22 @@ public class CustomWorkoutDetailsFragment extends Fragment {
     private void getExercises() {
         ParseRelation<ParseObject> exercises = CustomWorkoutFragment.selectedWorkout.getRelation("exercises");
         ParseQuery<ParseObject> query = exercises.getQuery();
-
         query.findInBackground(new FindCallback<ParseObject>() {
-            public void done(List<ParseObject> workoutExercises, ParseException e) {
-                if (e == null) {
-                    workoutExercisesList.addAll(workoutExercises);
-                } else {
-                }
-                onPostExecute();
+        public void done(List<ParseObject> workoutExercises, ParseException e) {
+            if (e == null) {
+                workoutExercisesList.addAll(workoutExercises);
+            } else {
+             }
+            onPostExecute();
             }
         });
 
 
-    }
+        /*for (int n = 0; n < workoutExercisesList.size(); n++) {
+            workoutExercisesList.get(n).get("reps");
+            workoutExercisesList.get(n).get("sets");
+            ParseObject exercise = workoutExercises.get(m).getParseObject("exerciseId");
+        }*/
 
+    }
 }

@@ -12,6 +12,7 @@ import android.support.v4.app.Fragment;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.gym8.main.R;
 
@@ -60,8 +61,6 @@ public class CreateWorkoutInformationFragment extends Fragment {
 
             }
         });
-        workoutName = workoutNameText.getText().toString();
-        workoutDescription = workoutDescriptionText.getText().toString();
         return rootView;
     }
 
