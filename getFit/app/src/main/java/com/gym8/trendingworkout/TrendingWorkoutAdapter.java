@@ -20,6 +20,7 @@ import com.parse.ParseQuery;
 import com.parse.ParseRelation;
 import com.parse.ParseUser;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
@@ -169,4 +170,28 @@ public class TrendingWorkoutAdapter extends BaseSwipeAdapter {
 
 
     }
+    private void retrieveUsers(ArrayList<ParseObject> trendingList) {
+        final ArrayList<ParseObject> usersList = new ArrayList<ParseObject>();
+
+        for (int n = 0; n < trendingList.size(); n++) {
+            ParseObject user = trendingList.get(n).getParseObject("UserId");
+            usersList.add(user);
+
+        }
+
+
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
