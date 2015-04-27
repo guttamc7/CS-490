@@ -23,6 +23,9 @@ import com.gym8.main.R;
 import com.gym8.userprofile.UserProfileFragment;
 import com.gym8.viewpager.RootFragment;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 /**
  * Created by Gurumukh on 3/12/15.
  */
@@ -69,7 +72,14 @@ public class FindNearbyUserProfileFragment extends RootFragment {
                 // Send push notification to query
                 ParsePush push = new ParsePush();
                 push.setQuery(pushQuery); // Set our Installation query
-                push.setMessage("Willie Hayes injured by own pop fly.");
+                JSONObject message = new JSONObject();
+                try {
+                    message.put("message","This is a new message");
+                    message.put("senderId",ParseUser.getCurrentUser().getObjectId());
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                push.setMessage(message.toString());
                 push.sendInBackground();
             }
         });
@@ -77,8 +87,6 @@ public class FindNearbyUserProfileFragment extends RootFragment {
         viewWorkoutButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-
             }
         });
 
@@ -107,10 +115,5 @@ public class FindNearbyUserProfileFragment extends RootFragment {
                 }
             }
         });
-
-
-
-
     }
-
 }

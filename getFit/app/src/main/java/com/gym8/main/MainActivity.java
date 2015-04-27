@@ -9,6 +9,7 @@ import android.view.Window;
 
 import com.gym8.main.R;
 import com.parse.Parse;
+import com.parse.ParseAnalytics;
 import com.parse.ParseException;
 import com.parse.ParseInstallation;
 import com.parse.ParsePush;
@@ -30,9 +31,6 @@ public class MainActivity extends Activity {
 
         Parse.enableLocalDatastore(this);
         Parse.initialize(this, getResources().getString(R.string.parse_app_id), getResources().getString(R.string.parse_client_key));
-
-        //Register device for push notification
-        ParseInstallation.getCurrentInstallation().saveInBackground();
 
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -66,11 +64,14 @@ public class MainActivity extends Activity {
             // The User had successfully logged in
             if (resultCode == RESULT_OK) {
                 int loginCount = incrementUserLoginCount();
-                //Associate user with Push notification
-                // Associate the device with a user
+                //Register Push Notification and Associate user with Push notification
+                ParseInstallation.getCurrentInstallation().saveInBackground();
+                ParseAnalytics.trackAppOpened(getIntent());
+
                 ParseInstallation installation = ParseInstallation.getCurrentInstallation();
                 installation.put("user",ParseUser.getCurrentUser());
                 installation.saveInBackground();
+
 
                     if(loginCount == 1) { //User Logging in for the first time
                         Intent i = new Intent(MainActivity.this, NewProfileActivity.class);
