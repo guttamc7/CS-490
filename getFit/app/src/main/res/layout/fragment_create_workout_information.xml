@@ -8,14 +8,14 @@
         android:id="@+id/workout_information_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:fontFamily="sans-serif_light"
+        android:fontFamily="sans-serif-light"
         android:layout_marginTop="30dp"
         android:gravity="center"
         android:padding="10dp"
-        android:textColor="#808080"
+        android:textColor="@color/text_black"
         android:layout_gravity="center"
         android:text="Workout Information"
-        android:textSize = "22dp"
+        android:textSize = "22sp"
         android:textStyle="bold"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true" />
@@ -30,18 +30,6 @@
         android:layout_below="@id/workout_information_text"
         />
 
-    <TextView
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="Workout Name : "
-        android:layout_marginTop="15dp"
-        android:textColor="@color/primary_blue"
-        android:layout_marginLeft="25dp"
-        android:id="@+id/workoutname"
-        android:layout_below="@id/stroke_workout_information"
-        android:textSize="20sp"
-        android:padding="10dp"
-        />
 
     <EditText
         android:layout_width="fill_parent"
@@ -49,28 +37,16 @@
         android:id="@+id/workout_name"
         android:layout_gravity="center"
         android:inputType="text"
-        android:hint="Name"
-        android:textColor="@color/primary_blue"
+        android:hint="@string/workout_name"
+        android:textColor="@color/text_black"
         android:textColorHint="#808080"
-        android:textSize="20sp"
+        android:textSize="16sp"
+        android:layout_marginTop="10dp"
         android:layout_marginLeft="25dip"
         android:layout_marginRight="25dip"
-        android:layout_below="@+id/workoutname"
+        android:layout_below="@+id/stroke_workout_information"
         android:background="@drawable/textlines"
         android:gravity="center"
-        android:padding="10dp"
-        />
-
-    <TextView
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="Workout Description : "
-        android:layout_marginTop="25dp"
-        android:layout_marginLeft="25dp"
-        android:textColor="@color/primary_blue"
-        android:id="@+id/workoutdesc"
-        android:layout_below="@+id/workout_name"
-        android:textSize="20sp"
         android:padding="10dp"
         />
 
@@ -79,16 +55,17 @@
         android:layout_height="wrap_content"
         android:id="@+id/workout_description"
         android:layout_gravity="center"
-        android:hint="Description"
+        android:hint="@string/workout_descr"
         android:lines="2"
         android:maxLines="4"
         android:inputType="textMultiLine"
-        android:textColor="@color/primary_blue"
+        android:textColor="@color/text_black"
         android:textColorHint="#808080"
-        android:textSize="20sp"
+        android:textSize="16sp"
+        android:layout_marginTop="10dp"
         android:layout_marginLeft="25dip"
         android:layout_marginRight="25dip"
-        android:layout_below="@+id/workoutdesc"
+        android:layout_below="@+id/workout_name"
         android:background="@drawable/textlines"
         android:gravity="center"
         android:padding="10dp"
@@ -98,12 +75,12 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:text="Workout Level : "
-        android:textColor="@color/primary_blue"
+        android:textColor="@color/text_black"
         android:layout_marginTop="25dp"
         android:id="@+id/workoutlev"
         android:layout_marginLeft="25dp"
         android:layout_below="@+id/workout_description"
-        android:textSize="20sp"
+        android:textSize="16sp"
         android:padding="10dp"
         />
 
@@ -112,11 +89,12 @@
     <RelativeLayout
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
+    android:id="@+id/levelButtons"
     android:layout_below="@+id/workoutlev"
     >
         <ImageButton
             android:id="@+id/level1Button"
-            android:layout_width="120dp"
+            android:layout_width="110dp"
             android:layout_height="wrap_content"
             android:src="@drawable/ic_level1"
             android:padding="10dp"
@@ -126,7 +104,7 @@
             android:layout_toStartOf="@+id/level2Button" />
         <ImageButton
             android:id="@+id/level2Button"
-            android:layout_width="120dp"
+            android:layout_width="110dp"
             android:layout_height="wrap_content"
             android:src="@drawable/ic_level2"
             android:padding="10dp"
@@ -135,7 +113,7 @@
             android:layout_centerHorizontal="true" />
         <ImageButton
             android:id="@+id/level3Button"
-            android:layout_width="120dp"
+            android:layout_width="110dp"
             android:layout_height="wrap_content"
             android:src="@drawable/ic_level3"
             android:padding="10dp"
@@ -143,7 +121,51 @@
             android:layout_alignParentTop="true"
             android:layout_toRightOf="@+id/level2Button"
             android:layout_toEndOf="@+id/level2Button" />
+
     </RelativeLayout>
+
+    <Switch
+        android:id="@+id/visible"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/levelButtons"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="25dp"
+        android:layout_marginRight="25dp"
+        android:textColor="@color/text_black"
+        android:textOff="Only Me"
+        android:textOn="To All"
+        android:textSize="16sp"
+        android:padding="10dp"
+        android:text="Visiblility" />
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="60dp"
+        android:id="@+id/createworkoutinfo_footer"
+        android:layout_alignParentBottom="true"
+
+        >
+        <Button
+            android:id="@+id/createWorkout_nextButton"
+            android:background="@drawable/round_text"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:text="Next"
+            android:layout_centerHorizontal="true"
+            android:layout_alignParentBottom="true"
+            android:padding="10dp"
+            android:drawablePadding="10dp"
+            android:textSize="20sp"
+            android:textColor="#6C7A89"
+            android:layout_alignParentTop="true">
+        </Button>
+    </RelativeLayout>
+
+
+
+
+
 
 
 </RelativeLayout>
