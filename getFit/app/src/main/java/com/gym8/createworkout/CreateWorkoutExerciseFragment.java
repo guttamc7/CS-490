@@ -8,7 +8,6 @@ import android.widget.Button;
 import android.support.v4.app.Fragment;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.getbase.floatingactionbutton.FloatingActionButton;
 import com.parse.ParseException;
@@ -39,10 +38,7 @@ public class CreateWorkoutExerciseFragment extends Fragment {
         rootView = inflater.inflate(R.layout.fragment_create_workout_exercise, null);
         listView = (ListView) rootView.findViewById(R.id.create_workout_exercises_list);
         emptyList = (TextView) rootView.findViewById(R.id.empty_list);
-        doneButton = (Button) rootView.findViewById(R.id.createWorkout_Button);
-        contain = container;
-//        workoutName = container.getTag(0).toString();
-  //      workoutDescription = container.getTag(1).toString();
+        doneButton = (Button) rootView.findViewById(R.id.createWorkout_doneButton);
         if(ExerciseListDetailsDialog.exerciseWorkoutList!=null){
             emptyList.setVisibility(View.INVISIBLE);
             adapter = new CreateWorkoutExerciseAdapter(getActivity().getApplicationContext(),ExerciseListDetailsDialog.exerciseWorkoutList);
@@ -65,9 +61,8 @@ public class CreateWorkoutExerciseFragment extends Fragment {
         doneButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                    System.out.println("The Workout Name: " + contain.getTag(0).toString());
-                    System.out.println("The Workout Description: " + contain.getTag(1).toString()); //TODO: CREATE WORKOUT - Parse Query
-                    addWorkout("Test Name","Test Description",1,ExerciseListDetailsDialog.exerciseWorkoutList);
+
+                    addWorkout(CreateWorkoutInformationDialog.workoutName, CreateWorkoutInformationDialog.workoutDescription, CreateWorkoutInformationDialog.workoutLevel,ExerciseListDetailsDialog.exerciseWorkoutList);
                     CreateWorkoutDialog dialog = CreateWorkoutDialog.getInstance();
                     dialog.dismiss();
                 }
@@ -83,7 +78,7 @@ public class CreateWorkoutExerciseFragment extends Fragment {
         return f;
     }
 
-    public void addWorkout(String name, String description, int level, ArrayList<ParseObject> exercise){
+    public void addWorkout(final String name, final String description, final int level, ArrayList<ParseObject> exercise){
         final ArrayList<ParseObject> workoutExercisesList = new ArrayList<ParseObject>();
 
         for(int n=0;n <exercise.size();n++){
@@ -99,10 +94,10 @@ public class CreateWorkoutExerciseFragment extends Fragment {
                 if (e == null) {
                     ParseObject workout= new ParseObject("Workout");
                     workout.put("userId", ParseUser.getCurrentUser());
-                    //ToDo
-                    workout.put("name","test");
-                    workout.put("description","text-description");
-                    //workout.put("level",)
+
+                    workout.put("name",name);
+                    workout.put("description",description);
+                    workout.put("level",level);
                     workout.put("workoutType","custom");
                     workout.put("likes",0);
 

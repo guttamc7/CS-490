@@ -3,7 +3,6 @@ package com.gym8.customworkout;
 /**
  * Created by Gurumukh on 2/10/15.
  */
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -12,9 +11,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.TextView;
 
 import com.getbase.floatingactionbutton.FloatingActionButton;
+import com.gym8.createworkout.CreateWorkoutInformationDialog;
 import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseObject;
@@ -25,7 +24,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.gym8.main.R;
-import com.gym8.createworkout.CreateWorkoutDialog;
 
 public class CustomWorkoutFragment extends Fragment {
     private FloatingActionButton createWorkoutButton;
@@ -42,7 +40,7 @@ public class CustomWorkoutFragment extends Fragment {
         createWorkoutButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                CreateWorkoutDialog newFragment = CreateWorkoutDialog.newInstance();
+                CreateWorkoutInformationDialog newFragment = CreateWorkoutInformationDialog.newInstance();
                 newFragment.show(getFragmentManager(), "dialog");
 
 

@@ -35,5 +35,8 @@
 
     <string name="workout_name">Workout Name</string>
     <string name="workout_descr">Workout Description</string>
+    <string name="only_me">Only Me</string>
+    <string name="to_all">To All</string>
+    <string name="visible">Visible : </string>
 
 </resources>
