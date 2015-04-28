@@ -22,6 +22,8 @@ import java.util.ArrayList;
 import java.util.Calendar;
 
 import com.gym8.main.R;
+import com.parse.ParseRelation;
+import com.parse.ParseUser;
 
 public class CustomWorkoutAdapter extends BaseSwipeAdapter
 {
@@ -30,6 +32,7 @@ public class CustomWorkoutAdapter extends BaseSwipeAdapter
     private Context context;
     private TextView title;
     private TextView description;
+    private SwipeLayout swipeLayout;
 
     public CustomWorkoutAdapter(Context context, ArrayList<ParseObject> workoutItems)
     {
@@ -48,7 +51,7 @@ public class CustomWorkoutAdapter extends BaseSwipeAdapter
     public View generateView(final int position, ViewGroup parent)
     {
         View v = LayoutInflater.from(context).inflate(R.layout.custom_workout_row, null);
-        SwipeLayout swipeLayout = (SwipeLayout)v.findViewById(getSwipeLayoutResourceId(position));
+        swipeLayout = (SwipeLayout)v.findViewById(getSwipeLayoutResourceId(position));
 
         swipeLayout.addSwipeListener(
                 new SimpleSwipeListener()
@@ -71,6 +74,7 @@ public class CustomWorkoutAdapter extends BaseSwipeAdapter
         swipeLayout.findViewById(R.id.schedule_imview_custom_workout).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                swipeLayout.close(true);
                 Calendar cal = Calendar.getInstance();
                 Intent calIntent = new Intent(Intent.ACTION_INSERT);
                 calIntent.setType("vnd.android.cursor.item/event");
@@ -87,7 +91,11 @@ public class CustomWorkoutAdapter extends BaseSwipeAdapter
         swipeLayout.findViewById(R.id.delete_imview_custom_workout).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //TODO : Delete user like
+                Toast.makeText(context, "Workout Removed", Toast.LENGTH_SHORT).show();
+                removeWorkout(likedWorkouts.get(position));
+                likedWorkouts.remove(position);
+                notifyDataSetChanged();
+                swipeLayout.close(true);
 
             }
         });
@@ -144,8 +152,14 @@ public class CustomWorkoutAdapter extends BaseSwipeAdapter
         return position;
     }
 
-    private void getLikes(String id)
+
+    private void removeWorkout(ParseObject workout)
     {
+        //TODO
+        ParseUser user = ParseUser.getCurrentUser();
+       // ParseRelation<ParseObject> relation = user.getRelation("likedWorkout");
+       // relation.remove(workout);
+
 
     }
 }
