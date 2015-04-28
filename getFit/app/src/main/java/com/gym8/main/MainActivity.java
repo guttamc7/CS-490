@@ -72,7 +72,6 @@ public class MainActivity extends Activity {
                 installation.put("user",ParseUser.getCurrentUser());
                 installation.saveInBackground();
 
-
                     if(loginCount == 1) { //User Logging in for the first time
                         Intent i = new Intent(MainActivity.this, NewProfileActivity.class);
                         startActivity(i);

@@ -11,6 +11,8 @@ import android.widget.TextView;
 
 import com.getbase.floatingactionbutton.FloatingActionButton;
 import com.getbase.floatingactionbutton.FloatingActionsMenu;
+import com.gym8.messages.ChatMessaging;
+import com.gym8.messages.PushReceiver;
 import com.parse.GetDataCallback;
 import com.parse.ParseException;
 import com.parse.ParseFile;
@@ -62,23 +64,14 @@ public class FindNearbyUserProfileFragment extends RootFragment {
         chatButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Create our Installation query
-                ParseQuery pushQuery = ParseInstallation.getQuery();
-                pushQuery.whereEqualTo("user", user);
+                ChatMessaging.sendMessage(user, "This is a message");
 
-                // Send push notification to query
-                ParsePush push = new ParsePush();
-                push.setQuery(pushQuery); // Set our Installation query
-                push.setMessage("Willie Hayes injured by own pop fly.");
-                push.sendInBackground();
             }
         });
 
         viewWorkoutButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-
             }
         });
 
@@ -107,9 +100,6 @@ public class FindNearbyUserProfileFragment extends RootFragment {
                 }
             }
         });
-
-
-
 
     }
 
