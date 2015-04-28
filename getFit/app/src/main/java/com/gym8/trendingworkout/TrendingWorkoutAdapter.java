@@ -20,6 +20,7 @@ import com.parse.ParseQuery;
 import com.parse.ParseRelation;
 import com.parse.ParseUser;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
@@ -51,7 +52,7 @@ public class TrendingWorkoutAdapter extends BaseSwipeAdapter {
     public View generateView(final int position, ViewGroup parent) {
         View v = LayoutInflater.from(context).inflate(R.layout.trendingworkout_row, null);
         View rowColor = v.findViewById(R.id.view_row_trendingWorkout);
-        SwipeLayout swipeLayout = (SwipeLayout) v.findViewById(getSwipeLayoutResourceId(position));
+        final SwipeLayout swipeLayout = (SwipeLayout) v.findViewById(getSwipeLayoutResourceId(position));
 
         swipeLayout.addSwipeListener(
                 new SimpleSwipeListener() {
@@ -72,6 +73,7 @@ public class TrendingWorkoutAdapter extends BaseSwipeAdapter {
                         likes.setText(Integer.toString(workoutItemsTrending.get(position).getInt("likes") + 1));
                         likeClicked.setImageResource(R.drawable.ic_action_dontlike);
                         liked = true;
+                        swipeLayout.close(true);
                     }
                     else {
                         Toast.makeText(context, "Disliked", Toast.LENGTH_SHORT).show();
@@ -79,6 +81,7 @@ public class TrendingWorkoutAdapter extends BaseSwipeAdapter {
                         likes.setText(Integer.toString(workoutItemsTrending.get(position).getInt("likes") - 1));
                         likeClicked.setImageResource(R.drawable.ic_action_like_white);
                         liked = false;
+                        swipeLayout.close(true);
 
                     }
                     notifyDataSetChanged();
@@ -88,6 +91,7 @@ public class TrendingWorkoutAdapter extends BaseSwipeAdapter {
         swipeLayout.findViewById(R.id.schedule_imview_trendingWorkout).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                swipeLayout.close(true);
                 Calendar cal = Calendar.getInstance();
                 Intent calIntent = new Intent(Intent.ACTION_INSERT);
                 calIntent.setType("vnd.android.cursor.item/event");
@@ -109,7 +113,6 @@ public class TrendingWorkoutAdapter extends BaseSwipeAdapter {
         ImageView thumbNail = (ImageView) convertView.findViewById(R.id.thumbnail_trendingWorkout);
         title = (TextView) convertView.findViewById(R.id.title_trendingWorkout);
         description = (TextView) convertView.findViewById(R.id.description_trendingWorkout);
-        TextView username = (TextView) convertView.findViewById(R.id.userName_trendingWorkout);
         likes = (Button) convertView.findViewById(R.id.like_trendingWorkout);
         ParseObject workout = workoutItemsTrending.get(position);
 
@@ -169,4 +172,28 @@ public class TrendingWorkoutAdapter extends BaseSwipeAdapter {
 
 
     }
+    private void retrieveUsers(ArrayList<ParseObject> trendingList) {
+        final ArrayList<ParseObject> usersList = new ArrayList<ParseObject>();
+
+        for (int n = 0; n < trendingList.size(); n++) {
+            ParseObject user = trendingList.get(n).getParseObject("UserId");
+            usersList.add(user);
+
+        }
+
+
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
 }

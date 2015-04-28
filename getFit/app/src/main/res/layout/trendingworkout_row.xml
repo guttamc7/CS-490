@@ -86,28 +86,12 @@
                     android:ems="15"
                     android:textSize="15sp"
                     />
-
-                <TextView
-                    android:id="@+id/userName_trendingWorkout"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="#264F73"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginTop="2dp"
-                    android:fontFamily="sans-serif"
-                    android:layout_toRightOf="@+id/thumbnail_trendingWorkout"
-                    android:layout_below="@+id/description_trendingWorkout"
-                    android:text="Username"
-                    android:padding="5dp"
-                    android:textSize="15sp"
-                    />
-
                 <View
                     android:layout_width="fill_parent"
                     android:layout_height="1dip"
                     android:layout_marginTop="10dp"
                     android:background="#A5A7A9"
-                    android:layout_below="@+id/userName_trendingWorkout"
+                    android:layout_below="@+id/description_trendingWorkout"
                     android:id="@+id/view_row_trendingWorkout" />
 
                 <RelativeLayout

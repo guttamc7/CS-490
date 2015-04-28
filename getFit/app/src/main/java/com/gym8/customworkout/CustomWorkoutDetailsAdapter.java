@@ -51,7 +51,7 @@ public class CustomWorkoutDetailsAdapter extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
         ViewHolder1 holder;
         ParseObject workoutExercise = listData.get(position);
-        ParseObject exercise = listData.get(position).getParseObject("exerciseId");
+        ParseObject exercise = listData.get(position).getParseObject("exercise");
         if (convertView == null) {
             convertView = layoutInflater.inflate(R.layout.create_workout_exercise_row, null);
             holder = new ViewHolder1();
@@ -66,8 +66,8 @@ public class CustomWorkoutDetailsAdapter extends BaseAdapter {
         }
         //Set all the values in the list
         holder.nameView.setText(exercise.getString("name"));
-        holder.setsView.setText(workoutExercise.getString("sets"));//TODO
-        holder.repsView.setText(workoutExercise.getString("reps"));
+        holder.setsView.setText(workoutExercise.getInt("sets"));//TODO
+        holder.repsView.setText(workoutExercise.getInt("reps"));
         imageLoader.DisplayImage(exercise.getString("maleImg1"),holder.exerciseImage1);
         imageLoader.DisplayImage(exercise.getString("maleImg2"),holder.exerciseImage2);
         return convertView;

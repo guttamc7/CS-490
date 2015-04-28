@@ -3,14 +3,13 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-    <LinearLayout
-        android:orientation="vertical"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="#eaeff3"
-        android:id="@+id/editProfileDialog"
-
-    >
+<LinearLayout
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#eaeff3"
+    android:id="@+id/editProfileDialog"
+      >
     <de.hdodenhof.circleimageview.CircleImageView
         android:layout_width="125dp"
         android:layout_height="125dp"

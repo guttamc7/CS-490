@@ -5,6 +5,7 @@
     android:layout_height="match_parent"
     android:background="#eaeff3"
     android:scaleType="fitStart"
+    android:id="@+id/find_nearby_user_frag"
     >
 
     <LinearLayout
@@ -118,7 +119,7 @@
         xmlns:fab="http://schemas.android.com/apk/res-auto"
         fab:fab_addButtonColorNormal="@color/button_red"
         fab:fab_labelStyle="@style/menu_labels_style"
-        fab:fab_labelsPosition="left"
+        fab:fab_labelsPosition="right"
         fab:fab_addButtonSize="mini"
         android:layout_alignBottom="@id/header_userProfile"
         >

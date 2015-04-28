@@ -3,6 +3,7 @@ package com.gym8.findnearby;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,14 +12,11 @@ import android.widget.TextView;
 
 import com.getbase.floatingactionbutton.FloatingActionButton;
 import com.getbase.floatingactionbutton.FloatingActionsMenu;
-import com.gym8.messages.ChatMessaging;
-import com.gym8.messages.PushReceiver;
+import com.gym8.baseworkout.BaseWorkoutDetailsFragment;
+import com.gym8.messages.MessagesFragment;
 import com.parse.GetDataCallback;
 import com.parse.ParseException;
 import com.parse.ParseFile;
-import com.parse.ParseInstallation;
-import com.parse.ParsePush;
-import com.parse.ParseQuery;
 import com.parse.ParseUser;
 
 import com.gym8.main.R;
@@ -50,9 +48,7 @@ public class FindNearbyUserProfileFragment extends RootFragment {
         nearbyUserProfilePic = (ImageView) rootView.findViewById(R.id.nearbyUserProfilePic);
         userProfileActions = (FloatingActionsMenu) rootView.findViewById(R.id.user_profile_actions);
         chatButton = (FloatingActionButton) rootView.findViewById(R.id.chat_button);
-
-        this.setUserDetails();
-
+        setUserDetails();
         chatButton.setSize(FloatingActionButton.SIZE_MINI);
         chatButton.setColorNormalResId(R.color.button_yellow);
         chatButton.setIcon(R.drawable.ic_messages);
@@ -64,7 +60,12 @@ public class FindNearbyUserProfileFragment extends RootFragment {
         chatButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ChatMessaging.sendMessage(user, "This is a message");
+                FragmentTransaction ft = getChildFragmentManager().beginTransaction();
+                ft.replace(R.id.find_nearby_user_frag, new MessagesFragment());
+                ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+                ft.addToBackStack("Find Nearby User Profile");
+                ft.commit();
+
 
             }
         });
@@ -72,6 +73,8 @@ public class FindNearbyUserProfileFragment extends RootFragment {
         viewWorkoutButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+
             }
         });
 
@@ -83,12 +86,11 @@ public class FindNearbyUserProfileFragment extends RootFragment {
     }
 
     private void setUserDetails(){
-        this.nearbyUserName.setText(this.user.getString("name"));
-        this.nearbyUserHeight.setText(String.valueOf(this.user.getInt("height")) + " cm");
-        this.nearbyUserWeight.setText(String.valueOf(this.user.getInt("weight")) + " lbs");
-        this.nearbyUserAge.setText(Integer.toString(UserProfileFragment.getAge(this.user.getDate("birthDate"))) + " years");
-
-        ParseFile imageFile = this.user.getParseFile("profilePic");
+        nearbyUserName.setText(this.user.getString("name"));
+        nearbyUserHeight.setText(String.valueOf(this.user.getInt("height")) + " cm");
+        nearbyUserWeight.setText(String.valueOf(this.user.getInt("weight")) + " lbs");
+        nearbyUserAge.setText(Integer.toString(UserProfileFragment.getAge(this.user.getDate("birthDate"))) + " years");
+        ParseFile imageFile = user.getParseFile("profilePic");
         imageFile.getDataInBackground(new GetDataCallback() {
             public void done(byte[] data, ParseException e) {
                 if (e == null) {
@@ -100,6 +102,9 @@ public class FindNearbyUserProfileFragment extends RootFragment {
                 }
             }
         });
+
+
+
 
     }
 
