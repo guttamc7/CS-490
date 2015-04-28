@@ -15,6 +15,7 @@ import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -65,6 +66,7 @@ public class EditProfileDialog extends DialogFragment
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.dialog_edit_profile,null);
+        getDialog().getWindow().requestFeature(Window.FEATURE_NO_TITLE);
         this.imageUri = Uri.parse("android.resource://org.intracode.contactmanager/drawable/no_user_logo.png");
         gender = (RadioGroup) rootView.findViewById(R.id.radioButtonGender_edit_profile);
         userNameTextView = (TextView) rootView.findViewById(R.id.name_of_user_edit_profile);

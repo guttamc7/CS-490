@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.CheckedTextView;
 import android.widget.TextView;
@@ -43,6 +44,7 @@ public class DiscoveryPreferencesDialog extends DialogFragment
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
         rootView = inflater.inflate(R.layout.dialog_discovery_settings,null);
+        getDialog().getWindow().requestFeature(Window.FEATURE_NO_TITLE);
         submitButton = (Button) rootView.findViewById(R.id.submitButton_dialog_discovery);
         cancelButton= (Button) rootView.findViewById(R.id.cancelButton_dialog_discovery);
         rangeBarDistance = (RangeBar) rootView.findViewById(R.id.distanceRangeBar);
