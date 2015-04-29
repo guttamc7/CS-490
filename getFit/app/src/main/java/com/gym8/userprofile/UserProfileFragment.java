@@ -62,13 +62,24 @@ public class UserProfileFragment extends RootFragment
         userHeight = (TextView) rootView.findViewById(R.id.height_profile);
         listView = (ListView) rootView.findViewById(R.id.user_likes);
         listView.setOnTouchListener(new View.OnTouchListener() {
-            // Setting on Touch Listener for handling the touch inside ScrollView
             @Override
             public boolean onTouch(View v, MotionEvent event) {
-                // Disallow the touch request for parent scroll on touch of child view
-                v.getParent().requestDisallowInterceptTouchEvent(true);
-                return false;
-            }
+                int action = event.getAction();
+                switch (action) {
+                    case MotionEvent.ACTION_DOWN:
+                        // Disallow ScrollView to intercept touch events.
+                        v.getParent().requestDisallowInterceptTouchEvent(true);
+                        break;
+
+                    case MotionEvent.ACTION_UP:
+                        // Allow ScrollView to intercept touch events.
+                        v.getParent().requestDisallowInterceptTouchEvent(false);
+                        break;
+                }
+
+                // Handle ListView touch events.
+                v.onTouchEvent(event);
+                return true;}
         });
         setListViewHeightBasedOnChildren(listView);
         ParseUser currentUser = ParseUser.getCurrentUser();
@@ -174,7 +185,7 @@ public class UserProfileFragment extends RootFragment
         ViewGroup.LayoutParams params = listView.getLayoutParams();
         params.height = totalHeight + (listView.getDividerHeight() * (listAdapter.getCount() - 1));
         listView.setLayoutParams(params);
-        listView.requestLayout();
+       // listView.requestLayout();
     }
 
     public static int getAge(Date dateOfBirth) {
