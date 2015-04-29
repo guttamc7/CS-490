@@ -13,6 +13,7 @@
         android:inputType="textPersonName"
         android:textColorHint="#eaeff3"
         android:gravity="center"
+        android:maxLines="20"
         android:singleLine="true"
         android:background="@drawable/textlines"
         android:textColor="#eaeff3"

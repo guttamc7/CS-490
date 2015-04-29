@@ -10,6 +10,8 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
+import com.parse.FindCallback;
+import com.parse.ParseException;
 import com.parse.ParseObject;
 
 import java.util.ArrayList;
@@ -17,6 +19,8 @@ import java.util.List;
 
 import com.gym8.main.R;
 import com.gym8.baseworkout.BaseWorkoutAdapter;
+import com.parse.ParseQuery;
+import com.parse.ParseUser;
 
 
 /**
@@ -30,7 +34,7 @@ public class MessagesFragment extends Fragment {
     View v;
     public static String webLink;
     private Context mContext;
-    private BaseWorkoutAdapter adapter;
+    private MessagesAdapter adapter;
 
     public MessagesFragment() {
         // Auto-generated constructor stub
@@ -42,8 +46,45 @@ public class MessagesFragment extends Fragment {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
+       // ChatMessaging.retrieveChatUsers();
+
+        System.out.println("In retrieving");
+        final List<ParseUser> chatUsers2 = new ArrayList<ParseUser>();
+
+        ParseQuery<ParseObject> query = ParseQuery.getQuery("ChatUsers");
+        query.fromLocalDatastore();
+        query.findInBackground(new FindCallback<ParseObject>() {
+            public void done(List<ParseObject> chatUsers,
+                             ParseException e) {
+                if (e == null) {
+                    System.out.println("In null and size is "+chatUsers.size());
+
+                    for(int n=0; n< chatUsers.size();n++){
+                        try {
+                            chatUsers.get(n).getParseObject("userId").fetchFromLocalDatastore();
+                        } catch (ParseException e1) {
+                            e1.printStackTrace();
+                        }
+                        System.out.println("User DEtails " + chatUsers.get(0).getParseUser("userId").getString("name"));
+                        chatUsers2.add(chatUsers.get(n).getParseUser("userId"));
+
+                    }
+
+
+
+                } else {
+                    e.printStackTrace();
+                }
+                adapter = new MessagesAdapter(getActivity().getApplicationContext(), chatUsers2);
+                listView.setAdapter(adapter);
+                adapter.notifyDataSetChanged();
+            }
+        });
+
     }
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {

@@ -27,9 +27,6 @@ public class CreateWorkoutDialog extends DialogFragment {
     private EditText workoutNameText;
     private EditText workoutDescriptionText;
     private ViewPager pager;
-    public static String workoutName;
-    public static String workoutDescription;
-    public static int workoutLevel;
     private static CreateWorkoutDialog f;
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -53,44 +50,7 @@ public class CreateWorkoutDialog extends DialogFragment {
         pager = (ViewPager) view.findViewById(R.id.create_workout_pager);
         MyFragmentAdapter adapter = new MyFragmentAdapter(getChildFragmentManager());
         pager.setAdapter(adapter);
-        CirclePageIndicator mIndicator = (CirclePageIndicator)view.findViewById(R.id.indicator);
-        mIndicator.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-            @Override
-            public void onPageSelected(int position) {
 
-            }
-
-            @Override
-            public void onPageScrollStateChanged(int state) {
-            }
-
-            @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-                if (position == 0) {
-                    workoutNameText = (EditText) view.findViewById(R.id.workout_name);
-                    workoutDescriptionText = (EditText) view.findViewById(R.id.workout_description);
-                    if (workoutNameText.getText().toString() == null || workoutNameText.getText().toString().length() == 0) {
-                        Toast.makeText(getActivity(), "Please Enter A Workout Name", Toast.LENGTH_SHORT).show();
-                        pager.setCurrentItem(0);
-                    } else if (workoutDescriptionText.getText().toString() == null || workoutNameText.getText().toString().length() == 0) {
-                        Toast.makeText(getActivity(), "Please Enter A Workout Description", Toast.LENGTH_SHORT).show();
-                        pager.setCurrentItem(0);
-                    } else if (CreateWorkoutInformationFragment.workoutLevel == 0) {
-                        Toast.makeText(getActivity(), "Please Enter A Workout Level", Toast.LENGTH_SHORT).show();
-                        pager.setCurrentItem(0);
-                    } else {
-                        pager.setCurrentItem(1);
-                        workoutName = workoutNameText.getText().toString();
-                        workoutDescription = workoutDescriptionText.getText().toString();
-                        pager.setTag(0,workoutNameText.getText().toString());
-                        pager.setTag(1,workoutDescriptionText.getText().toString());
-                    }
-                }
-
-                }
-            });
-        mIndicator.setViewPager(pager);
-        mIndicator.setCurrentItem(0);
         return view;
     }
 
@@ -131,16 +91,13 @@ public class CreateWorkoutDialog extends DialogFragment {
         }
         @Override
         public int getCount() {
-            return 2;
+            return 1;
         }
 
         @Override
         public Fragment getItem(int position) {
             switch (position) {
                 case 0:
-                    CreateWorkoutInformationFragment informationTab = new CreateWorkoutInformationFragment();
-                    return informationTab;
-                case 1:
                     if (mFragmentAtPos0 == null) {
                         mFragmentAtPos0 =CreateWorkoutExerciseFragment.newInstance(listener);
                     }
@@ -164,12 +121,6 @@ public class CreateWorkoutDialog extends DialogFragment {
         void onSwitchToNextFragment();
     }
 
-    public void onDismiss(DialogInterface dialog)
-    {
-        ExerciseListDetailsDialog.exerciseWorkoutList = null;
-        CreateWorkoutInformationFragment.workoutDescription = "";
-        CreateWorkoutInformationFragment.workoutName = "";
-        CreateWorkoutInformationFragment.workoutLevel = 0;
-    }
+
 
 }

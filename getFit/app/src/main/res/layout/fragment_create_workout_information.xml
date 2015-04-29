@@ -124,48 +124,54 @@
 
     </RelativeLayout>
 
-    <Switch
-        android:id="@+id/visible"
-        android:layout_width="fill_parent"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/levelButtons"
-        android:layout_marginTop="20dp"
-        android:layout_marginLeft="25dp"
-        android:layout_marginRight="25dp"
-        android:textColor="@color/text_black"
-        android:textOff="Only Me"
-        android:textOn="To All"
-        android:textSize="16sp"
-        android:padding="10dp"
-        android:text="Visiblility" />
-
-    <RelativeLayout
-        android:layout_width="wrap_content"
-        android:layout_height="60dp"
-        android:id="@+id/createworkoutinfo_footer"
-        android:layout_alignParentBottom="true"
-
+        android:layout_below="@+id/levelButtons"
+        android:orientation="vertical"
+        android:id="@+id/linearlayout1"
         >
-        <Button
-            android:id="@+id/createWorkout_nextButton"
-            android:background="@drawable/round_text"
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/visible"
+            android:id="@+id/textViewVisible"
+            android:layout_marginLeft="25dp"
+            android:layout_marginTop="20dp"
+            android:textSize="16sp"
+            android:padding="5dp"
+            android:fontFamily="sans-serif_light"
+            android:textColor="@color/text_black"/>
+
+        <CheckedTextView
             android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:text="Next"
-            android:layout_centerHorizontal="true"
-            android:layout_alignParentBottom="true"
-            android:padding="10dp"
-            android:drawablePadding="10dp"
-            android:textSize="20sp"
-            android:textColor="#6C7A89"
-            android:layout_alignParentTop="true">
-        </Button>
-    </RelativeLayout>
+            android:layout_height="wrap_content"
+            android:text="@string/only_me"
+            android:layout_below="@+id/textViewVisible"
+            android:layout_marginLeft="35dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="25dp"
+            android:checkMark="?android:attr/listChoiceIndicatorSingle"
+            android:checked="false"
+            android:textSize="15sp"
+            android:id="@+id/checkedTextOnlyMe"
+            android:textColor="@color/text_black"/>
 
+        <CheckedTextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/to_all"
+            android:layout_below="@+id/checkedTextOnlyMe"
+            android:layout_marginLeft="35dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="25dp"
+            android:checkMark="?android:attr/listChoiceIndicatorSingle"
+            android:checked="false"
+            android:textSize="15sp"
+            android:id="@+id/checkedTextToAll"
+            android:textColor="@color/text_black"/>
 
-
-
-
-
+    </LinearLayout>
 
 </RelativeLayout>

@@ -17,19 +17,20 @@ import java.util.List;
 
 import com.gym8.main.R;
 import com.gym8.imageloader.ImageLoader;
+import com.parse.ParseUser;
 
 /**
  * Created by Jai Nalwa on 4/10/15.
  */
 public class MessagesAdapter extends BaseSwipeAdapter {
     private LayoutInflater inflater;
-    private List<ParseObject> messageItems;
+    private List<ParseUser> messageItems;
     private Context context;
     private SwipeLayout swipeLayout;
     private TextView name;
     private ImageView profilePic;
     ImageLoader imageLoader;
-    public MessagesAdapter(Context context, List<ParseObject> workoutItems) {
+    public MessagesAdapter(Context context, List<ParseUser> workoutItems) {
         inflater = LayoutInflater.from(context);
         this.context = context;
         this.messageItems = workoutItems;
@@ -38,7 +39,7 @@ public class MessagesAdapter extends BaseSwipeAdapter {
 
     @Override
     public int getSwipeLayoutResourceId(int position) {
-        return R.id.swipe;
+        return R.id.swipe_trendingWorkout;
     }
 
     @Override
@@ -77,11 +78,11 @@ public class MessagesAdapter extends BaseSwipeAdapter {
                 .findViewById(R.id.profilePic_messages_row);
         name = (TextView) convertView.findViewById(R.id.username_messages_row);
 
-        ParseObject message = messageItems.get(position);
+        ParseUser user = messageItems.get(position);
         // title
         //TODO
-        name.setText(message.getString("name"));
-        imageLoader.DisplayImage(message.getParseFile("profilePic").getUrl(),profilePic);
+        name.setText(user.getString("name"));
+        imageLoader.DisplayImage(user.getParseFile("profilePic").getUrl(),profilePic);
     }
 
     @Override
