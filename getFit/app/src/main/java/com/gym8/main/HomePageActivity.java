@@ -149,22 +149,22 @@ public class HomePageActivity extends FragmentActivity {
                 homeFragment = new HomeFragment();
                 getSupportFragmentManager()
                         .beginTransaction()
-                        .replace(R.id.content_frame, homeFragment, HomeFragment.TAG).commit();
+                        .add(R.id.content_frame, homeFragment, HomeFragment.TAG).commit();
                 break;
             case 1:
                 getSupportFragmentManager()
                         .beginTransaction()
-                        .replace(R.id.content_frame, BaseWorkoutFragment.newInstance(), BaseWorkoutFragment.TAG).commit();
+                        .add(R.id.content_frame, BaseWorkoutFragment.newInstance(), BaseWorkoutFragment.TAG).commit();
                 break;
             case 2: //TODO
                 getSupportFragmentManager()
                         .beginTransaction()
-                        .replace(R.id.content_frame, CustomWorkoutFragment.newInstance()).commit();
+                        .add(R.id.content_frame, CustomWorkoutFragment.newInstance()).commit();
                 break;
             case 3: //TODO
                 getSupportFragmentManager()
                         .beginTransaction()
-                        .replace(R.id.content_frame, MessagesFragment.newInstance()).commit();
+                        .add(R.id.content_frame, MessagesFragment.newInstance()).commit();
                 break;
             case 4: //SignOut
                 AlertDialog.Builder builder = new AlertDialog.Builder(this);
