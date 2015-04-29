@@ -1,6 +1,8 @@
 package com.gym8.messages;
 
 import com.parse.FindCallback;
+import com.parse.GetCallback;
+import com.parse.Parse;
 import com.parse.ParseException;
 import com.parse.ParseInstallation;
 import com.parse.ParseObject;
@@ -13,6 +15,7 @@ import com.parse.SaveCallback;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -20,8 +23,8 @@ import java.util.List;
  */
 public class ChatMessaging {
     private static String senderId;
-    private static List<ParseUser> chatUsersDetails;
-    private static List<ParseObject> chatUsers;
+    private static List<ParseUser> chatUsersDetails = new ArrayList<ParseUser>();
+    private static List<ParseObject> chatUsers= new ArrayList<ParseObject>();
 
      static void saveReceivedMessage(JSONObject receivedMessage){
 
@@ -136,13 +139,23 @@ public class ChatMessaging {
     }
 
     public static void retrieveChatUsers(){
+        System.out.println("In retrieving");
+
         ParseQuery<ParseObject> query = ParseQuery.getQuery("ChatUsers");
         query.fromLocalDatastore();
         query.findInBackground(new FindCallback<ParseObject>() {
             public void done(List<ParseObject> chatUsers,
                              ParseException e) {
                 if (e == null) {
+                    System.out.println("In null and size is "+chatUsers.size());
+
                     for(int n=0; n< chatUsers.size();n++){
+                        try {
+                            chatUsers.get(n).getParseObject("userId").fetchFromLocalDatastore();
+                        } catch (ParseException e1) {
+                            e1.printStackTrace();
+                        }
+                        System.out.println("User DEtails " + chatUsers.get(0).getParseUser("userId").getString("name"));
                         ChatMessaging.chatUsersDetails.add(chatUsers.get(n).getParseUser("userId"));
                     }
                     ChatMessaging.chatUsers.addAll(chatUsers);
@@ -167,7 +180,7 @@ public class ChatMessaging {
         return null;
     }
 
-    private static ParseObject createChatUser(String senderId){
+    public static ParseObject createChatUser(String senderId){
         ParseObject chatUser = new ParseObject("ChatUsers");
         ParseUser senderUser = (ParseUser) ParseUser.createWithoutData("_User",senderId);
         chatUser.put("userId", senderUser);
@@ -177,4 +190,12 @@ public class ChatMessaging {
     }
 
 
+
+    public static void saveUserLocally(ParseUser user){
+        user.pinInBackground();
+        ParseObject chatUser = new ParseObject("ChatUsers");
+        chatUser.put("userId", user);
+        chatUser.pinInBackground();
+        chatUser.saveEventually();
+    }
 }
