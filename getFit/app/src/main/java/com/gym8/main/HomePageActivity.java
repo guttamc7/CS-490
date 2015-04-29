@@ -149,22 +149,22 @@ public class HomePageActivity extends FragmentActivity {
                 homeFragment = new HomeFragment();
                 getSupportFragmentManager()
                         .beginTransaction()
-                        .add(R.id.content_frame, homeFragment, HomeFragment.TAG).commit();
+                        .replace(R.id.content_frame, homeFragment, HomeFragment.TAG).commit();
                 break;
             case 1:
                 getSupportFragmentManager()
                         .beginTransaction()
-                        .add(R.id.content_frame, BaseWorkoutFragment.newInstance(), BaseWorkoutFragment.TAG).commit();
+                        .replace(R.id.content_frame, BaseWorkoutFragment.newInstance(), BaseWorkoutFragment.TAG).commit();
                 break;
             case 2: //TODO
                 getSupportFragmentManager()
                         .beginTransaction()
-                        .add(R.id.content_frame, CustomWorkoutFragment.newInstance()).commit();
+                        .replace(R.id.content_frame, CustomWorkoutFragment.newInstance()).commit();
                 break;
             case 3: //TODO
                 getSupportFragmentManager()
                         .beginTransaction()
-                        .add(R.id.content_frame, MessagesFragment.newInstance()).commit();
+                        .replace(R.id.content_frame, MessagesFragment.newInstance()).commit();
                 break;
             case 4: //SignOut
                 AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -176,7 +176,11 @@ public class HomePageActivity extends FragmentActivity {
                         dialog.cancel();
                         ParseUser.getCurrentUser().logOut();
                         finish();
-                        System.exit(0);
+                        Intent intent = new Intent(Intent.ACTION_MAIN);
+                        intent.addCategory(Intent.CATEGORY_HOME);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        startActivity(intent );
                     }
                 });
                 AlertDialog dialog = builder.create();

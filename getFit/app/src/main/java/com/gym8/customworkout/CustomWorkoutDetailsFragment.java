@@ -42,7 +42,8 @@ public class CustomWorkoutDetailsFragment extends Fragment {
 
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        getExercises();
+        if(savedInstanceState == null)
+            getExercises();
     }
 
     private void onPostExecute() {
