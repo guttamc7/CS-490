@@ -15,9 +15,12 @@ import com.getbase.floatingactionbutton.FloatingActionsMenu;
 import com.gym8.baseworkout.BaseWorkoutDetailsFragment;
 import com.gym8.messages.ChatMessaging;
 import com.gym8.messages.MessagesFragment;
+import com.parse.GetCallback;
 import com.parse.GetDataCallback;
 import com.parse.ParseException;
 import com.parse.ParseFile;
+import com.parse.ParseObject;
+import com.parse.ParseQuery;
 import com.parse.ParseUser;
 
 import com.gym8.main.R;
@@ -61,12 +64,7 @@ public class FindNearbyUserProfileFragment extends RootFragment {
         chatButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ChatMessaging.saveUserLocally(user);
-                FragmentTransaction ft = getChildFragmentManager().beginTransaction();
-                ft.replace(R.id.find_nearby_user_frag, new MessagesFragment());
-                ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
-                ft.addToBackStack("Find Nearby User Profile");
-                ft.commit();
+                goToUserChat();
             }
         });
 
@@ -101,10 +99,23 @@ public class FindNearbyUserProfileFragment extends RootFragment {
                 }
             }
         });
-
-
-
-
     }
 
+    private void goToUserChat(){
+        ParseQuery<ParseObject> query = ParseQuery.getQuery("_User");
+        query.fromLocalDatastore();
+        query.getInBackground(this.user.getObjectId(), new GetCallback<ParseObject>() {
+            public void done(ParseObject object, ParseException e) {
+                if (e != null) {
+                    ChatMessaging.saveUserLocally(user);
+                }
+
+                FragmentTransaction ft = getChildFragmentManager().beginTransaction();
+                ft.replace(R.id.find_nearby_user_frag, new MessagesFragment());
+                ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+                ft.addToBackStack("Find Nearby User Profile");
+                ft.commit();
+            }
+        });
+    }
 }
