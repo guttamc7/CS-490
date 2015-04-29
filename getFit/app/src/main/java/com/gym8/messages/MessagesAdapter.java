@@ -39,7 +39,7 @@ public class MessagesAdapter extends BaseSwipeAdapter {
 
     @Override
     public int getSwipeLayoutResourceId(int position) {
-        return R.id.swipe;
+        return R.id.swipe_trendingWorkout;
     }
 
     @Override
