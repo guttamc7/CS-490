@@ -26,7 +26,10 @@ public class CustomWorkoutDetailsFragment extends Fragment {
     private ListView listView;
     private CustomWorkoutDetailsAdapter adapter;
     private ParseObject selectedWorkout;
-    private ArrayList<ParseObject> workoutExercisesList;
+    private ArrayList<ParseObject> workoutExercisesList = new ArrayList<>();
+    private ArrayList<ParseObject> exercisesDetailsList = new ArrayList<>();
+
+
     private View rootView;
 
 
@@ -43,6 +46,7 @@ public class CustomWorkoutDetailsFragment extends Fragment {
     }
 
     private void onPostExecute() {
+        System.out.println(workoutExercisesList.size());
         adapter = new CustomWorkoutDetailsAdapter(getActivity().getApplicationContext(), workoutExercisesList);
         listView.setAdapter(adapter);
         adapter.notifyDataSetChanged();
@@ -50,24 +54,25 @@ public class CustomWorkoutDetailsFragment extends Fragment {
     }
 
     private void getExercises() {
-        ParseRelation<ParseObject> exercises = CustomWorkoutFragment.selectedWorkout.getRelation("exercises");
-        ParseQuery<ParseObject> query = exercises.getQuery();
+
+        selectedWorkout=CustomWorkoutFragment.selectedWorkout;
+        ParseRelation<ParseObject> relation = selectedWorkout.getRelation("exercises");
+        ParseQuery<ParseObject> query = relation.getQuery();
         query.findInBackground(new FindCallback<ParseObject>() {
-        public void done(List<ParseObject> workoutExercises, ParseException e) {
-            if (e == null) {
-                workoutExercisesList.addAll(workoutExercises);
-            } else {
-             }
-            onPostExecute();
+            public void done(List<ParseObject> workoutList, ParseException e) {
+                if (e == null) {
+
+                    workoutExercisesList.addAll(workoutList);
+
+
+                } else {
+                    System.out.println(e.getMessage());
+                }
+                onPostExecute();
             }
         });
 
 
-        /*for (int n = 0; n < workoutExercisesList.size(); n++) {
-            workoutExercisesList.get(n).get("reps");
-            workoutExercisesList.get(n).get("sets");
-            ParseObject exercise = workoutExercises.get(m).getParseObject("exerciseId");
-        }*/
 
     }
 }

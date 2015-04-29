@@ -155,6 +155,7 @@ public class UserProfileAdapter extends BaseSwipeAdapter
             ParseUser user = ParseUser.getCurrentUser();
             ParseRelation<ParseObject> relation = user.getRelation("likedWorkout");
             relation.remove(workout);
+            user.saveInBackground();
 
 
      }

@@ -7,6 +7,9 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+import com.parse.FindCallback;
+import com.parse.ParseException;
+import com.parse.GetCallback;
 
 import com.parse.ParseObject;
 
@@ -21,9 +24,12 @@ import com.gym8.imageloader.ImageLoader;
  */
 public class CustomWorkoutDetailsAdapter extends BaseAdapter {
 
-    private ArrayList<ParseObject> listData;
+    private ArrayList<ParseObject> listData=new ArrayList<>();
     ImageLoader imageLoader;
     private LayoutInflater layoutInflater;
+    private int sets;
+    private int reps;
+
 
     public CustomWorkoutDetailsAdapter(Context context, ArrayList<ParseObject> listData) {
         this.listData = listData;
@@ -49,9 +55,12 @@ public class CustomWorkoutDetailsAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        ViewHolder1 holder;
+        final ViewHolder1 holder;
         ParseObject workoutExercise = listData.get(position);
-        ParseObject exercise = listData.get(position).getParseObject("exercise");
+
+
+
+
         if (convertView == null) {
             convertView = layoutInflater.inflate(R.layout.create_workout_exercise_row, null);
             holder = new ViewHolder1();
@@ -64,14 +73,37 @@ public class CustomWorkoutDetailsAdapter extends BaseAdapter {
         } else {
             holder = (ViewHolder1) convertView.getTag();
         }
-        //Set all the values in the list
-        holder.nameView.setText(exercise.getString("name"));
-        holder.setsView.setText(workoutExercise.getInt("sets"));//TODO
-        holder.repsView.setText(workoutExercise.getInt("reps"));
-        imageLoader.DisplayImage(exercise.getString("maleImg1"),holder.exerciseImage1);
-        imageLoader.DisplayImage(exercise.getString("maleImg2"),holder.exerciseImage2);
+        sets=workoutExercise.getInt("sets");
+        reps=workoutExercise.getInt("reps");
+
+        workoutExercise.getParseObject("exercise").fetchIfNeededInBackground(new GetCallback<ParseObject>() {
+
+            public void done(ParseObject exercisename, ParseException e) {
+
+                setHolder(holder,exercisename.getString("name"),exercisename.getString("maleImg1"),exercisename.getString("maleImg2"));
+
+            }
+        });;
+
+
+
+
+
+
+
         return convertView;
     }
+    private void setHolder(ViewHolder1 holder,String exerciseName, String maleImg1,String maleImg2)
+    {
+        holder.nameView.setText(exerciseName);
+        holder.setsView.setText(Integer.toString(sets));
+        holder.repsView.setText(Integer.toString(reps));
+        imageLoader.DisplayImage(maleImg1,holder.exerciseImage1);
+        imageLoader.DisplayImage(maleImg2,holder.exerciseImage2);
+
+    }
+
+
 
     static class ViewHolder1 {
         TextView nameView;
