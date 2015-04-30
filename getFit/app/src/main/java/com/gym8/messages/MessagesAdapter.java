@@ -44,7 +44,7 @@ public class MessagesAdapter extends BaseSwipeAdapter {
 
     @Override
     public View generateView(final int position, ViewGroup parent) {
-        View v = inflater.inflate(R.layout.messages_row, null);
+        View v = LayoutInflater.from(context).inflate(R.layout.messages_row, null);
 
         swipeLayout = (SwipeLayout)v.findViewById(getSwipeLayoutResourceId(position));
 

@@ -39,25 +39,25 @@
 
     <TextView
         android:id="@+id/workout_exercise_name"
-        android:layout_width="wrap_content"
+        android:layout_width="75dp"
         android:layout_height="wrap_content"
         android:textColor="@color/primary_blue"
         android:text="Exercise Name"
+        android:inputType="textMultiLine"
         android:fontFamily="sans-serif"
         android:layout_gravity="center"
         android:gravity="center"
-        android:layout_marginLeft="15dp"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
+        android:layout_marginLeft="7dp"
+        android:layout_marginTop="10dp"
         android:layout_toRightOf="@id/exercise_row_images"
-        android:textSize="16sp"
+        android:textSize="15sp"
         android:textStyle="bold" />
 
     <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
-        android:layout_marginLeft="15dp"
+        android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
         >
 

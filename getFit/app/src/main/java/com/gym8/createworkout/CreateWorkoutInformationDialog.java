@@ -7,6 +7,7 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +16,8 @@ import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -24,10 +27,11 @@ public class CreateWorkoutInformationDialog extends DialogFragment {
     private View rootView;
     private EditText workoutNameText;
     private EditText workoutDescriptionText;
-    private ImageButton level1;
-    private ImageButton level2;
-    private ImageButton level3;
-    private TextView selectedLevelText;
+    private RadioGroup levels;
+    private RadioButton level1Button;
+    private RadioButton level2Button;
+    private RadioButton level3Button;
+    private String levelText;
     private Button nextButton;
     public static String workoutName;
     public static String workoutDescription;
@@ -53,6 +57,16 @@ public class CreateWorkoutInformationDialog extends DialogFragment {
                                 } else {
                                     workoutName = workoutNameText.getText().toString();
                                     workoutDescription = workoutDescriptionText.getText().toString();
+                                    RadioButton selectRadio = null;
+                                    Log.d("gender: ", Integer.toString(levels.getCheckedRadioButtonId()));
+                                    if(levels.getCheckedRadioButtonId() == -1)
+                                        levels = null;
+                                    else {
+                                        selectRadio = (RadioButton) rootView.findViewById(levels.getCheckedRadioButtonId());
+                                        Log.d("selectRadio: ", selectRadio.getText().toString());
+                                        if (selectRadio.getText().toString() == null || (!selectRadio.getText().toString().equals("") && selectRadio.getText().toString().length() > 0))
+                                            levelText = selectRadio.getText().toString();
+                                    }
                                     dismiss();
                                     CreateWorkoutDialog f = new CreateWorkoutDialog().newInstance();
                                     f.show(getFragmentManager(), "dialog");
@@ -71,37 +85,11 @@ public class CreateWorkoutInformationDialog extends DialogFragment {
         rootView = inflater.inflate(R.layout.fragment_create_workout_information, null);
         workoutNameText = (EditText) rootView.findViewById(R.id.workout_name);
         workoutDescriptionText = (EditText) rootView.findViewById(R.id.workout_description);
-        //nextButton = (Button) rootView.findViewById(R.id.createWorkout_nextButton);
-        level1 = (ImageButton) rootView.findViewById(R.id.level1Button);
-        level2 = (ImageButton) rootView.findViewById(R.id.level2Button);
-        level3 = (ImageButton) rootView.findViewById(R.id.level3Button);
-        selectedLevelText = (TextView) rootView.findViewById(R.id.workoutlev);
-        if(workoutLevel == 0)
-            selectedLevelText.setText("Workout Level : ");
-        level1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                selectedLevelText.setText("Workout Level :  Level 1");
-                workoutLevel  = 1;
+        levels = (RadioGroup) rootView.findViewById(R.id.radioButtonLevel_create_workout);
+        level1Button = (RadioButton) rootView.findViewById(R.id.level1_create_workout);
+        level2Button = (RadioButton) rootView.findViewById(R.id.level2_create_workout);
+        level3Button = (RadioButton) rootView.findViewById(R.id.level3_create_workout);
 
-            }
-        });
-        level2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                workoutLevel  = 2;
-                selectedLevelText.setText("Workout Level :  Level 2");
-
-            }
-        });
-        level3.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                workoutLevel  = 3;
-                selectedLevelText.setText("Workout Level :  Level 3");
-
-            }
-        });
         b.setView(rootView);
         return b.create();
     }

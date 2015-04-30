@@ -89,6 +89,9 @@ public class HomePageActivity extends FragmentActivity {
         if(savedInstanceState == null) {
             navigateTo(0);
         }
+        else {
+            homeFragment = (HomeFragment) getSupportFragmentManager().getFragments().get(0);
+        }
 
     }
 
