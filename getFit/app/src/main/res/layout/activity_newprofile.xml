@@ -17,16 +17,16 @@
         android:textColor="#eaeff3"
         android:layout_centerHorizontal="true"
         android:fontFamily="sans-serif"
-        android:textSize="32sp"
+        android:textSize="30sp"
         android:layout_marginLeft="20dp"
-        android:layout_marginTop="30dp" />
+        android:layout_marginTop="15dp" />
 
     <TextView
         android:id="@+id/profile_msg"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="sans-serif_light"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="10dp"
         android:textColor="#eaeff3"
         android:layout_gravity="center"
         android:layout_centerHorizontal="true"
@@ -38,7 +38,7 @@
         android:layout_height="125dp"
         android:id="@+id/imgViewProfilePic"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="15dp"
         android:src="@drawable/default_user_icon"
         />
 
@@ -58,13 +58,13 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:padding="10dp"
+        android:padding="5dp"
         android:id="@+id/txtBirthdate"
         android:layout_gravity="center"
         android:layout_marginLeft="25dip"
         android:layout_marginRight="25dip"
         android:background="@drawable/textlines"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="10dp"
         android:hint="Birth date (mm/dd/yyyy)"
         android:textColorHint="#eaeff3"
         android:textColor="#eaeff3"
@@ -139,7 +139,7 @@
         android:textColor="#eaeff3"
         android:textSize="20sp"
         android:gravity="center"
-        android:padding="10dp"
+        android:padding="5dp"
         />
 
     <View
@@ -166,7 +166,7 @@
         android:background="@drawable/textlines"
         android:textColorHint="#eaeff3"
         android:gravity="center"
-        android:padding="10dp"
+        android:padding="5dp"
         />
 <RelativeLayout
     android:layout_width="fill_parent"
@@ -180,7 +180,7 @@
         android:layout_gravity="bottom"
         android:textSize="20sp"
         android:padding="10dp"
-        android:layout_marginTop="25dip"
+        android:layout_marginTop="15dip"
         android:layout_alignParentLeft="true"
         android:layout_marginLeft="25dip"
         android:text="Later"
@@ -193,7 +193,7 @@
             android:layout_height="wrap_content"
             android:text="Done"
             android:layout_alignParentRight="true"
-            android:layout_marginTop="25dip"
+            android:layout_marginTop="15dip"
             android:padding="10dp"
             android:textSize="20sp"
             android:layout_marginRight="25dip"
