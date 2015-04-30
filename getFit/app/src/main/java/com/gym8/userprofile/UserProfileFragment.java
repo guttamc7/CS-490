@@ -3,7 +3,8 @@ package com.gym8.userprofile;
 /**
  * Created by Gurumukh on 2/4/15.
  */
-import android.app.DialogFragment;
+import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
@@ -19,7 +20,6 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
-import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListAdapter;
@@ -35,7 +35,6 @@ import com.parse.ParseQuery;
 import com.parse.ParseRelation;
 import com.parse.ParseUser;
 
-import com.gym8.main.EditProfileDialog;
 import com.gym8.main.R;
 import com.gym8.viewpager.RootFragment;
 
@@ -51,6 +50,8 @@ public class UserProfileFragment extends RootFragment
     private List<ParseObject> likedWorkoutList = new ArrayList<>();
     private ListView listView;
     private UserProfileAdapter adapter;
+    public static final int DIALOG_FRAGMENT = 1;
+
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
@@ -62,15 +63,61 @@ public class UserProfileFragment extends RootFragment
         userHeight = (TextView) rootView.findViewById(R.id.height_profile);
         listView = (ListView) rootView.findViewById(R.id.user_likes);
         listView.setOnTouchListener(new View.OnTouchListener() {
-            // Setting on Touch Listener for handling the touch inside ScrollView
             @Override
             public boolean onTouch(View v, MotionEvent event) {
-                // Disallow the touch request for parent scroll on touch of child view
-                v.getParent().requestDisallowInterceptTouchEvent(true);
-                return false;
-            }
+                int action = event.getAction();
+                switch (action) {
+                    case MotionEvent.ACTION_DOWN:
+                        // Disallow ScrollView to intercept touch events.
+                        v.getParent().requestDisallowInterceptTouchEvent(true);
+                        break;
+
+                    case MotionEvent.ACTION_UP:
+                        // Allow ScrollView to intercept touch events.
+                        v.getParent().requestDisallowInterceptTouchEvent(false);
+                        break;
+                }
+
+                // Handle ListView touch events.
+                v.onTouchEvent(event);
+                return true;}
         });
         setListViewHeightBasedOnChildren(listView);
+        setUserAttributes();
+        editProfileButton = (FloatingActionButton) rootView.findViewById(R.id.edit_profile_fab);
+        editProfileButton.setSize(FloatingActionButton.SIZE_MINI);
+        editProfileButton.setColorNormalResId(R.color.button_red);
+        editProfileButton.setColorPressedResId(R.color.button_yellow);
+        editProfileButton.setIcon(R.drawable.ic_action_edit);
+        editProfileButton.setStrokeVisible(false);
+        editProfileButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick (View v){
+                        showDialog();
+                     }
+        });
+        return rootView;
+    }
+
+    public void onActivityCreated(Bundle savedInstanceState)
+    {
+        super.onActivityCreated(savedInstanceState);
+        getLikedWorkouts();
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener()
+        {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view,
+                                    int position, long id) {
+                //UserProfileWorkout data = (UserProfileWorkout)listView.getItemAtPosition(position);
+                FragmentTransaction ft = getChildFragmentManager().beginTransaction();
+                ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+                ft.addToBackStack(null);
+                ft.commit();
+            }
+        });
+    }
+
+    private void setUserAttributes() {
         ParseUser currentUser = ParseUser.getCurrentUser();
         ParseFile imageFile = currentUser.getParseFile("profilePic");
         imageFile.getDataInBackground(new GetDataCallback() {
@@ -119,39 +166,13 @@ public class UserProfileFragment extends RootFragment
         {
             userAge.setText(Integer.toString(getAge(date)) + " years old");
         }
-        editProfileButton = (FloatingActionButton) rootView.findViewById(R.id.edit_profile_fab);
-        editProfileButton.setSize(FloatingActionButton.SIZE_MINI);
-        editProfileButton.setColorNormalResId(R.color.button_red);
-        editProfileButton.setColorPressedResId(R.color.button_yellow);
-        editProfileButton.setIcon(R.drawable.ic_action_edit);
-        editProfileButton.setStrokeVisible(false);
-        editProfileButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick (View v){
-                DialogFragment dialogFrag = new EditProfileDialog();
-                dialogFrag.show(getActivity().getFragmentManager().beginTransaction(), "dialog");
 
-                     }
-        });
-        return rootView;
     }
 
-    public void onActivityCreated(Bundle savedInstanceState)
-    {
-        super.onActivityCreated(savedInstanceState);
-        getLikedWorkouts();
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener()
-        {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view,
-                                    int position, long id) {
-                //UserProfileWorkout data = (UserProfileWorkout)listView.getItemAtPosition(position);
-                FragmentTransaction ft = getChildFragmentManager().beginTransaction();
-                ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
-                ft.addToBackStack(null);
-                ft.commit();
-            }
-        });
+    private void showDialog() {
+        EditProfileDialog dialogFrag = EditProfileDialog.newInstance();
+        dialogFrag.setTargetFragment(getParentFragment(),DIALOG_FRAGMENT);
+        dialogFrag.show(getFragmentManager(), "dialog");
     }
 
     public static void setListViewHeightBasedOnChildren(ListView listView) {
@@ -174,7 +195,7 @@ public class UserProfileFragment extends RootFragment
         ViewGroup.LayoutParams params = listView.getLayoutParams();
         params.height = totalHeight + (listView.getDividerHeight() * (listAdapter.getCount() - 1));
         listView.setLayoutParams(params);
-        listView.requestLayout();
+       // listView.requestLayout();
     }
 
     public static int getAge(Date dateOfBirth) {
@@ -228,5 +249,25 @@ public class UserProfileFragment extends RootFragment
             }
         });
     }
+
+
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        switch(requestCode) {
+            case DIALOG_FRAGMENT:
+
+                if (resultCode == Activity.RESULT_OK) {
+                    setUserAttributes();
+
+                    // After Ok code.
+                } else if (resultCode == Activity.RESULT_CANCELED){
+                    // After Cancel code.
+                }
+
+                break;
+        }
+    }
+
 
 }

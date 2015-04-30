@@ -39,7 +39,7 @@ public class MessagesAdapter extends BaseSwipeAdapter {
 
     @Override
     public int getSwipeLayoutResourceId(int position) {
-        return R.id.swipe_trendingWorkout;
+        return R.id.swipe_messages_row;
     }
 
     @Override
@@ -74,7 +74,7 @@ public class MessagesAdapter extends BaseSwipeAdapter {
 
     @Override
     public void fillValues(int position, View convertView) {
-        ImageView profilePic = (ImageView) convertView
+        profilePic = (ImageView) convertView
                 .findViewById(R.id.profilePic_messages_row);
         name = (TextView) convertView.findViewById(R.id.username_messages_row);
 

@@ -4,7 +4,6 @@ package com.gym8.trendingworkout;
  * Created by Gurumukh on 2/4/15.
  */
 
-//TODO: Loading trending again
 
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;

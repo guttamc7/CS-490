@@ -1,5 +1,8 @@
 package com.gym8.messages;
 
+import android.support.v4.app.FragmentTransaction;
+
+import com.gym8.main.R;
 import com.parse.FindCallback;
 import com.parse.GetCallback;
 import com.parse.Parse;
@@ -21,63 +24,53 @@ import java.util.List;
 /**
  * Created by Ishu on 4/28/2015.
  */
+
 public class ChatMessaging {
-    private static String senderId;
-    private static List<ParseUser> chatUsersDetails = new ArrayList<ParseUser>();
-    private static List<ParseObject> chatUsers= new ArrayList<ParseObject>();
+    public static List<ParseUser> chatUsersDetails = new ArrayList<ParseUser>();
+    public static List<ParseObject> chatUsers= new ArrayList<ParseObject>();
 
      static void saveReceivedMessage(JSONObject receivedMessage){
-
         try{
             System.out.println("In savereceived message");
-            ChatMessaging.senderId = receivedMessage.getString("senderId");
 
-            final ParseObject message = new ParseObject("ChatMessages");
-            message.put("message", receivedMessage.getString("message"));
-            message.put("type","received");
-            message.saveEventually();
-            message.pinInBackground(new SaveCallback() {
+            final String senderId = receivedMessage.getString("senderId");
+            final ParseObject messageObject = new ParseObject("ChatMessages");
+            messageObject.put("message", receivedMessage.getString("message"));
+            messageObject.put("type", "received");
+            messageObject.saveEventually();
+            messageObject.pinInBackground(new SaveCallback() {
                 @Override
                 public void done(ParseException e) {
                     if (e == null) {
-                        System.out.println("In  message saved");
+                        createUser(senderId);
                         ParseQuery<ParseObject> query = ParseQuery.getQuery("ChatUsers");
-                        query.whereEqualTo("userId", senderId);
                         query.fromLocalDatastore();
-
+                        query.whereEqualTo("userId", senderId);
                         query.findInBackground(new FindCallback<ParseObject>() {
                             public void done(List<ParseObject> chatUsers,
                                              ParseException e) {
                                 if (e == null) {
-                                    ParseObject chatUser;
-                                    if(chatUsers.size()==0){
-                                        chatUser = createChatUser(senderId);
-                                    }
-                                    else{
-                                        chatUser = chatUsers.get(0);
-                                    }
-
-                                    ParseRelation<ParseObject> messages = chatUser.getRelation("messages");
-                                    messages.add(message);
-                                    chatUser.pinInBackground();
-                                    chatUser.saveEventually();
+                                    ParseRelation<ParseObject> messages = chatUsers.get(0).getRelation("messages");
+                                    messages.add(messageObject);
+                                    chatUsers.get(0).pinInBackground();
+                                    chatUsers.get(0).saveEventually();
                                 } else {
                                     e.printStackTrace();
                                 }
                             }
                         });
-
                     } else {
                         e.printStackTrace();
                     }
                 }
             });
-        } catch (JSONException e) {
+
+        }catch (JSONException e) {
             e.printStackTrace();
         }
     }
 
-    public static void sendMessage(ParseUser receiverUser, String message){
+    static void sendMessage(ParseUser receiverUser, String message){
         // Create our Installation query
         ParseQuery pushQuery = ParseInstallation.getQuery();
         pushQuery.whereEqualTo("user", receiverUser);
@@ -97,7 +90,7 @@ public class ChatMessaging {
         }
     }
 
-    public static void saveSentMessage(final ParseUser receiverUser, String msg){
+    static void saveSentMessage(final ParseUser receiverUser, String msg){
         final ParseObject message = new ParseObject("ChatMessages");
         message.put("message", msg);
         message.put("type","sent");
@@ -106,60 +99,11 @@ public class ChatMessaging {
             @Override
             public void done(ParseException e) {
                 if (e == null) {
-                    ParseQuery<ParseObject> query = ParseQuery.getQuery("ChatUsers");
-                    query.whereEqualTo("userId", receiverUser.getObjectId());
-                    query.fromLocalDatastore();
-                    query.findInBackground(new FindCallback<ParseObject>() {
-                        public void done(List<ParseObject> chatUsers,
-                                         ParseException e) {
-                            if (e == null) {
-                                ParseObject chatUser;
-                                if(chatUsers.size()==0){
-                                    chatUser = createChatUser(receiverUser.getObjectId());
-                                }
-                                else{
-                                    chatUser = chatUsers.get(0);
-                                }
-
-                                ParseRelation<ParseObject> messages = chatUser.getRelation("messages");
-                                messages.add(message);
-                                chatUser.pinInBackground();
-                                chatUser.saveEventually();
-                            } else {
-                                e.printStackTrace();
-                            }
+                    for (int n = 0; n < ChatMessaging.chatUsers.size(); n++) {
+                        if (chatUsers.get(n).getString("userId").equals(receiverUser.getObjectId())) {
+                            chatUsers.get(n).getRelation("messages").add(message);
                         }
-                    });
-
-                } else {
-                    e.printStackTrace();
-                }
-            }
-        });
-    }
-
-    public static void retrieveChatUsers(){
-        System.out.println("In retrieving");
-
-        ParseQuery<ParseObject> query = ParseQuery.getQuery("ChatUsers");
-        query.fromLocalDatastore();
-        query.findInBackground(new FindCallback<ParseObject>() {
-            public void done(List<ParseObject> chatUsers,
-                             ParseException e) {
-                if (e == null) {
-                    System.out.println("In null and size is "+chatUsers.size());
-
-                    for(int n=0; n< chatUsers.size();n++){
-                        try {
-                            chatUsers.get(n).getParseObject("userId").fetchFromLocalDatastore();
-                        } catch (ParseException e1) {
-                            e1.printStackTrace();
-                        }
-                        System.out.println("User DEtails " + chatUsers.get(0).getParseUser("userId").getString("name"));
-                        ChatMessaging.chatUsersDetails.add(chatUsers.get(n).getParseUser("userId"));
                     }
-                    ChatMessaging.chatUsers.addAll(chatUsers);
-
                 } else {
                     e.printStackTrace();
                 }
@@ -167,29 +111,33 @@ public class ChatMessaging {
         });
     }
 
-    public static List<ParseUser> getChatUsersDetails(){
-        return ChatMessaging.chatUsersDetails;
-    }
-
-    static List<ParseObject> getMessagesForChatUser(ParseUser chatUser) {
+    static ParseObject getChatUser(ParseUser chatUser) {
         for (int n = 0; n < chatUsers.size(); n++) {
-            if (chatUsers.get(n).getParseUser("userId").getObjectId() == chatUser.getObjectId()) {
-
+            if (chatUsers.get(n).getParseUser("userId").getObjectId().equals(chatUser.getObjectId())) {
+                return ChatMessaging.chatUsers.get(n);
             }
         }
         return null;
     }
 
-    public static ParseObject createChatUser(String senderId){
-        ParseObject chatUser = new ParseObject("ChatUsers");
-        ParseUser senderUser = (ParseUser) ParseUser.createWithoutData("_User",senderId);
-        chatUser.put("userId", senderUser);
-        chatUser.pinInBackground();
-        chatUser.saveEventually();
-        return chatUser;
+    private static void createUser(final String userId){
+        ParseQuery<ParseUser> query = ParseQuery.getQuery("_User");
+        query.fromLocalDatastore();
+        query.getInBackground(userId, new GetCallback<ParseUser>() {
+            public void done(ParseUser user, ParseException e) {
+                if (e != null) {
+                    ParseQuery<ParseUser> query = ParseQuery.getQuery("_User");
+                    query.getInBackground(userId, new GetCallback<ParseUser>() {
+                        public void done(ParseUser user, ParseException e) {
+                            if (e != null) {
+                                ChatMessaging.saveUserLocally(user);
+                            }
+                        }
+                    });
+                }
+            }
+        });
     }
-
-
 
     public static void saveUserLocally(ParseUser user){
         user.pinInBackground();
@@ -198,4 +146,26 @@ public class ChatMessaging {
         chatUser.pinInBackground();
         chatUser.saveEventually();
     }
+
+    public static List<ParseObject> getChatUsers(){
+        return ChatMessaging.chatUsers;
+    }
+
+    static void setChatUsers(List<ParseObject> chatUsers){
+        if(chatUsers!=null) {
+            ChatMessaging.chatUsers = chatUsers;
+        }
+    }
+
+    public static List<ParseUser> getChatUsersDetails(){
+        return ChatMessaging.chatUsersDetails;
+    }
+
+    static void setChatUsersDetails(List<ParseUser> chatUsersDetails){
+        if(chatUsersDetails!=null) {
+            ChatMessaging.chatUsersDetails = chatUsersDetails;
+        }
+    }
+
+
 }

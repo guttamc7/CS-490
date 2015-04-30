@@ -11,6 +11,7 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.parse.FindCallback;
+import com.parse.Parse;
 import com.parse.ParseException;
 import com.parse.ParseObject;
 
@@ -27,7 +28,6 @@ import com.parse.ParseUser;
  * Created by Jai Nalwa on 4/10/15.
  */
 public class MessagesFragment extends Fragment {
-
 
     private List<ParseObject> messagesList = new ArrayList<>();
     private ListView listView;
@@ -46,43 +46,8 @@ public class MessagesFragment extends Fragment {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
-       // ChatMessaging.retrieveChatUsers();
-
-        System.out.println("In retrieving");
-        final List<ParseUser> chatUsers2 = new ArrayList<ParseUser>();
-
-        ParseQuery<ParseObject> query = ParseQuery.getQuery("ChatUsers");
-        query.fromLocalDatastore();
-        query.findInBackground(new FindCallback<ParseObject>() {
-            public void done(List<ParseObject> chatUsers,
-                             ParseException e) {
-                if (e == null) {
-                    System.out.println("In null and size is "+chatUsers.size());
-
-                    for(int n=0; n< chatUsers.size();n++){
-                        try {
-                            chatUsers.get(n).getParseObject("userId").fetchFromLocalDatastore();
-                        } catch (ParseException e1) {
-                            e1.printStackTrace();
-                        }
-                        System.out.println("User DEtails " + chatUsers.get(0).getParseUser("userId").getString("name"));
-                        chatUsers2.add(chatUsers.get(n).getParseUser("userId"));
-
-                    }
-
-
-
-                } else {
-                    e.printStackTrace();
-                }
-                adapter = new MessagesAdapter(getActivity().getApplicationContext(), chatUsers2);
-                listView.setAdapter(adapter);
-                adapter.notifyDataSetChanged();
-            }
-        });
-
+        getChatUsers();
     }
 
 
@@ -108,7 +73,7 @@ public class MessagesFragment extends Fragment {
             public void onItemClick(AdapterView<?> parent, View view,
                                     int position, long id) {
                 //TODO
-                ParseObject message = (ParseObject)listView.getItemAtPosition(position);
+                ParseUser message = (ParseUser)listView.getItemAtPosition(position);
                 FragmentTransaction ft = getChildFragmentManager().beginTransaction();
                 //ft.replace(R.id.frag_messages, new BaseWorkoutDetailsFragment());
                 //ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
@@ -121,5 +86,34 @@ public class MessagesFragment extends Fragment {
     public void onResume() {
         super.onResume();
 
+    }
+
+    private void getChatUsers(){
+        ParseQuery<ParseObject> query = ParseQuery.getQuery("ChatUsers");
+        query.fromLocalDatastore();
+        query.findInBackground(new FindCallback<ParseObject>() {
+            public void done(List<ParseObject> chatUsers,
+                             ParseException e) {
+                if (e == null) {
+                    System.out.println("In null and size is "+chatUsers.size());
+
+                    for(int n=0; n< chatUsers.size();n++){
+                        try {
+                            chatUsers.get(n).getParseObject("userId").fetchFromLocalDatastore();
+                        } catch (ParseException e1) {
+                            e1.printStackTrace();
+                        }
+                        System.out.println("User DEtails " + chatUsers.get(0).getParseUser("userId").getString("name"));
+                        ChatMessaging.chatUsersDetails.add(chatUsers.get(n).getParseUser("userId"));
+                    }
+                } else {
+                    e.printStackTrace();
+                }
+                ChatMessaging.chatUsers.addAll(chatUsers);
+                adapter = new MessagesAdapter(getActivity().getApplicationContext(), ChatMessaging.chatUsersDetails);
+                listView.setAdapter(adapter);
+                adapter.notifyDataSetChanged();
+            }
+        });
     }
 }

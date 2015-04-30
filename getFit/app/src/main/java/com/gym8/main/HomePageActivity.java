@@ -89,6 +89,9 @@ public class HomePageActivity extends FragmentActivity {
         if(savedInstanceState == null) {
             navigateTo(0);
         }
+        else {
+            homeFragment = (HomeFragment) getSupportFragmentManager().getFragments().get(0);
+        }
 
     }
 
@@ -176,7 +179,11 @@ public class HomePageActivity extends FragmentActivity {
                         dialog.cancel();
                         ParseUser.getCurrentUser().logOut();
                         finish();
-                        System.exit(0);
+                        Intent intent = new Intent(Intent.ACTION_MAIN);
+                        intent.addCategory(Intent.CATEGORY_HOME);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        startActivity(intent );
                     }
                 });
                 AlertDialog dialog = builder.create();

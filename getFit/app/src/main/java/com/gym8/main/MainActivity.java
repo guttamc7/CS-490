@@ -66,8 +66,6 @@ public class MainActivity extends Activity {
                 int loginCount = incrementUserLoginCount();
                 //Register Push Notification and Associate user with Push notification
                 ParseInstallation.getCurrentInstallation().saveInBackground();
-                ParseAnalytics.trackAppOpened(getIntent());
-
                 ParseInstallation installation = ParseInstallation.getCurrentInstallation();
                 installation.put("user",ParseUser.getCurrentUser());
                 installation.saveInBackground();
