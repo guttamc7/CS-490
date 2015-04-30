@@ -30,9 +30,6 @@ public class CreateWorkoutExerciseFragment extends Fragment {
     private CreateWorkoutExerciseAdapter adapter;
     private FloatingActionButton addExerciseButton;
     private TextView emptyList;
-    private String workoutName;
-    private String workoutDescription;
-    private ViewGroup contain;
     private static CreateWorkoutDialog.CalendarPageFragmentListener listener;
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.fragment_create_workout_exercise, null);
@@ -62,7 +59,7 @@ public class CreateWorkoutExerciseFragment extends Fragment {
             @Override
             public void onClick(View view) {
 
-                    addWorkout(CreateWorkoutInformationDialog.workoutName, CreateWorkoutInformationDialog.workoutDescription, CreateWorkoutInformationDialog.workoutLevel,ExerciseListDetailsDialog.exerciseWorkoutList);
+                    addWorkout(CreateWorkoutInformationDialog.workoutName, CreateWorkoutInformationDialog.workoutDescription, CreateWorkoutInformationDialog.workoutLevel,ExerciseListDetailsDialog.exerciseWorkoutList,CreateWorkoutInformationDialog.visibility);
                     CreateWorkoutDialog dialog = CreateWorkoutDialog.getInstance();
                     dialog.dismiss();
                 }
@@ -78,7 +75,7 @@ public class CreateWorkoutExerciseFragment extends Fragment {
         return f;
     }
 
-    public void addWorkout(final String name, final String description, final int level, ArrayList<ParseObject> exercise){
+    public void addWorkout(final String name, final String description, final int level, ArrayList<ParseObject> exercise, final boolean visibility){
         final ArrayList<ParseObject> workoutExercisesList = new ArrayList<ParseObject>();
 
         for(int n=0;n <exercise.size();n++){
@@ -100,6 +97,7 @@ public class CreateWorkoutExerciseFragment extends Fragment {
                     workout.put("level",level);
                     workout.put("workoutType","custom");
                     workout.put("likes",0);
+                    workout.put("visibility",visibility);
 
                     ParseRelation<ParseObject> workoutExercisesRelation = workout.getRelation("exercises");
 

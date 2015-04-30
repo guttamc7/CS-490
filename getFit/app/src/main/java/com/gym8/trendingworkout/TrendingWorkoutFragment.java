@@ -4,7 +4,6 @@ package com.gym8.trendingworkout;
  * Created by Gurumukh on 2/4/15.
  */
 
-//TODO: Loading trending again
 
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
@@ -14,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
+import com.gym8.ErrorHandlingAlertDialogBox;
 import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseObject;
@@ -32,6 +32,7 @@ public class TrendingWorkoutFragment extends RootFragment
     private volatile List<ParseObject> trendingWorkoutList = new ArrayList<>();
     private ListView listViewTrendingWorkout;
     View v;
+    public static ParseObject trendingWorkout;
     private TrendingWorkoutAdapter adapter;
 
     public TrendingWorkoutFragment()
@@ -72,7 +73,8 @@ public class TrendingWorkoutFragment extends RootFragment
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id)
             {
-                ParseObject trendingWorkout = (ParseObject)listViewTrendingWorkout.getItemAtPosition(position);
+               trendingWorkout = (ParseObject)listViewTrendingWorkout.getItemAtPosition(position);
+
                 FragmentTransaction ft = getChildFragmentManager().beginTransaction();
                 ft.replace(R.id.frag_trending, new TrendingWorkoutDetailsFragment());
                 ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
@@ -105,7 +107,9 @@ public class TrendingWorkoutFragment extends RootFragment
                     //All the workouts retrieved
                     trendingWorkoutList.addAll(workoutList);
                 } else {
-                    System.out.println(e.getMessage());
+                    ErrorHandlingAlertDialogBox.showDialogBox(getActivity().getBaseContext());
+                    listViewTrendingWorkout.setVisibility(View.INVISIBLE);
+
                 }
         onPostExecute();
             }

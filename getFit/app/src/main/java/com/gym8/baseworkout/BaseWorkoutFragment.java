@@ -14,6 +14,7 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.AdapterView.OnItemClickListener;
 
+import com.gym8.ErrorHandlingAlertDialogBox;
 import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseObject;
@@ -64,7 +65,8 @@ public class BaseWorkoutFragment extends Fragment {
 
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        getBaseWorkouts();
+        if(savedInstanceState == null)
+            getBaseWorkouts();
         listView.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view,
@@ -72,8 +74,8 @@ public class BaseWorkoutFragment extends Fragment {
                 ParseObject workout = (ParseObject)listView.getItemAtPosition(position);
                 webLink = workout.getString("workoutUrl");
                 System.out.println(webLink);
-                FragmentTransaction ft = getChildFragmentManager().beginTransaction();
-                ft.replace(R.id.frag_base, new BaseWorkoutDetailsFragment());
+                FragmentTransaction ft = getFragmentManager().beginTransaction();
+                ft.add(R.id.content_frame, new BaseWorkoutDetailsFragment());
                 ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
                 ft.addToBackStack("Base Workout List");
                 ft.commit();
@@ -107,7 +109,7 @@ public class BaseWorkoutFragment extends Fragment {
                     //All the base workouts retrieved
                     baseWorkoutList.addAll(workoutList);
                 } else {
-                    System.out.println(e.getMessage());
+                    ErrorHandlingAlertDialogBox.showDialogBox(getActivity().getBaseContext());
                     //Exception
                 }
         onPostExecute();

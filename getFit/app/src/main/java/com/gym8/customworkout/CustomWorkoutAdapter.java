@@ -16,12 +16,16 @@ import android.widget.Toast;
 import com.daimajia.swipe.SimpleSwipeListener;
 import com.daimajia.swipe.SwipeLayout;
 import com.daimajia.swipe.adapters.BaseSwipeAdapter;
+import com.parse.FindCallback;
+import com.parse.ParseException;
 import com.parse.ParseObject;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 import com.gym8.main.R;
+import com.parse.ParseQuery;
 import com.parse.ParseRelation;
 import com.parse.ParseUser;
 
@@ -156,9 +160,24 @@ public class CustomWorkoutAdapter extends BaseSwipeAdapter
     private void removeWorkout(ParseObject workout)
     {
         //TODO
-        ParseUser user = ParseUser.getCurrentUser();
-       // ParseRelation<ParseObject> relation = user.getRelation("likedWorkout");
-       // relation.remove(workout);
+        ParseRelation<ParseObject> relation = workout.getRelation("exercises");
+        ParseQuery<ParseObject> query = relation.getQuery();
+        query.findInBackground(new FindCallback<ParseObject>() {
+            public void done(List<ParseObject> workoutList, ParseException e) {
+                if (e == null) {
+                    for (int i = 0; i < workoutList.size(); i++) {
+                        ParseObject obj = workoutList.get(i);
+                        obj.deleteInBackground();
+                        obj.saveInBackground();
+                    }
+                } else {
+                    System.out.println(e.getMessage());
+                }
+
+            }
+        });
+        workout.deleteInBackground();
+        workout.saveInBackground();
 
 
     }

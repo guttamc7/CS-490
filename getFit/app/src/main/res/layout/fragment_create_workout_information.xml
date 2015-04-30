@@ -71,65 +71,65 @@
         android:padding="10dp"
         />
 
-    <TextView
+    <RadioGroup
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="Workout Level : "
-        android:textColor="@color/text_black"
-        android:layout_marginTop="25dp"
-        android:id="@+id/workoutlev"
-        android:layout_marginLeft="25dp"
-        android:layout_below="@+id/workout_description"
-        android:textSize="16sp"
-        android:padding="10dp"
-        />
-
-
-
-    <RelativeLayout
-    android:layout_width="fill_parent"
-    android:layout_height="wrap_content"
-    android:id="@+id/levelButtons"
-    android:layout_below="@+id/workoutlev"
-    >
-        <ImageButton
-            android:id="@+id/level1Button"
-            android:layout_width="110dp"
+        android:orientation="horizontal"
+        android:layout_marginLeft="25dip"
+        android:layout_marginTop="10dp"
+        android:layout_gravity="center"
+        android:layout_below="@id/workout_description"
+        android:gravity="center"
+        android:layout_marginRight="25dip"
+        android:background="@drawable/textlines"
+        android:id="@+id/radioButtonLevel_create_workout"
+        >
+        <RadioButton
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_level1"
-            android:padding="10dp"
-            android:background="@null"
-            android:layout_alignParentTop="true"
-            android:layout_toLeftOf="@+id/level2Button"
-            android:layout_toStartOf="@+id/level2Button" />
-        <ImageButton
-            android:id="@+id/level2Button"
-            android:layout_width="110dp"
+            android:layout_gravity="center"
+            android:text="Level 1"
+            android:gravity="center"
+            android:padding="5dp"
+            android:layout_marginRight="15dp"
+            android:id="@+id/level1_create_workout"
+            android:textColor="#808080"
+            android:textSize="15sp"
+            />
+        <RadioButton
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_level2"
-            android:padding="10dp"
-            android:background="@null"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true" />
-        <ImageButton
-            android:id="@+id/level3Button"
-            android:layout_width="110dp"
-            android:layout_height="wrap_content"
-            android:src="@drawable/ic_level3"
-            android:padding="10dp"
-            android:background="@null"
-            android:layout_alignParentTop="true"
-            android:layout_toRightOf="@+id/level2Button"
-            android:layout_toEndOf="@+id/level2Button" />
+            android:text="Level 2"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:padding="5dp"
+            android:layout_marginRight="15dp"
+            android:id="@+id/level2_create_workout"
+            android:textColor="#808080"
+            android:textSize="15sp"
 
-    </RelativeLayout>
+            />
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Level 3"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:padding="5dp"
+            android:id="@+id/level3_create_workout"
+            android:textColor="#808080"
+            android:textSize="15sp"
+
+            />
+    </RadioGroup>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/levelButtons"
+        android:layout_below="@+id/radioButtonLevel_create_workout"
         android:orientation="vertical"
         android:id="@+id/linearlayout1"
+
         >
 
         <TextView
@@ -156,7 +156,7 @@
             android:checked="false"
             android:textSize="15sp"
             android:id="@+id/checkedTextOnlyMe"
-            android:textColor="@color/text_black"/>
+            android:textColor="#808080"/>
 
         <CheckedTextView
             android:layout_width="fill_parent"
@@ -170,7 +170,7 @@
             android:checked="false"
             android:textSize="15sp"
             android:id="@+id/checkedTextToAll"
-            android:textColor="@color/text_black"/>
+            android:textColor="#808080"/>
 
     </LinearLayout>
 

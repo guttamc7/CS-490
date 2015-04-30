@@ -61,8 +61,8 @@ public class CustomWorkoutFragment extends Fragment {
                                     int position, long id) {
                 CustomWorkoutDetailsFragment customDetailsFrag = new CustomWorkoutDetailsFragment();
                 selectedWorkout = (ParseObject)listView.getItemAtPosition(position);
-                FragmentTransaction ft = getChildFragmentManager().beginTransaction();
-                ft.replace(R.id.frag_custom, customDetailsFrag);
+                FragmentTransaction ft = getFragmentManager().beginTransaction();
+                ft.add(R.id.content_frame, customDetailsFrag);
                 ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
                 ft.addToBackStack("create_workouts_dialog");
                 ft.commit();

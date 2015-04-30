@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.gym8.main.VerticalScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+<RelativeLayout
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -10,7 +14,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="300dp"
+        android:layout_height="225dp"
         android:scaleType="fitStart"
         android:orientation="vertical"
         android:id="@+id/header_userProfile"
@@ -119,7 +123,7 @@
         xmlns:fab="http://schemas.android.com/apk/res-auto"
         fab:fab_addButtonColorNormal="@color/button_red"
         fab:fab_labelStyle="@style/menu_labels_style"
-        fab:fab_labelsPosition="right"
+        fab:fab_labelsPosition="left"
         fab:fab_addButtonSize="mini"
         android:layout_alignBottom="@id/header_userProfile"
         >
@@ -137,12 +141,40 @@
             />
     </com.getbase.floatingactionbutton.FloatingActionsMenu>
 
-    <ListView
-        android:id="@+id/nearbyUser_Likes"
-        android:layout_below="@id/header_userProfile"
+
+    <TextView
+        android:id="@+id/user_likes_text_fragnearby"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
+        android:fontFamily="sans-serif_light"
+        android:gravity="center"
+        android:padding="10dp"
+        android:textColor="@color/like_color"
+        android:layout_gravity="center"
+        android:text="Liked Workouts"
+        android:textSize = "18sp"
+        android:textStyle="bold"
+        android:layout_below="@id/header_userProfile"
+        android:layout_centerHorizontal="true" />
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="1dp"
+        android:layout_marginLeft="25dip"
+        android:layout_marginRight="25dip"
+        android:id="@+id/user_view_fragnearby"
+        android:layout_below="@id/user_likes_text_fragnearby"
+        android:background="@color/like_color"
+        />
+
+    <ListView
+        android:id="@+id/user_likes_fragnearby"
+        android:layout_below="@id/user_view_fragnearby"
+        android:layout_height="wrap_content"
+        android:background="#D6D6D4"
         android:layout_width="match_parent">
     </ListView>
 
 
+
 </RelativeLayout>
+</com.gym8.main.VerticalScrollView>

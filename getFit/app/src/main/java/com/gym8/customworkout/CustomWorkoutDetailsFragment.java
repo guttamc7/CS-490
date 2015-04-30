@@ -27,13 +27,7 @@ public class CustomWorkoutDetailsFragment extends Fragment {
     private CustomWorkoutDetailsAdapter adapter;
     private ParseObject selectedWorkout;
     private ArrayList<ParseObject> workoutExercisesList = new ArrayList<>();
-    private ArrayList<ParseObject> exercisesDetailsList = new ArrayList<>();
-
-
     private View rootView;
-
-
-
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.fragment_custom_workout_details, null);
         listView = (ListView) rootView.findViewById(R.id.custom_details_list);
@@ -42,7 +36,8 @@ public class CustomWorkoutDetailsFragment extends Fragment {
 
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        getExercises();
+        if(savedInstanceState == null)
+            getExercises();
     }
 
     private void onPostExecute() {
