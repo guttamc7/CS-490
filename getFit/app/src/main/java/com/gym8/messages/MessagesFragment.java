@@ -97,15 +97,12 @@ public class MessagesFragment extends Fragment {
                 public void done(List<ParseObject> chatUsers,
                                  ParseException e) {
                     if (e == null) {
-                        System.out.println("In null and size is " + chatUsers.size());
-
                         for (int n = 0; n < chatUsers.size(); n++) {
                             try {
                                 chatUsers.get(n).getParseObject("userId").fetchFromLocalDatastore();
                             } catch (ParseException e1) {
                                 e1.printStackTrace();
                             }
-                            System.out.println("User DEtails " + chatUsers.get(0).getParseUser("userId").getString("name"));
                             ChatMessaging.addToChatUserDetails(chatUsers.get(n).getParseUser("userId"));
                             ChatMessaging.setChatUsers(chatUsers);
                             ChatMessaging.setChatRetrieved(true);
