@@ -21,6 +21,7 @@ import com.gym8.messages.MessagesFragment;
 import com.parse.FindCallback;
 import com.parse.GetCallback;
 import com.parse.GetDataCallback;
+import com.parse.Parse;
 import com.parse.ParseException;
 import com.parse.ParseFile;
 import com.parse.ParseObject;
@@ -136,16 +137,21 @@ public class FindNearbyUserProfileFragment extends RootFragment {
         adapter.notifyDataSetChanged();
     }
 
-    private void getCustomWorkoutsForUser(){
-        ParseUser user = ParseUser.getCurrentUser();
-        ParseRelation<ParseObject> relation = user.getRelation("likedWorkout");
-        ParseQuery<ParseObject> query = relation.getQuery();
+    private void getCustomWorkoutsForUser(ParseObject user){
+
+        ParseQuery<ParseObject> query = ParseQuery.getQuery("Workout");
+        query.whereEqualTo("visibility",true);
+        query.whereEqualTo("workoutType","custom");
+        query.whereEqualTo("userId", ParseUser.createWithoutData("_User",user.getObjectId()));
         query.findInBackground(new FindCallback<ParseObject>() {
+
             public void done(List<ParseObject> workoutList, ParseException e) {
                 if (e == null) {
+                    //All the base workouts retrieved
                     customWorkoutList.addAll(workoutList);
                 } else {
                     System.out.println(e.getMessage());
+                    //Exception
                 }
                 onPostExecute();
             }

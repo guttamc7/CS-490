@@ -41,7 +41,7 @@ public class CreateWorkoutInformationDialog extends DialogFragment {
     public static String workoutName;
     public static String workoutDescription;
     public static int workoutLevel;
-    public static String visibility;
+    public static boolean visibility;
     private static CreateWorkoutInformationDialog f;
 
     public Dialog onCreateDialog(Bundle savedInstanceState) {
@@ -128,9 +128,9 @@ public class CreateWorkoutInformationDialog extends DialogFragment {
                                         workoutLevel = 3;
                                     }
                                     if(onlyMeChecked)
-                                        visibility = "Only Me";
+                                        visibility = false;
                                     if(toAllChecked)
-                                        visibility = "To ALl";
+                                        visibility = true;
                                     dismiss();
                                     CreateWorkoutDialog f = new CreateWorkoutDialog().newInstance();
                                     f.show(getFragmentManager(), "dialog");
