@@ -14,6 +14,7 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.AdapterView.OnItemClickListener;
 
+import com.gym8.ErrorHandlingAlertDialogBox;
 import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseObject;
@@ -108,7 +109,7 @@ public class BaseWorkoutFragment extends Fragment {
                     //All the base workouts retrieved
                     baseWorkoutList.addAll(workoutList);
                 } else {
-                    System.out.println(e.getMessage());
+                    ErrorHandlingAlertDialogBox.showDialogBox(getActivity().getBaseContext());
                     //Exception
                 }
         onPostExecute();

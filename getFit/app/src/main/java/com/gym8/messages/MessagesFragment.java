@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
+import com.gym8.ErrorHandlingAlertDialogBox;
 import com.parse.FindCallback;
 import com.parse.Parse;
 import com.parse.ParseException;
@@ -103,11 +104,11 @@ public class MessagesFragment extends Fragment {
                         } catch (ParseException e1) {
                             e1.printStackTrace();
                         }
-                        System.out.println("User DEtails " + chatUsers.get(0).getParseUser("userId").getString("name"));
+
                         ChatMessaging.chatUsersDetails.add(chatUsers.get(n).getParseUser("userId"));
                     }
                 } else {
-                    e.printStackTrace();
+                    ErrorHandlingAlertDialogBox.showDialogBox(getActivity().getBaseContext());
                 }
                 ChatMessaging.chatUsers.addAll(chatUsers);
                 adapter = new MessagesAdapter(getActivity().getApplicationContext(), ChatMessaging.chatUsersDetails);

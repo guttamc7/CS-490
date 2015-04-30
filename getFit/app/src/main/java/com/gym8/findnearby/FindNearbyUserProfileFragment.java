@@ -1,5 +1,6 @@
 package com.gym8.findnearby;
 
+import android.app.AlertDialog;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
@@ -15,6 +16,7 @@ import android.widget.TextView;
 
 import com.getbase.floatingactionbutton.FloatingActionButton;
 import com.getbase.floatingactionbutton.FloatingActionsMenu;
+import com.gym8.ErrorHandlingAlertDialogBox;
 import com.gym8.baseworkout.BaseWorkoutDetailsFragment;
 import com.gym8.messages.ChatMessaging;
 import com.gym8.messages.MessagesFragment;
@@ -173,8 +175,10 @@ public class FindNearbyUserProfileFragment extends RootFragment {
                     Bitmap bmp = BitmapFactory.decodeByteArray(data, 0,data.length);
                     nearbyUserProfilePic.setImageBitmap(bmp);
                     // data has the bytes for the image
-                } else {
-                    // something went wrong
+                }
+                else
+                {
+                    ErrorHandlingAlertDialogBox.showDialogBox(getActivity().getBaseContext());
                 }
             }
         });

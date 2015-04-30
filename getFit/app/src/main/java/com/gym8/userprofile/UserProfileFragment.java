@@ -26,6 +26,7 @@ import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 import com.getbase.floatingactionbutton.FloatingActionButton;
+import com.gym8.ErrorHandlingAlertDialogBox;
 import com.parse.FindCallback;
 import com.parse.GetDataCallback;
 import com.parse.ParseException;
@@ -128,7 +129,7 @@ public class UserProfileFragment extends RootFragment
                     profilePic.setImageBitmap(bmp);
                     // data has the bytes for the image
                 } else {
-                    // something went wrong
+                    ErrorHandlingAlertDialogBox.showDialogBox(getActivity().getBaseContext());
                 }
             }
         });
@@ -243,7 +244,7 @@ public class UserProfileFragment extends RootFragment
                 if (e == null) {
                     likedWorkoutList.addAll(workoutList);
                 } else {
-                    System.out.println(e.getMessage());
+                    ErrorHandlingAlertDialogBox.showDialogBox(getActivity().getBaseContext());
                 }
                 onPostExecute();
             }
