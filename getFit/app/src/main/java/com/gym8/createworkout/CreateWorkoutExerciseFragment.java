@@ -30,9 +30,6 @@ public class CreateWorkoutExerciseFragment extends Fragment {
     private CreateWorkoutExerciseAdapter adapter;
     private FloatingActionButton addExerciseButton;
     private TextView emptyList;
-    private String workoutName;
-    private String workoutDescription;
-    private ViewGroup contain;
     private static CreateWorkoutDialog.CalendarPageFragmentListener listener;
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.fragment_create_workout_exercise, null);
