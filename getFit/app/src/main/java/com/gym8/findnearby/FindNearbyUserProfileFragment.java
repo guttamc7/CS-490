@@ -1,6 +1,5 @@
 package com.gym8.findnearby;
 
-import android.app.AlertDialog;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
@@ -16,7 +15,6 @@ import android.widget.TextView;
 
 import com.getbase.floatingactionbutton.FloatingActionButton;
 import com.getbase.floatingactionbutton.FloatingActionsMenu;
-import com.gym8.ErrorHandlingAlertDialogBox;
 import com.gym8.baseworkout.BaseWorkoutDetailsFragment;
 import com.gym8.messages.ChatMessaging;
 import com.gym8.messages.MessagesFragment;
@@ -34,6 +32,7 @@ import com.parse.ParseUser;
 import com.gym8.main.R;
 import com.gym8.userprofile.UserProfileFragment;
 import com.gym8.viewpager.RootFragment;
+import com.parse.SaveCallback;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -132,7 +131,7 @@ public class FindNearbyUserProfileFragment extends RootFragment {
         adapter.notifyDataSetChanged();
     }
 
-    private void getCustomWorkoutsForUser(ParseObject user){
+    private void getCustomWorkoutsForUser(ParseUser user){
 
         ParseQuery<ParseObject> query = ParseQuery.getQuery("Workout");
         query.whereEqualTo("visibility",true);
@@ -168,29 +167,41 @@ public class FindNearbyUserProfileFragment extends RootFragment {
                     Bitmap bmp = BitmapFactory.decodeByteArray(data, 0,data.length);
                     nearbyUserProfilePic.setImageBitmap(bmp);
                     // data has the bytes for the image
-                }
-                else
-                {
-                    ErrorHandlingAlertDialogBox.showDialogBox(getActivity().getBaseContext());
+                } else {
+                    // something went wrong
                 }
             }
         });
     }
 
-    private void goToUserChat(){
-        ParseQuery<ParseObject> query = ParseQuery.getQuery("_User");
-        query.fromLocalDatastore();
-        query.getInBackground(this.user.getObjectId(), new GetCallback<ParseObject>() {
-            public void done(ParseObject object, ParseException e) {
-                if (e != null) {
-                    ChatMessaging.saveUserLocally(user);
-                }
+    private void moveToChat(){
+        FragmentTransaction ft = getChildFragmentManager().beginTransaction();
+        ft.replace(R.id.find_nearby_user_frag, new MessagesFragment());
+        ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+        ft.addToBackStack("Find Nearby User Profile");
+        ft.commit();
+    }
 
-                FragmentTransaction ft = getChildFragmentManager().beginTransaction();
-                ft.replace(R.id.find_nearby_user_frag, new MessagesFragment());
-                ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
-                ft.addToBackStack("Find Nearby User Profile");
-                ft.commit();
+    private void goToUserChat(){
+        ParseQuery<ParseUser> query = ParseQuery.getQuery("_User");
+        query.fromLocalDatastore();
+        query.getInBackground(this.user.getObjectId(), new GetCallback<ParseUser>() {
+            public void done(ParseUser object, ParseException e) {
+                if (e != null) {
+                    user.pinInBackground();
+                    ParseObject chatUser = new ParseObject("ChatUsers");
+                    chatUser.put("userId", user);
+                    chatUser.saveEventually();
+                    chatUser.pinInBackground(new SaveCallback() {
+                        @Override
+                        public void done(ParseException e) {
+                            moveToChat();
+                        }
+                    });
+                }
+                else{
+                    moveToChat();
+                }
             }
         });
     }
