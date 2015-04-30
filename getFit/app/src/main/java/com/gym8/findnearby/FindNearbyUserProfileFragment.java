@@ -48,12 +48,10 @@ public class FindNearbyUserProfileFragment extends RootFragment {
     private TextView nearbyUserWeight;
     private TextView nearbyUserAge;
     private ImageView nearbyUserProfilePic;
-    private FloatingActionsMenu userProfileActions;
     private List<ParseObject> customWorkoutList = new ArrayList<>();
     private ListView listView;
     private ViewUserWorkoutAdapter adapter;
     private FloatingActionButton chatButton;
-    private FloatingActionButton viewWorkoutButton;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -64,16 +62,11 @@ public class FindNearbyUserProfileFragment extends RootFragment {
         nearbyUserHeight = (TextView) rootView.findViewById(R.id.nearbyUserHeight);
         nearbyUserWeight = (TextView) rootView.findViewById(R.id.nearbyUserWeight);
         nearbyUserProfilePic = (ImageView) rootView.findViewById(R.id.nearbyUserProfilePic);
-        userProfileActions = (FloatingActionsMenu) rootView.findViewById(R.id.user_profile_actions);
         chatButton = (FloatingActionButton) rootView.findViewById(R.id.chat_button);
         setUserDetails();
         chatButton.setSize(FloatingActionButton.SIZE_MINI);
         chatButton.setColorNormalResId(R.color.button_yellow);
         chatButton.setIcon(R.drawable.ic_messages);
-        viewWorkoutButton = (FloatingActionButton) rootView.findViewById(R.id.view_workouts_button);
-        viewWorkoutButton.setSize(FloatingActionButton.SIZE_MINI);
-        viewWorkoutButton.setColorNormalResId(R.color.button_green);
-        viewWorkoutButton.setIcon(R.drawable.ic_action_list);
         listView = (ListView) rootView.findViewById(R.id.user_likes_fragnearby);
         listView.setOnTouchListener(new View.OnTouchListener() {
             @Override
@@ -102,14 +95,6 @@ public class FindNearbyUserProfileFragment extends RootFragment {
                 goToUserChat();
             }
         });
-
-        viewWorkoutButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-            }
-        });
-
         return rootView;
     }
 
@@ -117,7 +102,7 @@ public class FindNearbyUserProfileFragment extends RootFragment {
     {
         super.onActivityCreated(savedInstanceState);
        //TODO
-       // getCustomWorkoutsForUser();
+       getCustomWorkoutsForUser(user);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener()
         {
             @Override
