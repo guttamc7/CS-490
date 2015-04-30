@@ -31,6 +31,7 @@ public class TrendingWorkoutFragment extends RootFragment
     private volatile List<ParseObject> trendingWorkoutList = new ArrayList<>();
     private ListView listViewTrendingWorkout;
     View v;
+    public static ParseObject trendingWorkout;
     private TrendingWorkoutAdapter adapter;
 
     public TrendingWorkoutFragment()
@@ -71,7 +72,8 @@ public class TrendingWorkoutFragment extends RootFragment
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id)
             {
-                ParseObject trendingWorkout = (ParseObject)listViewTrendingWorkout.getItemAtPosition(position);
+               trendingWorkout = (ParseObject)listViewTrendingWorkout.getItemAtPosition(position);
+
                 FragmentTransaction ft = getChildFragmentManager().beginTransaction();
                 ft.replace(R.id.frag_trending, new TrendingWorkoutDetailsFragment());
                 ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
