@@ -107,6 +107,7 @@ public class TrendingWorkoutFragment extends RootFragment
                     trendingWorkoutList.addAll(workoutList);
                 } else {
                     System.out.println(e.getMessage());
+                    listViewTrendingWorkout.setVisibility(View.INVISIBLE);
                 }
         onPostExecute();
             }
