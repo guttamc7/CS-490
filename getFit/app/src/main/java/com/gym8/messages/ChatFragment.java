@@ -5,11 +5,12 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ListView;
 
 import com.gym8.main.R;
 import com.parse.ParseObject;
-
+import android.widget.EditText;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,11 +23,33 @@ public class ChatFragment extends Fragment {
     private ArrayList<ParseObject> chatList = new ArrayList<>();
     private View v;
     private ChatAdapter adapter;
+    private EditText message;
+    private ImageButton sendButton;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         v = inflater.inflate(R.layout.fragment_chat, container, false);
         listView = (ListView) v.findViewById(R.id.chat_list);
+        message = (EditText) v.findViewById(R.id.message_edit);
+        sendButton = (ImageButton) v.findViewById(R.id.send_message_button);
+        sendButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(message.getText().toString() == null || message.getText().toString().length() == 0) {
+
+
+                }
+                else {
+                    //SEND MESSAGE
+                    String messageText = message.getText().toString();
+                    ChatMessaging.sendMessage(MessagesFragment.selectedUser,messageText);
+                    //adapter = new ChatAdapter(getActivity().getApplicationContext(), chatList);
+                    //listView.setAdapter(adapter);
+                }
+
+            }
+        });
+
         return v;
     }
 
@@ -40,8 +63,7 @@ public class ChatFragment extends Fragment {
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        adapter = new ChatAdapter(getActivity().getApplicationContext(), chatList);
-        listView.setAdapter(adapter);
+        //
     }
 
 }

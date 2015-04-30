@@ -26,13 +26,12 @@ import java.util.List;
  */
 
 public class ChatMessaging {
-    public static List<ParseUser> chatUsersDetails = new ArrayList<ParseUser>();
-    public static List<ParseObject> chatUsers= new ArrayList<ParseObject>();
+    private static List<ParseUser> chatUsersDetails = new ArrayList<ParseUser>();
+    private static List<ParseObject> chatUsers= new ArrayList<ParseObject>();
+    private static boolean chatRetrieved = false;
 
-     static void saveReceivedMessage(JSONObject receivedMessage){
+     static void receiveMessage(JSONObject receivedMessage){
         try{
-            System.out.println("In savereceived message");
-
             final String senderId = receivedMessage.getString("senderId");
             final ParseObject messageObject = new ParseObject("ChatMessages");
             messageObject.put("message", receivedMessage.getString("message"));
@@ -42,23 +41,7 @@ public class ChatMessaging {
                 @Override
                 public void done(ParseException e) {
                     if (e == null) {
-                        createUser(senderId);
-                        ParseQuery<ParseObject> query = ParseQuery.getQuery("ChatUsers");
-                        query.fromLocalDatastore();
-                        query.whereEqualTo("userId", senderId);
-                        query.findInBackground(new FindCallback<ParseObject>() {
-                            public void done(List<ParseObject> chatUsers,
-                                             ParseException e) {
-                                if (e == null) {
-                                    ParseRelation<ParseObject> messages = chatUsers.get(0).getRelation("messages");
-                                    messages.add(messageObject);
-                                    chatUsers.get(0).pinInBackground();
-                                    chatUsers.get(0).saveEventually();
-                                } else {
-                                    e.printStackTrace();
-                                }
-                            }
-                        });
+                        ChatMessaging.saveReceivedUser(senderId, messageObject);
                     } else {
                         e.printStackTrace();
                     }
@@ -84,9 +67,8 @@ public class ChatMessaging {
             messageData.put("senderId",ParseUser.getCurrentUser().getObjectId());
             push.setData(messageData);
             push.sendInBackground();
-            saveSentMessage(receiverUser,message);
+            ChatMessaging.saveSentMessage(receiverUser,message);
         } catch (JSONException e) {
-            e.printStackTrace();
         }
     }
 
@@ -100,12 +82,13 @@ public class ChatMessaging {
             public void done(ParseException e) {
                 if (e == null) {
                     for (int n = 0; n < ChatMessaging.chatUsers.size(); n++) {
-                        if (chatUsers.get(n).getString("userId").equals(receiverUser.getObjectId())) {
+                        if (chatUsers.get(n).getParseObject("userId").getObjectId().equals(receiverUser.getObjectId())) {
                             chatUsers.get(n).getRelation("messages").add(message);
+                            chatUsers.get(n).pinInBackground();
+                            chatUsers.get(n).saveEventually();
+                            break;
                         }
                     }
-                } else {
-                    e.printStackTrace();
                 }
             }
         });
@@ -120,31 +103,68 @@ public class ChatMessaging {
         return null;
     }
 
-    private static void createUser(final String userId){
-        ParseQuery<ParseUser> query = ParseQuery.getQuery("_User");
-        query.fromLocalDatastore();
-        query.getInBackground(userId, new GetCallback<ParseUser>() {
-            public void done(ParseUser user, ParseException e) {
-                if (e != null) {
-                    ParseQuery<ParseUser> query = ParseQuery.getQuery("_User");
-                    query.getInBackground(userId, new GetCallback<ParseUser>() {
-                        public void done(ParseUser user, ParseException e) {
-                            if (e != null) {
-                                ChatMessaging.saveUserLocally(user);
+    private static void saveReceivedUser(final String userId, final ParseObject messageObject){
+        if(ChatMessaging.chatRetrieved == false){ //Retrieve all the Chat
+            ParseQuery<ParseObject> query = ParseQuery.getQuery("ChatUsers");
+            query.fromLocalDatastore();
+            query.findInBackground(new FindCallback<ParseObject>() {
+                public void done(List<ParseObject> chatUsers,
+                                 ParseException e) {
+                    if (e == null) {
+                        for (int n = 0; n < chatUsers.size(); n++) {
+                            try {
+                                chatUsers.get(n).getParseObject("userId").fetchFromLocalDatastore();
+                                ChatMessaging.chatUsersDetails.add(chatUsers.get(n).getParseUser("userId"));
+                            } catch (ParseException e1) {
+                                e1.printStackTrace();
                             }
                         }
-                    });
-                }
-            }
-        });
-    }
+                        ChatMessaging.chatUsers.addAll(chatUsers);
+                        ChatMessaging.setChatRetrieved(true);
 
-    public static void saveUserLocally(ParseUser user){
-        user.pinInBackground();
-        ParseObject chatUser = new ParseObject("ChatUsers");
-        chatUser.put("userId", user);
-        chatUser.pinInBackground();
-        chatUser.saveEventually();
+                        boolean userExists = false;
+                        for (int n = 0; n < ChatMessaging.chatUsers.size(); n++) {
+                            if (chatUsers.get(n).getParseObject("userId").getObjectId().equals(userId)) {
+                                chatUsers.get(n).getRelation("messages").add(messageObject);
+                                chatUsers.get(n).pinInBackground();
+                                chatUsers.get(n).saveEventually();
+                                userExists = true;
+                                break;
+                            }
+                        }
+                        if(userExists == false){
+                            ParseQuery<ParseUser> query = ParseQuery.getQuery("_User");
+                            query.getInBackground(userId, new GetCallback<ParseUser>() {
+                                public void done(ParseUser user, ParseException e) {
+                                    if (e == null) {
+                                        user.pinInBackground();
+                                        ChatMessaging.chatUsersDetails.add(user);
+
+                                        final ParseObject chatUser = new ParseObject("ChatUsers");
+                                        chatUser.put("userId", user);
+                                        chatUser.saveEventually();
+                                        chatUser.pinInBackground(new SaveCallback() {
+                                            @Override
+                                            public void done(ParseException e) {
+                                                if(e==null) {
+                                                    chatUser.getRelation("messages").add(messageObject);
+                                                    chatUser.pinInBackground();
+                                                    chatUser.saveEventually();
+                                                    ChatMessaging.chatUsers.add(chatUser);
+                                                }
+                                            }
+                                        });
+                                    }
+                                }
+                            });
+                        }
+
+                    } else {
+                        e.printStackTrace();
+                    }
+                }
+            });
+        }
     }
 
     public static List<ParseObject> getChatUsers(){
@@ -154,6 +174,12 @@ public class ChatMessaging {
     static void setChatUsers(List<ParseObject> chatUsers){
         if(chatUsers!=null) {
             ChatMessaging.chatUsers = chatUsers;
+        }
+    }
+
+    static void addToChatUser(ParseObject chatUser){
+        if(chatUser!=null){
+            ChatMessaging.chatUsers.add(chatUser);
         }
     }
 
@@ -167,5 +193,17 @@ public class ChatMessaging {
         }
     }
 
+    static void addToChatUserDetails(ParseUser user){
+        if(user!=null){
+            ChatMessaging.chatUsersDetails.add(user);
+        }
+    }
 
+    public static boolean isChatRetrieved(){
+        return ChatMessaging.chatRetrieved;
+    }
+
+    static void setChatRetrieved(boolean chatRetrieved){
+        ChatMessaging.chatRetrieved = chatRetrieved;
+    }
 }

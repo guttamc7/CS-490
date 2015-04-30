@@ -34,10 +34,8 @@ public class PushReceiver extends ParsePushBroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
         System.out.println("In message receive");
-        System.out.println(intent.getAction());
-        System.out.println(intent.getExtras().getString("com.parse.Data"));
         try {
-            ChatMessaging.saveReceivedMessage(new JSONObject(intent.getExtras().getString("com.parse.Data")));
+            ChatMessaging.receiveMessage(new JSONObject(intent.getExtras().getString("com.parse.Data")));
         } catch (JSONException e) {
             e.printStackTrace();
         }
