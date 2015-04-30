@@ -5,9 +5,12 @@ import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.getbase.floatingactionbutton.FloatingActionButton;
@@ -15,17 +18,22 @@ import com.getbase.floatingactionbutton.FloatingActionsMenu;
 import com.gym8.baseworkout.BaseWorkoutDetailsFragment;
 import com.gym8.messages.ChatMessaging;
 import com.gym8.messages.MessagesFragment;
+import com.parse.FindCallback;
 import com.parse.GetCallback;
 import com.parse.GetDataCallback;
 import com.parse.ParseException;
 import com.parse.ParseFile;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
+import com.parse.ParseRelation;
 import com.parse.ParseUser;
 
 import com.gym8.main.R;
 import com.gym8.userprofile.UserProfileFragment;
 import com.gym8.viewpager.RootFragment;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Gurumukh on 3/12/15.
@@ -38,6 +46,9 @@ public class FindNearbyUserProfileFragment extends RootFragment {
     private TextView nearbyUserAge;
     private ImageView nearbyUserProfilePic;
     private FloatingActionsMenu userProfileActions;
+    private List<ParseObject> customWorkoutList = new ArrayList<>();
+    private ListView listView;
+    private ViewUserWorkoutAdapter adapter;
     private FloatingActionButton chatButton;
     private FloatingActionButton viewWorkoutButton;
     @Override
@@ -60,7 +71,28 @@ public class FindNearbyUserProfileFragment extends RootFragment {
         viewWorkoutButton.setSize(FloatingActionButton.SIZE_MINI);
         viewWorkoutButton.setColorNormalResId(R.color.button_green);
         viewWorkoutButton.setIcon(R.drawable.ic_action_list);
+        listView = (ListView) rootView.findViewById(R.id.user_likes_fragnearby);
+        listView.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                int action = event.getAction();
+                switch (action) {
+                    case MotionEvent.ACTION_DOWN:
+                        // Disallow ScrollView to intercept touch events.
+                        v.getParent().requestDisallowInterceptTouchEvent(true);
+                        break;
 
+                    case MotionEvent.ACTION_UP:
+                        // Allow ScrollView to intercept touch events.
+                        v.getParent().requestDisallowInterceptTouchEvent(false);
+                        break;
+                }
+
+                // Handle ListView touch events.
+                v.onTouchEvent(event);
+                return true;}
+        });
+        UserProfileFragment.setListViewHeightBasedOnChildren(listView);
         chatButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -78,6 +110,47 @@ public class FindNearbyUserProfileFragment extends RootFragment {
         return rootView;
     }
 
+    public void onActivityCreated(Bundle savedInstanceState)
+    {
+        super.onActivityCreated(savedInstanceState);
+       //TODO
+       // getCustomWorkoutsForUser();
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener()
+        {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view,
+                                    int position, long id) {
+                //UserProfileWorkout data = (UserProfileWorkout)listView.getItemAtPosition(position);
+                FragmentTransaction ft = getChildFragmentManager().beginTransaction();
+                ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+                ft.addToBackStack(null);
+                ft.commit();
+            }
+        });
+    }
+
+    private void onPostExecute(){
+        //Inform UI
+        adapter = new ViewUserWorkoutAdapter(getActivity().getApplicationContext(), customWorkoutList);
+        listView.setAdapter(adapter);
+        adapter.notifyDataSetChanged();
+    }
+
+    private void getCustomWorkoutsForUser(){
+        ParseUser user = ParseUser.getCurrentUser();
+        ParseRelation<ParseObject> relation = user.getRelation("likedWorkout");
+        ParseQuery<ParseObject> query = relation.getQuery();
+        query.findInBackground(new FindCallback<ParseObject>() {
+            public void done(List<ParseObject> workoutList, ParseException e) {
+                if (e == null) {
+                    customWorkoutList.addAll(workoutList);
+                } else {
+                    System.out.println(e.getMessage());
+                }
+                onPostExecute();
+            }
+        });
+    }
     public void setParseUser(ParseUser selectedUser){
         this.user = selectedUser;
     }
