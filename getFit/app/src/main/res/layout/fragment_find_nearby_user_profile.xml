@@ -111,35 +111,16 @@
 
     </LinearLayout>
 
-    <com.getbase.floatingactionbutton.FloatingActionsMenu
-        android:id="@+id/user_profile_actions"
+    <com.getbase.floatingactionbutton.FloatingActionButton
+        android:id="@+id/chat_button"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
         android:layout_marginBottom="-32dp"
         android:layout_marginRight="15dp"
         android:layout_alignParentRight="true"
-        xmlns:fab="http://schemas.android.com/apk/res-auto"
-        fab:fab_addButtonColorNormal="@color/button_red"
-        fab:fab_labelStyle="@style/menu_labels_style"
-        fab:fab_labelsPosition="left"
-        fab:fab_addButtonSize="mini"
-        android:layout_alignBottom="@id/header_userProfile"
-        >
-        <com.getbase.floatingactionbutton.FloatingActionButton
-            android:id="@+id/chat_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            fab:fab_title="Message"
-            />
-        <com.getbase.floatingactionbutton.FloatingActionButton
-            android:id="@+id/view_workouts_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            fab:fab_title="View Workouts"
-            />
-    </com.getbase.floatingactionbutton.FloatingActionsMenu>
+        app:fab_size="mini"
+        android:layout_alignBottom="@id/header_userProfile" />
 
 
     <TextView
@@ -149,9 +130,9 @@
         android:fontFamily="sans-serif_light"
         android:gravity="center"
         android:padding="10dp"
-        android:textColor="@color/like_color"
+        android:textColor="@color/schedule_color"
         android:layout_gravity="center"
-        android:text="Liked Workouts"
+        android:text="User Workouts"
         android:textSize = "18sp"
         android:textStyle="bold"
         android:layout_below="@id/header_userProfile"
@@ -163,9 +144,8 @@
         android:layout_marginRight="25dip"
         android:id="@+id/user_view_fragnearby"
         android:layout_below="@id/user_likes_text_fragnearby"
-        android:background="@color/like_color"
+        android:background="@color/schedule_color"
         />
-
     <ListView
         android:id="@+id/user_likes_fragnearby"
         android:layout_below="@id/user_view_fragnearby"
@@ -173,8 +153,5 @@
         android:background="#D6D6D4"
         android:layout_width="match_parent">
     </ListView>
-
-
-
 </RelativeLayout>
 </com.gym8.main.VerticalScrollView>

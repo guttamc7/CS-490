@@ -34,7 +34,6 @@ import com.parse.ParseUser;
 import com.gym8.main.R;
 import com.gym8.userprofile.UserProfileFragment;
 import com.gym8.viewpager.RootFragment;
-import com.parse.SaveCallback;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -101,12 +100,6 @@ public class FindNearbyUserProfileFragment extends RootFragment {
             @Override
             public void onClick(View v) {
                 goToUserChat();
-            }
-        });
-
-        viewWorkoutButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
             }
         });
 
@@ -184,34 +177,20 @@ public class FindNearbyUserProfileFragment extends RootFragment {
         });
     }
 
-    private void moveToChat(){
-        FragmentTransaction ft = getChildFragmentManager().beginTransaction();
-        ft.replace(R.id.find_nearby_user_frag, new MessagesFragment());
-        ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
-        ft.addToBackStack("Find Nearby User Profile");
-        ft.commit();
-    }
-
     private void goToUserChat(){
-        ParseQuery<ParseUser> query = ParseQuery.getQuery("_User");
+        ParseQuery<ParseObject> query = ParseQuery.getQuery("_User");
         query.fromLocalDatastore();
-        query.getInBackground(this.user.getObjectId(), new GetCallback<ParseUser>() {
-            public void done(ParseUser object, ParseException e) {
+        query.getInBackground(this.user.getObjectId(), new GetCallback<ParseObject>() {
+            public void done(ParseObject object, ParseException e) {
                 if (e != null) {
-                    user.pinInBackground();
-                    ParseObject chatUser = new ParseObject("ChatUsers");
-                    chatUser.put("userId", user);
-                    chatUser.saveEventually();
-                    chatUser.pinInBackground(new SaveCallback() {
-                        @Override
-                        public void done(ParseException e) {
-                            moveToChat();
-                        }
-                    });
+                    ChatMessaging.saveUserLocally(user);
                 }
-                else{
-                    moveToChat();
-                }
+
+                FragmentTransaction ft = getChildFragmentManager().beginTransaction();
+                ft.replace(R.id.find_nearby_user_frag, new MessagesFragment());
+                ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+                ft.addToBackStack("Find Nearby User Profile");
+                ft.commit();
             }
         });
     }
