@@ -105,7 +105,7 @@ public class FindNearbyUserProfileFragment extends RootFragment {
     {
         super.onActivityCreated(savedInstanceState);
        //TODO
-       // getCustomWorkoutsForUser();
+        getCustomWorkoutsForUser(user);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener()
         {
             @Override

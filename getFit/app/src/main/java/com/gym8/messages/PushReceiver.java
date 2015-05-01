@@ -36,6 +36,7 @@ public class PushReceiver extends ParsePushBroadcastReceiver {
         System.out.println("In message receive");
         try {
             ChatMessaging.receiveMessage(new JSONObject(intent.getExtras().getString("com.parse.Data")));
+
         } catch (JSONException e) {
             e.printStackTrace();
         }

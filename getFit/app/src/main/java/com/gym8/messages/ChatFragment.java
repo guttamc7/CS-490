@@ -48,6 +48,7 @@ public class ChatFragment extends Fragment {
                     //SEND MESSAGE
                     String messageText = message.getText().toString();
                     ChatMessaging.sendMessage(MessagesFragment.selectedUser,messageText);
+                    adapter.notifyDataSetChanged();
                     //adapter = new ChatAdapter(getActivity().getApplicationContext(), chatList);
                     //listView.setAdapter(adapter);
                 }
@@ -67,7 +68,7 @@ public class ChatFragment extends Fragment {
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //
+        getChatMessages();
     }
 
     public void getChatMessages(){

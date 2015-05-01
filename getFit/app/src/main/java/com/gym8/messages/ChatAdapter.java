@@ -60,6 +60,7 @@ public class ChatAdapter extends BaseAdapter {
         } else {
             holder = (ViewHolder1) convertView.getTag();
         }
+        System.out.println("In getView");
         //Set all the values in the list
         if(message.getString("type").equals("received")) {
             holder.singleMessage.setBackgroundResource(R.drawable.speech_bubble_yellow);
@@ -71,7 +72,7 @@ public class ChatAdapter extends BaseAdapter {
         }
 
 
-        //holder.singleMessage.setText(message.getString("name"));
+        holder.singleMessage.setText(message.getString("message"));
         return convertView;
     }
 

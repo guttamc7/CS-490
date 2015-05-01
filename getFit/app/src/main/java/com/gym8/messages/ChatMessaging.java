@@ -164,6 +164,43 @@ public class ChatMessaging {
                     }
                 }
             });
+        }else{
+            boolean userExists = false;
+            for (int n = 0; n < ChatMessaging.chatUsers.size(); n++) {
+                if (chatUsers.get(n).getParseObject("userId").getObjectId().equals(userId)) {
+                    chatUsers.get(n).getRelation("messages").add(messageObject);
+                    chatUsers.get(n).pinInBackground();
+                    chatUsers.get(n).saveEventually();
+                    userExists = true;
+                    break;
+                }
+            }
+            if(userExists == false){
+                ParseQuery<ParseUser> query = ParseQuery.getQuery("_User");
+                query.getInBackground(userId, new GetCallback<ParseUser>() {
+                    public void done(ParseUser user, ParseException e) {
+                        if (e == null) {
+                            user.pinInBackground();
+                            ChatMessaging.chatUsersDetails.add(user);
+
+                            final ParseObject chatUser = new ParseObject("ChatUsers");
+                            chatUser.put("userId", user);
+                            chatUser.saveEventually();
+                            chatUser.pinInBackground(new SaveCallback() {
+                                @Override
+                                public void done(ParseException e) {
+                                    if(e==null) {
+                                        chatUser.getRelation("messages").add(messageObject);
+                                        chatUser.pinInBackground();
+                                        chatUser.saveEventually();
+                                        ChatMessaging.chatUsers.add(chatUser);
+                                    }
+                                }
+                            });
+                        }
+                    }
+                });
+            }
         }
     }
 

@@ -49,7 +49,7 @@ public class MessagesFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getChatUsers();
+
     }
 
 
@@ -57,6 +57,8 @@ public class MessagesFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         v = inflater.inflate(R.layout.fragment_messages, container, false);
         listView = (ListView) v.findViewById(R.id.messages_list);
+        getChatUsers();
+
         return v;
     }
 
@@ -89,6 +91,8 @@ public class MessagesFragment extends Fragment {
 
     }
 
+
+
     private void getChatUsers(){
         if(ChatMessaging.isChatRetrieved() == false) {
             ParseQuery<ParseObject> query = ParseQuery.getQuery("ChatUsers");
@@ -98,12 +102,13 @@ public class MessagesFragment extends Fragment {
                                  ParseException e) {
                     if (e == null) {
                         for (int n = 0; n < chatUsers.size(); n++) {
+
                             try {
                                 chatUsers.get(n).getParseObject("userId").fetchFromLocalDatastore();
+                                ChatMessaging.addToChatUserDetails(chatUsers.get(n).getParseUser("userId"));
                             } catch (ParseException e1) {
                                 e1.printStackTrace();
                             }
-                            ChatMessaging.addToChatUserDetails(chatUsers.get(n).getParseUser("userId"));
                             ChatMessaging.setChatUsers(chatUsers);
                             ChatMessaging.setChatRetrieved(true);
                         }
