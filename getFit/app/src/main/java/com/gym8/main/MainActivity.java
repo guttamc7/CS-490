@@ -7,6 +7,7 @@ import android.os.Handler;
 import android.util.Log;
 import android.view.Window;
 
+import com.gym8.ErrorHandlingAlertDialogBox;
 import com.gym8.main.R;
 import com.parse.Parse;
 import com.parse.ParseAnalytics;
@@ -27,11 +28,6 @@ public class MainActivity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        //Connect to Parse Datastore
-
-        Parse.enableLocalDatastore(this);
-        Parse.initialize(this, getResources().getString(R.string.parse_app_id), getResources().getString(R.string.parse_client_key));
-
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         //getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,

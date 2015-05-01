@@ -25,11 +25,13 @@ import java.util.List;
 public class ChatFragment extends Fragment {
 
     private ListView listView;
-    private ArrayList<ParseObject> chatList = new ArrayList<>();
+    private ArrayList<ParseObject> chatMessages = new ArrayList<>();
     private View v;
     private ChatAdapter adapter;
     private EditText message;
     private ImageButton sendButton;
+
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -41,15 +43,12 @@ public class ChatFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 if(message.getText().toString() == null || message.getText().toString().length() == 0) {
-
-
                 }
                 else {
                     //SEND MESSAGE
                     String messageText = message.getText().toString();
-                    ChatMessaging.sendMessage(MessagesFragment.selectedUser,messageText);
                     adapter.notifyDataSetChanged();
-
+                    sendMessage(messageText);
                     //adapter = new ChatAdapter(getActivity().getApplicationContext(), chatList);
                     //listView.setAdapter(adapter);
                 }
@@ -63,6 +62,10 @@ public class ChatFragment extends Fragment {
         // Auto-generated constructor stub
     }
 
+    private void sendMessage(String messageText){
+        ChatMessaging.sendMessage(MessagesFragment.selectedUser,messageText,this);
+    }
+
     public static ChatFragment newInstance() {
         return new ChatFragment();
     }
@@ -74,22 +77,24 @@ public class ChatFragment extends Fragment {
 
     public void getChatMessages(){
         ParseObject chatUser = ChatMessaging.getChatUser(MessagesFragment.selectedUser);
-
         ParseRelation<ParseObject> relation = chatUser.getRelation("messages");
         ParseQuery<ParseObject> query = relation.getQuery();
+        query.addAscendingOrder("createdAt");
         query.fromLocalDatastore();
         query.findInBackground(new FindCallback<ParseObject>() {
             public void done(List<ParseObject> messages, ParseException e) {
                 if (e == null) {
                         adapter = new ChatAdapter(getActivity().getApplicationContext(), messages);
                         listView.setAdapter(adapter);
+                        adapter.notifyDataSetChanged();
                 } else {
                     e.printStackTrace();
                 }
-
             }
         });
+    }
 
+    private void sendMessage(){
 
     }
 
