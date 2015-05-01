@@ -87,7 +87,7 @@ public class UserProfileFragment extends RootFragment
         setUserAttributes();
         editProfileButton = (FloatingActionButton) rootView.findViewById(R.id.edit_profile_fab);
         editProfileButton.setSize(FloatingActionButton.SIZE_MINI);
-        editProfileButton.setColorNormalResId(R.color.button_red);
+        editProfileButton.setColorNormalResId(R.color.button_green);
         editProfileButton.setColorPressedResId(R.color.button_yellow);
         editProfileButton.setIcon(R.drawable.ic_action_edit);
         editProfileButton.setStrokeVisible(false);

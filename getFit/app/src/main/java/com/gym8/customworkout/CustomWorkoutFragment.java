@@ -37,6 +37,7 @@ public class CustomWorkoutFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_customworkout, container, false);
         listView = (ListView) rootView.findViewById(R.id.custom_workout_list);
         createWorkoutButton = (FloatingActionButton) rootView.findViewById(R.id.create_workout_fab);
+        createWorkoutButton.setSize(FloatingActionButton.SIZE_MINI);
         createWorkoutButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -64,7 +65,7 @@ public class CustomWorkoutFragment extends Fragment {
                 FragmentTransaction ft = getFragmentManager().beginTransaction();
                 ft.add(R.id.content_frame, customDetailsFrag);
                 ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
-                ft.addToBackStack("create_workouts_dialog");
+                ft.addToBackStack("Custom_Workout_List");
                 ft.commit();
             }
         });

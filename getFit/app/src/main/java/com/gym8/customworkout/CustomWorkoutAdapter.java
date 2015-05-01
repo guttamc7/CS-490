@@ -119,18 +119,18 @@ public class CustomWorkoutAdapter extends BaseSwipeAdapter
         if(m.getInt("level") == 1)
         {
             thumbNail.setImageResource(R.drawable.ic_level1);
-            title.setTextColor(R.string.level1_color);
+
         }
         else if(m.getInt("level") == 2)
         {
             thumbNail.setImageResource(R.drawable.ic_level2);
-            title.setTextColor(R.string.level2_color);
+
 
         }
         else
         {
             thumbNail.setImageResource(R.drawable.ic_level3);
-            title.setTextColor(R.string.level3_color);
+
         }
 
         title.setText(m.getString("name"));

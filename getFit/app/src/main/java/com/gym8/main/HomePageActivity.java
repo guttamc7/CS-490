@@ -129,17 +129,20 @@ public class HomePageActivity extends FragmentActivity {
     @Override
     public void onBackPressed() {
         String className = getSupportFragmentManager().findFragmentByTag(TAG_FRAGMENT).getClass().getName();
+        //System.out.println(className);
+        System.out.println("Back Stack Entrey Count" + getSupportFragmentManager().getBackStackEntryCount());
         if(!homeFragment.onBackPressed() || className.equals("com.gym8.main.HomeFragment") ) {
 
-            if(className.equals("com.gym8.baseworkout.BaseWorkoutFragment") || className.equals("com.gym8.customworkout.CustomWorkoutFragment") || className.equals("com.gym8.messages.MessagesFragment") || className.equals("com.gym8.main.HomeFragment")) {
+            if((getSupportFragmentManager().getBackStackEntryCount() == 0)) {
                 // Do Nothing
+
             }
             else {
                 super.onBackPressed();
             }
         }
         else {
-            System.out.println("OR ARE YOUR THERE");
+
         }
     }
 

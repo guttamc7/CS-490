@@ -96,8 +96,8 @@ public class CustomWorkoutDetailsAdapter extends BaseAdapter {
     private void setHolder(ViewHolder1 holder,String exerciseName, String maleImg1,String maleImg2)
     {
         holder.nameView.setText(exerciseName);
-        holder.setsView.setText(Integer.toString(sets));
-        holder.repsView.setText(Integer.toString(reps));
+        holder.setsView.setText(Integer.toString(sets) +  " sets");
+        holder.repsView.setText(Integer.toString(reps) +  " reps");
         imageLoader.DisplayImage(maleImg1,holder.exerciseImage1);
         imageLoader.DisplayImage(maleImg2,holder.exerciseImage2);
 
