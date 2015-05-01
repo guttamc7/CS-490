@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.Window;
 
 import com.gym8.ErrorHandlingAlertDialogBox;
@@ -25,6 +26,7 @@ public class MainActivity extends Activity {
 
     // Splash screen timer
     private static int SPLASH_TIME_OUT = 3000;
+    private Thread thread;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,21 +38,23 @@ public class MainActivity extends Activity {
         /* adapt the image to the size of the display */
         /* fill the background ImageView with the resized image */
 
-        new Handler().postDelayed(new Runnable() {
-            /*
-             * Showing splash screen with a timer. This will be useful when you
-             * want to show case your app logo / company
-             */
-
+        thread = new Thread() {
             @Override
             public void run() {
                 // This method will be executed once the timer is over
                 // Start your app main activity
-                ParseLoginBuilder builder = new ParseLoginBuilder(MainActivity.this);
-                startActivityForResult(builder.build(),0);
-            }
-
-        }, SPLASH_TIME_OUT);
+                synchronized (this) {
+                    try {
+                        wait(SPLASH_TIME_OUT);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+                    ParseLoginBuilder builder = new ParseLoginBuilder(MainActivity.this);
+                    startActivityForResult(builder.build(), 0);
+                }
+            };
+        thread.start();
     }
 
     @Override
@@ -84,6 +88,21 @@ public class MainActivity extends Activity {
         // close this activity
         //finish();
     }
+
+    /**
+     * Processes splash screen touch events
+     */
+    @Override
+    public boolean onTouchEvent(MotionEvent evt) {
+        if (evt.getAction() == MotionEvent.ACTION_DOWN || evt.getAction() == MotionEvent.ACTION_MOVE) {
+            synchronized(thread){
+                thread.notifyAll();
+            }
+
+        }
+        return true;
+    }
+
 
     //Increment the user login count and return the latest value
     private int incrementUserLoginCount() {
