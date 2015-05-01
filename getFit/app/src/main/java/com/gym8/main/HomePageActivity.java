@@ -31,7 +31,7 @@ public class HomePageActivity extends FragmentActivity {
     private static final String TAG = HomePageActivity.class.getSimpleName();
     private DrawerLayout mDrawerLayout;
     private HomeFragment homeFragment;
-    private ListView mDrawerList;
+    private  static ListView mDrawerList;
     private ActionBarDrawerToggle mDrawerToggle;
     private CharSequence mDrawerTitle;
     private CharSequence mTitle;
@@ -136,6 +136,11 @@ public class HomePageActivity extends FragmentActivity {
         }
     }
 
+    public static void chatToMessage() {
+        mDrawerList.setSelection(3);
+        mDrawerList.smoothScrollToPosition(3);
+    }
+
     private class DrawerItemClickListener implements OnItemClickListener {
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -145,7 +150,9 @@ public class HomePageActivity extends FragmentActivity {
         }
     }
 
-    private void navigateTo(int position) {
+
+
+    public void navigateTo(int position) {
 
         switch(position) {
             case 0:

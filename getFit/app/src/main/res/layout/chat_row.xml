@@ -6,6 +6,7 @@
     <LinearLayout
         android:id="@+id/singleMessageContainer"
         android:layout_width="fill_parent"
+        android:gravity="right"
         android:layout_height="wrap_content" >
 
         <ScrollView
@@ -15,7 +16,6 @@
             android:id="@+id/singleMessage"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
             android:layout_margin="10dp"
             android:padding="15dp"
             android:text="Hello bubbles!How you doing? I am doing awesome. You tell me. How's everything going? Are you getting laid? The girl across is hot."
@@ -23,7 +23,7 @@
             android:ems = "15"
             android:textSize="15sp"
             android:background="@drawable/speech_bubble_yellow"
-            android:textColor="@android:color/primary_text_light" />
+            android:textColor="@color/primary_white" />
         </ScrollView>
     </LinearLayout>
 

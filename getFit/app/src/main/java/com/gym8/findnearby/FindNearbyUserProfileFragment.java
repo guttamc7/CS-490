@@ -16,6 +16,7 @@ import android.widget.TextView;
 import com.getbase.floatingactionbutton.FloatingActionButton;
 import com.getbase.floatingactionbutton.FloatingActionsMenu;
 import com.gym8.baseworkout.BaseWorkoutDetailsFragment;
+import com.gym8.main.HomePageActivity;
 import com.gym8.messages.ChatMessaging;
 import com.gym8.messages.MessagesFragment;
 import com.parse.FindCallback;
@@ -32,6 +33,7 @@ import com.parse.ParseUser;
 import com.gym8.main.R;
 import com.gym8.userprofile.UserProfileFragment;
 import com.gym8.viewpager.RootFragment;
+import com.parse.SaveCallback;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -62,16 +64,12 @@ public class FindNearbyUserProfileFragment extends RootFragment {
         nearbyUserHeight = (TextView) rootView.findViewById(R.id.nearbyUserHeight);
         nearbyUserWeight = (TextView) rootView.findViewById(R.id.nearbyUserWeight);
         nearbyUserProfilePic = (ImageView) rootView.findViewById(R.id.nearbyUserProfilePic);
-        userProfileActions = (FloatingActionsMenu) rootView.findViewById(R.id.user_profile_actions);
         chatButton = (FloatingActionButton) rootView.findViewById(R.id.chat_button);
         setUserDetails();
         chatButton.setSize(FloatingActionButton.SIZE_MINI);
         chatButton.setColorNormalResId(R.color.button_yellow);
         chatButton.setIcon(R.drawable.ic_messages);
-        viewWorkoutButton = (FloatingActionButton) rootView.findViewById(R.id.view_workouts_button);
-        viewWorkoutButton.setSize(FloatingActionButton.SIZE_MINI);
-        viewWorkoutButton.setColorNormalResId(R.color.button_green);
-        viewWorkoutButton.setIcon(R.drawable.ic_action_list);
+
         listView = (ListView) rootView.findViewById(R.id.user_likes_fragnearby);
         listView.setOnTouchListener(new View.OnTouchListener() {
             @Override
@@ -101,13 +99,6 @@ public class FindNearbyUserProfileFragment extends RootFragment {
             }
         });
 
-        viewWorkoutButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-            }
-        });
-
         return rootView;
     }
 
@@ -115,7 +106,7 @@ public class FindNearbyUserProfileFragment extends RootFragment {
     {
         super.onActivityCreated(savedInstanceState);
        //TODO
-       // getCustomWorkoutsForUser();
+        getCustomWorkoutsForUser(user);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener()
         {
             @Override
@@ -137,7 +128,7 @@ public class FindNearbyUserProfileFragment extends RootFragment {
         adapter.notifyDataSetChanged();
     }
 
-    private void getCustomWorkoutsForUser(ParseObject user){
+    private void getCustomWorkoutsForUser(ParseUser user){
 
         ParseQuery<ParseObject> query = ParseQuery.getQuery("Workout");
         query.whereEqualTo("visibility",true);
@@ -180,20 +171,33 @@ public class FindNearbyUserProfileFragment extends RootFragment {
         });
     }
 
-    private void goToUserChat(){
-        ParseQuery<ParseObject> query = ParseQuery.getQuery("_User");
-        query.fromLocalDatastore();
-        query.getInBackground(this.user.getObjectId(), new GetCallback<ParseObject>() {
-            public void done(ParseObject object, ParseException e) {
-                if (e != null) {
-                    ChatMessaging.saveUserLocally(user);
-                }
+    private void moveToChat(){
+        getActivity().findViewById(R.id.drawer_layout);
+        ((HomePageActivity)getActivity()).navigateTo(3);
+        ((HomePageActivity)getActivity()).setTitle("Messsage");
 
-                FragmentTransaction ft = getChildFragmentManager().beginTransaction();
-                ft.replace(R.id.find_nearby_user_frag, new MessagesFragment());
-                ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
-                ft.addToBackStack("Find Nearby User Profile");
-                ft.commit();
+    }
+
+    private void goToUserChat(){
+        ParseQuery<ParseUser> query = ParseQuery.getQuery("_User");
+        query.fromLocalDatastore();
+        query.getInBackground(this.user.getObjectId(), new GetCallback<ParseUser>() {
+            public void done(ParseUser object, ParseException e) {
+                if (e != null) {
+                    user.pinInBackground();
+                    ParseObject chatUser = new ParseObject("ChatUsers");
+                    chatUser.put("userId", user);
+                    chatUser.saveEventually();
+                    chatUser.pinInBackground(new SaveCallback() {
+                        @Override
+                        public void done(ParseException e) {
+                            moveToChat();
+                        }
+                    });
+                }
+                else{
+                    moveToChat();
+                }
             }
         });
     }

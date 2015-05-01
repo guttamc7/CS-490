@@ -28,6 +28,8 @@ import com.parse.ParseUser;
  * Created by Jai Nalwa on 4/10/15.
  */
 public class MessagesFragment extends Fragment {
+    //Change later:
+    public static ParseUser selectedUser;
 
     private List<ParseObject> messagesList = new ArrayList<>();
     private ListView listView;
@@ -47,7 +49,7 @@ public class MessagesFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getChatUsers();
+
     }
 
 
@@ -55,6 +57,8 @@ public class MessagesFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         v = inflater.inflate(R.layout.fragment_messages, container, false);
         listView = (ListView) v.findViewById(R.id.messages_list);
+        getChatUsers();
+
         return v;
     }
 
@@ -72,13 +76,12 @@ public class MessagesFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view,
                                     int position, long id) {
-                //TODO
-                ParseUser message = (ParseUser)listView.getItemAtPosition(position);
+                MessagesFragment.selectedUser = (ParseUser)listView.getItemAtPosition(position);
                 FragmentTransaction ft = getChildFragmentManager().beginTransaction();
-                //ft.replace(R.id.frag_messages, new BaseWorkoutDetailsFragment());
-                //ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
-                //ft.addToBackStack(null);
-                //ft.commit();
+                ft.replace(R.id.frag_messages, new ChatFragment());
+                ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+                ft.addToBackStack(null);
+                ft.commit();
             }
         });
     }
@@ -88,32 +91,39 @@ public class MessagesFragment extends Fragment {
 
     }
 
-    private void getChatUsers(){
-        ParseQuery<ParseObject> query = ParseQuery.getQuery("ChatUsers");
-        query.fromLocalDatastore();
-        query.findInBackground(new FindCallback<ParseObject>() {
-            public void done(List<ParseObject> chatUsers,
-                             ParseException e) {
-                if (e == null) {
-                    System.out.println("In null and size is "+chatUsers.size());
 
-                    for(int n=0; n< chatUsers.size();n++){
-                        try {
-                            chatUsers.get(n).getParseObject("userId").fetchFromLocalDatastore();
-                        } catch (ParseException e1) {
-                            e1.printStackTrace();
+
+    private void getChatUsers(){
+        if(ChatMessaging.isChatRetrieved() == false) {
+            ParseQuery<ParseObject> query = ParseQuery.getQuery("ChatUsers");
+            query.fromLocalDatastore();
+            query.findInBackground(new FindCallback<ParseObject>() {
+                public void done(List<ParseObject> chatUsers,
+                                 ParseException e) {
+                    if (e == null) {
+                        for (int n = 0; n < chatUsers.size(); n++) {
+
+                            try {
+                                chatUsers.get(n).getParseObject("userId").fetchFromLocalDatastore();
+                                ChatMessaging.addToChatUserDetails(chatUsers.get(n).getParseUser("userId"));
+                            } catch (ParseException e1) {
+                                e1.printStackTrace();
+                            }
+                            ChatMessaging.setChatUsers(chatUsers);
+                            ChatMessaging.setChatRetrieved(true);
                         }
-                        System.out.println("User DEtails " + chatUsers.get(0).getParseUser("userId").getString("name"));
-                        ChatMessaging.chatUsersDetails.add(chatUsers.get(n).getParseUser("userId"));
+                    } else {
+                        e.printStackTrace();
                     }
-                } else {
-                    e.printStackTrace();
+                    adapter = new MessagesAdapter(getActivity().getApplicationContext(), ChatMessaging.getChatUsersDetails());
+                    listView.setAdapter(adapter);
+                    adapter.notifyDataSetChanged();
                 }
-                ChatMessaging.chatUsers.addAll(chatUsers);
-                adapter = new MessagesAdapter(getActivity().getApplicationContext(), ChatMessaging.chatUsersDetails);
-                listView.setAdapter(adapter);
-                adapter.notifyDataSetChanged();
-            }
-        });
+            });
+        }else{
+            adapter = new MessagesAdapter(getActivity().getApplicationContext(), ChatMessaging.getChatUsersDetails());
+            listView.setAdapter(adapter);
+            adapter.notifyDataSetChanged();
+        }
     }
 }

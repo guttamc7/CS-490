@@ -34,6 +34,7 @@ public class MessagesAdapter extends BaseSwipeAdapter {
         inflater = LayoutInflater.from(context);
         this.context = context;
         this.messageItems = workoutItems;
+        System.out.println("Size is "+this.messageItems.size());
         imageLoader = new ImageLoader(context,64);
     }
 

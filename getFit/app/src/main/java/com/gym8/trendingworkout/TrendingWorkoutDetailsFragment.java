@@ -30,7 +30,6 @@ import java.util.List;
  * Created by rishabhmittal on 3/29/15.
  */
 public class TrendingWorkoutDetailsFragment extends RootFragment {
-    private ArrayList<ParseObject> customWorkoutList = new ArrayList<>();
     private ListView listView;
     private CustomWorkoutDetailsAdapter adapter;
     private ParseObject selectedWorkout;
@@ -45,6 +44,7 @@ public class TrendingWorkoutDetailsFragment extends RootFragment {
         if (TrendingWorkoutFragment.trendingWorkout.getString("workoutType").equals("custom")) {
             webView.setVisibility(View.INVISIBLE);
 
+
         } else {
             listView.setVisibility(View.INVISIBLE);
             webView.getSettings().setJavaScriptEnabled(true);
@@ -52,6 +52,12 @@ public class TrendingWorkoutDetailsFragment extends RootFragment {
 
         }
         return v;
+    }
+
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        if(savedInstanceState == null)
+            getExercises();
     }
 
 

@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
+import com.gym8.ErrorHandlingAlertDialogBox;
 import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseObject;
@@ -106,7 +107,9 @@ public class TrendingWorkoutFragment extends RootFragment
                     //All the workouts retrieved
                     trendingWorkoutList.addAll(workoutList);
                 } else {
-                    System.out.println(e.getMessage());
+                    ErrorHandlingAlertDialogBox.showDialogBox(getActivity().getBaseContext());
+                    listViewTrendingWorkout.setVisibility(View.INVISIBLE);
+
                 }
         onPostExecute();
             }
