@@ -6,6 +6,7 @@ package com.gym8.messages;
         import android.view.View;
         import android.view.ViewGroup;
         import android.widget.BaseAdapter;
+        import android.widget.FrameLayout;
         import android.widget.ImageView;
         import android.widget.LinearLayout;
         import android.widget.TextView;
@@ -16,6 +17,7 @@ package com.gym8.messages;
 
         import java.util.ArrayList;
         import java.util.List;
+
 
 /**
  * Created by Gurumukh on 4/13/15.
@@ -62,13 +64,17 @@ public class ChatAdapter extends BaseAdapter {
         }
         System.out.println("In getView");
         //Set all the values in the list
+
+        FrameLayout.LayoutParams lp = (FrameLayout.LayoutParams) holder.singleMessage.getLayoutParams();
         if(message.getString("type").equals("received")) {
             holder.singleMessage.setBackgroundResource(R.drawable.speech_bubble_yellow);
-            holder.wrapper.setGravity(Gravity.LEFT);
+            lp.gravity= Gravity.LEFT;
+
         }
         else {
             holder.singleMessage.setBackgroundResource(R.drawable.speech_bubble_red);
-            holder.wrapper.setGravity(Gravity.RIGHT);
+            lp.gravity= Gravity.RIGHT;
+
         }
 
 

@@ -16,6 +16,7 @@ import android.widget.TextView;
 import com.getbase.floatingactionbutton.FloatingActionButton;
 import com.getbase.floatingactionbutton.FloatingActionsMenu;
 import com.gym8.baseworkout.BaseWorkoutDetailsFragment;
+import com.gym8.main.HomePageActivity;
 import com.gym8.messages.ChatMessaging;
 import com.gym8.messages.MessagesFragment;
 import com.parse.FindCallback;
@@ -171,11 +172,10 @@ public class FindNearbyUserProfileFragment extends RootFragment {
     }
 
     private void moveToChat(){
-        FragmentTransaction ft = getChildFragmentManager().beginTransaction();
-        ft.replace(R.id.find_nearby_user_frag, new MessagesFragment());
-        ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
-        ft.addToBackStack("Find Nearby User Profile");
-        ft.commit();
+        getActivity().findViewById(R.id.drawer_layout);
+        ((HomePageActivity)getActivity()).navigateTo(3);
+        ((HomePageActivity)getActivity()).setTitle("Messsage");
+
     }
 
     private void goToUserChat(){

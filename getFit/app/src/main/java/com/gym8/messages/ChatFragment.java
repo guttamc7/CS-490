@@ -49,6 +49,7 @@ public class ChatFragment extends Fragment {
                     String messageText = message.getText().toString();
                     ChatMessaging.sendMessage(MessagesFragment.selectedUser,messageText);
                     adapter.notifyDataSetChanged();
+
                     //adapter = new ChatAdapter(getActivity().getApplicationContext(), chatList);
                     //listView.setAdapter(adapter);
                 }
