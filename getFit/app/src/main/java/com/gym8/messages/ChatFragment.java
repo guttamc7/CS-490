@@ -9,6 +9,7 @@ import android.support.v4.app.NotificationCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.ImageButton;
 import android.widget.ListView;
 
@@ -20,6 +21,8 @@ import com.parse.ParseQuery;
 import com.parse.ParseRelation;
 
 import android.widget.EditText;
+import android.widget.RelativeLayout;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -34,6 +37,7 @@ public class ChatFragment extends Fragment {
     private ChatAdapter adapter;
     private EditText message;
     private ImageButton sendButton;
+
 
 
     @Override
@@ -52,8 +56,12 @@ public class ChatFragment extends Fragment {
                     String messageText = message.getText().toString();
                     adapter.notifyDataSetChanged();
                     sendMessage(messageText);
-                    //adapter = new ChatAdapter(getActivity().getApplicationContext(), chatList);
-                    //listView.setAdapter(adapter);
+                    View views = getActivity().getCurrentFocus();
+                    if (views != null) {
+                        InputMethodManager inputManager = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+                        inputManager.hideSoftInputFromWindow(view.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+                    }
+                    message.setText("");
                 }
             }
         });
@@ -82,7 +90,7 @@ public class ChatFragment extends Fragment {
         ParseObject chatUser = ChatMessaging.getChatUser(MessagesFragment.selectedUser);
         ParseRelation<ParseObject> relation = chatUser.getRelation("messages");
         ParseQuery<ParseObject> query = relation.getQuery();
-        query.addAscendingOrder("createdAt");
+        query.addDescendingOrder("createdAt");
         query.fromLocalDatastore();
         query.findInBackground(new FindCallback<ParseObject>() {
             public void done(List<ParseObject> messages, ParseException e) {

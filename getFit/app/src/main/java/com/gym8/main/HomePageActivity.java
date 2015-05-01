@@ -28,7 +28,7 @@ import com.parse.ParseUser;
 
 public class HomePageActivity extends FragmentActivity {
 
-    private static final String TAG = HomePageActivity.class.getSimpleName();
+    private final static String TAG_FRAGMENT = "BASE_FRAGMENT";
     private DrawerLayout mDrawerLayout;
     private HomeFragment homeFragment;
     private  static ListView mDrawerList;
@@ -128,18 +128,21 @@ public class HomePageActivity extends FragmentActivity {
 
     @Override
     public void onBackPressed() {
+        String className = getSupportFragmentManager().findFragmentByTag(TAG_FRAGMENT).getClass().getName();
+        if(!homeFragment.onBackPressed() || className.equals("com.gym8.main.HomeFragment") ) {
 
-        if(!homeFragment.onBackPressed()) {
-            super.onBackPressed();
+            if(className.equals("com.gym8.baseworkout.BaseWorkoutFragment") || className.equals("com.gym8.customworkout.CustomWorkoutFragment") || className.equals("com.gym8.messages.MessagesFragment") || className.equals("com.gym8.main.HomeFragment")) {
+                // Do Nothing
+            }
+            else {
+                super.onBackPressed();
+            }
         }
         else {
+            System.out.println("OR ARE YOUR THERE");
         }
     }
 
-    public static void chatToMessage() {
-        mDrawerList.setSelection(3);
-        mDrawerList.smoothScrollToPosition(3);
-    }
 
     private class DrawerItemClickListener implements OnItemClickListener {
         @Override
@@ -154,27 +157,28 @@ public class HomePageActivity extends FragmentActivity {
 
     public void navigateTo(int position) {
 
+
         switch(position) {
             case 0:
                 homeFragment = new HomeFragment();
                 getSupportFragmentManager()
                         .beginTransaction()
-                        .replace(R.id.content_frame, homeFragment, HomeFragment.TAG).commit();
+                        .replace(R.id.content_frame, homeFragment, TAG_FRAGMENT).commit();
                 break;
             case 1:
                 getSupportFragmentManager()
                         .beginTransaction()
-                        .replace(R.id.content_frame, BaseWorkoutFragment.newInstance(), BaseWorkoutFragment.TAG).commit();
+                        .replace(R.id.content_frame, BaseWorkoutFragment.newInstance(), TAG_FRAGMENT).commit();
                 break;
             case 2: //TODO
                 getSupportFragmentManager()
                         .beginTransaction()
-                        .replace(R.id.content_frame, CustomWorkoutFragment.newInstance()).commit();
+                        .replace(R.id.content_frame, CustomWorkoutFragment.newInstance(), TAG_FRAGMENT).commit();
                 break;
             case 3: //TODO
                 getSupportFragmentManager()
                         .beginTransaction()
-                        .replace(R.id.content_frame, MessagesFragment.newInstance()).commit();
+                        .replace(R.id.content_frame, MessagesFragment.newInstance(),TAG_FRAGMENT).commit();
                 break;
             case 4: //SignOut
                 AlertDialog.Builder builder = new AlertDialog.Builder(this);

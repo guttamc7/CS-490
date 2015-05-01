@@ -77,8 +77,8 @@ public class MessagesFragment extends Fragment {
             public void onItemClick(AdapterView<?> parent, View view,
                                     int position, long id) {
                 MessagesFragment.selectedUser = (ParseUser)listView.getItemAtPosition(position);
-                FragmentTransaction ft = getChildFragmentManager().beginTransaction();
-                ft.replace(R.id.frag_messages, new ChatFragment());
+                FragmentTransaction ft = getFragmentManager().beginTransaction();
+                ft.add(R.id.frag_messages, new ChatFragment());
                 ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
                 ft.addToBackStack(null);
                 ft.commit();
