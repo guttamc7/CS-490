@@ -13,6 +13,8 @@ import android.widget.TextView;
 import com.daimajia.swipe.SimpleSwipeListener;
 import com.daimajia.swipe.SwipeLayout;
 import com.daimajia.swipe.adapters.BaseSwipeAdapter;
+
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import com.parse.ParseObject;
@@ -20,7 +22,6 @@ import com.parse.ParseUser;
 import com.parse.ParseRelation;
 import android.content.Context;
 import android.widget.Toast;
-
 import com.gym8.main.R;
 
 public class BaseWorkoutAdapter extends BaseSwipeAdapter {
@@ -32,10 +33,13 @@ public class BaseWorkoutAdapter extends BaseSwipeAdapter {
     private TextView description;
     private Button likes;
     private boolean liked = false;
-    public BaseWorkoutAdapter(Context context, List<ParseObject> workoutItems) {
+    public BaseWorkoutAdapter(Context context, List<ParseObject> baseWorkouts)
+    {
         inflater = LayoutInflater.from(context);
         this.context = context;
-        this.workoutItems = workoutItems;
+        this.workoutItems = new ArrayList<ParseObject>();
+        workoutItems.addAll(baseWorkouts);
+
     }
 
     @Override
@@ -49,13 +53,7 @@ public class BaseWorkoutAdapter extends BaseSwipeAdapter {
 
         swipeLayout = (SwipeLayout)v.findViewById(getSwipeLayoutResourceId(position));
 
-        swipeLayout.addSwipeListener(new SimpleSwipeListener() {
-            @Override
-            public void onOpen(SwipeLayout layout) {
 
-
-            }
-        });
         swipeLayout.setOnDoubleClickListener(new SwipeLayout.DoubleClickListener() {
             @Override
             public void onDoubleClick(SwipeLayout layout, boolean surface) {

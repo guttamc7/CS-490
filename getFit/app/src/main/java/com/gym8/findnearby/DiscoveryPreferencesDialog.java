@@ -28,13 +28,9 @@ public class DiscoveryPreferencesDialog extends DialogFragment
     private CheckedTextView checkedTextViewFemale;
     private boolean maleChecked;
     private boolean femaleChecked;
-    private double initialDistance;
-    private int initialAge;
-    private int finalAge;
-    private double finalDistance;
-    public static double returnFinaldistance = 100;
-    public static int returnInitialAge = 16;
-    public static  int returnFinalAge = 75;
+    private static double finalDistance = 100;
+    private static int startAge = 16;
+    private static  int endAge = 75;
     public static String gender = "both";
     private TextView ageMinimum;
     private TextView ageMaximun;
@@ -54,7 +50,6 @@ public class DiscoveryPreferencesDialog extends DialogFragment
         distanceMaximum = (TextView) rootView.findViewById(R.id.finalMiles);
         ageMaximun = (TextView) rootView.findViewById(R.id.finalAge);
         ageMinimum = (TextView) rootView.findViewById(R.id.initialAge);
-        initialDistance=0;
 
         checkedTextViewMale.setOnClickListener(new View.OnClickListener()
         {
@@ -95,7 +90,7 @@ public class DiscoveryPreferencesDialog extends DialogFragment
             @Override
             public void onRangeChangeListener(RangeBar rangeBar, int leftPinIndex, int rightPinIndex, String leftPinValue, String rightPinValue)
             {
-                finalDistance = rightPinIndex;
+                DiscoveryPreferencesDialog.finalDistance = rightPinIndex;
                 distanceMaximum.setText(rightPinValue+ " miles");
 
             }
@@ -108,8 +103,8 @@ public class DiscoveryPreferencesDialog extends DialogFragment
             {
                 ageMinimum.setText(leftPinValue+" years");
                 ageMaximun.setText(rightPinValue+" years");
-                initialAge = leftPinIndex;
-                finalAge= rightPinIndex;
+                DiscoveryPreferencesDialog.startAge = leftPinIndex;
+                DiscoveryPreferencesDialog.endAge= rightPinIndex;
 
             }
         });
@@ -119,9 +114,7 @@ public class DiscoveryPreferencesDialog extends DialogFragment
             @Override
             public void onClick (View view)
             {
-                returnFinaldistance = finalDistance;
-                returnInitialAge = initialAge;
-                returnFinalAge = finalAge;
+
                 if(maleChecked)
                     gender="Male";
                 if(femaleChecked)
@@ -156,4 +149,9 @@ public class DiscoveryPreferencesDialog extends DialogFragment
         int dialogHeight =ViewGroup.LayoutParams.MATCH_PARENT;
         getDialog().getWindow().setLayout(dialogWidth, dialogHeight);
     }
+
+    public static Double getFinalDistance(){
+        return finalDistance;
+    }
+
 }

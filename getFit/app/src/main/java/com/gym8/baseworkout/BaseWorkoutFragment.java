@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.Toast;
 
 import com.gym8.ErrorHandlingAlertDialogBox;
 import com.parse.FindCallback;
@@ -29,10 +30,9 @@ import com.gym8.main.R;
 public class BaseWorkoutFragment extends Fragment {
 
     public final static String TAG = BaseWorkoutFragment.class.getSimpleName();
-    private List<ParseObject> baseWorkoutList = new ArrayList<>();
     private ListView listView;
-    View v;
-    public static String webLink;
+    private View v;
+    private static String webLink;
     private Context mContext;
     private BaseWorkoutAdapter adapter;
 
@@ -73,7 +73,6 @@ public class BaseWorkoutFragment extends Fragment {
                                     int position, long id) {
                 ParseObject workout = (ParseObject)listView.getItemAtPosition(position);
                 webLink = workout.getString("workoutUrl");
-                System.out.println(webLink);
                 FragmentTransaction ft = getFragmentManager().beginTransaction();
                 ft.add(R.id.content_frame, new BaseWorkoutDetailsFragment());
                 ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
@@ -91,12 +90,6 @@ public class BaseWorkoutFragment extends Fragment {
         return webLink;
     }
 
-    private void onPostExecute() {
-        adapter = new BaseWorkoutAdapter(getActivity().getApplicationContext(), baseWorkoutList);
-        listView.setAdapter(adapter);
-        adapter.notifyDataSetChanged();
-
-    }
 
     private void getBaseWorkouts(){
         ParseQuery<ParseObject> query = ParseQuery.getQuery("Workout");
@@ -105,14 +98,17 @@ public class BaseWorkoutFragment extends Fragment {
         query.findInBackground(new FindCallback<ParseObject>() {
 
             public void done(List<ParseObject> workoutList, ParseException e) {
-                if (e == null) {
+               if (e == null) {
                     //All the base workouts retrieved
-                    baseWorkoutList.addAll(workoutList);
-                } else {
-                    ErrorHandlingAlertDialogBox.showDialogBox(getActivity().getBaseContext());
-                    //Exception
+                    adapter = new BaseWorkoutAdapter(getActivity().getApplicationContext(), workoutList);
+                    listView.setAdapter(adapter);
+                    adapter.notifyDataSetChanged();
                 }
-        onPostExecute();
+                else
+                {
+                    Toast.makeText(getActivity(), "Connection error", Toast.LENGTH_SHORT).show();
+                }
+
             }
         });
     }
