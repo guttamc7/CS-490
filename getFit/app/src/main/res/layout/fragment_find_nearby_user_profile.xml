@@ -38,7 +38,7 @@
             android:textColor="#eaeff3"
             android:layout_gravity="center"
             android:layout_centerHorizontal="true"
-            android:text="Gurumukh Uttamchandani"
+            android:text="@string/sampleUser"
             android:textSize = "16sp" />
 
         <RelativeLayout
@@ -58,7 +58,7 @@
                 android:gravity="right"
                 android:layout_marginRight="15dp"
                 android:layout_toLeftOf="@+id/stroke"
-                android:text="178 cm"
+                android:text="@string/height"
                 android:textSize = "15sp" />
 
 
@@ -83,7 +83,7 @@
                 android:layout_marginLeft="15dp"
                 android:textColor="#eaeff3"
                 android:layout_gravity="center"
-                android:text="160 lbs"
+                android:text="@string/weight"
                 android:textSize = "15sp"
                 android:layout_alignParentRight="true" />
 
@@ -99,7 +99,7 @@
                 android:layout_marginLeft="15dp"
                 android:textColor="#eaeff3"
                 android:layout_gravity="center"
-                android:text="21 years old"
+                android:text="@string/age"
                 android:textSize = "15sp"
                 android:layout_centerHorizontal="true"
                 />

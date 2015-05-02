@@ -60,5 +60,10 @@
     <string name="weight">160 lbs</string>
     <string name="age">21 years old</string>
     <string name="Liked_Workouts">Liked Workouts</string>
+    <string name="lone">Level 1</string>
+    <string name="ltwo">Level 2</string>
+    <string name="lthree">Level 3</string>
+    <string name="Workout_Information">Workout Information</string>
+
 
 </resources>
