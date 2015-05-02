@@ -28,8 +28,7 @@ public class BaseWorkoutAdapter extends BaseSwipeAdapter {
     private List<ParseObject> workoutItems;
     private Context context;
     private SwipeLayout swipeLayout;
-    private TextView title;
-    private TextView description;
+    private TextView title, description;
     private Button likes;
     private boolean liked = false;
     public BaseWorkoutAdapter(Context context, List<ParseObject> workoutItems) {

@@ -30,7 +30,6 @@ import com.gym8.viewpager.RootFragment;
  */
 public class FindNearbyUsersFragment extends RootFragment {
 
-    private ParseQueryAdapter<ParseObject> mainAdapter;
     private FindNearbyUsersAdapter nearbyUsersAdapter;
     private ArrayList<ParseUser> findNearbyUsersList = new ArrayList<>();
     private GridView gridView;

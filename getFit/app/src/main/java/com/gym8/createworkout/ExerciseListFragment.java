@@ -31,7 +31,6 @@ import com.gym8.main.R;
  */
 public class ExerciseListFragment extends Fragment {
     private View rootView;
-    private Button nextButton;
     private ListView lv;
     private ArrayAdapter<String> adapter;
     private EditText inputSearch;

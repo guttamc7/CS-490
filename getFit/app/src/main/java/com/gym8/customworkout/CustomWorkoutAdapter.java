@@ -16,6 +16,7 @@ import android.widget.Toast;
 import com.daimajia.swipe.SimpleSwipeListener;
 import com.daimajia.swipe.SwipeLayout;
 import com.daimajia.swipe.adapters.BaseSwipeAdapter;
+import com.gym8.ErrorHandlingAlertDialogBox;
 import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseObject;
@@ -34,8 +35,7 @@ public class CustomWorkoutAdapter extends BaseSwipeAdapter
     private LayoutInflater inflater;
     private ArrayList<ParseObject> likedWorkouts;
     private Context context;
-    private TextView title;
-    private TextView description;
+    private TextView title, description;
     private SwipeLayout swipeLayout;
 
     public CustomWorkoutAdapter(Context context, ArrayList<ParseObject> workoutItems)
@@ -171,7 +171,7 @@ public class CustomWorkoutAdapter extends BaseSwipeAdapter
                         obj.saveInBackground();
                     }
                 } else {
-                    System.out.println(e.getMessage());
+                    ErrorHandlingAlertDialogBox.showDialogBox(context);
                 }
 
             }

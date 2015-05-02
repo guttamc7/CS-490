@@ -20,25 +20,18 @@ import com.gym8.main.R;
 public class DiscoveryPreferencesDialog extends DialogFragment
 {
     private View rootView;
-    private Button submitButton;
-    private Button cancelButton;
-    private RangeBar rangeBarDistance;
-    private RangeBar rangeBarAge;
-    private CheckedTextView checkedTextViewMale;
-    private CheckedTextView checkedTextViewFemale;
-    private boolean maleChecked;
-    private boolean femaleChecked;
+    private Button submitButton, cancelButton;
+    private RangeBar rangeBarDistance, rangeBarAge;
+    private CheckedTextView checkedTextViewMale,checkedTextViewFemale;
+    private boolean maleChecked,femaleChecked;
     private double initialDistance;
-    private int initialAge;
-    private int finalAge;
+    private int initialAge,finalAge;
     private double finalDistance;
     public static double returnFinaldistance = 100;
     public static int returnInitialAge = 16;
     public static  int returnFinalAge = 75;
     public static String gender = "both";
-    private TextView ageMinimum;
-    private TextView ageMaximun;
-    private TextView distanceMaximum;
+    private TextView ageMinimum,ageMaximun,distanceMaximum;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
