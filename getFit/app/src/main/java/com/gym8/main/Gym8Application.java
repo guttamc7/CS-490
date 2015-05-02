@@ -1,7 +1,6 @@
 package com.gym8.main;
 
 import android.app.Application;
-
 import com.parse.Parse;
 
 /**

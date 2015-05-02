@@ -38,8 +38,6 @@ public class ChatFragment extends Fragment {
     private EditText message;
     private ImageButton sendButton;
 
-
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         v = inflater.inflate(R.layout.fragment_chat, container, false);
@@ -108,7 +106,4 @@ public class ChatFragment extends Fragment {
     private void sendMessage(){
 
     }
-
-
-
 }

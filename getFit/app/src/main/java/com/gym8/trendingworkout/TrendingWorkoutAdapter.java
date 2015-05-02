@@ -12,11 +12,8 @@ import android.widget.Toast;
 import com.daimajia.swipe.SimpleSwipeListener;
 import com.daimajia.swipe.SwipeLayout;
 import com.daimajia.swipe.adapters.BaseSwipeAdapter;
-import com.parse.FindCallback;
-import com.parse.GetCallback;
-import com.parse.ParseException;
+import com.parse.Parse;
 import com.parse.ParseObject;
-import com.parse.ParseQuery;
 import com.parse.ParseRelation;
 import com.parse.ParseUser;
 
@@ -31,16 +28,18 @@ import com.gym8.main.R;
  */
 public class TrendingWorkoutAdapter extends BaseSwipeAdapter {
     private LayoutInflater inflater;
-    private List<ParseObject> workoutItemsTrending;
+    private List<ParseObject> trendingWorkouts;
     private Context context;
     private TextView title;
     private TextView description;
     private Button likes;
     private boolean liked = false;
+
     public TrendingWorkoutAdapter(Context context, List<ParseObject> workoutItems) {
         inflater = LayoutInflater.from(context);
         this.context = context;
-        workoutItemsTrending = workoutItems;
+        this.trendingWorkouts = new ArrayList<ParseObject>();
+        this.trendingWorkouts.addAll(workoutItems);
     }
 
     @Override
@@ -54,14 +53,6 @@ public class TrendingWorkoutAdapter extends BaseSwipeAdapter {
         View rowColor = v.findViewById(R.id.view_row_trendingWorkout);
         final SwipeLayout swipeLayout = (SwipeLayout) v.findViewById(getSwipeLayoutResourceId(position));
 
-        swipeLayout.addSwipeListener(
-                new SimpleSwipeListener() {
-                    @Override
-                    public void onOpen(SwipeLayout layout) {
-
-                    }
-                });
-
         final ImageView likeClicked = (ImageView) v.findViewById(R.id.like_imview_trendingWorkout);
         swipeLayout.findViewById(R.id.like_imview_trendingWorkout).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -69,16 +60,16 @@ public class TrendingWorkoutAdapter extends BaseSwipeAdapter {
                 if (v == likeClicked) {
                     if(!liked) {
                         Toast.makeText(context, "Liked", Toast.LENGTH_SHORT).show();
-                        likeWorkout(workoutItemsTrending.get(position));
-                        likes.setText(Integer.toString(workoutItemsTrending.get(position).getInt("likes") + 1));
+                        likeWorkout(trendingWorkouts.get(position));
+                        likes.setText(Integer.toString(trendingWorkouts.get(position).getInt("likes") + 1));
                         likeClicked.setImageResource(R.drawable.ic_action_dontlike);
                         liked = true;
                         swipeLayout.close(true);
                     }
                     else {
                         Toast.makeText(context, "Disliked", Toast.LENGTH_SHORT).show();
-                        dislikeWorkout(workoutItemsTrending.get(position));
-                        likes.setText(Integer.toString(workoutItemsTrending.get(position).getInt("likes") - 1));
+                        dislikeWorkout(trendingWorkouts.get(position));
+                        likes.setText(Integer.toString(trendingWorkouts.get(position).getInt("likes") - 1));
                         likeClicked.setImageResource(R.drawable.ic_action_like_white);
                         liked = false;
                         swipeLayout.close(true);
@@ -101,7 +92,6 @@ public class TrendingWorkoutAdapter extends BaseSwipeAdapter {
                 calIntent.putExtra("description", description.getText().toString());
                 calIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 context.startActivity(calIntent);
-
             }
         });
 
@@ -114,7 +104,7 @@ public class TrendingWorkoutAdapter extends BaseSwipeAdapter {
         title = (TextView) convertView.findViewById(R.id.title_trendingWorkout);
         description = (TextView) convertView.findViewById(R.id.description_trendingWorkout);
         likes = (Button) convertView.findViewById(R.id.like_trendingWorkout);
-        ParseObject workout = workoutItemsTrending.get(position);
+        ParseObject workout = trendingWorkouts.get(position);
 
         // thumbnail image
         if (workout.getInt("level") == 1) {
@@ -126,21 +116,19 @@ public class TrendingWorkoutAdapter extends BaseSwipeAdapter {
             thumbNail.setImageResource(R.drawable.ic_level3);
         }
 
-        // title
         title.setText(workout.getString("name"));
         description.setText(workout.getString("description"));
         likes.setText(Integer.toString(workout.getInt("likes")));
-        //username.setText(m.getTrendingWorkoutUserName()); //TODO: GET username of Workout
     }
 
     @Override
     public int getCount() {
-        return workoutItemsTrending.size();
+        return trendingWorkouts.size();
     }
 
     @Override
     public Object getItem(int location) {
-        return workoutItemsTrending.get(location);
+        return trendingWorkouts.get(location);
     }
 
     @Override
@@ -158,42 +146,14 @@ public class TrendingWorkoutAdapter extends BaseSwipeAdapter {
     }
 
     private void dislikeWorkout(ParseObject workout) {
-
-        if (workout.getInt("likes") > 0) ;
-        {
+        if (workout.getInt("likes") > 0) {
             workout.put("likes", (workout.getInt("likes") - 1));
             workout.saveInBackground();
-
-            ParseUser user = ParseUser.getCurrentUser();
-            ParseRelation<ParseObject> relation = user.getRelation("likedWorkout");
-            relation.remove(workout);
-            user.saveInBackground();
         }
 
-
+        ParseUser user = ParseUser.getCurrentUser();
+        ParseRelation<ParseObject> relation = user.getRelation("likedWorkout");
+        relation.remove(workout);
+        user.saveInBackground();
     }
-    private void retrieveUsers(ArrayList<ParseObject> trendingList) {
-        final ArrayList<ParseObject> usersList = new ArrayList<ParseObject>();
-
-        for (int n = 0; n < trendingList.size(); n++) {
-            ParseObject user = trendingList.get(n).getParseObject("UserId");
-            usersList.add(user);
-
-        }
-
-
-    }
-
-
-
-
-
-
-
-
-
-
-
-
-
 }

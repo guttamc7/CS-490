@@ -7,16 +7,12 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
-import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.GetCallback;
-
 import com.parse.ParseObject;
-
 import java.util.ArrayList;
-
+import java.util.List;
 import com.gym8.main.R;
-
 import com.gym8.imageloader.ImageLoader;
 
 /**
@@ -24,28 +20,26 @@ import com.gym8.imageloader.ImageLoader;
  */
 public class CustomWorkoutDetailsAdapter extends BaseAdapter {
 
-    private ArrayList<ParseObject> listData=new ArrayList<>();
-    ImageLoader imageLoader;
+    private List<ParseObject> exercises;
+    private ImageLoader imageLoader;
     private LayoutInflater layoutInflater;
-    private int sets;
-    private int reps;
 
-
-    public CustomWorkoutDetailsAdapter(Context context, ArrayList<ParseObject> listData) {
-        this.listData = listData;
-        layoutInflater = LayoutInflater.from(context);
-        imageLoader = new ImageLoader(context,100);
+    public CustomWorkoutDetailsAdapter(Context context, List<ParseObject> exercises) {
+        this.layoutInflater = LayoutInflater.from(context);
+        this.imageLoader = new ImageLoader(context, 100);
+        this.exercises = new ArrayList<ParseObject>();
+        this.exercises.addAll(exercises);
     }
 
     @Override
     public int getCount() {
-        return listData.size();
+        return exercises.size();
     }
 
 
     @Override
     public Object getItem(int position) {
-        return listData.get(position);
+        return exercises.get(position);
     }
 
     @Override
@@ -56,10 +50,7 @@ public class CustomWorkoutDetailsAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         final ViewHolder1 holder;
-        ParseObject workoutExercise = listData.get(position);
-
-
-
+        final ParseObject workoutExercise = exercises.get(position);
 
         if (convertView == null) {
             convertView = layoutInflater.inflate(R.layout.create_workout_exercise_row, null);
@@ -73,37 +64,26 @@ public class CustomWorkoutDetailsAdapter extends BaseAdapter {
         } else {
             holder = (ViewHolder1) convertView.getTag();
         }
-        sets=workoutExercise.getInt("sets");
-        reps=workoutExercise.getInt("reps");
 
         workoutExercise.getParseObject("exercise").fetchIfNeededInBackground(new GetCallback<ParseObject>() {
 
             public void done(ParseObject exercisename, ParseException e) {
-
-                setHolder(holder,exercisename.getString("name"),exercisename.getString("maleImg1"),exercisename.getString("maleImg2"));
+                setHolder(holder, exercisename.getString("name"), exercisename.getString("maleImg1"), exercisename.getString("maleImg2"), workoutExercise.getInt("sets"),workoutExercise.getInt("reps"));
 
             }
-        });;
-
-
-
-
-
-
+        });
 
         return convertView;
     }
-    private void setHolder(ViewHolder1 holder,String exerciseName, String maleImg1,String maleImg2)
-    {
+
+    private void setHolder(ViewHolder1 holder, String exerciseName, String maleImg1, String maleImg2, int sets, int reps) {
         holder.nameView.setText(exerciseName);
-        holder.setsView.setText(Integer.toString(sets) +  " sets");
-        holder.repsView.setText(Integer.toString(reps) +  " reps");
-        imageLoader.DisplayImage(maleImg1,holder.exerciseImage1);
-        imageLoader.DisplayImage(maleImg2,holder.exerciseImage2);
+        holder.setsView.setText(Integer.toString(sets) + " sets");
+        holder.repsView.setText(Integer.toString(reps) + " reps");
+        imageLoader.DisplayImage(maleImg1, holder.exerciseImage1);
+        imageLoader.DisplayImage(maleImg2, holder.exerciseImage2);
 
     }
-
-
 
     static class ViewHolder1 {
         TextView nameView;
