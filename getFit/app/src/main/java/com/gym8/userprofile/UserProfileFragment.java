@@ -15,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.View.MeasureSpec;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -44,10 +45,10 @@ public class UserProfileFragment extends RootFragment
 
     FloatingActionButton editProfileButton;
     ImageView profilePic;
-    TextView userName;
-    TextView userAge;
-    TextView userWeight;
-    TextView userHeight;
+    private TextView userName;
+    private static TextView userAge;
+    private static TextView userWeight;
+    private static TextView userHeight;
     private List<ParseObject> likedWorkoutList = new ArrayList<>();
     private ListView listView;
     private UserProfileAdapter adapter;
@@ -172,6 +173,7 @@ public class UserProfileFragment extends RootFragment
 
     private void showDialog() {
         EditProfileDialog dialogFrag = EditProfileDialog.newInstance();
+        System.out.println(getParentFragment().getClass().getName());
         dialogFrag.setTargetFragment(getParentFragment(),DIALOG_FRAGMENT);
         dialogFrag.show(getFragmentManager(), "dialog");
     }
@@ -251,24 +253,18 @@ public class UserProfileFragment extends RootFragment
         });
     }
 
-
-
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        switch(requestCode) {
-            case DIALOG_FRAGMENT:
-
-                if (resultCode == Activity.RESULT_OK) {
-                    setUserAttributes();
-
-                    // After Ok code.
-                } else if (resultCode == Activity.RESULT_CANCELED){
-                    // After Cancel code.
-                }
-
-                break;
-        }
+    public static TextView getUserHeight() {
+         return userHeight;
     }
+
+    public static TextView getUserWeight() {
+        return userWeight;
+    }
+
+    public static TextView getUserAge() {
+        return userAge;
+    }
+
 
 
 }
