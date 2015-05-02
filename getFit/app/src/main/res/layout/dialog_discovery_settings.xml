@@ -13,7 +13,7 @@
         android:padding="10dp"
         android:textColor="#808080"
         android:layout_gravity="center"
-        android:text="Filter Your Preferences"
+        android:text="@string/Filter_Your_Preferences"
         android:textSize = "20sp"
         android:textStyle="bold"
         android:layout_alignParentTop="true"
@@ -41,7 +41,7 @@
         android:layout_gravity = "center"
         android:layout_height="wrap_content"
         android:layout_below="@+id/distanceRangeBar"
-        android:text="1 Mile" >
+        android:text="@string/One_Mile" >
     </TextView>
 
     <TextView
@@ -51,7 +51,7 @@
         android:layout_alignParentRight="true"
         android:layout_marginRight="25dp"
         android:layout_below="@+id/distanceRangeBar"
-        android:text="100 Miles" />
+        android:text="@string/Hundred_Mile" />
 
     <com.appyvet.rangebar.RangeBar
         xmlns:custom="http://schemas.android.com/apk/res-auto"
@@ -153,7 +153,7 @@
             android:layout_alignParentLeft="true"
             android:layout_marginLeft="25dip"
             android:layout_marginBottom="25dip"
-            android:text="Cancel"
+            android:text="@string/Cancel"
             android:textColor="#eaeff3"/>
 
         <Button
@@ -161,7 +161,7 @@
             android:background="#FA6A66"
             android:layout_width="120dp"
             android:layout_height="wrap_content"
-            android:text="Submit"
+            android:text="@string/Submit"
             android:layout_alignParentRight="true"
             android:layout_marginTop="25dip"
             android:layout_marginBottom="25dip"

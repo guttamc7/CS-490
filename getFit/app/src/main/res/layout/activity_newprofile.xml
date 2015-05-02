@@ -13,7 +13,7 @@
         android:padding="5dp"
         android:id="@+id/text4"
         android:clickable="false"
-        android:text="Let's Get Started"
+        android:text="@string/Lets_get_Started"
         android:textColor="#eaeff3"
         android:layout_centerHorizontal="true"
         android:fontFamily="sans-serif"
@@ -30,7 +30,7 @@
         android:textColor="#eaeff3"
         android:layout_gravity="center"
         android:layout_centerHorizontal="true"
-        android:text="Personalize your profile"
+        android:text="@string/Personalize_your_profile"
         android:textSize = "20dp" />
 
     <de.hdodenhof.circleimageview.CircleImageView
@@ -51,7 +51,7 @@
         android:textColor="#eaeff3"
         android:layout_gravity="center"
         android:layout_centerHorizontal="true"
-        android:text="Upload a photo"
+        android:text="@string/UploadPic"
         android:textSize = "16dp" />
 
     <Button
@@ -65,7 +65,7 @@
         android:layout_marginRight="25dip"
         android:background="@drawable/textlines"
         android:layout_marginTop="10dp"
-        android:hint="Birth date (mm/dd/yyyy)"
+        android:hint="@string/BirthdayHint"
         android:textColorHint="#eaeff3"
         android:textColor="#eaeff3"
         android:textSize="20sp"
@@ -94,7 +94,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="Male"
+            android:text="@string/Male"
             android:gravity="center"
             android:padding="10dp"
             android:layout_marginRight="25dp"
@@ -105,7 +105,7 @@
         <RadioButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Female"
+            android:text="@string/Female"
             android:layout_gravity="center"
             android:gravity="center"
             android:padding="10dp"
@@ -132,7 +132,7 @@
         android:layout_gravity="center"
         android:layout_marginLeft="25dip"
         android:layout_marginRight="25dip"
-        android:hint="Weight in lbs"
+        android:hint="@string/Weight_in_lbs"
         android:background="@drawable/textlines"
         android:textColorHint="#eaeff3"
         android:inputType="numberDecimal"
@@ -157,7 +157,7 @@
         android:ems="10"
         android:id="@+id/txtHeight"
         android:layout_gravity="center"
-        android:hint="Height in cm"
+        android:hint="@string/Height_in_cm"
         android:inputType="numberDecimal"
         android:textColor="#eaeff3"
         android:textSize="20sp"
@@ -183,7 +183,7 @@
         android:layout_marginTop="15dip"
         android:layout_alignParentLeft="true"
         android:layout_marginLeft="25dip"
-        android:text="Later"
+        android:text="@string/Later"
         android:textColor="#eaeff3"/>
 
         <Button
@@ -191,7 +191,7 @@
             android:background="#FA6A66"
             android:layout_width="120dp"
             android:layout_height="wrap_content"
-            android:text="Done"
+            android:text="@string/Done"
             android:layout_alignParentRight="true"
             android:layout_marginTop="15dip"
             android:padding="10dp"

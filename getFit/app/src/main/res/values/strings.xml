@@ -38,5 +38,27 @@
     <string name="only_me">Only Me</string>
     <string name="to_all">To All</string>
     <string name="visible">Visible : </string>
+    <string name="Later">Later </string>
+    <string name="Done">Done </string>
+    <string name="Height_in_cm">Height in cm</string>
+    <string name="Weight_in_lbs">Weight in lbs</string>
+    <string name="Male">Male</string>
+    <string name="Female">Female</string>
+    <string name="BirthdayHint">Birth date (mm/dd/yyyy)</string>
+    <string name="UploadPic">Upload a photo</string>
+    <string name="Personalize_your_profile">Personalize your profile</string>
+    <string name="Lets_get_Started">Let\'s Get Started</string>
+    <string name="Title">Title</string>
+    <string name="SampleDescription">Hi I am a sample workout Description</string>
+    <string name="Filter_Your_Preferences">Filter Your Preferences</string>
+    <string name="One_Mile">1 Mile></string>
+    <string name="Hundred_Mile">100 Mile></string>
+    <string name="Cancel">Cancel</string>
+    <string name="Submit">Submit</string>
+    <string name="sampleUser">User Name</string>
+    <string name="height">178 cm</string>
+    <string name="weight">160 lbs</string>
+    <string name="age">21 years old</string>
+    <string name="Liked_Workouts">Liked Workouts</string>
 
 </resources>
