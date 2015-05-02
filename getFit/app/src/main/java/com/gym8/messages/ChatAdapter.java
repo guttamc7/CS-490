@@ -62,7 +62,6 @@ public class ChatAdapter extends BaseAdapter {
         } else {
             holder = (ViewHolder1) convertView.getTag();
         }
-        System.out.println("In getView");
         //Set all the values in the list
 
         FrameLayout.LayoutParams lp = (FrameLayout.LayoutParams) holder.singleMessage.getLayoutParams();

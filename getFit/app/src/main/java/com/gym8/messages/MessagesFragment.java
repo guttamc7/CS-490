@@ -33,9 +33,7 @@ public class MessagesFragment extends Fragment {
 
     private List<ParseObject> messagesList = new ArrayList<>();
     private ListView listView;
-    View v;
-    public static String webLink;
-    private Context mContext;
+    private View v;
     private MessagesAdapter adapter;
 
     public MessagesFragment() {
@@ -77,8 +75,8 @@ public class MessagesFragment extends Fragment {
             public void onItemClick(AdapterView<?> parent, View view,
                                     int position, long id) {
                 MessagesFragment.selectedUser = (ParseUser)listView.getItemAtPosition(position);
-                FragmentTransaction ft = getChildFragmentManager().beginTransaction();
-                ft.replace(R.id.frag_messages, new ChatFragment());
+                FragmentTransaction ft = getFragmentManager().beginTransaction();
+                ft.add(R.id.frag_messages, new ChatFragment());
                 ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
                 ft.addToBackStack(null);
                 ft.commit();

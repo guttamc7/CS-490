@@ -42,12 +42,9 @@ import com.gym8.viewpager.RootFragment;
 public class UserProfileFragment extends RootFragment
 {
 
-    FloatingActionButton editProfileButton;
-    ImageView profilePic;
-    TextView userName;
-    TextView userAge;
-    TextView userWeight;
-    TextView userHeight;
+    private FloatingActionButton editProfileButton;
+    private ImageView profilePic;
+    private TextView userName,userAge,userWeight,userHeight;
     private List<ParseObject> likedWorkoutList = new ArrayList<>();
     private ListView listView;
     private UserProfileAdapter adapter;
@@ -87,7 +84,7 @@ public class UserProfileFragment extends RootFragment
         setUserAttributes();
         editProfileButton = (FloatingActionButton) rootView.findViewById(R.id.edit_profile_fab);
         editProfileButton.setSize(FloatingActionButton.SIZE_MINI);
-        editProfileButton.setColorNormalResId(R.color.button_red);
+        editProfileButton.setColorNormalResId(R.color.button_green);
         editProfileButton.setColorPressedResId(R.color.button_yellow);
         editProfileButton.setIcon(R.drawable.ic_action_edit);
         editProfileButton.setStrokeVisible(false);

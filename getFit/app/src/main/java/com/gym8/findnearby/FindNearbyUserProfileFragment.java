@@ -15,6 +15,7 @@ import android.widget.TextView;
 
 import com.getbase.floatingactionbutton.FloatingActionButton;
 import com.getbase.floatingactionbutton.FloatingActionsMenu;
+import com.gym8.ErrorHandlingAlertDialogBox;
 import com.gym8.baseworkout.BaseWorkoutDetailsFragment;
 import com.gym8.main.HomePageActivity;
 import com.gym8.messages.ChatMessaging;
@@ -43,17 +44,12 @@ import java.util.List;
  */
 public class FindNearbyUserProfileFragment extends RootFragment {
     private ParseUser user;
-    private TextView nearbyUserName;
-    private TextView nearbyUserHeight;
-    private TextView nearbyUserWeight;
-    private TextView nearbyUserAge;
+    private TextView nearbyUserName,nearbyUserHeight,nearbyUserWeight,nearbyUserAge;
     private ImageView nearbyUserProfilePic;
-    private FloatingActionsMenu userProfileActions;
     private List<ParseObject> customWorkoutList = new ArrayList<>();
     private ListView listView;
     private ViewUserWorkoutAdapter adapter;
     private FloatingActionButton chatButton;
-    private FloatingActionButton viewWorkoutButton;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -141,8 +137,8 @@ public class FindNearbyUserProfileFragment extends RootFragment {
                     //All the base workouts retrieved
                     customWorkoutList.addAll(workoutList);
                 } else {
-                    System.out.println(e.getMessage());
-                    //Exception
+                ErrorHandlingAlertDialogBox.showDialogBox(getActivity().getBaseContext());
+  //Exception
                 }
                 onPostExecute();
             }

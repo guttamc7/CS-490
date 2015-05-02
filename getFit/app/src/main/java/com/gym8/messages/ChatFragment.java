@@ -9,6 +9,7 @@ import android.support.v4.app.NotificationCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.ImageButton;
 import android.widget.ListView;
 
@@ -20,6 +21,8 @@ import com.parse.ParseQuery;
 import com.parse.ParseRelation;
 
 import android.widget.EditText;
+import android.widget.RelativeLayout;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,7 +32,7 @@ import java.util.List;
 public class ChatFragment extends Fragment {
 
     private ListView listView;
-    private ArrayList<ParseObject> chatList = new ArrayList<>();
+    private ArrayList<ParseObject> chatMessages = new ArrayList<>();
     private View v;
     private ChatAdapter adapter;
     private EditText message;
@@ -45,17 +48,18 @@ public class ChatFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 if(message.getText().toString() == null || message.getText().toString().length() == 0) {
-
-
                 }
                 else {
                     //SEND MESSAGE
                     String messageText = message.getText().toString();
-                    ChatMessaging.sendMessage(MessagesFragment.selectedUser,messageText);
                     adapter.notifyDataSetChanged();
-
-                    //adapter = new ChatAdapter(getActivity().getApplicationContext(), chatList);
-                    //listView.setAdapter(adapter);
+                    sendMessage(messageText);
+                    View views = getActivity().getCurrentFocus();
+                    if (views != null) {
+                        InputMethodManager inputManager = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+                        inputManager.hideSoftInputFromWindow(view.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+                    }
+                    message.setText("");
                 }
             }
         });
@@ -65,6 +69,10 @@ public class ChatFragment extends Fragment {
 
     public ChatFragment() {
         // Auto-generated constructor stub
+    }
+
+    private void sendMessage(String messageText){
+        ChatMessaging.sendMessage(MessagesFragment.selectedUser,messageText,this);
     }
 
     public static ChatFragment newInstance() {
@@ -78,25 +86,24 @@ public class ChatFragment extends Fragment {
 
     public void getChatMessages(){
         ParseObject chatUser = ChatMessaging.getChatUser(MessagesFragment.selectedUser);
-
         ParseRelation<ParseObject> relation = chatUser.getRelation("messages");
         ParseQuery<ParseObject> query = relation.getQuery();
+        query.addDescendingOrder("createdAt");
         query.fromLocalDatastore();
         query.findInBackground(new FindCallback<ParseObject>() {
             public void done(List<ParseObject> messages, ParseException e) {
                 if (e == null) {
                         adapter = new ChatAdapter(getActivity().getApplicationContext(), messages);
                         listView.setAdapter(adapter);
+                        adapter.notifyDataSetChanged();
                 } else {
                     e.printStackTrace();
                 }
-
             }
         });
-
-
     }
 
+    private void sendMessage(){
 
-
+    }
 }

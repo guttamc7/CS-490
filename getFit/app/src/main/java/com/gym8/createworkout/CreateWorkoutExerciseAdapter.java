@@ -21,7 +21,7 @@ import com.gym8.imageloader.ImageLoader;
 public class CreateWorkoutExerciseAdapter extends BaseAdapter {
 
     private ArrayList<ParseObject> listData;
-    ImageLoader imageLoader;
+    private ImageLoader imageLoader;
     private LayoutInflater layoutInflater;
 
     public CreateWorkoutExerciseAdapter(Context context, ArrayList<ParseObject> listData) {

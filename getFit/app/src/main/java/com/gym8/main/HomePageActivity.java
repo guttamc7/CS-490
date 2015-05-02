@@ -28,10 +28,10 @@ import com.parse.ParseUser;
 
 public class HomePageActivity extends FragmentActivity {
 
-    private static final String TAG = HomePageActivity.class.getSimpleName();
+    private final static String TAG_FRAGMENT = "BASE_FRAGMENT";
     private DrawerLayout mDrawerLayout;
     private HomeFragment homeFragment;
-    private  static ListView mDrawerList;
+    private static ListView mDrawerList;
     private ActionBarDrawerToggle mDrawerToggle;
     private CharSequence mDrawerTitle;
     private CharSequence mTitle;
@@ -62,9 +62,7 @@ public class HomePageActivity extends FragmentActivity {
         // Enable ActionBar app icon to behave as action to toggle the NavigationDrawer
         getActionBar().setDisplayHomeAsUpEnabled(true);
         getActionBar().setHomeButtonEnabled(true);
-        //getActionBar().setIcon(R.color.transparent);
         getActionBar().setDisplayShowTitleEnabled(true);
-        //getActionBar().setBackgroundDrawable(new ColorDrawable(Color.parseColor("#1A5573")));
 
         mDrawerToggle = new ActionBarDrawerToggle(
                 this,
@@ -128,17 +126,12 @@ public class HomePageActivity extends FragmentActivity {
 
     @Override
     public void onBackPressed() {
-
-        if(!homeFragment.onBackPressed()) {
-            super.onBackPressed();
+        String className = getSupportFragmentManager().findFragmentByTag(TAG_FRAGMENT).getClass().getName();
+        if(!homeFragment.onBackPressed() || className.equals("com.gym8.main.HomeFragment")) {
+            if(!(getSupportFragmentManager().getBackStackEntryCount() == 0)) {
+                super.onBackPressed();
+            }
         }
-        else {
-        }
-    }
-
-    public static void chatToMessage() {
-        mDrawerList.setSelection(3);
-        mDrawerList.smoothScrollToPosition(3);
     }
 
     private class DrawerItemClickListener implements OnItemClickListener {
@@ -150,37 +143,33 @@ public class HomePageActivity extends FragmentActivity {
         }
     }
 
-
-
     public void navigateTo(int position) {
-
         switch(position) {
             case 0:
                 homeFragment = new HomeFragment();
                 getSupportFragmentManager()
                         .beginTransaction()
-                        .replace(R.id.content_frame, homeFragment, HomeFragment.TAG).commit();
+                        .replace(R.id.content_frame, homeFragment, TAG_FRAGMENT).commit();
                 break;
             case 1:
                 getSupportFragmentManager()
                         .beginTransaction()
-                        .replace(R.id.content_frame, BaseWorkoutFragment.newInstance(), BaseWorkoutFragment.TAG).commit();
+                        .replace(R.id.content_frame, BaseWorkoutFragment.newInstance(), TAG_FRAGMENT).commit();
                 break;
-            case 2: //TODO
+            case 2:
                 getSupportFragmentManager()
                         .beginTransaction()
-                        .replace(R.id.content_frame, CustomWorkoutFragment.newInstance()).commit();
+                        .replace(R.id.content_frame, CustomWorkoutFragment.newInstance(), TAG_FRAGMENT).commit();
                 break;
-            case 3: //TODO
+            case 3:
                 getSupportFragmentManager()
                         .beginTransaction()
-                        .replace(R.id.content_frame, MessagesFragment.newInstance()).commit();
+                        .replace(R.id.content_frame, MessagesFragment.newInstance(),TAG_FRAGMENT).commit();
                 break;
             case 4: //SignOut
                 AlertDialog.Builder builder = new AlertDialog.Builder(this);
                 builder.setMessage("Signing Out. Have a Great Day. ");
                 builder.setTitle("Sign Out");
-                // builder.setIcon(R.drawable.ic_action_accept);
                 builder.setPositiveButton("Ok",new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         dialog.cancel();

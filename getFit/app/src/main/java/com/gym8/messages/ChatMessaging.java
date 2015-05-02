@@ -1,5 +1,6 @@
 package com.gym8.messages;
 
+import android.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 
 import com.gym8.main.R;
@@ -53,7 +54,7 @@ public class ChatMessaging {
         }
     }
 
-    static void sendMessage(ParseUser receiverUser, String message){
+    static void sendMessage(ParseUser receiverUser, String message, final ChatFragment chat){
         // Create our Installation query
         ParseQuery pushQuery = ParseInstallation.getQuery();
         pushQuery.whereEqualTo("user", receiverUser);
@@ -65,14 +66,15 @@ public class ChatMessaging {
         try {
             messageData.put("message",message);
             messageData.put("senderId",ParseUser.getCurrentUser().getObjectId());
+            messageData.put("senderName",ParseUser.getCurrentUser().getString("name"));
             push.setData(messageData);
             push.sendInBackground();
-            ChatMessaging.saveSentMessage(receiverUser,message);
+            ChatMessaging.saveSentMessage(receiverUser,message, chat);
         } catch (JSONException e) {
         }
     }
 
-    static void saveSentMessage(final ParseUser receiverUser, String msg){
+    static void saveSentMessage(final ParseUser receiverUser, String msg, final ChatFragment chat){
         final ParseObject message = new ParseObject("ChatMessages");
         message.put("message", msg);
         message.put("type","sent");
@@ -81,6 +83,7 @@ public class ChatMessaging {
             @Override
             public void done(ParseException e) {
                 if (e == null) {
+                    chat.getChatMessages();
                     for (int n = 0; n < ChatMessaging.chatUsers.size(); n++) {
                         if (chatUsers.get(n).getParseObject("userId").getObjectId().equals(receiverUser.getObjectId())) {
                             chatUsers.get(n).getRelation("messages").add(message);

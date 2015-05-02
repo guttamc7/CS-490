@@ -28,9 +28,8 @@ import com.gym8.viewpager.RootFragment;
 public class FindNearbyFragment extends RootFragment {
     private ImageView findNearbyImageView;
     private TextView tapMsgTextView;
-    GPSTracker gps;
-    private static double latitude;
-    private static double longitude;
+    private GPSTracker gps;
+    private static double latitude,longitude;
     private FloatingActionButton discoverySettings;
     private RippleBackground rippleBackground;
 
