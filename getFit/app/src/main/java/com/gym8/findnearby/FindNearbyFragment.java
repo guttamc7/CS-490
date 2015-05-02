@@ -29,8 +29,7 @@ public class FindNearbyFragment extends RootFragment {
     private ImageView findNearbyImageView;
     private TextView tapMsgTextView;
     private GPSTracker gps;
-    private static double latitude;
-    private static double longitude;
+    private static double latitude,longitude;
     private FloatingActionButton discoverySettings;
     private RippleBackground rippleBackground;
 

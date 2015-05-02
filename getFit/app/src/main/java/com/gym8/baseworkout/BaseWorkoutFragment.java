@@ -33,7 +33,6 @@ public class BaseWorkoutFragment extends Fragment {
     private ListView listView;
     private View v;
     public static String webLink;
-    private Context mContext;
     private BaseWorkoutAdapter adapter;
 
     public BaseWorkoutFragment() {

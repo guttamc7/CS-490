@@ -23,16 +23,11 @@ import com.gym8.imageloader.ImageLoader;
  * Created by Gurumukh on 4/2/15.
  */
 public class ExerciseListDetailsDialog extends DialogFragment {
-    private ImageView exerciseImage1;
-    private ImageView exerciseImage2;
-    private ImageView exerciseImage3;
-    private ImageView exerciseImage4;
+    private ImageView exerciseImage1,exerciseImage2,exerciseImage3, exerciseImage4;
     private ImageLoader imageLoader;
-    private EditText sets;
-    private EditText reps;
+    private EditText sets,reps;
     private View rootView;
-    private String numberSets;
-    private String numberReps;
+    private String numberSets,numberReps;
     public static ArrayList<ParseObject> exerciseWorkoutList = new ArrayList<>();
     public Dialog onCreateDialog(Bundle savedInstanceState) {
 

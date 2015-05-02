@@ -27,8 +27,7 @@ public class CustomWorkoutDetailsAdapter extends BaseAdapter {
     private ArrayList<ParseObject> listData=new ArrayList<>();
     private ImageLoader imageLoader;
     private LayoutInflater layoutInflater;
-    private int sets;
-    private int reps;
+    private int sets,reps;
 
 
     public CustomWorkoutDetailsAdapter(Context context, ArrayList<ParseObject> listData) {

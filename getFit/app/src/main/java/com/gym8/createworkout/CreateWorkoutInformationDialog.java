@@ -26,16 +26,13 @@ import com.gym8.main.R;
 
 public class CreateWorkoutInformationDialog extends DialogFragment {
     private View rootView;
-    private EditText workoutNameText;
-    private EditText workoutDescriptionText;
+    private EditText workoutNameText, workoutDescriptionText;
     private RadioGroup levels;
     private RadioButton level1Button;
     private RadioButton level2Button;
     private RadioButton level3Button;
-    private CheckedTextView checkedTextViewOnlyMe;
-    private CheckedTextView checkedTextViewToAll;
-    private boolean onlyMeChecked;
-    private boolean toAllChecked;
+    private CheckedTextView checkedTextViewOnlyMe, checkedTextViewToAll;
+    private boolean onlyMeChecked, toAllChecked;
     private String levelText;
     public static String workoutName;
     public static String workoutDescription;

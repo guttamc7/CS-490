@@ -44,10 +44,7 @@ import java.util.List;
  */
 public class FindNearbyUserProfileFragment extends RootFragment {
     private ParseUser user;
-    private TextView nearbyUserName;
-    private TextView nearbyUserHeight;
-    private TextView nearbyUserWeight;
-    private TextView nearbyUserAge;
+    private TextView nearbyUserName,nearbyUserHeight,nearbyUserWeight,nearbyUserAge;
     private ImageView nearbyUserProfilePic;
     private List<ParseObject> customWorkoutList = new ArrayList<>();
     private ListView listView;

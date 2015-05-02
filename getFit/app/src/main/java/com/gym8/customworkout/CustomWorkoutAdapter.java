@@ -35,8 +35,7 @@ public class CustomWorkoutAdapter extends BaseSwipeAdapter
     private LayoutInflater inflater;
     private ArrayList<ParseObject> likedWorkouts;
     private Context context;
-    private TextView title;
-    private TextView description;
+    private TextView title, description;
     private SwipeLayout swipeLayout;
 
     public CustomWorkoutAdapter(Context context, ArrayList<ParseObject> workoutItems)
