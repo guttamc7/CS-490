@@ -83,7 +83,7 @@ public class NewProfileActivity extends Activity {
                 heightText = Integer.parseInt(height.getText().toString());
 
                 if (birthDate.getText().toString() == null || (!birthDate.getText().toString().equals("") && birthDate.getText().toString().length() > 0))
-                    birthDateText = birthDate.getText().toString();
+                    birthDateText = weight.getText().toString();
                 RadioButton selectRadio = null;
                 Log.d("gender: ",Integer.toString(gender.getCheckedRadioButtonId()));
                 if(gender.getCheckedRadioButtonId() == -1)
@@ -195,9 +195,6 @@ public class NewProfileActivity extends Activity {
         c.set(mYear-16,mMonth,mDay);
         Date date = c.getTime();
         dpd.getDatePicker().setMaxDate(date.getTime());
-        c.set(mYear-75,mMonth,mDay);
-        date = c.getTime();
-        dpd.getDatePicker().setMinDate(date.getTime());
         dpd.show();
     }
     @Override

@@ -89,8 +89,6 @@ public class MainActivity extends Activity {
         //finish();
     }
 
-
-
     /**
      * Processes splash screen touch events
      */

@@ -65,8 +65,13 @@ public class FindNearbyUsersAdapter extends BaseAdapter {
 
         View v = convertView.findViewById(R.id.front_findNearby);
         LayerDrawable bgDrawable = (LayerDrawable)v.getBackground();
-
+        final GradientDrawable shape = (GradientDrawable)   bgDrawable.findDrawableByLayerId(R.id.shape_id);
+        final GradientDrawable radius = (GradientDrawable)   bgDrawable.findDrawableByLayerId(R.id.radius_id);
+        shape.setColor(Color.parseColor("#5D9EA1"));
+        radius.setColor(Color.parseColor("#5D9EA1"));
+        //Set all the values in the list
         holder.userName.setText(listData.get(position).getString("name"));
+
         long timeDiff = new Date(System.currentTimeMillis()).getTime() - listData.get(position).getUpdatedAt().getTime();
         long diffSeconds = timeDiff / 1000;
         long diffMinutes = diffSeconds / 60;
