@@ -23,7 +23,7 @@ import com.gym8.main.R;
  */
 public class CreateWorkoutDialog extends DialogFragment {
     private Button positiveButton;
-    View view;
+    private View view;
     private EditText workoutNameText;
     private EditText workoutDescriptionText;
     private ViewPager pager;

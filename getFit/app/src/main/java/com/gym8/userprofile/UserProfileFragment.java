@@ -42,12 +42,9 @@ import com.gym8.viewpager.RootFragment;
 public class UserProfileFragment extends RootFragment
 {
 
-    FloatingActionButton editProfileButton;
-    ImageView profilePic;
-    TextView userName;
-    TextView userAge;
-    TextView userWeight;
-    TextView userHeight;
+    private FloatingActionButton editProfileButton;
+    private ImageView profilePic;
+    private TextView userName,userAge,userWeight,userHeight;
     private List<ParseObject> likedWorkoutList = new ArrayList<>();
     private ListView listView;
     private UserProfileAdapter adapter;

@@ -9,6 +9,7 @@ import android.webkit.WebView;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
+import com.gym8.ErrorHandlingAlertDialogBox;
 import com.gym8.baseworkout.BaseWorkoutFragment;
 import com.gym8.customworkout.CustomWorkoutAdapter;
 import com.gym8.customworkout.CustomWorkoutDetailsAdapter;
@@ -74,7 +75,7 @@ public class TrendingWorkoutDetailsFragment extends RootFragment {
 
 
                 } else {
-                    System.out.println(e.getMessage());
+                    ErrorHandlingAlertDialogBox.showDialogBox(getActivity().getBaseContext());
                 }
                 onPostExecute();
             }

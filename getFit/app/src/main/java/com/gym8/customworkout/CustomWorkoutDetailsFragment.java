@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 
+import com.gym8.ErrorHandlingAlertDialogBox;
 import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseObject;
@@ -41,7 +42,6 @@ public class CustomWorkoutDetailsFragment extends Fragment {
     }
 
     private void onPostExecute() {
-        System.out.println(workoutExercisesList.size());
         adapter = new CustomWorkoutDetailsAdapter(getActivity().getApplicationContext(), workoutExercisesList);
         listView.setAdapter(adapter);
         adapter.notifyDataSetChanged();
@@ -61,7 +61,7 @@ public class CustomWorkoutDetailsFragment extends Fragment {
 
 
                 } else {
-                    System.out.println(e.getMessage());
+                    ErrorHandlingAlertDialogBox.showDialogBox(getActivity().getBaseContext());
                 }
                 onPostExecute();
             }

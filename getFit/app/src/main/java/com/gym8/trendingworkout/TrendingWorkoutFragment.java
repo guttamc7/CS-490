@@ -107,6 +107,7 @@ public class TrendingWorkoutFragment extends RootFragment
                     //All the workouts retrieved
                     trendingWorkoutList.addAll(workoutList);
                 } else {
+                    
                     ErrorHandlingAlertDialogBox.showDialogBox(getActivity().getBaseContext());
                     listViewTrendingWorkout.setVisibility(View.INVISIBLE);
 

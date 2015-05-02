@@ -31,7 +31,7 @@ public class BaseWorkoutFragment extends Fragment {
     public final static String TAG = BaseWorkoutFragment.class.getSimpleName();
     private List<ParseObject> baseWorkoutList = new ArrayList<>();
     private ListView listView;
-    View v;
+    private View v;
     public static String webLink;
     private Context mContext;
     private BaseWorkoutAdapter adapter;
@@ -73,7 +73,6 @@ public class BaseWorkoutFragment extends Fragment {
                                     int position, long id) {
                 ParseObject workout = (ParseObject)listView.getItemAtPosition(position);
                 webLink = workout.getString("workoutUrl");
-                System.out.println(webLink);
                 FragmentTransaction ft = getFragmentManager().beginTransaction();
                 ft.add(R.id.content_frame, new BaseWorkoutDetailsFragment());
                 ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);

@@ -27,7 +27,7 @@ public class ExerciseListDetailsDialog extends DialogFragment {
     private ImageView exerciseImage2;
     private ImageView exerciseImage3;
     private ImageView exerciseImage4;
-    ImageLoader imageLoader;
+    private ImageLoader imageLoader;
     private EditText sets;
     private EditText reps;
     private View rootView;
@@ -46,10 +46,7 @@ public class ExerciseListDetailsDialog extends DialogFragment {
 
                                 if (reps.getText().toString() != null || (!reps.getText().toString().equals("") && reps.getText().toString().length() > 0))
                                     numberReps = reps.getText().toString();
-
-                                System.out.println("Value is"+ Integer.parseInt(numberSets));
                                 ExerciseListFragment.selectedExercise.put("sets",Integer.parseInt(numberSets));
-                                System.out.println(ExerciseListFragment.selectedExercise.getInt("sets"));
                                 ExerciseListFragment.selectedExercise.put("reps",Integer.parseInt(numberReps));
                                 exerciseWorkoutList.add(ExerciseListFragment.selectedExercise);
                                 dismiss();
@@ -73,7 +70,6 @@ public class ExerciseListDetailsDialog extends DialogFragment {
         exerciseImage4 = (ImageView) rootView.findViewById(R.id.exercise_imgView_4);
         sets = (EditText) rootView.findViewById(R.id.exercise_sets);
         reps = (EditText) rootView.findViewById(R.id.exercise_reps);
-        System.out.println(ExerciseListFragment.selectedExercise.getString("name"));
         imageLoader.DisplayImage(ExerciseListFragment.selectedExercise.getString("maleImg1"), exerciseImage1);
         imageLoader.DisplayImage(ExerciseListFragment.selectedExercise.getString("maleImg2"), exerciseImage2);
         imageLoader.DisplayImage(ExerciseListFragment.selectedExercise.getString("femaleImg1"), exerciseImage3);

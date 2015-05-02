@@ -25,7 +25,7 @@ import com.gym8.imageloader.ImageLoader;
 public class CustomWorkoutDetailsAdapter extends BaseAdapter {
 
     private ArrayList<ParseObject> listData=new ArrayList<>();
-    ImageLoader imageLoader;
+    private ImageLoader imageLoader;
     private LayoutInflater layoutInflater;
     private int sets;
     private int reps;

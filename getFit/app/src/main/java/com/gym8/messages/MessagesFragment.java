@@ -33,9 +33,7 @@ public class MessagesFragment extends Fragment {
 
     private List<ParseObject> messagesList = new ArrayList<>();
     private ListView listView;
-    View v;
-    public static String webLink;
-    private Context mContext;
+    private View v;
     private MessagesAdapter adapter;
 
     public MessagesFragment() {

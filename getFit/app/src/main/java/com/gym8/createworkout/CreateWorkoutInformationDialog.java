@@ -37,7 +37,6 @@ public class CreateWorkoutInformationDialog extends DialogFragment {
     private boolean onlyMeChecked;
     private boolean toAllChecked;
     private String levelText;
-    private Button nextButton;
     public static String workoutName;
     public static String workoutDescription;
     public static int workoutLevel;
