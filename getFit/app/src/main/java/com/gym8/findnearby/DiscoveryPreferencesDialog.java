@@ -31,7 +31,7 @@ public class DiscoveryPreferencesDialog extends DialogFragment
     private static double finalDistance = 100;
     private static int startAge = 16;
     private static  int endAge = 75;
-    public static String gender = "both";
+    public static String gender;
     private TextView ageMinimum;
     private TextView ageMaximun;
     private TextView distanceMaximum;
@@ -114,13 +114,15 @@ public class DiscoveryPreferencesDialog extends DialogFragment
             @Override
             public void onClick (View view)
             {
-
-                if(maleChecked)
-                    gender="Male";
-                if(femaleChecked)
-                    gender="Female";
-                else
+                if(maleChecked==true && femaleChecked==false) {
+                    gender = "Male";
+                }
+                else if(femaleChecked==true && maleChecked==false) {
+                    gender = "Female";
+                }
+                else if(maleChecked==true && femaleChecked==true){
                     gender="both";
+                }
                 getDialog().dismiss();
             }
         });
