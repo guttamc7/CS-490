@@ -3,6 +3,7 @@ package com.gym8.userprofile;
 /**
  * Created by Gurumukh on 2/4/15.
  */
+
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -26,6 +27,8 @@ import android.widget.ImageView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import com.getbase.floatingactionbutton.FloatingActionButton;
 import com.gym8.ErrorHandlingAlertDialogBox;
 import com.parse.FindCallback;
@@ -40,8 +43,7 @@ import com.parse.ParseUser;
 import com.gym8.main.R;
 import com.gym8.viewpager.RootFragment;
 
-public class UserProfileFragment extends RootFragment
-{
+public class UserProfileFragment extends RootFragment {
 
     private TextView userName;
     private static TextView userAge;
@@ -49,14 +51,12 @@ public class UserProfileFragment extends RootFragment
     private static TextView userHeight;
     private FloatingActionButton editProfileButton;
     private static ImageView profilePic;
-    private List<ParseObject> likedWorkoutList = new ArrayList<>();
     private ListView listView;
     private UserProfileAdapter adapter;
     public static final int DIALOG_FRAGMENT = 1;
 
 
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
-    {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_profile, container, false);
         profilePic = (ImageView) rootView.findViewById(R.id.ProfilePic);
         userName = (TextView) rootView.findViewById(R.id.username_profile);
@@ -82,7 +82,8 @@ public class UserProfileFragment extends RootFragment
 
                 // Handle ListView touch events.
                 v.onTouchEvent(event);
-                return true;}
+                return true;
+            }
         });
         setListViewHeightBasedOnChildren(listView);
         setUserAttributes();
@@ -94,23 +95,20 @@ public class UserProfileFragment extends RootFragment
         editProfileButton.setStrokeVisible(false);
         editProfileButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick (View v){
-                        showDialog();
-                     }
+            public void onClick(View v) {
+                showDialog();
+            }
         });
         return rootView;
     }
 
-    public void onActivityCreated(Bundle savedInstanceState)
-    {
+    public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         getLikedWorkouts();
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener()
-        {
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view,
                                     int position, long id) {
-                //UserProfileWorkout data = (UserProfileWorkout)listView.getItemAtPosition(position);
                 FragmentTransaction ft = getChildFragmentManager().beginTransaction();
                 ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
                 ft.addToBackStack(null);
@@ -122,59 +120,51 @@ public class UserProfileFragment extends RootFragment
     private void setUserAttributes() {
         ParseUser currentUser = ParseUser.getCurrentUser();
         ParseFile imageFile = currentUser.getParseFile("profilePic");
-        imageFile.getDataInBackground(new GetDataCallback() {
-            public void done(byte[] data, ParseException e) {
-                if (e == null) {
-                    Bitmap bmp = BitmapFactory.decodeByteArray(data, 0,
-                            data.length);
-                    profilePic.setImageBitmap(bmp);
-                    // data has the bytes for the image
-                } else {
-                    ErrorHandlingAlertDialogBox.showDialogBox(getActivity().getBaseContext());
+        if (imageFile == null)
+            profilePic.setImageResource(R.drawable.no_user_logo);
+        else {
+            imageFile.getDataInBackground(new GetDataCallback() {
+                public void done(byte[] data, ParseException e) {
+                    if (e == null) {
+                        Bitmap bmp = BitmapFactory.decodeByteArray(data, 0,
+                                data.length);
+                        profilePic.setImageBitmap(bmp);
+                        // data has the bytes for the image
+                    } else {
+                        Toast.makeText(getActivity(), "Connection error", Toast.LENGTH_SHORT).show();
+                    }
                 }
-            }
-        });
-        if(currentUser.getString("name").isEmpty())
-        {
-            userName.setText("");
+            });
         }
-        else
-        {
+        if (currentUser.getString("name").isEmpty()) {
+            userName.setText("");
+        } else {
             userName.setText(currentUser.getString("name"));
         }
-        if(Integer.toString(currentUser.getInt("weight")).isEmpty())
-        {
+        if (Integer.toString(currentUser.getInt("weight")).isEmpty()) {
             userWeight.setText("");
-        }
-        else
-        {
+        } else {
             userWeight.setText(Integer.toString(currentUser.getInt("weight")) + " lbs");
         }
-        if(Integer.toString(currentUser.getInt("height")).isEmpty())
-        {
+        if (Integer.toString(currentUser.getInt("height")).isEmpty()) {
             userHeight.setText("");
-        }
-        else
-        {
+        } else {
             userHeight.setText(Integer.toString(currentUser.getInt("height")) + " cm");
         }
 
         Date date = currentUser.getDate("birthDate");
-        if(date == null)
-        {
+        if (date == null) {
             userAge.setText("");
-        }
-        else
-        {
+        } else {
             userAge.setText(Integer.toString(getAge(date)) + " years old");
         }
 
     }
 
     private void showDialog() {
-        EditProfileDialog dialogFrag = EditProfileDialog.newInstance();
+        EditProfileDialog dialogFrag = new EditProfileDialog();
         System.out.println(getParentFragment().getClass().getName());
-        dialogFrag.setTargetFragment(getParentFragment(),DIALOG_FRAGMENT);
+        dialogFrag.setTargetFragment(getParentFragment(), DIALOG_FRAGMENT);
         dialogFrag.show(getFragmentManager(), "dialog");
     }
 
@@ -198,19 +188,14 @@ public class UserProfileFragment extends RootFragment
         ViewGroup.LayoutParams params = listView.getLayoutParams();
         params.height = totalHeight + (listView.getDividerHeight() * (listAdapter.getCount() - 1));
         listView.setLayoutParams(params);
-       // listView.requestLayout();
     }
 
     public static int getAge(Date dateOfBirth) {
         Calendar dob = Calendar.getInstance();
-        if(dateOfBirth == null)
-        {
-            //do nothing
-        }
-        else
-        {
+        if (!(dateOfBirth == null)) {
             dob.setTime(dateOfBirth);
         }
+
         Calendar today = Calendar.getInstance();
         int age = today.get(Calendar.YEAR) - dob.get(Calendar.YEAR);
         if (today.get(Calendar.MONTH) < dob.get(Calendar.MONTH)) {
@@ -222,39 +207,31 @@ public class UserProfileFragment extends RootFragment
         return age;
     }
 
-    public void onResume()
-    {
+    public void onResume() {
         super.onResume();
         //adapter.notifyDataSetChanged();
     }
 
-
-
-    private void onPostExecute(){
-        //Inform UI
-        adapter = new UserProfileAdapter(getActivity().getApplicationContext(), likedWorkoutList);
-        listView.setAdapter(adapter);
-        adapter.notifyDataSetChanged();
-    }
-
-    private void getLikedWorkouts(){
+    private void getLikedWorkouts() {
         ParseUser user = ParseUser.getCurrentUser();
         ParseRelation<ParseObject> relation = user.getRelation("likedWorkout");
         ParseQuery<ParseObject> query = relation.getQuery();
         query.findInBackground(new FindCallback<ParseObject>() {
             public void done(List<ParseObject> workoutList, ParseException e) {
                 if (e == null) {
-                    likedWorkoutList.addAll(workoutList);
+                    adapter = new UserProfileAdapter(getActivity().getApplicationContext(), workoutList);
+                    listView.setAdapter(adapter);
+                    adapter.notifyDataSetChanged();
                 } else {
-                    ErrorHandlingAlertDialogBox.showDialogBox(getActivity().getBaseContext());
+                    Toast.makeText(getActivity(), "Connection error", Toast.LENGTH_SHORT).show();
                 }
-                onPostExecute();
+
             }
         });
     }
 
     public static TextView getUserHeight() {
-         return userHeight;
+        return userHeight;
     }
 
     public static TextView getUserWeight() {

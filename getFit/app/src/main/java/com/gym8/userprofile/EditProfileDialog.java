@@ -40,8 +40,7 @@ import java.util.Date;
 /**
  * Created by rishabhmittal on 3/2/15.
  */
-public class EditProfileDialog extends DialogFragment
-{
+public class EditProfileDialog extends DialogFragment {
     private RadioGroup gender;
     private RadioButton male;
     private RadioButton female;
@@ -57,14 +56,16 @@ public class EditProfileDialog extends DialogFragment
     private String genderText;
     private int weightText = -1;
     private int heightText = -1;
-    private int mYear, mMonth, mDay;
+    private int mYear;
+    private int mMonth;
+    private int mDay;
     private Date birthD = null;
     private String birthDateText;
     private View rootView;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        rootView = inflater.inflate(R.layout.dialog_edit_profile,null);
+        rootView = inflater.inflate(R.layout.dialog_edit_profile, null);
         getDialog().getWindow().requestFeature(Window.FEATURE_NO_TITLE);
         this.imageUri = Uri.parse("android.resource://org.intracode.contactmanager/drawable/no_user_logo.png");
         gender = (RadioGroup) rootView.findViewById(R.id.radioButtonGender_edit_profile);
@@ -74,7 +75,7 @@ public class EditProfileDialog extends DialogFragment
         height = (EditText) rootView.findViewById(R.id.txtHeight_edit_profile);
         profilePictureImgView = (ImageView) rootView.findViewById(R.id.imgViewProfilePic_edit_profile);
         submitButton = (Button) rootView.findViewById(R.id.submitButton_edit_profile);
-        cancelButton= (Button) rootView.findViewById(R.id.cancelButton_edit_profile);
+        cancelButton = (Button) rootView.findViewById(R.id.cancelButton_edit_profile);
         male = (RadioButton) rootView.findViewById(R.id.radioButtonMale_edit_profile);
         female = (RadioButton) rootView.findViewById(R.id.radioButtonFemale_edit_profile);
         setUserAttributes();
@@ -86,138 +87,120 @@ public class EditProfileDialog extends DialogFragment
             }
         });
 
-        submitButton.setOnClickListener(new View.OnClickListener()
-                    {
-                        @Override
-                        public void onClick(View view) {
-                            RadioButton selectRadio = (RadioButton) rootView.findViewById(gender
-                                    .getCheckedRadioButtonId());
-                            if (weight.getText().toString() == null|| weight.getText().toString().equals("")) {
-                                Toast.makeText(getActivity(), "Please Enter your Weight", Toast.LENGTH_SHORT).show();
-                            } else if (height.getText().toString() == null || height.getText().toString().equals("")) {
-                                Toast.makeText(getActivity(), "Please Enter your Height", Toast.LENGTH_SHORT).show();
-                            } else if (birthDate.getText().toString() == null || birthDate.getText().toString().equals("")) {
-                                Toast.makeText(getActivity(), "Please Enter your Birth Date", Toast.LENGTH_SHORT).show();
-                            }
-                            else if (selectRadio.getText().toString() == null || selectRadio.getText().toString().length() == 0){
-                                Toast.makeText(getActivity(), "Please Select a Gender", Toast.LENGTH_SHORT).show();
-                            }
-                            else {
-                                try {
-                                    weightText = Integer.parseInt(weight.getText().toString());
-                                }
-                                catch(NumberFormatException e) {
-                                    Toast.makeText(getActivity(), "Please Enter Weight as a Number", Toast.LENGTH_SHORT).show();
-                                }
-                                try {
-                                    heightText = Integer.parseInt(height.getText().toString());
-                                }
-                                catch(NumberFormatException e) {
-                                    Toast.makeText(getActivity(), "Please Enter Height as a Number", Toast.LENGTH_SHORT).show();
-                                }
-                                birthDateText = birthDate.getText().toString();
-                                genderText = selectRadio.getText().toString();
-                                Intent i = new Intent()
-                                        .putExtra("weight", weight.getText().toString())
-                                        .putExtra("gender", genderText)
-                                        .putExtra("birthDate", birthDateText)
-                                        .putExtra("height", height.getText().toString());
+        submitButton.setOnClickListener(new View.OnClickListener() {
+                                            @Override
+                                            public void onClick(View view) {
+                                                RadioButton selectRadio = (RadioButton) rootView.findViewById(gender
+                                                        .getCheckedRadioButtonId());
+                                                if (weight.getText().toString() == null || weight.getText().toString().equals("")) {
+                                                    Toast.makeText(getActivity(), "Please Enter your Weight", Toast.LENGTH_SHORT).show();
+                                                } else if (height.getText().toString() == null || height.getText().toString().equals("")) {
+                                                    Toast.makeText(getActivity(), "Please Enter your Height", Toast.LENGTH_SHORT).show();
+                                                } else if (birthDate.getText().toString() == null || birthDate.getText().toString().equals("")) {
+                                                    Toast.makeText(getActivity(), "Please Enter your Birth Date", Toast.LENGTH_SHORT).show();
+                                                } else if (selectRadio.getText().toString() == null || selectRadio.getText().toString().length() == 0) {
+                                                    Toast.makeText(getActivity(), "Please Select a Gender", Toast.LENGTH_SHORT).show();
+                                                } else {
+                                                    try {
+                                                        weightText = Integer.parseInt(weight.getText().toString());
+                                                    } catch (NumberFormatException e) {
+                                                        Toast.makeText(getActivity(), "Please Enter Weight as a Number", Toast.LENGTH_SHORT).show();
+                                                    }
+                                                    try {
+                                                        heightText = Integer.parseInt(height.getText().toString());
+                                                    } catch (NumberFormatException e) {
+                                                        Toast.makeText(getActivity(), "Please Enter Height as a Number", Toast.LENGTH_SHORT).show();
+                                                    }
+                                                    birthDateText = birthDate.getText().toString();
+                                                    genderText = selectRadio.getText().toString();
+                                                    Intent i = new Intent()
+                                                            .putExtra("weight", weight.getText().toString())
+                                                            .putExtra("gender", genderText)
+                                                            .putExtra("birthDate", birthDateText)
+                                                            .putExtra("height", height.getText().toString());
 
-                                getTargetFragment().onActivityResult(getTargetRequestCode(), Activity.RESULT_OK, i);
-                                EditUserDetails(genderText, weightText, heightText, birthD);
-                                getDialog().dismiss();
-                            }
-                        }
-                    }
-            );
+                                                    getTargetFragment().onActivityResult(getTargetRequestCode(), Activity.RESULT_OK, i);
+                                                    EditUserDetails(genderText, weightText, heightText, birthD);
+                                                    getDialog().dismiss();
+                                                }
+                                            }
+                                        }
+        );
 
-            cancelButton.setOnClickListener(new View.OnClickListener()
+        cancelButton.setOnClickListener(new View.OnClickListener()
 
-            {
-                @Override
-                public void onClick (View view){
-                    getTargetFragment().onActivityResult(getTargetRequestCode(), Activity.RESULT_CANCELED, getActivity().getIntent());
-                    getDialog().dismiss();
-                }
-            }
+                                        {
+                                            @Override
+                                            public void onClick(View view) {
+                                                getTargetFragment().onActivityResult(getTargetRequestCode(), Activity.RESULT_CANCELED, getActivity().getIntent());
+                                                getDialog().dismiss();
+                                            }
+                                        }
 
-            );
-            profilePictureImgView.setOnClickListener(new View.OnClickListener()
+        );
+        profilePictureImgView.setOnClickListener(new View.OnClickListener()
 
-            {
-                @Override
-                public void onClick (View v){
-                Intent intent = new Intent();
-                intent.setType("image/*");
-                intent.setAction(Intent.ACTION_GET_CONTENT);
+                                                 {
+                                                     @Override
+                                                     public void onClick(View v) {
+                                                         Intent intent = new Intent();
+                                                         intent.setType("image/*");
+                                                         intent.setAction(Intent.ACTION_GET_CONTENT);
 
-                getActivity().startActivityForResult(Intent.createChooser(intent, "Select Profile Picture"), 2);
-            }
-            }
+                                                         getActivity().startActivityForResult(Intent.createChooser(intent, "Select Profile Picture"), 2);
+                                                     }
+                                                 }
 
-            );
+        );
 
-            return rootView;
-        }
+        return rootView;
+    }
 
 
     private void setUserAttributes() {
         ParseUser currentUser = ParseUser.getCurrentUser();
         ParseFile imageFile = currentUser.getParseFile("profilePic");
-        imageFile.getDataInBackground(new GetDataCallback() {
-            public void done(byte[] data, ParseException e) {
-                if (e == null) {
-                    Bitmap bmp = BitmapFactory.decodeByteArray(data, 0,
-                            data.length);
-                    profilePictureImgView.setImageBitmap(bmp);
-                    // data has the bytes for the image
-                } else {
-                    // something went wrong
-                }
-            }
-        });
-        if(currentUser.getString("name") == null)
-        {
-            userNameTextView.setText("");
+        if(imageFile == null){
+            profilePictureImgView.setImageResource(R.drawable.no_user_logo);
         }
-        else
-        {
+        else {
+            imageFile.getDataInBackground(new GetDataCallback() {
+                public void done(byte[] data, ParseException e) {
+                    if (e == null) {
+                        Bitmap bmp = BitmapFactory.decodeByteArray(data, 0,
+                                data.length);
+                        profilePictureImgView.setImageBitmap(bmp);
+                        // data has the bytes for the image
+                    } else {
+                        Toast.makeText(getActivity(), "Connection error", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            });
+        }
+        if (currentUser.getString("name") == null) {
+            userNameTextView.setText("");
+        } else {
             userNameTextView.setText(currentUser.getString("name"));
         }
-        if(currentUser.getString("gender") == null)
-        {
-            //Do nothing
-        }
-        else
-        {
+        if (!(currentUser.getString("gender") == null)) {
             if (currentUser.getString("gender").equals("Male"))
                 male.setChecked(true);
             else
                 female.setChecked(true);
         }
-        if(Integer.toString(currentUser.getInt("weight")).isEmpty())
-        {
+
+        if (Integer.toString(currentUser.getInt("weight")).isEmpty()) {
             weight.setText("");
-        }
-        else
-        {
+        } else {
             weight.setText(Integer.toString(currentUser.getInt("weight")));
         }
-        if(Integer.toString(currentUser.getInt("height")).isEmpty())
-        {
+        if (Integer.toString(currentUser.getInt("height")).isEmpty()) {
             height.setText("");
-        }
-        else
-        {
+        } else {
             height.setText(Integer.toString(currentUser.getInt("height")));
         }
         Date date = currentUser.getDate("birthDate");
-        if(date == null)
-        {
-            //Do nothing
-        }
-        else
-        {
+        if (!(date == null)) {
             Calendar cal = Calendar.getInstance();
             cal.setTime(date);
             int year = cal.get(Calendar.YEAR);
@@ -227,13 +210,7 @@ public class EditProfileDialog extends DialogFragment
             birthDate.setText(dateString);
         }
 
-    }
 
-
-
-    public static EditProfileDialog newInstance(){
-        EditProfileDialog f = new EditProfileDialog();
-        return f;
     }
 
     @Override
@@ -243,18 +220,26 @@ public class EditProfileDialog extends DialogFragment
             return;
         }
         int dialogWidth = ViewGroup.LayoutParams.MATCH_PARENT;
-        int dialogHeight =ViewGroup.LayoutParams.MATCH_PARENT;
+        int dialogHeight = ViewGroup.LayoutParams.MATCH_PARENT;
         getDialog().getWindow().setLayout(dialogWidth, dialogHeight);
     }
 
-    private void EditUserDetails(String gender, int weight, int height, Date birthDate){
+    private void EditUserDetails(String gender, int weight, int height, Date birthDate) {
         ParseUser currentUser = ParseUser.getCurrentUser();
-        if(gender != null) currentUser.put("gender",gender);
-        if(weight != -1)   currentUser.put("weight",weight);
-        if(height != -1)   currentUser.put("height",height);
-        if(birthDate != null) currentUser.put("birthDate",birthDate);
-
-        if(this.imageChanged == true) {
+        if (gender != null) {
+            currentUser.put("gender", gender);
+        }
+        ;
+        if (weight != -1) {
+            currentUser.put("weight", weight);
+        }
+        if (height != -1) {
+            currentUser.put("height", height);
+        }
+        if (birthDate != null) {
+            currentUser.put("birthDate", birthDate);
+        }
+        if (this.imageChanged == true) {
             byte[] profilePic = convertBitmapToBytes();
             ParseFile file = new ParseFile(currentUser.get("name") + ".jpg", profilePic);
             currentUser.put("profilePic", file);
@@ -263,7 +248,7 @@ public class EditProfileDialog extends DialogFragment
     }
 
     //Should throw the exception..must be caught somewhere else..
-    private byte[] convertBitmapToBytes(){
+    private byte[] convertBitmapToBytes() {
         byte[] data = null;
         ByteArrayOutputStream stream = new ByteArrayOutputStream();
         resizedBitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
@@ -294,16 +279,16 @@ public class EditProfileDialog extends DialogFragment
                     @Override
                     public void onDateSet(DatePicker view, int year,
                                           int monthOfYear, int dayOfMonth) {
-                        birthD = new Date(year-1900, monthOfYear, dayOfMonth);
-                        birthDateText = Integer.toString(monthOfYear+1) + "/" + Integer.toString(dayOfMonth)+ "/" + Integer.toString(year);
+                        birthD = new Date(year - 1900, monthOfYear, dayOfMonth);
+                        birthDateText = Integer.toString(monthOfYear + 1) + "/" + Integer.toString(dayOfMonth) + "/" + Integer.toString(year);
                         birthDate.setText(birthDateText);
 
                     }
                 }, mYear, mMonth, mDay);
-        c.set(mYear-16,mMonth,mDay);
+        c.set(mYear - 16, mMonth, mDay);
         Date date = c.getTime();
         dpd.getDatePicker().setMaxDate(date.getTime());
-        c.set(mYear-75,mMonth,mDay);
+        c.set(mYear - 75, mMonth, mDay);
         date = c.getTime();
         dpd.getDatePicker().setMinDate(date.getTime());
         dpd.show();
@@ -322,7 +307,7 @@ public class EditProfileDialog extends DialogFragment
         return profilePictureImgView;
     }
 
-    public static boolean getImageChanged(){
+    public static boolean getImageChanged() {
         return imageChanged;
     }
 }
