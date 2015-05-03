@@ -163,7 +163,6 @@ public class UserProfileFragment extends RootFragment {
 
     private void showDialog() {
         EditProfileDialog dialogFrag = new EditProfileDialog();
-        System.out.println(getParentFragment().getClass().getName());
         dialogFrag.setTargetFragment(getParentFragment(), DIALOG_FRAGMENT);
         dialogFrag.show(getFragmentManager(), "dialog");
     }
