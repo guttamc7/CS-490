@@ -17,7 +17,7 @@ There has been an every increasing trend on fitness and health in recent years. 
 - [x] Iteration TWO Sprint Review Meeting - Fri, Apr 3
 - [x] Iteration TWO Sprint Retrospective - Mon, Apr 6
 - [x] Iteration THREE Sprint Planning Document - Mon, Apr 6
-- [x] Iteration THREE Sprint Review Meeting (Final Presentation) - Mon, Apr 27 - Fri, May 1
+- [ ] Iteration THREE Sprint Review Meeting (Final Presentation) - Mon, Apr 27 - Fri, May 1
 - [ ] Iteration THREE Sprint Retrospective - Mon, May 4
 
 ##Instructions##
