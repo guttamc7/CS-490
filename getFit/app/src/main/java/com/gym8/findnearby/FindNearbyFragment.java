@@ -49,18 +49,23 @@ public class FindNearbyFragment extends RootFragment {
         ParseUser currentUser = ParseUser.getCurrentUser();
         final Handler handler=new Handler();
         ParseFile imageFile = currentUser.getParseFile("profilePic");
-        imageFile.getDataInBackground(new GetDataCallback() {
-            public void done(byte[] data, ParseException e) {
-                if (e == null) {
-                    Bitmap bmp = BitmapFactory.decodeByteArray(data, 0,
-                            data.length);
-                    findNearbyImageView.setImageBitmap(bmp);
-                    // data has the bytes for the image
-                } else {
-                    // something went wrong
+        if(imageFile == null) {
+            findNearbyImageView.setImageResource(R.drawable.no_user_logo);
+        }
+        else {
+            imageFile.getDataInBackground(new GetDataCallback() {
+                public void done(byte[] data, ParseException e) {
+                    if (e == null) {
+                        Bitmap bmp = BitmapFactory.decodeByteArray(data, 0,
+                                data.length);
+                        findNearbyImageView.setImageBitmap(bmp);
+                        // data has the bytes for the image
+                    } else {
+                        // something went wrong
+                    }
                 }
-            }
-        });
+            });
+        }
 
         discoverySettings.setOnClickListener(new OnClickListener() {
             @Override
