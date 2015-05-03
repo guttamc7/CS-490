@@ -3,6 +3,8 @@ package com.gym8.main;
 /**
  * Created by Gurumukh on 2/4/15.
  */
+
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
@@ -23,9 +25,9 @@ import android.util.SparseArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.gym8.findnearby.FindNearbyFragment;
-import com.gym8.main.R;
 import com.gym8.trendingworkout.TrendingWorkoutFragment;
 import com.gym8.userprofile.EditProfileDialog;
 import com.gym8.userprofile.UserProfileFragment;
@@ -34,8 +36,8 @@ import com.gym8.viewpager.OnBackPressListener;
 public class HomeFragment extends Fragment {
 
     public static final String TAG = HomeFragment.class.getSimpleName();
-    SectionsPagerAdapter mSectionsPagerAdapter;
-    ViewPager mViewPager;
+    private SectionsPagerAdapter mSectionsPagerAdapter;
+    private ViewPager mViewPager;
 
     public static HomeFragment newInstance() {
         return new HomeFragment();
@@ -67,47 +69,40 @@ public class HomeFragment extends Fragment {
             case UserProfileFragment.DIALOG_FRAGMENT:
 
                 if (resultCode == Activity.RESULT_OK) {
-                    System.out.println("In Activity Result");
                     Bundle bundle = data.getExtras();
-                    String heightEdited = bundle.getString("height");
-                    String weightEdited = bundle.getString("weight");
-                    String dateEditedText = bundle.getString("birthDate");
-
-                    UserProfileFragment.getUserHeight().setText(heightEdited + " cm");
-                    UserProfileFragment.getUserWeight().setText(weightEdited + " lbs");
+                    UserProfileFragment.getUserHeight().setText(bundle.getString("height") + " cm");
+                    UserProfileFragment.getUserWeight().setText(bundle.getString("weight") + " lbs");
 
                     SimpleDateFormat formatter = new SimpleDateFormat("MM/dd/yyyy");
-                    Date dateEdited = null;
-                    try {
-                        dateEdited = formatter.parse(dateEditedText);
-                    } catch (java.text.ParseException e) {
-                        e.printStackTrace();
-                    }
-                    UserProfileFragment.getUserAge().setText(Integer.toString(UserProfileFragment.getAge(dateEdited)) + " years old");
-                    UserProfileFragment.getProfilePic().setImageBitmap(EditProfileDialog.getResizedBitmap());
-                    // After Ok code.
-                } else if (resultCode == Activity.RESULT_CANCELED) {
-                    // After Cancel code.
-                }
 
+                    try {
+                        Date dateEdited = formatter.parse(bundle.getString("birthDate"));
+                        UserProfileFragment.getUserAge().setText(Integer.toString(UserProfileFragment.getAge(dateEdited)) + " years old");
+                    } catch (ParseException e) {
+                        Toast.makeText(getActivity(), "Something went wrong with your Birth Date", Toast.LENGTH_SHORT).show();
+                    }
+
+                    UserProfileFragment.getProfilePic().setImageBitmap(EditProfileDialog.getResizedBitmap());
+                }
                 break;
         }
     }
 
     public boolean onBackPressed() {
         // currently visible tab Fragment
-        OnBackPressListener currentFragment = (OnBackPressListener)mSectionsPagerAdapter.getRegisteredFragment(mViewPager.getCurrentItem());
+        OnBackPressListener currentFragment = (OnBackPressListener) mSectionsPagerAdapter.getRegisteredFragment(mViewPager.getCurrentItem());
         if (currentFragment != null) {
             return currentFragment.onBackPressed();
         }
-
         return false;
     }
 
-    public class SectionsPagerAdapter extends FragmentPagerAdapter {
-        SparseArray<Fragment> registeredFragments1 = new SparseArray<Fragment>();
-        public SectionsPagerAdapter(FragmentManager fm) {
+    private class SectionsPagerAdapter extends FragmentPagerAdapter {
+        private SparseArray<Fragment> registeredFragments;
+
+        private SectionsPagerAdapter(FragmentManager fm) {
             super(fm);
+            registeredFragments = new SparseArray<Fragment>();
         }
 
         @Override
@@ -136,7 +131,7 @@ public class HomeFragment extends Fragment {
             Locale l = Locale.getDefault();
             switch (position) {
                 case 0:
-                    Drawable myDrawable = getResources().getDrawable( R.drawable.ic_action_trending );
+                    Drawable myDrawable = getResources().getDrawable(R.drawable.ic_action_trending);
                     SpannableStringBuilder sb = new SpannableStringBuilder("    TRENDING"); // space added before text for convenience
                     myDrawable.setBounds(0, 0, myDrawable.getIntrinsicWidth(), myDrawable.getIntrinsicHeight());
                     ImageSpan span = new ImageSpan(myDrawable, ImageSpan.ALIGN_BASELINE);
@@ -144,14 +139,14 @@ public class HomeFragment extends Fragment {
                     return sb;
 
                 case 1:
-                    Drawable myDrawable1 = getResources().getDrawable( R.drawable.ic_action_circles );
+                    Drawable myDrawable1 = getResources().getDrawable(R.drawable.ic_action_circles);
                     SpannableStringBuilder sb1 = new SpannableStringBuilder("    FIND NEARBY"); // space added before text for convenience
                     myDrawable1.setBounds(0, 0, myDrawable1.getIntrinsicWidth(), myDrawable1.getIntrinsicHeight());
                     ImageSpan span1 = new ImageSpan(myDrawable1, ImageSpan.ALIGN_BASELINE);
                     sb1.setSpan(span1, 0, 1, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
                     return sb1;
                 case 2:
-                    Drawable myDrawable2 = getResources().getDrawable( R.drawable.ic_action_user_white );
+                    Drawable myDrawable2 = getResources().getDrawable(R.drawable.ic_action_user_white);
                     SpannableStringBuilder sb2 = new SpannableStringBuilder("    PROFILE"); // space added before text for convenience
                     myDrawable2.setBounds(0, 0, myDrawable2.getIntrinsicWidth(), myDrawable2.getIntrinsicHeight());
                     ImageSpan span2 = new ImageSpan(myDrawable2, ImageSpan.ALIGN_BASELINE);
@@ -160,9 +155,10 @@ public class HomeFragment extends Fragment {
             }
             return null;
         }
+
         public Object instantiateItem(ViewGroup container, int position) {
             Fragment fragment = (Fragment) super.instantiateItem(container, position);
-            registeredFragments1.put(position, fragment);
+            registeredFragments.put(position, fragment);
             return fragment;
         }
 
@@ -175,10 +171,9 @@ public class HomeFragment extends Fragment {
          */
         @Override
         public void destroyItem(ViewGroup container, int position, Object object) {
-            registeredFragments1.remove(position);
+            registeredFragments.remove(position);
             super.destroyItem(container, position, object);
         }
-
 
         /**
          * Get the Fragment by position
@@ -187,8 +182,7 @@ public class HomeFragment extends Fragment {
          * @return
          */
         public Fragment getRegisteredFragment(int position) {
-            return registeredFragments1.get(position);
+            return registeredFragments.get(position);
         }
-
     }
 }

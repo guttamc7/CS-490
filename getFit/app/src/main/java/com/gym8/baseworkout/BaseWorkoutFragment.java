@@ -15,14 +15,11 @@ import android.widget.ListView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Toast;
 
-import com.gym8.ErrorHandlingAlertDialogBox;
 import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
-
-import java.util.ArrayList;
 import java.util.List;
 
 import com.gym8.main.R;
@@ -35,10 +32,6 @@ public class BaseWorkoutFragment extends Fragment {
     private static String webLink;
     private Context mContext;
     private BaseWorkoutAdapter adapter;
-
-    public BaseWorkoutFragment() {
-        // Auto-generated constructor stub
-    }
 
     public static BaseWorkoutFragment newInstance() {
         return new BaseWorkoutFragment();
@@ -60,7 +53,6 @@ public class BaseWorkoutFragment extends Fragment {
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
     }
 
     public void onActivityCreated(Bundle savedInstanceState) {
@@ -90,7 +82,6 @@ public class BaseWorkoutFragment extends Fragment {
         return webLink;
     }
 
-
     private void getBaseWorkouts(){
         ParseQuery<ParseObject> query = ParseQuery.getQuery("Workout");
         query.orderByAscending("level");
@@ -108,10 +99,8 @@ public class BaseWorkoutFragment extends Fragment {
                 {
                     Toast.makeText(getActivity(), "Connection error", Toast.LENGTH_SHORT).show();
                 }
-
             }
         });
     }
-
 }
 

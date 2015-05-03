@@ -3,6 +3,7 @@ package com.gym8.baseworkout;
 /**
  * Created by Gurumukh on 2/7/15.
  */
+
 import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,35 +11,37 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import com.daimajia.swipe.SimpleSwipeListener;
+
 import com.daimajia.swipe.SwipeLayout;
 import com.daimajia.swipe.adapters.BaseSwipeAdapter;
 
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+
 import com.parse.ParseObject;
 import com.parse.ParseUser;
 import com.parse.ParseRelation;
+
 import android.content.Context;
 import android.widget.Toast;
+
 import com.gym8.main.R;
 
 public class BaseWorkoutAdapter extends BaseSwipeAdapter {
     private LayoutInflater inflater;
-    private List<ParseObject> workoutItems;
+    private List<ParseObject> workouts;
     private Context context;
     private SwipeLayout swipeLayout;
     private TextView title, description;
     private Button likes;
     private boolean liked = false;
-    public BaseWorkoutAdapter(Context context, List<ParseObject> baseWorkouts)
-    {
+
+    public BaseWorkoutAdapter(Context context, List<ParseObject> baseWorkouts) {
         inflater = LayoutInflater.from(context);
         this.context = context;
-        this.workoutItems = new ArrayList<ParseObject>();
-        workoutItems.addAll(baseWorkouts);
-
+        this.workouts = new ArrayList<ParseObject>();
+        workouts.addAll(baseWorkouts);
     }
 
     @Override
@@ -50,8 +53,7 @@ public class BaseWorkoutAdapter extends BaseSwipeAdapter {
     public View generateView(final int position, ViewGroup parent) {
         View v = LayoutInflater.from(context).inflate(R.layout.baseworkout_row, null);
 
-        swipeLayout = (SwipeLayout)v.findViewById(getSwipeLayoutResourceId(position));
-
+        swipeLayout = (SwipeLayout) v.findViewById(getSwipeLayoutResourceId(position));
 
         swipeLayout.setOnDoubleClickListener(new SwipeLayout.DoubleClickListener() {
             @Override
@@ -63,22 +65,19 @@ public class BaseWorkoutAdapter extends BaseSwipeAdapter {
         swipeLayout.findViewById(R.id.like_imview).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(v == likeClicked) {
-                    if(!liked) {
+                if (v == likeClicked) {
+                    if (!liked) {
                         Toast.makeText(context, "Liked", Toast.LENGTH_SHORT).show();
-                        likeWorkout(workoutItems.get(position));
-                        likes.setText(Integer.toString(workoutItems.get(position).getInt("likes") + 1));
+                        likeWorkout(workouts.get(position));
+                        likes.setText(Integer.toString(workouts.get(position).getInt("likes") + 1));
                         likeClicked.setImageResource(R.drawable.ic_action_dontlike);
                         liked = true;
-
-                    }
-                    else {
+                    } else {
                         Toast.makeText(context, "Disliked", Toast.LENGTH_SHORT).show();
-                        dislikeWorkout(workoutItems.get(position));
-                        likes.setText(Integer.toString(workoutItems.get(position).getInt("likes") - 1));
+                        dislikeWorkout(workouts.get(position));
+                        likes.setText(Integer.toString(workouts.get(position).getInt("likes") - 1));
                         likeClicked.setImageResource(R.drawable.ic_action_like_white);
                         liked = false;
-
                     }
                     notifyDataSetChanged();
                     swipeLayout.close(true);
@@ -96,7 +95,7 @@ public class BaseWorkoutAdapter extends BaseSwipeAdapter {
                 calIntent.setType("vnd.android.cursor.item/event");
                 calIntent.putExtra("title", title.getText().toString());
                 calIntent.putExtra("beginTime", cal.getTimeInMillis());
-                calIntent.putExtra("endTime", cal.getTimeInMillis()+60*60*1000);
+                calIntent.putExtra("endTime", cal.getTimeInMillis() + 60 * 60 * 1000);
                 calIntent.putExtra("description", description.getText().toString());
                 calIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 context.startActivity(calIntent);
@@ -111,19 +110,17 @@ public class BaseWorkoutAdapter extends BaseSwipeAdapter {
         ImageView thumbNail = (ImageView) convertView
                 .findViewById(R.id.thumbnail);
         title = (TextView) convertView.findViewById(R.id.title);
-        description = (TextView)convertView.findViewById(R.id.description);
-        likes  = (Button) convertView.findViewById(R.id.baseworkout_likes);
-        ParseObject workout = workoutItems.get(position);
+        description = (TextView) convertView.findViewById(R.id.description);
+        likes = (Button) convertView.findViewById(R.id.baseworkout_likes);
+        ParseObject workout = workouts.get(position);
 
         // thumbnail image
-        if(workout.getInt("level") == 1){
+        if (workout.getInt("level") == 1) {
             thumbNail.setImageResource(R.drawable.ic_level1);
-        }
-        else if(workout.getInt("level") == 2){
+        } else if (workout.getInt("level") == 2) {
             thumbNail.setImageResource(R.drawable.ic_level2);
 
-        }
-        else {
+        } else {
             thumbNail.setImageResource(R.drawable.ic_level3);
         }
 
@@ -135,12 +132,12 @@ public class BaseWorkoutAdapter extends BaseSwipeAdapter {
 
     @Override
     public int getCount() {
-        return workoutItems.size();
+        return workouts.size();
     }
 
     @Override
     public Object getItem(int location) {
-        return workoutItems.get(location);
+        return workouts.get(location);
     }
 
     @Override
@@ -157,9 +154,9 @@ public class BaseWorkoutAdapter extends BaseSwipeAdapter {
         relation.add(workout);
         user.saveInBackground();
     }
-    private void dislikeWorkout(ParseObject workout)
-    {
-        if(workout.getInt("likes")>0) {
+
+    private void dislikeWorkout(ParseObject workout) {
+        if (workout.getInt("likes") > 0) {
             workout.put("likes", (workout.getInt("likes") - 1));
             workout.saveInBackground();
         }
@@ -167,9 +164,5 @@ public class BaseWorkoutAdapter extends BaseSwipeAdapter {
         ParseRelation<ParseObject> relation = user.getRelation("likedWorkout");
         relation.remove(workout);
         user.saveInBackground();
-
     }
-
-
-
-    }
+}
