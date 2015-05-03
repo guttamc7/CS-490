@@ -38,6 +38,20 @@
         android:layout_below="@id/workout_exercise_text"
        />
 
+    <com.getbase.floatingactionbutton.FloatingActionButton
+        android:id="@+id/add_exercise_fab"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:fab_icon="@drawable/ic_action_add"
+        android:layout_marginBottom="-24dp"
+        app:fab_size="mini"
+        app:fab_colorNormal="@color/button_red"
+        app:fab_colorPressed="@color/button_yellow"
+        android:layout_above="@+id/create_workout_exercises_list"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
         <ListView
             android:id="@+id/create_workout_exercises_list"
             android:layout_height="wrap_content"
@@ -61,17 +75,7 @@
 
 
 
-    <com.getbase.floatingactionbutton.FloatingActionButton
-        android:id="@+id/add_exercise_fab"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:fab_icon="@drawable/ic_action_add"
-        app:fab_colorNormal="@color/button_red"
-        app:fab_colorPressed="@color/button_yellow"
-        android:layout_above="@+id/createWorkout_doneButton"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+
 
     <Button
         android:id="@+id/createWorkout_doneButton"
