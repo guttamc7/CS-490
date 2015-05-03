@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/welcomegrad"
+    android:scaleType="fitStart"
+    >
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="5dp"
+        android:id="@+id/text4"
+        android:clickable="false"
+        android:text="@string/Lets_get_Started"
+        android:textColor="#eaeff3"
+        android:layout_centerHorizontal="true"
+        android:fontFamily="sans-serif"
+        android:textSize="30sp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="15dp" />
+
+    <TextView
+        android:id="@+id/profile_msg"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="sans-serif_light"
+        android:layout_marginTop="10dp"
+        android:textColor="#eaeff3"
+        android:layout_gravity="center"
+        android:layout_centerHorizontal="true"
+        android:text="@string/Personalize_your_profile"
+        android:textSize = "20dp" />
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:layout_width="125dp"
+        android:layout_height="125dp"
+        android:id="@+id/imgViewProfilePic"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="15dp"
+        android:src="@drawable/default_user_icon"
+        />
+
+    <TextView
+        android:id="@+id/profile_photo_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="sans-serif_light"
+        android:layout_marginTop="5dp"
+        android:textColor="#eaeff3"
+        android:layout_gravity="center"
+        android:layout_centerHorizontal="true"
+        android:text="@string/UploadPic"
+        android:textSize = "16dp" />
+
+    <Button
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:padding="5dp"
+        android:id="@+id/txtBirthdate"
+        android:layout_gravity="center"
+        android:layout_marginLeft="25dip"
+        android:layout_marginRight="25dip"
+        android:background="@drawable/textlines"
+        android:layout_marginTop="10dp"
+        android:hint="@string/BirthdayHint"
+        android:textColorHint="#eaeff3"
+        android:textColor="#eaeff3"
+        android:textSize="20sp"
+        />
+
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="1dip"
+        android:layout_marginLeft="25dip"
+        android:layout_marginRight="25dip"
+        android:background="#15000000"
+        android:layout_above="@+id/radioButtonGender"/>
+
+    <RadioGroup
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginLeft="25dip"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:layout_marginRight="25dip"
+        android:background="#15000000"
+        android:id="@+id/radioButtonGender"
+        >
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/Male"
+            android:gravity="center"
+            android:padding="10dp"
+            android:layout_marginRight="25dp"
+            android:id="@+id/radioButtonMale"
+            android:textColor="#eaeff3"
+            android:textSize="20sp"
+            />
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/Female"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:padding="10dp"
+            android:id="@+id/radioButtonFemale"
+            android:textColor="#eaeff3"
+            android:textSize="20sp"
+
+            />
+    </RadioGroup>
+
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="1dip"
+        android:layout_marginLeft="25dip"
+        android:layout_marginRight="25dip"
+        android:background="#15000000"
+        android:layout_above="@+id/txtWeight"/>
+
+    <EditText
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:id="@+id/txtWeight"
+        android:layout_gravity="center"
+        android:layout_marginLeft="25dip"
+        android:layout_marginRight="25dip"
+        android:hint="@string/Weight_in_lbs"
+        android:background="@drawable/textlines"
+        android:textColorHint="#eaeff3"
+        android:inputType="numberDecimal"
+        android:textColor="#eaeff3"
+        android:textSize="20sp"
+        android:gravity="center"
+        android:padding="5dp"
+        />
+
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="1dip"
+        android:layout_marginLeft="25dip"
+        android:layout_marginRight="25dip"
+        android:background="#15000000"
+        android:layout_above="@+id/txtHeight"/>
+
+
+    <EditText
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:id="@+id/txtHeight"
+        android:layout_gravity="center"
+        android:hint="@string/Height_in_cm"
+        android:inputType="numberDecimal"
+        android:textColor="#eaeff3"
+        android:textSize="20sp"
+        android:layout_marginLeft="25dip"
+        android:layout_marginRight="25dip"
+        android:background="@drawable/textlines"
+        android:textColorHint="#eaeff3"
+        android:gravity="center"
+        android:padding="5dp"
+        />
+<RelativeLayout
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:layout_alignParentBottom="true">
+    <Button
+        android:id="@+id/notNowButton"
+        android:background="#E6A457"
+        android:layout_width="120dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:textSize="20sp"
+        android:padding="10dp"
+        android:layout_marginTop="15dip"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="25dip"
+        android:text="@string/Later"
+        android:textColor="#eaeff3"/>
+
+        <Button
+            android:id="@+id/doneButton"
+            android:background="#FA6A66"
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:text="@string/Done"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="15dip"
+            android:padding="10dp"
+            android:textSize="20sp"
+            android:layout_marginRight="25dip"
+            android:textColor="#eaeff3"
+            >
+        </Button>
+</RelativeLayout>
+
+ </LinearLayout>

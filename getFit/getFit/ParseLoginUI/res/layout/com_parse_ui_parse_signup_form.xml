@@ -1,0 +1,95 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center"
+    android:background="@null"
+    >
+
+    <EditText
+        android:id="@+id/signup_name_input"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/com_parse_ui_name_input_hint"
+        android:inputType="textPersonName"
+        android:textColorHint="#eaeff3"
+        android:gravity="center"
+        android:maxLines="20"
+        android:singleLine="true"
+        android:background="@drawable/textlines"
+        android:textColor="#eaeff3"
+        style="@style/MyEditText_Style"
+        android:drawableLeft="@drawable/ic_action_news"/>
+
+    <EditText
+        android:id="@+id/signup_email_input"
+        android:layout_width="match_parent"
+        android:layout_below="@id/signup_name_input"
+        android:layout_height="wrap_content"
+        android:hint="@string/com_parse_ui_email_input_hint"
+        android:inputType="textEmailAddress"
+        style="@style/MyEditText_Style"
+        android:textColorHint="#eaeff3"
+        android:gravity="center"
+        android:singleLine="true"
+        android:background="@drawable/textlines"
+        android:textColor="#eaeff3"
+        android:drawableLeft="@drawable/ic_action_mail"/>
+
+    <EditText
+        android:id="@+id/signup_username_input"
+        android:layout_width="match_parent"
+        android:layout_below="@id/signup_email_input"
+        android:layout_height="wrap_content"
+        android:hint="@string/com_parse_ui_username_input_hint"
+        android:textColorHint="#eaeff3"
+        android:gravity="center"
+        android:singleLine="true"
+        android:background="@drawable/textlines"
+        android:textColor="#eaeff3"
+        style="@style/MyEditText_Style"
+        android:drawableLeft="@drawable/ic_action_user_white"/>
+
+    <EditText
+        android:id="@+id/signup_password_input"
+        android:layout_width="match_parent"
+        android:layout_below="@id/signup_username_input"
+        android:layout_height="wrap_content"
+        android:inputType="textPassword"
+        android:gravity="center"
+        android:singleLine="true"
+        android:textColorHint="#eaeff3"
+        android:textColor="#eaeff3"
+        style="@style/MyEditText_Style"
+        android:background="@drawable/textlines"
+        android:drawableLeft="@drawable/ic_action_lock_closed"
+        android:fontFamily="sans-serif"
+        android:hint="@string/com_parse_ui_password_input_hint"
+        android:selectAllOnFocus="true" />
+
+    <EditText
+        android:id="@+id/signup_confirm_password_input"
+        android:layout_width="match_parent"
+        android:layout_below="@id/signup_password_input"
+        android:layout_height="wrap_content"
+        style="@style/MyEditText_Style"
+        android:fontFamily="sans-serif"
+        android:hint="@string/com_parse_ui_confirm_password_input_hint"
+        android:inputType="textPassword"
+        android:gravity="center"
+        android:singleLine="true"
+        android:textColorHint="#eaeff3"
+        android:textColor="#eaeff3"
+        android:background="@drawable/textlines"
+        android:drawableLeft="@drawable/ic_action_lock_closed"
+        android:selectAllOnFocus="true" />
+
+    <Button
+        android:id="@+id/create_account"
+        style="@style/ParseLoginUI.Button"
+        android:layout_below="@id/signup_confirm_password_input"
+        android:layout_marginLeft="25dip"
+        android:layout_marginRight="25dip"
+        android:layout_marginTop="@dimen/com_parse_ui_small_vertical_spacing"
+        android:text="@string/com_parse_ui_create_account_button_label" />
+
+</RelativeLayout>

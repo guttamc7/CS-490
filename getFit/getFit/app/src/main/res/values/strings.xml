@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="parse_app_id">jlPrAU7g3Mx6bH2cFMiEzNlgNSaJ44JmwNdRk2pX</string>
+    <string name="parse_client_key">JDIEhCILA6iSVsRCEPth8LKcMugkQ2I4sPGZti9s</string>
+    <string name="facebook_app_id">940361009329610</string>
+    <string name="baseUserId">EaUqPUb3lj</string>
+
+    <string name="app_name">gym8</string>
+    <string name="action_settings">Settings</string>
+
+    <string-array name="drawer_titles">
+        <item>Home</item>
+        <item>Workout Library</item>
+        <item>My Custom Workouts</item>
+        <item>Messages</item>
+        <item>Sign Out</item>
+    </string-array>
+
+    <string name="drawer_open">Open navigation drawer</string>
+    <string name="drawer_close">Close navigation drawer</string>
+    <string name="title_section1">Trending</string>
+    <string name="title_section2">Find Nearby</string>
+    <string name="title_section3">Profile</string>
+    <string name="Welcome">Welcome!</string>
+
+    <string-array name="my_facebook_permissions">
+        <item>public_profile</item>
+        <item>user_friends</item>
+    </string-array>
+
+    <string name="level1_color">#47BBAF</string>
+    <string name="level2_color">#378DAD</string>
+    <string name="level3_color">#C2606F</string>
+
+    <string name="workout_name">Workout Name</string>
+    <string name="workout_descr">Workout Description</string>
+    <string name="only_me">Only Me</string>
+    <string name="to_all">To All</string>
+    <string name="visible">Visible : </string>
+    <string name="Later">Later </string>
+    <string name="Done">Done </string>
+    <string name="Height_in_cm">Height in cm</string>
+    <string name="Weight_in_lbs">Weight in lbs</string>
+    <string name="Male">Male</string>
+    <string name="Female">Female</string>
+    <string name="BirthdayHint">Birth date (mm/dd/yyyy)</string>
+    <string name="UploadPic">Upload a photo</string>
+    <string name="Personalize_your_profile">Personalize your profile</string>
+    <string name="Lets_get_Started">Let\'s Get Started</string>
+    <string name="Title">Title</string>
+    <string name="SampleDescription">Hi I am a sample workout Description</string>
+    <string name="Filter_Your_Preferences">Filter Your Preferences</string>
+    <string name="One_Mile">1 Mile></string>
+    <string name="Hundred_Mile">100 Mile></string>
+    <string name="Cancel">Cancel</string>
+    <string name="Submit">Submit</string>
+    <string name="sampleUser">User Name</string>
+    <string name="height">178 cm</string>
+    <string name="weight">160 lbs</string>
+    <string name="age">21 years old</string>
+    <string name="Liked_Workouts">Liked Workouts</string>
+    <string name="lone">Level 1</string>
+    <string name="ltwo">Level 2</string>
+    <string name="lthree">Level 3</string>
+    <string name="Workout_Information">Workout Information</string>
+
+
+</resources>

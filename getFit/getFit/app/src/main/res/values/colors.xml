@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="primary_blue">#34678a</color>
+    <color name="primary_white">#eaeff3</color>
+    <color name="primary_green">#019875</color>
+    <color name="button_red">#F62459</color>
+    <color name="button_yellow">#F9BF3B</color>
+    <color name="button_green">#03C9A9</color>
+    <color name="half_black">#808080</color>
+    <color name="white">#fafafa</color>
+    <color name="white_pressed">#f1f1f1</color>
+    <color name="pink">#e91e63</color>
+    <color name="pink_pressed">#ec407a</color>
+    <color name="blue_semi_transparent">#805677fc</color>
+    <color name="blue_semi_transparent_pressed">#80738ffe</color>
+    <color name="like_color">#F5AB35</color>
+    <color name="like_text_color">#E6A457</color>
+    <color name="schedule_color">#1BBC9B</color>
+    <color name="delete_color">#EF4538</color>
+    <color name="text_black">#212121</color>
+    <color name="secondary_text">#727272</color>
+    <color name="divider_color">#B6B6B6</color>
+    <color name="status_bar">#346789</color>
+    <color name="navigation_drawer_color">#23455C</color>
+</resources>

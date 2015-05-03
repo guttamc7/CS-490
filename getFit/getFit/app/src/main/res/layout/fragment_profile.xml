@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.gym8.main.VerticalScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#eaeff3"
+    android:scaleType="fitStart"
+    android:id="@+id/userProfileFragment">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="225dp"
+        android:id="@+id/header_profile"
+        android:scaleType="fitStart"
+        android:orientation="vertical"
+        android:background="#3E8193">
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        app:border_width="3dp"
+        app:border_color="@color/primary_white"
+        android:layout_width="90dp"
+        android:layout_height="90dp"
+        android:id="@+id/ProfilePic"
+        android:layout_marginTop="20dp"
+        android:layout_gravity="center_horizontal"
+        android:src="@drawable/default_user_icon"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:id="@+id/username_profile"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="sans-serif"
+        android:textStyle="bold"
+        android:layout_marginTop="5dp"
+        android:textColor="#eaeff3"
+        android:layout_gravity="center"
+        android:layout_below="@+id/ProfilePic"
+        android:layout_centerHorizontal="true"
+        android:text="@string/sampleUser"
+        android:textSize = "16sp" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/username_profile"
+            android:id="@+id/layout_profile_info">
+
+        <TextView
+            android:id="@+id/height_profile"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif"
+            android:layout_alignParentLeft="true"
+            android:textStyle="italic"
+            android:layout_marginTop="10dp"
+            android:textColor="#eaeff3"
+            android:gravity="right"
+            android:layout_marginRight="15dp"
+            android:layout_toLeftOf="@+id/stroke"
+            android:text="@string/height"
+            android:textSize = "15sp" />
+
+
+        <View
+            android:layout_width="2dp"
+            android:layout_height="20dp"
+            android:layout_marginTop="10dp"
+            android:layout_centerHorizontal="true"
+            android:id = "@+id/stroke"
+            android:background="#eaeff3"
+            android:padding="5dp" />
+
+            <TextView
+                android:id="@+id/weight_profile"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif"
+                android:layout_toRightOf="@id/stroke"
+                android:textStyle="italic"
+                android:layout_marginTop="10dp"
+                android:gravity="left"
+                android:layout_marginLeft="15dp"
+                android:textColor="#eaeff3"
+                android:layout_gravity="center"
+                android:text="@string/weight"
+                android:textSize = "15sp"
+                android:layout_alignParentRight="true" />
+
+            <TextView
+                android:id="@+id/age_profile"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif"
+                android:textStyle="italic"
+                android:gravity="left"
+                android:textColor="#eaeff3"
+                android:layout_gravity="center"
+                android:text="@string/age"
+                android:textSize = "15sp"
+                android:layout_marginTop="10dp"
+                android:layout_below="@+id/height_profile"
+                android:layout_centerHorizontal="true" />
+        </RelativeLayout>
+    </RelativeLayout>
+    <com.getbase.floatingactionbutton.FloatingActionButton
+        android:id="@+id/edit_profile_fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="-32dp"
+        android:layout_marginRight="15dp"
+        android:layout_alignParentRight="true"
+        app:fab_size="mini"
+        android:layout_alignBottom="@id/header_profile" />
+
+
+
+    <TextView
+        android:id="@+id/user_likes_text"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="sans-serif_light"
+        android:gravity="center"
+        android:padding="10dp"
+        android:textColor="@color/like_color"
+        android:layout_gravity="center"
+        android:text="@string/Liked_Workouts"
+        android:textSize = "18sp"
+        android:textStyle="bold"
+        android:layout_below="@id/header_profile"
+        android:layout_centerHorizontal="true" />
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="1dp"
+        android:layout_marginLeft="25dip"
+        android:layout_marginRight="25dip"
+        android:id="@+id/user_view"
+        android:layout_below="@id/user_likes_text"
+        android:background="@color/like_color"
+        />
+
+    <ListView
+        android:id="@+id/user_likes"
+        android:layout_below="@id/user_view"
+        android:layout_height="wrap_content"
+        android:background="#D6D6D4"
+        android:layout_width="match_parent">
+    </ListView>
+
+
+</RelativeLayout>
+</com.gym8.main.VerticalScrollView>

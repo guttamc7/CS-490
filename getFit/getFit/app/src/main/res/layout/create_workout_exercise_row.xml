@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="100dp"
+    android:layout_marginLeft="12dp"
+    android:layout_marginRight="12dp"
+    android:layout_marginTop="10dp"
+    android:layout_marginBottom="10dp"
+    android:id="@+id/front_user_like"
+    android:background="@drawable/bg_card">
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/exercise_row_images"
+        android:layout_alignParentLeft="true"
+        >
+
+    <ImageView android:layout_width="55dp"
+        android:layout_height="100dp"
+        android:id="@+id/exercise_workout_img1"
+        android:layout_gravity="center"
+        android:padding="5dp"
+        android:scaleType="fitCenter"
+        android:src="@drawable/ic_action_user">
+    </ImageView>
+
+    <ImageView android:layout_width="55dp"
+        android:layout_height="100dp"
+        android:id="@+id/exercise_workout_img2"
+        android:layout_gravity="center"
+        android:padding="5dp"
+        android:layout_toRightOf="@id/exercise_workout_img1"
+        android:scaleType="fitCenter"
+        android:src="@drawable/ic_action_user">
+    </ImageView>
+
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/workout_exercise_name"
+        android:layout_width="75dp"
+        android:layout_height="wrap_content"
+        android:textColor="@color/primary_blue"
+        android:text="Exercise Name"
+        android:inputType="textMultiLine"
+        android:fontFamily="sans-serif"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:layout_marginLeft="7dp"
+        android:layout_marginTop="10dp"
+        android:layout_toRightOf="@id/exercise_row_images"
+        android:textSize="15sp"
+        android:textStyle="bold" />
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        >
+
+    <TextView
+        android:id="@+id/workout_exercise_set"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/primary_blue"
+        android:layout_marginTop="10dp"
+        android:text="3 sets"
+        android:fontFamily="sans-serif"
+        android:layout_gravity="center"
+        android:padding="2dp"
+        android:gravity="center"
+        android:textSize="15sp"
+         />
+
+        <ImageView
+            android:id="@+id/workout_multiply"
+            android:layout_width="18dp"
+            android:layout_height="18dp"
+            android:padding="2dp"
+            android:layout_below="@id/workout_exercise_set"
+            android:src="@drawable/ic_action_cancel"
+            />
+    <TextView
+        android:id="@+id/workout_exercise_rep"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/primary_blue"
+        android:text="10 reps"
+        android:padding="2dp"
+        android:fontFamily="sans-serif"
+        android:layout_below="@id/workout_multiply"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:textSize="15sp"
+         />
+    </RelativeLayout>
+
+</RelativeLayout>

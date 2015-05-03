@@ -1,0 +1,176 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#eaeff3">
+
+    <TextView
+        android:id="@+id/preferences_info"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="sans-serif_light"
+        android:layout_marginTop="15dp"
+        android:gravity="center"
+        android:padding="10dp"
+        android:textColor="#808080"
+        android:layout_gravity="center"
+        android:text="@string/Filter_Your_Preferences"
+        android:textSize = "20sp"
+        android:textStyle="bold"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
+
+    <com.appyvet.rangebar.RangeBar
+        xmlns:custom="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/distanceRangeBar"
+        android:layout_width="fill_parent"
+        android:layout_height="70dp"
+        android:layout_marginLeft="25dp"
+        android:layout_marginRight ="25dp"
+        custom:tickStart="0"
+        custom:rangeBar="false"
+        custom:tickInterval="1"
+        custom:tickEnd="100"
+        android:layout_below="@+id/preferences_info"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+    <TextView
+        android:id="@+id/initialMiles"
+        android:layout_width="wrap_content"
+        android:layout_marginLeft="25dp"
+        android:layout_gravity = "center"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/distanceRangeBar"
+        android:text="@string/One_Mile" >
+    </TextView>
+
+    <TextView
+        android:id="@+id/finalMiles"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="25dp"
+        android:layout_below="@+id/distanceRangeBar"
+        android:text="@string/Hundred_Mile" />
+
+    <com.appyvet.rangebar.RangeBar
+        xmlns:custom="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/ageRangeBar"
+        android:layout_width="fill_parent"
+        android:layout_height="80dp"
+        android:layout_marginLeft="25dp"
+        android:layout_marginRight ="25dp"
+        android:secondaryProgress="20"
+        android:layout_marginTop="10dp"
+        custom:tickStart="16"
+        custom:tickInterval="1"
+        custom:tickEnd="75"
+        android:layout_below="@+id/finalMiles"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+    <TextView
+        android:id="@+id/initialAge"
+        android:layout_width="wrap_content"
+        android:layout_marginLeft="25dp"
+        android:layout_gravity = "center"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/ageRangeBar"
+        android:text="16 years" >
+    </TextView>
+
+    <TextView
+        android:id="@+id/finalAge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="25dp"
+        android:layout_below="@+id/ageRangeBar"
+        android:text="75 years" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/finalAge"
+        android:orientation="vertical"
+        android:id="@+id/linearlayout1"
+        >
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Show Me :"
+            android:id="@+id/textViewOne"
+            android:layout_marginLeft="25dp"
+            android:layout_marginTop="20dp"
+            android:textSize="18sp"
+            android:fontFamily="sans-serif_light"
+            android:textColor="#808080"/>
+
+        <CheckedTextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="Male"
+            android:layout_below="@+id/textViewOne"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="25dp"
+            android:checkMark="?android:attr/listChoiceIndicatorMultiple"
+            android:checked="false"
+            android:textSize="15sp"
+            android:id="@+id/checkedTextMale"
+            android:textColor="#808080"/>
+
+        <CheckedTextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="Female"
+            android:layout_below="@+id/checkedTextMale"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="25dp"
+            android:checkMark="?android:attr/listChoiceIndicatorMultiple"
+            android:checked="false"
+            android:textSize="15sp"
+            android:id="@+id/checkedTextFemale"
+            android:textColor="#808080"/>
+
+    </LinearLayout>
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/linearlayout1"
+        android:layout_marginTop="5dp">
+        <Button
+            android:id="@+id/cancelButton_dialog_discovery"
+            android:background="#E6A457"
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:textSize="15sp"
+            android:padding="5dp"
+            android:layout_marginTop="25dip"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="25dip"
+            android:layout_marginBottom="25dip"
+            android:text="@string/Cancel"
+            android:textColor="#eaeff3"/>
+
+        <Button
+            android:id="@+id/submitButton_dialog_discovery"
+            android:background="#FA6A66"
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:text="@string/Submit"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="25dip"
+            android:layout_marginBottom="25dip"
+            android:padding="5dp"
+            android:textSize="15sp"
+            android:layout_marginRight="25dip"
+            android:textColor="#eaeff3"
+            >
+        </Button>
+    </RelativeLayout>
+
+</RelativeLayout>
