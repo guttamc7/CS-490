@@ -17,7 +17,7 @@
         android:textColor="#eaeff3"
         android:layout_centerHorizontal="true"
         android:fontFamily="sans-serif"
-        android:textSize="30sp"
+        android:textSize="24sp"
         android:layout_marginLeft="20dp"
         android:layout_marginTop="15dp" />
 
@@ -31,7 +31,7 @@
         android:layout_gravity="center"
         android:layout_centerHorizontal="true"
         android:text="@string/Personalize_your_profile"
-        android:textSize = "20dp" />
+        android:textSize = "18sp" />
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:layout_width="125dp"
@@ -52,7 +52,7 @@
         android:layout_gravity="center"
         android:layout_centerHorizontal="true"
         android:text="@string/UploadPic"
-        android:textSize = "16dp" />
+        android:textSize = "16sp" />
 
     <Button
         android:layout_width="fill_parent"
@@ -60,15 +60,13 @@
         android:gravity="center"
         android:padding="5dp"
         android:id="@+id/txtBirthdate"
-        android:layout_gravity="center"
-        android:layout_marginLeft="25dip"
-        android:layout_marginRight="25dip"
+        style="@style/MyEditText_Style"
         android:background="@drawable/textlines"
         android:layout_marginTop="10dp"
         android:hint="@string/BirthdayHint"
         android:textColorHint="#eaeff3"
         android:textColor="#eaeff3"
-        android:textSize="20sp"
+
         />
 
     <View
@@ -100,7 +98,7 @@
             android:layout_marginRight="25dp"
             android:id="@+id/radioButtonMale"
             android:textColor="#eaeff3"
-            android:textSize="20sp"
+            android:textSize="16sp"
             />
         <RadioButton
             android:layout_width="wrap_content"
@@ -111,7 +109,7 @@
             android:padding="10dp"
             android:id="@+id/radioButtonFemale"
             android:textColor="#eaeff3"
-            android:textSize="20sp"
+            android:textSize="16sp"
 
             />
     </RadioGroup>
@@ -129,15 +127,12 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:id="@+id/txtWeight"
-        android:layout_gravity="center"
-        android:layout_marginLeft="25dip"
-        android:layout_marginRight="25dip"
+        style="@style/MyEditText_Style"
         android:hint="@string/Weight_in_lbs"
         android:background="@drawable/textlines"
         android:textColorHint="#eaeff3"
         android:inputType="numberDecimal"
         android:textColor="#eaeff3"
-        android:textSize="20sp"
         android:gravity="center"
         android:padding="5dp"
         />
@@ -156,13 +151,10 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:id="@+id/txtHeight"
-        android:layout_gravity="center"
+        style="@style/MyEditText_Style"
         android:hint="@string/Height_in_cm"
         android:inputType="numberDecimal"
         android:textColor="#eaeff3"
-        android:textSize="20sp"
-        android:layout_marginLeft="25dip"
-        android:layout_marginRight="25dip"
         android:background="@drawable/textlines"
         android:textColorHint="#eaeff3"
         android:gravity="center"
@@ -178,7 +170,7 @@
         android:layout_width="120dp"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
-        android:textSize="20sp"
+        android:textSize="18sp"
         android:padding="10dp"
         android:layout_marginTop="15dip"
         android:layout_alignParentLeft="true"
@@ -195,7 +187,7 @@
             android:layout_alignParentRight="true"
             android:layout_marginTop="15dip"
             android:padding="10dp"
-            android:textSize="20sp"
+            android:textSize="18sp"
             android:layout_marginRight="25dip"
             android:textColor="#eaeff3"
             >
