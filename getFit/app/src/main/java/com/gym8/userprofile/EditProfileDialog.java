@@ -117,13 +117,7 @@ public class EditProfileDialog extends DialogFragment
                                 }
                                 birthDateText = birthDate.getText().toString();
                                 genderText = selectRadio.getText().toString();
-                                Intent i = new Intent()
-                                        .putExtra("weight", weight.getText().toString())
-                                        .putExtra("gender", genderText)
-                                        .putExtra("birthDate", birthDateText)
-                                        .putExtra("height", height.getText().toString());
-
-                                getTargetFragment().onActivityResult(getTargetRequestCode(), Activity.RESULT_OK, i);
+                                getTargetFragment().onActivityResult(getTargetRequestCode(), Activity.RESULT_OK, getActivity().getIntent());
                                 EditUserDetails(genderText, weightText, heightText, birthD);
                                 getDialog().dismiss();
                             }
@@ -318,9 +312,6 @@ public class EditProfileDialog extends DialogFragment
         c.set(mYear-16,mMonth,mDay);
         Date date = c.getTime();
         dpd.getDatePicker().setMaxDate(date.getTime());
-        c.set(mYear-75,mMonth,mDay);
-        date = c.getTime();
-        dpd.getDatePicker().setMinDate(date.getTime());
         dpd.show();
 
     }
