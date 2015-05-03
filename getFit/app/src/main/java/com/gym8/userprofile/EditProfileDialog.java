@@ -48,9 +48,9 @@ public class EditProfileDialog extends DialogFragment {
     private Button birthDate;
     private TextView userNameTextView;
     private static ImageView profilePictureImgView;
-    public static Uri imageUri;
-    public static Bitmap resizedBitmap = null;
-    public static boolean imageChanged = false;
+    private static Uri imageUri;
+    private static Bitmap resizedBitmap = null;
+    private static boolean imageChanged = false;
     private Button submitButton;
     private Button cancelButton;
     private String genderText;
@@ -307,7 +307,16 @@ public class EditProfileDialog extends DialogFragment {
         return profilePictureImgView;
     }
 
-    public static boolean getImageChanged() {
-        return imageChanged;
+    public static void setImageUri(Uri uri) {
+        imageUri = uri;
     }
+
+    public static void setImageBitmap(Bitmap bm) {
+        resizedBitmap = bm;
+    }
+
+    public static void setImageChanged(boolean changed) {
+        imageChanged = changed;
+    }
+
 }

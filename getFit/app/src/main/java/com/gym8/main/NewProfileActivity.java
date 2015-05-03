@@ -53,7 +53,6 @@ public class NewProfileActivity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_newprofile);
@@ -80,18 +79,16 @@ public class NewProfileActivity extends Activity {
                     weightText = Integer.parseInt(weight.getText().toString());
 
                 if (height.getText().toString() == null || (!height.getText().toString().equals("") && height.getText().toString().length() > 0))
-                heightText = Integer.parseInt(height.getText().toString());
+                    heightText = Integer.parseInt(height.getText().toString());
 
                 if (birthDate.getText().toString() == null || (!birthDate.getText().toString().equals("") && birthDate.getText().toString().length() > 0))
                     birthDateText = birthDate.getText().toString();
                 RadioButton selectRadio = null;
-                Log.d("gender: ",Integer.toString(gender.getCheckedRadioButtonId()));
                 if(gender.getCheckedRadioButtonId() == -1)
                     genderText = null;
                 else
                 {
                     selectRadio = (RadioButton) findViewById(gender.getCheckedRadioButtonId());
-                    Log.d("selectRadio: ", selectRadio.getText().toString());
                     if (selectRadio.getText().toString() == null || (!selectRadio.getText().toString().equals("") && selectRadio.getText().toString().length() > 0))
                         genderText = selectRadio.getText().toString();
                 }
@@ -141,10 +138,14 @@ public class NewProfileActivity extends Activity {
 
     private void storeAdditionalUserDetails(String gender, int weight, int height, Date birthDate){
         ParseUser currentUser = ParseUser.getCurrentUser();
-            if(gender != null) currentUser.put("gender",gender);
-            if(weight != -1)   currentUser.put("weight",weight);
-            if(height != -1)   currentUser.put("height",height);
-            if(birthDate != null) currentUser.put("birthDate",birthDate);
+            if(gender != null)
+                currentUser.put("gender",gender);
+            if(weight != -1)
+                currentUser.put("weight",weight);
+            if(height != -1)
+                currentUser.put("height",height);
+            if(birthDate != null)
+                currentUser.put("birthDate",birthDate);
 
         if(this.imageChanged == true) {
             byte[] profilePic = convertBitmapToBytes();
@@ -154,9 +155,7 @@ public class NewProfileActivity extends Activity {
         currentUser.saveInBackground();
     }
 
-    //Should throw the exception..must be caught somewhere else..
     private byte[] convertBitmapToBytes(){
-        byte[] data = null;
         ByteArrayOutputStream stream = new ByteArrayOutputStream();
         resizedBitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
         return stream.toByteArray();
@@ -178,28 +177,26 @@ public class NewProfileActivity extends Activity {
         mYear = c.get(Calendar.YEAR);
         mMonth = c.get(Calendar.MONTH);
         mDay = c.get(Calendar.DAY_OF_MONTH);
-
-        // Launch Date Picker Dialog
         DatePickerDialog dpd = new DatePickerDialog(this,
                 new DatePickerDialog.OnDateSetListener() {
-
                     @Override
                     public void onDateSet(DatePicker view, int year,
                                           int monthOfYear, int dayOfMonth) {
-                       birthD = new Date(year-1900, monthOfYear, dayOfMonth);
+                       birthD = new Date(year - 1900, monthOfYear, dayOfMonth);
                        birthDateText = Integer.toString(monthOfYear+1) + "/" + Integer.toString(dayOfMonth)+ "/" + Integer.toString(year);
                        birthDate.setText(birthDateText);
 
                     }
                 }, mYear, mMonth, mDay);
-        c.set(mYear-16,mMonth,mDay);
+        c.set(mYear - 16,mMonth,mDay);
         Date date = c.getTime();
         dpd.getDatePicker().setMaxDate(date.getTime());
-        c.set(mYear-75,mMonth,mDay);
+        c.set(mYear - 75, mMonth, mDay);
         date = c.getTime();
         dpd.getDatePicker().setMinDate(date.getTime());
         dpd.show();
     }
+
     @Override
     public void onBackPressed() {
         Intent i = new Intent(NewProfileActivity.this, HomePageActivity.class);

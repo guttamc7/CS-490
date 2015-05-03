@@ -140,11 +140,11 @@ public class HomePageActivity extends FragmentActivity {
     public void onActivityResult(int reqCode, int resCode, Intent data) {
         if (resCode == Activity.RESULT_OK) {
             if (reqCode == 2) {
-                EditProfileDialog.imageUri = data.getData();
+                EditProfileDialog.setImageUri(data.getData());
                 try {
-                    EditProfileDialog.resizedBitmap = EditProfileDialog.getResizedBitmap(MediaStore.Images.Media.getBitmap(getContentResolver(), EditProfileDialog.imageUri), 400, 400);
+                    EditProfileDialog.setImageBitmap(EditProfileDialog.getResizedBitmap(MediaStore.Images.Media.getBitmap(getContentResolver(), EditProfileDialog.getImageUri()), 400, 400));
                     EditProfileDialog.getProfilePictureImgView().setImageBitmap(EditProfileDialog.getResizedBitmap());
-                    EditProfileDialog.imageChanged = true;
+                    EditProfileDialog.setImageChanged(true);
                 } catch (Exception e) {
                     Toast.makeText(this, "Error while reading the image", Toast.LENGTH_SHORT).show();
                 }
