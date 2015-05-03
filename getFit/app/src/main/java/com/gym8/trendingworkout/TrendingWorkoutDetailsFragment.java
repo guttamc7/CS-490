@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebView;
+import android.widget.FrameLayout;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -29,18 +30,24 @@ public class TrendingWorkoutDetailsFragment extends RootFragment {
     private ParseObject selectedWorkout;
     private WebView webView;
     private View v;
+    private FrameLayout customDetails;
+    private FrameLayout baseDetails;
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         v = inflater.inflate(R.layout.fragment_trending_workout_details, container, false);
-        webView = (WebView) v.findViewById(R.id.webView);
+        webView = (WebView) v.findViewById(R.id.webView_trending);
         listView = (ListView) v.findViewById(R.id.trending_workout_details_list);
         this.selectedWorkout = TrendingWorkoutFragment.getSelectedTrendingWorkout();
-
+        customDetails = (FrameLayout) v.findViewById(R.id.frag_trending_detail);
+        baseDetails = (FrameLayout) v.findViewById(R.id.frag_trending_webview);
         if (this.selectedWorkout.getString("workoutType").equals("custom")) {
-            webView.setVisibility(View.INVISIBLE);
+            baseDetails.setVisibility(View.GONE);
+            customDetails.setVisibility(View.VISIBLE);
         } else {
-            listView.setVisibility(View.INVISIBLE);
+            customDetails.setVisibility(View.INVISIBLE);
+            baseDetails.setVisibility(View.VISIBLE);
             webView.getSettings().setJavaScriptEnabled(true);
+            webView.getSettings().setDomStorageEnabled(true);
             webView.loadUrl(this.selectedWorkout.getString("workoutUrl"));
         }
         return v;
@@ -48,7 +55,7 @@ public class TrendingWorkoutDetailsFragment extends RootFragment {
 
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        if(savedInstanceState == null)
+        if(savedInstanceState == null && this.selectedWorkout.getString("workoutType").equals("custom"))
             getExercises();
     }
 
