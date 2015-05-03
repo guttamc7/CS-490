@@ -3,8 +3,12 @@ package com.gym8.main;
 /**
  * Created by Gurumukh on 2/4/15.
  */
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Locale;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -23,6 +27,7 @@ import android.view.ViewGroup;
 import com.gym8.findnearby.FindNearbyFragment;
 import com.gym8.main.R;
 import com.gym8.trendingworkout.TrendingWorkoutFragment;
+import com.gym8.userprofile.EditProfileDialog;
 import com.gym8.userprofile.UserProfileFragment;
 import com.gym8.viewpager.OnBackPressListener;
 
@@ -54,6 +59,39 @@ public class HomeFragment extends Fragment {
         mViewPager.setAdapter(mSectionsPagerAdapter);
         mViewPager.setOffscreenPageLimit(3);
         return v;
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        switch (requestCode) {
+            case UserProfileFragment.DIALOG_FRAGMENT:
+
+                if (resultCode == Activity.RESULT_OK) {
+                    System.out.println("In Activity Result");
+                    Bundle bundle = data.getExtras();
+                    String heightEdited = bundle.getString("height");
+                    String weightEdited = bundle.getString("weight");
+                    String dateEditedText = bundle.getString("birthDate");
+
+                    UserProfileFragment.getUserHeight().setText(heightEdited + " cm");
+                    UserProfileFragment.getUserWeight().setText(weightEdited + " lbs");
+
+                    SimpleDateFormat formatter = new SimpleDateFormat("MM/dd/yyyy");
+                    Date dateEdited = null;
+                    try {
+                        dateEdited = formatter.parse(dateEditedText);
+                    } catch (java.text.ParseException e) {
+                        e.printStackTrace();
+                    }
+                    UserProfileFragment.getUserAge().setText(Integer.toString(UserProfileFragment.getAge(dateEdited)) + " years old");
+                    UserProfileFragment.getProfilePic().setImageBitmap(EditProfileDialog.getResizedBitmap());
+                    // After Ok code.
+                } else if (resultCode == Activity.RESULT_CANCELED) {
+                    // After Cancel code.
+                }
+
+                break;
+        }
     }
 
     public boolean onBackPressed() {

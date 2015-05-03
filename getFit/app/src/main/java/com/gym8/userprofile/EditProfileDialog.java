@@ -48,10 +48,10 @@ public class EditProfileDialog extends DialogFragment
     private EditText weight, height;
     private Button birthDate;
     private TextView userNameTextView;
-    private ImageView profilePictureImgView;
-    private Uri imageUri;
-    private Bitmap resizedBitmap = null;
-    private boolean imageChanged = false;
+    private static ImageView profilePictureImgView;
+    public static Uri imageUri;
+    public static Bitmap resizedBitmap = null;
+    public static boolean imageChanged = false;
     private Button submitButton;
     private Button cancelButton;
     private String genderText;
@@ -117,7 +117,13 @@ public class EditProfileDialog extends DialogFragment
                                 }
                                 birthDateText = birthDate.getText().toString();
                                 genderText = selectRadio.getText().toString();
-                                getTargetFragment().onActivityResult(getTargetRequestCode(), Activity.RESULT_OK, getActivity().getIntent());
+                                Intent i = new Intent()
+                                        .putExtra("weight", weight.getText().toString())
+                                        .putExtra("gender", genderText)
+                                        .putExtra("birthDate", birthDateText)
+                                        .putExtra("height", height.getText().toString());
+
+                                getTargetFragment().onActivityResult(getTargetRequestCode(), Activity.RESULT_OK, i);
                                 EditUserDetails(genderText, weightText, heightText, birthD);
                                 getDialog().dismiss();
                             }
@@ -144,7 +150,8 @@ public class EditProfileDialog extends DialogFragment
                 Intent intent = new Intent();
                 intent.setType("image/*");
                 intent.setAction(Intent.ACTION_GET_CONTENT);
-                startActivityForResult(Intent.createChooser(intent, "Select Profile Picture"), 1);
+
+                getActivity().startActivityForResult(Intent.createChooser(intent, "Select Profile Picture"), 2);
             }
             }
 
@@ -222,23 +229,7 @@ public class EditProfileDialog extends DialogFragment
 
     }
 
-    public void onActivityResult(int reqCode, int resCode, Intent data) {
-        if (resCode == getActivity().RESULT_OK) {
-            if (reqCode == 1) {
-                imageUri = data.getData();
-                try {
-                    resizedBitmap = getResizedBitmap(MediaStore.Images.Media.getBitmap(getActivity().getContentResolver(), imageUri),400,400);
-                    profilePictureImgView.setImageBitmap(resizedBitmap);
-                    //profilePicText.setText("");
-                    this.imageChanged = true;
-                } catch (FileNotFoundException e) {
-                    e.printStackTrace();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
-    }
+
 
     public static EditProfileDialog newInstance(){
         EditProfileDialog f = new EditProfileDialog();
@@ -279,7 +270,7 @@ public class EditProfileDialog extends DialogFragment
         return stream.toByteArray();
     }
 
-    public Bitmap getResizedBitmap(Bitmap bm, int newHeight, int newWidth) {
+    public static Bitmap getResizedBitmap(Bitmap bm, int newHeight, int newWidth) {
         int width = bm.getWidth();
         int height = bm.getHeight();
         float scaleWidth = ((float) newWidth) / width;
@@ -312,7 +303,26 @@ public class EditProfileDialog extends DialogFragment
         c.set(mYear-16,mMonth,mDay);
         Date date = c.getTime();
         dpd.getDatePicker().setMaxDate(date.getTime());
+        c.set(mYear-75,mMonth,mDay);
+        date = c.getTime();
+        dpd.getDatePicker().setMinDate(date.getTime());
         dpd.show();
 
+    }
+
+    public static Bitmap getResizedBitmap() {
+        return resizedBitmap;
+    }
+
+    public static Uri getImageUri() {
+        return imageUri;
+    }
+
+    public static ImageView getProfilePictureImgView() {
+        return profilePictureImgView;
+    }
+
+    public static boolean getImageChanged(){
+        return imageChanged;
     }
 }

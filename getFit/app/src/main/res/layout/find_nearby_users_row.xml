@@ -13,7 +13,7 @@
     android:layout_marginBottom="20dp"
     android:orientation="vertical"
     android:id="@+id/front_findNearby"
-    android:background="@drawable/bg_card">
+    android:background="@drawable/grid_card">
 
         <TextView
             android:id="@+id/grid_UserName"

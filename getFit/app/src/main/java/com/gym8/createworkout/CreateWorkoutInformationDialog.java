@@ -26,14 +26,18 @@ import com.gym8.main.R;
 
 public class CreateWorkoutInformationDialog extends DialogFragment {
     private View rootView;
-    private EditText workoutNameText, workoutDescriptionText;
+    private EditText workoutNameText;
+    private EditText workoutDescriptionText;
     private RadioGroup levels;
     private RadioButton level1Button;
     private RadioButton level2Button;
     private RadioButton level3Button;
-    private CheckedTextView checkedTextViewOnlyMe, checkedTextViewToAll;
-    private boolean onlyMeChecked, toAllChecked;
+    private CheckedTextView checkedTextViewOnlyMe;
+    private CheckedTextView checkedTextViewToAll;
+    private boolean onlyMeChecked;
+    private boolean toAllChecked;
     private String levelText;
+    private Button nextButton;
     public static String workoutName;
     public static String workoutDescription;
     public static int workoutLevel;
@@ -65,6 +69,7 @@ public class CreateWorkoutInformationDialog extends DialogFragment {
                 {
                     onlyMeChecked= true;
                     checkedTextViewOnlyMe.setChecked(true);
+                    checkedTextViewToAll.setChecked(false);
                 }
             }
         });
@@ -82,6 +87,7 @@ public class CreateWorkoutInformationDialog extends DialogFragment {
                 {
                     toAllChecked = true;
                     checkedTextViewToAll.setChecked(true);
+                    checkedTextViewOnlyMe.setChecked(false);
                 }
             }
         });
@@ -98,22 +104,17 @@ public class CreateWorkoutInformationDialog extends DialogFragment {
 
                                 } else if (workoutDescriptionText.getText().toString() == null || workoutNameText.getText().toString().length() == 0) {
                                     Toast.makeText(getActivity(), "Please Enter A Workout Description", Toast.LENGTH_SHORT).show();
-
-                                } else if (CreateWorkoutInformationDialog.workoutLevel == 0) {
-                                    Toast.makeText(getActivity(), "Please Enter A Workout Level", Toast.LENGTH_SHORT).show();
-
                                 } else {
                                     workoutName = workoutNameText.getText().toString();
                                     workoutDescription = workoutDescriptionText.getText().toString();
                                     RadioButton selectRadio = null;
-                                    Log.d("gender: ", Integer.toString(levels.getCheckedRadioButtonId()));
                                     if (levels.getCheckedRadioButtonId() == -1) {
                                         levels = null;
                                         Toast.makeText(getActivity(), "Please Enter A Workout Level", Toast.LENGTH_SHORT).show();
                                     } else {
                                         selectRadio = (RadioButton) rootView.findViewById(levels.getCheckedRadioButtonId());
                                         //Log.d("selectRadio: ", selectRadio.getText().toString());
-                                        if (selectRadio.getText().toString() == null || (!selectRadio.getText().toString().equals("") && selectRadio.getText().toString().length() > 0))
+                                        if ((!selectRadio.getText().toString().equals("") && selectRadio.getText().toString().length() > 0))
                                             levelText = selectRadio.getText().toString();
                                     }
                                     if (levelText.equals("Level 1")) {

@@ -2,12 +2,14 @@ package com.gym8.main;
 /**
  * Created by Gurumukh on 2/4/15.
  */
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.content.res.Configuration;
+import android.provider.MediaStore;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.GravityCompat;
@@ -24,14 +26,21 @@ import com.gym8.main.DrawerListAdapter;
 import com.gym8.main.HomeFragment;
 import com.gym8.main.R;
 import com.gym8.messages.MessagesFragment;
+import com.gym8.userprofile.EditProfileDialog;
+import com.gym8.userprofile.UserProfileFragment;
 import com.parse.ParseUser;
+
+import java.io.FileNotFoundException;
+import java.io.IOException;
+
+import static com.gym8.userprofile.EditProfileDialog.getImageUri;
 
 public class HomePageActivity extends FragmentActivity {
 
     private final static String TAG_FRAGMENT = "BASE_FRAGMENT";
     private DrawerLayout mDrawerLayout;
     private HomeFragment homeFragment;
-    private static ListView mDrawerList;
+    private  static ListView mDrawerList;
     private ActionBarDrawerToggle mDrawerToggle;
     private CharSequence mDrawerTitle;
     private CharSequence mTitle;
@@ -62,7 +71,9 @@ public class HomePageActivity extends FragmentActivity {
         // Enable ActionBar app icon to behave as action to toggle the NavigationDrawer
         getActionBar().setDisplayHomeAsUpEnabled(true);
         getActionBar().setHomeButtonEnabled(true);
+        //getActionBar().setIcon(R.color.transparent);
         getActionBar().setDisplayShowTitleEnabled(true);
+        //getActionBar().setBackgroundDrawable(new ColorDrawable(Color.parseColor("#1A5573")));
 
         mDrawerToggle = new ActionBarDrawerToggle(
                 this,
@@ -127,12 +138,46 @@ public class HomePageActivity extends FragmentActivity {
     @Override
     public void onBackPressed() {
         String className = getSupportFragmentManager().findFragmentByTag(TAG_FRAGMENT).getClass().getName();
-        if(!homeFragment.onBackPressed() || className.equals("com.gym8.main.HomeFragment")) {
-            if(!(getSupportFragmentManager().getBackStackEntryCount() == 0)) {
+        //System.out.println(className);
+        System.out.println("Back Stack Entrey Count" + getSupportFragmentManager().getBackStackEntryCount());
+        if(!homeFragment.onBackPressed() || className.equals("com.gym8.main.HomeFragment") ) {
+
+            if((getSupportFragmentManager().getBackStackEntryCount() == 0)) {
+                // Do Nothing
+
+            }
+            else {
                 super.onBackPressed();
             }
         }
+        else {
+
+        }
     }
+
+    @Override
+    public void onActivityResult(int reqCode, int resCode, Intent data) {
+        if (resCode == Activity.RESULT_OK) {
+
+            if (reqCode == 2) {
+                System.out.println("In On Activity Result");
+                EditProfileDialog.imageUri = data.getData();
+                try {
+                    EditProfileDialog.resizedBitmap = EditProfileDialog.getResizedBitmap(MediaStore.Images.Media.getBitmap(getContentResolver(), EditProfileDialog.imageUri),400,400);
+                    EditProfileDialog.getProfilePictureImgView().setImageBitmap(EditProfileDialog.getResizedBitmap());
+                    EditProfileDialog.imageChanged = true;
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+            else {
+                System.out.println("HERE Request COdE:" + reqCode);
+            }
+        }
+    }
+
 
     private class DrawerItemClickListener implements OnItemClickListener {
         @Override
@@ -143,7 +188,11 @@ public class HomePageActivity extends FragmentActivity {
         }
     }
 
+
+
     public void navigateTo(int position) {
+
+
         switch(position) {
             case 0:
                 homeFragment = new HomeFragment();
@@ -156,12 +205,12 @@ public class HomePageActivity extends FragmentActivity {
                         .beginTransaction()
                         .replace(R.id.content_frame, BaseWorkoutFragment.newInstance(), TAG_FRAGMENT).commit();
                 break;
-            case 2:
+            case 2: //TODO
                 getSupportFragmentManager()
                         .beginTransaction()
                         .replace(R.id.content_frame, CustomWorkoutFragment.newInstance(), TAG_FRAGMENT).commit();
                 break;
-            case 3:
+            case 3: //TODO
                 getSupportFragmentManager()
                         .beginTransaction()
                         .replace(R.id.content_frame, MessagesFragment.newInstance(),TAG_FRAGMENT).commit();
@@ -170,6 +219,7 @@ public class HomePageActivity extends FragmentActivity {
                 AlertDialog.Builder builder = new AlertDialog.Builder(this);
                 builder.setMessage("Signing Out. Have a Great Day. ");
                 builder.setTitle("Sign Out");
+                // builder.setIcon(R.drawable.ic_action_accept);
                 builder.setPositiveButton("Ok",new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         dialog.cancel();

@@ -47,6 +47,7 @@ public class CreateWorkoutExerciseFragment extends Fragment {
         }
 
         addExerciseButton = (FloatingActionButton) rootView.findViewById(R.id.add_exercise_fab);
+        addExerciseButton.setSize(FloatingActionButton.SIZE_MINI);
         addExerciseButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
