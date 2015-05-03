@@ -14,7 +14,8 @@ import com.gym8.main.R;
 public class BaseWorkoutDetailsFragment extends Fragment {
     private BaseWorkoutFragment b;
     private WebView webView;
-    View v;
+    private View v;
+
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         b = new BaseWorkoutFragment();
         v = inflater.inflate(R.layout.fragment_base_workout_details, container, false);

@@ -2,11 +2,11 @@ package com.gym8.main;
 /**
  * Created by Gurumukh on 2/4/15.
  */
+
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.content.res.Configuration;
 import android.provider.MediaStore;
@@ -19,33 +19,28 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.gym8.baseworkout.BaseWorkoutFragment;
 import com.gym8.customworkout.CustomWorkoutFragment;
-import com.gym8.main.DrawerListAdapter;
-import com.gym8.main.HomeFragment;
-import com.gym8.main.R;
 import com.gym8.messages.MessagesFragment;
 import com.gym8.userprofile.EditProfileDialog;
-import com.gym8.userprofile.UserProfileFragment;
 import com.parse.ParseUser;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
-
-import static com.gym8.userprofile.EditProfileDialog.getImageUri;
 
 public class HomePageActivity extends FragmentActivity {
 
     private final static String TAG_FRAGMENT = "BASE_FRAGMENT";
     private DrawerLayout mDrawerLayout;
     private HomeFragment homeFragment;
-    private  static ListView mDrawerList;
+    private static ListView mDrawerList;
     private ActionBarDrawerToggle mDrawerToggle;
     private CharSequence mDrawerTitle;
     private CharSequence mTitle;
     private String[] mDrawerItems;
-    private Integer[] imageId = {R.drawable.ic_action_home, R.drawable.ic_action_list,R.drawable.ic_action_pin,
+    private Integer[] imageId = {R.drawable.ic_action_home, R.drawable.ic_action_list, R.drawable.ic_action_pin,
             R.drawable.ic_messages, R.drawable.ic_action_arrow_left};
 
     @Override
@@ -60,10 +55,10 @@ public class HomePageActivity extends FragmentActivity {
         mDrawerList = (ListView) findViewById(R.id.left_drawer);
 
         // set a custom shadow that overlays the main content when the drawer opens
-        mDrawerLayout.setDrawerShadow(R.drawable.drawer_shadow,  GravityCompat.START);
+        mDrawerLayout.setDrawerShadow(R.drawable.drawer_shadow, GravityCompat.START);
         mDrawerList.setBackgroundColor(getResources().getColor(R.color.navigation_drawer_color));
         // Add items to the ListView
-        mDrawerList.setAdapter(new DrawerListAdapter(this,mDrawerItems,imageId));
+        mDrawerList.setAdapter(new DrawerListAdapter(this, mDrawerItems, imageId));
         // Set the OnItemClickListener so something happens when a
         // user clicks on an item.
         mDrawerList.setOnItemClickListener(new DrawerItemClickListener());
@@ -71,9 +66,7 @@ public class HomePageActivity extends FragmentActivity {
         // Enable ActionBar app icon to behave as action to toggle the NavigationDrawer
         getActionBar().setDisplayHomeAsUpEnabled(true);
         getActionBar().setHomeButtonEnabled(true);
-        //getActionBar().setIcon(R.color.transparent);
         getActionBar().setDisplayShowTitleEnabled(true);
-        //getActionBar().setBackgroundDrawable(new ColorDrawable(Color.parseColor("#1A5573")));
 
         mDrawerToggle = new ActionBarDrawerToggle(
                 this,
@@ -95,10 +88,9 @@ public class HomePageActivity extends FragmentActivity {
 
         // Set the default content area to item 0
         // when the app opens for the first time
-        if(savedInstanceState == null) {
+        if (savedInstanceState == null) {
             navigateTo(0);
-        }
-        else {
+        } else {
             homeFragment = (HomeFragment) getSupportFragmentManager().getFragments().get(0);
         }
 
@@ -111,10 +103,9 @@ public class HomePageActivity extends FragmentActivity {
      */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if(mDrawerToggle.onOptionsItemSelected(item)) {
+        if (mDrawerToggle.onOptionsItemSelected(item)) {
             return true;
         }
-
         return super.onOptionsItemSelected(item);
     }
 
@@ -138,42 +129,25 @@ public class HomePageActivity extends FragmentActivity {
     @Override
     public void onBackPressed() {
         String className = getSupportFragmentManager().findFragmentByTag(TAG_FRAGMENT).getClass().getName();
-        //System.out.println(className);
-        System.out.println("Back Stack Entrey Count" + getSupportFragmentManager().getBackStackEntryCount());
-        if(!homeFragment.onBackPressed() || className.equals("com.gym8.main.HomeFragment") ) {
-
-            if((getSupportFragmentManager().getBackStackEntryCount() == 0)) {
-                // Do Nothing
-
-            }
-            else {
+        if (!homeFragment.onBackPressed() || className.equals("com.gym8.main.HomeFragment")) {
+            if (!(getSupportFragmentManager().getBackStackEntryCount() == 0)) {
                 super.onBackPressed();
             }
-        }
-        else {
-
         }
     }
 
     @Override
     public void onActivityResult(int reqCode, int resCode, Intent data) {
         if (resCode == Activity.RESULT_OK) {
-
             if (reqCode == 2) {
-                System.out.println("In On Activity Result");
                 EditProfileDialog.imageUri = data.getData();
                 try {
-                    EditProfileDialog.resizedBitmap = EditProfileDialog.getResizedBitmap(MediaStore.Images.Media.getBitmap(getContentResolver(), EditProfileDialog.imageUri),400,400);
+                    EditProfileDialog.resizedBitmap = EditProfileDialog.getResizedBitmap(MediaStore.Images.Media.getBitmap(getContentResolver(), EditProfileDialog.imageUri), 400, 400);
                     EditProfileDialog.getProfilePictureImgView().setImageBitmap(EditProfileDialog.getResizedBitmap());
                     EditProfileDialog.imageChanged = true;
-                } catch (FileNotFoundException e) {
-                    e.printStackTrace();
-                } catch (IOException e) {
-                    e.printStackTrace();
+                } catch (Exception e) {
+                    Toast.makeText(this, "Error while reading the image", Toast.LENGTH_SHORT).show();
                 }
-            }
-            else {
-                System.out.println("HERE Request COdE:" + reqCode);
             }
         }
     }
@@ -189,11 +163,8 @@ public class HomePageActivity extends FragmentActivity {
     }
 
 
-
     public void navigateTo(int position) {
-
-
-        switch(position) {
+        switch (position) {
             case 0:
                 homeFragment = new HomeFragment();
                 getSupportFragmentManager()
@@ -210,17 +181,17 @@ public class HomePageActivity extends FragmentActivity {
                         .beginTransaction()
                         .replace(R.id.content_frame, CustomWorkoutFragment.newInstance(), TAG_FRAGMENT).commit();
                 break;
-            case 3: //TODO
+            case 3:
                 getSupportFragmentManager()
                         .beginTransaction()
-                        .replace(R.id.content_frame, MessagesFragment.newInstance(),TAG_FRAGMENT).commit();
+                        .replace(R.id.content_frame, MessagesFragment.newInstance(), TAG_FRAGMENT).commit();
                 break;
             case 4: //SignOut
                 AlertDialog.Builder builder = new AlertDialog.Builder(this);
                 builder.setMessage("Signing Out. Have a Great Day. ");
                 builder.setTitle("Sign Out");
                 // builder.setIcon(R.drawable.ic_action_accept);
-                builder.setPositiveButton("Ok",new DialogInterface.OnClickListener() {
+                builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         dialog.cancel();
                         ParseUser.getCurrentUser().logOut();
@@ -229,7 +200,7 @@ public class HomePageActivity extends FragmentActivity {
                         intent.addCategory(Intent.CATEGORY_HOME);
                         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                        startActivity(intent );
+                        startActivity(intent);
                     }
                 });
                 AlertDialog dialog = builder.create();

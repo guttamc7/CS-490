@@ -11,8 +11,6 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.gym8.main.R;
-
 public class DrawerListAdapter extends ArrayAdapter<String>{
     private final Activity context;
     private final String[] web;

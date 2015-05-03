@@ -15,7 +15,6 @@ import com.parse.ui.ParseLoginBuilder;
  */
 
 public class MainActivity extends Activity {
-
     // Splash screen timer
     private static int SPLASH_TIME_OUT = 4000;
     private Thread splashThread = null;
@@ -93,7 +92,6 @@ public class MainActivity extends Activity {
         synchronized (splashThread) {
             splashThread.notifyAll();
         }
-
     }
 
     //Increment the user login count and return the latest value
@@ -104,5 +102,4 @@ public class MainActivity extends Activity {
         currentUser.saveInBackground();
         return ++currentLoginCount;
     }
-
 }
