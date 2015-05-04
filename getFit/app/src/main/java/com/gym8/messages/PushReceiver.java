@@ -46,7 +46,7 @@ public class PushReceiver extends ParsePushBroadcastReceiver {
         Notification notification = n.build();
         notification.sound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
         Intent notificationIntent = new Intent(context, HomePageActivity.class);
-
+        notificationIntent.putExtra("Go to Messages", true);
         if (ParseUser.getCurrentUser() == null) {
             notificationIntent = new Intent(context, MainActivity.class);
         }
