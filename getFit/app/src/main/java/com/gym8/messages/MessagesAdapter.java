@@ -11,6 +11,7 @@ import com.daimajia.swipe.SwipeLayout;
 import com.daimajia.swipe.adapters.BaseSwipeAdapter;
 import com.gym8.main.R;
 import com.gym8.imageloader.ImageLoader;
+import com.parse.ParseFile;
 import com.parse.ParseUser;
 
 /**
@@ -65,7 +66,13 @@ public class MessagesAdapter extends BaseSwipeAdapter {
 
         ParseUser user = ChatMessaging.getChatUsersDetails().get(position);
         name.setText(user.getString("name"));
-        imageLoader.DisplayImage(user.getParseFile("profilePic").getUrl(),profilePic);
+        ParseFile imageFile = user.getParseFile("profilePic");
+        if(imageFile == null) {
+            profilePic.setImageResource(R.drawable.no_user_logo);
+        }
+        else {
+            imageLoader.DisplayImage(user.getParseFile("profilePic").getUrl(), profilePic);
+        }
     }
 
     @Override

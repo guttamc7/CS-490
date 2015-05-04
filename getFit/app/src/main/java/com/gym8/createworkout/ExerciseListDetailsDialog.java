@@ -23,12 +23,13 @@ import com.gym8.imageloader.ImageLoader;
  * Created by Gurumukh on 4/2/15.
  */
 public class ExerciseListDetailsDialog extends DialogFragment {
-    private ImageView exerciseImage1,exerciseImage2,exerciseImage3, exerciseImage4;
+    private ImageView exerciseImage1, exerciseImage2, exerciseImage3, exerciseImage4;
     private ImageLoader imageLoader;
-    private EditText sets,reps;
+    private EditText sets, reps;
     private View rootView;
-    private String numberSets,numberReps;
-    public static ArrayList<ParseObject> exerciseWorkoutList = new ArrayList<>();
+    private String numberSets, numberReps;
+    private static ArrayList<ParseObject> exerciseWorkoutList = new ArrayList<>();
+
     public Dialog onCreateDialog(Bundle savedInstanceState) {
 
         AlertDialog.Builder b = new AlertDialog.Builder(getActivity())
@@ -41,9 +42,9 @@ public class ExerciseListDetailsDialog extends DialogFragment {
 
                                 if (reps.getText().toString() != null || (!reps.getText().toString().equals("") && reps.getText().toString().length() > 0))
                                     numberReps = reps.getText().toString();
-                                ExerciseListFragment.selectedExercise.put("sets",Integer.parseInt(numberSets));
-                                ExerciseListFragment.selectedExercise.put("reps",Integer.parseInt(numberReps));
-                                exerciseWorkoutList.add(ExerciseListFragment.selectedExercise);
+                                ExerciseListFragment.getSelectedExercise().put("sets", Integer.parseInt(numberSets));
+                                ExerciseListFragment.getSelectedExercise().put("reps", Integer.parseInt(numberReps));
+                                exerciseWorkoutList.add(ExerciseListFragment.getSelectedExercise());
                                 dismiss();
                                 ExerciseListFragment.listener.onSwitchToNextFragment();
                             }
@@ -65,13 +66,13 @@ public class ExerciseListDetailsDialog extends DialogFragment {
         exerciseImage4 = (ImageView) rootView.findViewById(R.id.exercise_imgView_4);
         sets = (EditText) rootView.findViewById(R.id.exercise_sets);
         reps = (EditText) rootView.findViewById(R.id.exercise_reps);
-        imageLoader.DisplayImage(ExerciseListFragment.selectedExercise.getString("maleImg1"), exerciseImage1);
-        imageLoader.DisplayImage(ExerciseListFragment.selectedExercise.getString("maleImg2"), exerciseImage2);
-        imageLoader.DisplayImage(ExerciseListFragment.selectedExercise.getString("femaleImg1"), exerciseImage3);
-        imageLoader.DisplayImage(ExerciseListFragment.selectedExercise.getString("femaleImg2"), exerciseImage4);
+        imageLoader.DisplayImage(ExerciseListFragment.getSelectedExercise().getString("maleImg1"), exerciseImage1);
+        imageLoader.DisplayImage(ExerciseListFragment.getSelectedExercise().getString("maleImg2"), exerciseImage2);
+        imageLoader.DisplayImage(ExerciseListFragment.getSelectedExercise().getString("femaleImg1"), exerciseImage3);
+        imageLoader.DisplayImage(ExerciseListFragment.getSelectedExercise().getString("femaleImg2"), exerciseImage4);
         b.setView(rootView);
         TextView title = new TextView(getActivity());
-        title.setText(ExerciseListFragment.selectedExercise.getString("name"));
+        title.setText(ExerciseListFragment.getSelectedExercise().getString("name"));
         title.setBackgroundColor(getResources().getColor(R.color.primary_blue));
         title.setPadding(15, 15, 15, 15);
         title.setGravity(Gravity.CENTER);
@@ -80,6 +81,16 @@ public class ExerciseListDetailsDialog extends DialogFragment {
         b.setCustomTitle(title);
 
         return b.create();
+    }
+
+    public static ArrayList<ParseObject> getExerciseWorkoutList()
+    {
+        return exerciseWorkoutList;
+    }
+
+    public static void setExerciseWorkoutList(ArrayList<ParseObject> exerciseWorkoutList){
+
+        ExerciseListDetailsDialog.exerciseWorkoutList=exerciseWorkoutList;
     }
 
 

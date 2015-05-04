@@ -52,7 +52,7 @@ public class HomePageActivity extends FragmentActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_page);
-
+        boolean goToMessages = false;
         mTitle = mDrawerTitle = getTitle();
 
         mDrawerItems = getResources().getStringArray(R.array.drawer_titles);

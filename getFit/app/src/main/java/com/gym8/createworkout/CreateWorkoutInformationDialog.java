@@ -164,6 +164,7 @@ public class CreateWorkoutInformationDialog extends DialogFragment {
                             else if (toAllChecked && !onlyMeChecked)
                                 visibility = true;
                             dismiss();
+                            ExerciseListDetailsDialog.getExerciseWorkoutList().clear();
                             CreateWorkoutDialog f = new CreateWorkoutDialog().newInstance();
                             f.show(getFragmentManager(), "dialog");
                         }
