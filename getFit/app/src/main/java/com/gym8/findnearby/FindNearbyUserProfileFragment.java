@@ -167,7 +167,6 @@ public class FindNearbyUserProfileFragment extends RootFragment {
                     user.pinInBackground();
                     ParseObject chatUser = new ParseObject("ChatUsers");
                     chatUser.put("userId", user);
-                    chatUser.saveEventually();
                     chatUser.pinInBackground(new SaveCallback() {
                         @Override
                         public void done(ParseException e) {

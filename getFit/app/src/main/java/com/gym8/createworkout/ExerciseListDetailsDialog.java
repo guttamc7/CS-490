@@ -27,7 +27,7 @@ public class ExerciseListDetailsDialog extends DialogFragment {
     private ImageLoader imageLoader;
     private EditText sets, reps;
     private View rootView;
-    private String numberSets, numberReps;
+    private String numberSets = "0", numberReps = "0";
     private static ArrayList<ParseObject> exerciseWorkoutList = new ArrayList<>();
 
     public Dialog onCreateDialog(Bundle savedInstanceState) {
@@ -37,11 +37,12 @@ public class ExerciseListDetailsDialog extends DialogFragment {
                 .setPositiveButton("Add",
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int whichButton) {
-                                if (sets.getText().toString() != null || (!sets.getText().toString().equals("") && sets.getText().toString().length() > 0))
+                                if (sets.getText().toString() != null && (!sets.getText().toString().equals("") && sets.getText().toString().length() > 0))
                                     numberSets = sets.getText().toString();
 
-                                if (reps.getText().toString() != null || (!reps.getText().toString().equals("") && reps.getText().toString().length() > 0))
+                                if (reps.getText().toString() != null && (!reps.getText().toString().equals("") && reps.getText().toString().length() > 0))
                                     numberReps = reps.getText().toString();
+
                                 ExerciseListFragment.getSelectedExercise().put("sets", Integer.parseInt(numberSets));
                                 ExerciseListFragment.getSelectedExercise().put("reps", Integer.parseInt(numberReps));
                                 exerciseWorkoutList.add(ExerciseListFragment.getSelectedExercise());
