@@ -63,8 +63,8 @@ public class ChatAdapter extends BaseAdapter {
             holder = (ViewHolder1) convertView.getTag();
         }
         //Set all the values in the list
-        FrameLayout.LayoutParams lp = (FrameLayout.LayoutParams) holder.singleMessage.getLayoutParams();
-        FrameLayout.LayoutParams lp1 = (FrameLayout.LayoutParams) holder.messageTimestamp.getLayoutParams();
+        LinearLayout.LayoutParams lp = (LinearLayout.LayoutParams) holder.singleMessage.getLayoutParams();
+        LinearLayout.LayoutParams lp1 = (LinearLayout.LayoutParams) holder.messageTimestamp.getLayoutParams();
         if (message.getString("type").equals("received")) {
             holder.singleMessage.setBackgroundResource(R.drawable.speech_bubble_yellow);
             lp.gravity = Gravity.LEFT;
