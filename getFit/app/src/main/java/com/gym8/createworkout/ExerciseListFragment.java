@@ -13,6 +13,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.gym8.ErrorHandlingAlertDialogBox;
 import com.parse.FindCallback;
@@ -36,7 +37,7 @@ public class ExerciseListFragment extends Fragment {
     private EditText inputSearch;
     private ArrayList<String> exerciseList = new ArrayList<>();
     private List<ParseObject> workList = new ArrayList<>();
-    public static ParseObject selectedExercise;
+    private static ParseObject selectedExercise;
     public static CreateWorkoutDialog.CalendarPageFragmentListener listener;
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.fragment_exercise_list, null);
@@ -87,15 +88,9 @@ public class ExerciseListFragment extends Fragment {
             }
         });
 
-        //Set Item Click Listener
-    }
-
-    private void onPostExecute() {
-        adapter = new ArrayAdapter<String>(getActivity(), R.layout.exerciselist_row, R.id.exercise_name, exerciseList);
-        lv.setAdapter(adapter);
-        adapter.notifyDataSetChanged();
 
     }
+
 
     private void getAllExercises() {
         ParseQuery<ParseObject> query = ParseQuery.getQuery("Exercise");
@@ -111,12 +106,17 @@ public class ExerciseListFragment extends Fragment {
                    }
 
                 } else {
-                    ErrorHandlingAlertDialogBox.showDialogBox(getActivity().getBaseContext());
-                    //Exception
+                    Toast.makeText(getActivity(), "Connection error", Toast.LENGTH_SHORT).show();
                 }
-            onPostExecute();
+                adapter = new ArrayAdapter<String>(getActivity(), R.layout.exerciselist_row, R.id.exercise_name, exerciseList);
+                lv.setAdapter(adapter);
+                adapter.notifyDataSetChanged();
             }
 
         });
+    }
+    public static ParseObject getSelectedExercise()
+    {
+        return selectedExercise;
     }
 }

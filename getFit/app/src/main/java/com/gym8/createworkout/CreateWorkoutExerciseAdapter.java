@@ -27,7 +27,7 @@ public class CreateWorkoutExerciseAdapter extends BaseAdapter {
     public CreateWorkoutExerciseAdapter(Context context, ArrayList<ParseObject> listData) {
         this.listData = listData;
         layoutInflater = LayoutInflater.from(context);
-        imageLoader = new ImageLoader(context,100);
+        imageLoader = new ImageLoader(context, 100);
     }
 
     @Override
@@ -66,8 +66,8 @@ public class CreateWorkoutExerciseAdapter extends BaseAdapter {
         holder.nameView.setText(exercise.getString("name"));
         holder.setsView.setText(Integer.toString(exercise.getInt("sets")) + " sets");
         holder.repsView.setText(Integer.toString(exercise.getInt("reps")) + " reps");
-        imageLoader.DisplayImage(exercise.getString("maleImg1"),holder.exerciseImage1);
-        imageLoader.DisplayImage(exercise.getString("maleImg2"),holder.exerciseImage2);
+        imageLoader.DisplayImage(exercise.getString("maleImg1"), holder.exerciseImage1);
+        imageLoader.DisplayImage(exercise.getString("maleImg2"), holder.exerciseImage2);
         return convertView;
     }
 

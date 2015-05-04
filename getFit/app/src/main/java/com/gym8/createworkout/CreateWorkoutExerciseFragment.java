@@ -8,6 +8,7 @@ import android.widget.Button;
 import android.support.v4.app.Fragment;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.getbase.floatingactionbutton.FloatingActionButton;
 import com.parse.ParseException;
@@ -36,9 +37,9 @@ public class CreateWorkoutExerciseFragment extends Fragment {
         listView = (ListView) rootView.findViewById(R.id.create_workout_exercises_list);
         emptyList = (TextView) rootView.findViewById(R.id.empty_list);
         doneButton = (Button) rootView.findViewById(R.id.createWorkout_doneButton);
-        if(ExerciseListDetailsDialog.exerciseWorkoutList!=null){
+        if(ExerciseListDetailsDialog.getExerciseWorkoutList()!=null){
             emptyList.setVisibility(View.INVISIBLE);
-            adapter = new CreateWorkoutExerciseAdapter(getActivity().getApplicationContext(),ExerciseListDetailsDialog.exerciseWorkoutList);
+            adapter = new CreateWorkoutExerciseAdapter(getActivity().getApplicationContext(),ExerciseListDetailsDialog.getExerciseWorkoutList());
             listView.setAdapter(adapter);
         }
         else {
@@ -60,7 +61,7 @@ public class CreateWorkoutExerciseFragment extends Fragment {
             @Override
             public void onClick(View view) {
 
-                    addWorkout(CreateWorkoutInformationDialog.workoutName, CreateWorkoutInformationDialog.workoutDescription, CreateWorkoutInformationDialog.workoutLevel,ExerciseListDetailsDialog.exerciseWorkoutList,CreateWorkoutInformationDialog.visibility);
+                    addWorkout(CreateWorkoutInformationDialog.getWorkoutName(), CreateWorkoutInformationDialog.getWorkoutDescription(), CreateWorkoutInformationDialog.getWorkoutLevel(),ExerciseListDetailsDialog.getExerciseWorkoutList(),CreateWorkoutInformationDialog.getVisibility());
                     CreateWorkoutDialog dialog = CreateWorkoutDialog.getInstance();
                     dialog.dismiss();
                 }
@@ -109,6 +110,7 @@ public class CreateWorkoutExerciseFragment extends Fragment {
                     workout.saveInBackground();
 
                 } else {
+                    Toast.makeText(getActivity(), "Connection error", Toast.LENGTH_SHORT).show();
                 }
             }
         });

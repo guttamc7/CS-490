@@ -3,6 +3,7 @@ package com.gym8.createworkout;
 /**
  * Created by Gurumukh on 3/30/15.
  */
+
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
@@ -37,11 +38,10 @@ public class CreateWorkoutInformationDialog extends DialogFragment {
     private boolean onlyMeChecked;
     private boolean toAllChecked;
     private String levelText;
-    private Button nextButton;
-    public static String workoutName;
-    public static String workoutDescription;
-    public static int workoutLevel;
-    public static boolean visibility;
+    private static String workoutName;
+    private static String workoutDescription;
+    private static int workoutLevel;
+    private static boolean visibility;
     private static CreateWorkoutInformationDialog f;
 
     public Dialog onCreateDialog(Bundle savedInstanceState) {
@@ -56,35 +56,25 @@ public class CreateWorkoutInformationDialog extends DialogFragment {
         level3Button = (RadioButton) rootView.findViewById(R.id.level3_create_workout);
         checkedTextViewToAll = (CheckedTextView) rootView.findViewById(R.id.checkedTextToAll);
         checkedTextViewOnlyMe = (CheckedTextView) rootView.findViewById(R.id.checkedTextOnlyMe);
-        checkedTextViewOnlyMe.setOnClickListener(new View.OnClickListener()
-        {
+        checkedTextViewOnlyMe.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v)
-            {
-                if(checkedTextViewOnlyMe.isChecked())
-                {
+            public void onClick(View v) {
+                if (checkedTextViewOnlyMe.isChecked()) {
                     checkedTextViewOnlyMe.setChecked(false);
-                }
-                else
-                {
-                    onlyMeChecked= true;
+                } else {
+                    onlyMeChecked = true;
                     checkedTextViewOnlyMe.setChecked(true);
                     checkedTextViewToAll.setChecked(false);
                 }
             }
         });
 
-        checkedTextViewToAll.setOnClickListener(new View.OnClickListener()
-        {
+        checkedTextViewToAll.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v)
-            {
-                if(checkedTextViewToAll.isChecked())
-                {
+            public void onClick(View v) {
+                if (checkedTextViewToAll.isChecked()) {
                     checkedTextViewToAll.setChecked(false);
-                }
-                else
-                {
+                } else {
                     toAllChecked = true;
                     checkedTextViewToAll.setChecked(true);
                     checkedTextViewOnlyMe.setChecked(false);
@@ -113,7 +103,6 @@ public class CreateWorkoutInformationDialog extends DialogFragment {
                                         Toast.makeText(getActivity(), "Please Enter A Workout Level", Toast.LENGTH_SHORT).show();
                                     } else {
                                         selectRadio = (RadioButton) rootView.findViewById(levels.getCheckedRadioButtonId());
-                                        //Log.d("selectRadio: ", selectRadio.getText().toString());
                                         if ((!selectRadio.getText().toString().equals("") && selectRadio.getText().toString().length() > 0))
                                             levelText = selectRadio.getText().toString();
                                     }
@@ -124,11 +113,14 @@ public class CreateWorkoutInformationDialog extends DialogFragment {
                                     } else {
                                         workoutLevel = 3;
                                     }
-                                    if(onlyMeChecked)
+                                    if (onlyMeChecked) {
                                         visibility = false;
-                                    if(toAllChecked)
+                                    }
+                                    if (toAllChecked) {
                                         visibility = true;
+                                    }
                                     dismiss();
+                                    ExerciseListDetailsDialog.getExerciseWorkoutList().clear();
                                     CreateWorkoutDialog f = new CreateWorkoutDialog().newInstance();
                                     f.show(getFragmentManager(), "dialog");
                                 }
@@ -148,21 +140,35 @@ public class CreateWorkoutInformationDialog extends DialogFragment {
         return b.create();
     }
 
-    public static CreateWorkoutInformationDialog newInstance(){
+    public static CreateWorkoutInformationDialog newInstance() {
         f = new CreateWorkoutInformationDialog();
         return f;
     }
 
     @Override
-    public void onStart()
-    {
+    public void onStart() {
         super.onStart();
-        if (this.getDialog() == null)
-        {
+        if (this.getDialog() == null) {
             return;
         }
         int dialogWidth = ViewGroup.LayoutParams.MATCH_PARENT;
-        int dialogHeight =ViewGroup.LayoutParams.MATCH_PARENT;
+        int dialogHeight = ViewGroup.LayoutParams.MATCH_PARENT;
         getDialog().getWindow().setLayout(dialogWidth, dialogHeight);
+    }
+
+    public static String getWorkoutName() {
+        return workoutName;
+    }
+
+    public static String getWorkoutDescription() {
+        return workoutDescription;
+    }
+
+    public static int getWorkoutLevel() {
+        return workoutLevel;
+    }
+
+    public static boolean getVisibility() {
+        return visibility;
     }
 }
