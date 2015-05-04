@@ -22,18 +22,18 @@ import com.parse.ParseUser;
 /**
  * Created by Jai Nalwa on 4/10/15.
  */
+
 public class MessagesAdapter extends BaseSwipeAdapter {
     private LayoutInflater inflater;
-    private List<ParseUser> messageItems;
     private Context context;
     private SwipeLayout swipeLayout;
     private TextView name;
     private ImageView profilePic;
-    ImageLoader imageLoader;
-    public MessagesAdapter(Context context, List<ParseUser> workoutItems) {
+    private ImageLoader imageLoader;
+
+    public MessagesAdapter(Context context) {
         inflater = LayoutInflater.from(context);
         this.context = context;
-        this.messageItems = workoutItems;
         imageLoader = new ImageLoader(context,64);
     }
 
@@ -47,14 +47,6 @@ public class MessagesAdapter extends BaseSwipeAdapter {
         View v = LayoutInflater.from(context).inflate(R.layout.messages_row, null);
 
         swipeLayout = (SwipeLayout)v.findViewById(getSwipeLayoutResourceId(position));
-
-        swipeLayout.addSwipeListener(new SimpleSwipeListener() {
-            @Override
-            public void onOpen(SwipeLayout layout) {
-
-
-            }
-        });
         swipeLayout.setOnDoubleClickListener(new SwipeLayout.DoubleClickListener() {
             @Override
             public void onDoubleClick(SwipeLayout layout, boolean surface) {
@@ -66,7 +58,6 @@ public class MessagesAdapter extends BaseSwipeAdapter {
             @Override
             public void onClick(View v) {
                 Toast.makeText(context, "Deleted", Toast.LENGTH_SHORT).show();
-
             }
         });
         return v;
@@ -78,26 +69,23 @@ public class MessagesAdapter extends BaseSwipeAdapter {
                 .findViewById(R.id.profilePic_messages_row);
         name = (TextView) convertView.findViewById(R.id.username_messages_row);
 
-        ParseUser user = messageItems.get(position);
-        // title
-        //TODO
+        ParseUser user = ChatMessaging.getChatUsersDetails().get(position);
         name.setText(user.getString("name"));
         imageLoader.DisplayImage(user.getParseFile("profilePic").getUrl(),profilePic);
     }
 
     @Override
     public int getCount() {
-        return messageItems.size();
+        return ChatMessaging.getChatUsersDetails().size();
     }
 
     @Override
     public Object getItem(int location) {
-        return messageItems.get(location);
+        return ChatMessaging.getChatUsersDetails().get(location);
     }
 
     @Override
     public long getItemId(int position) {
         return position;
     }
-
 }

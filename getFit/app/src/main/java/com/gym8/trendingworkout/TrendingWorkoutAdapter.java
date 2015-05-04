@@ -38,8 +38,7 @@ public class TrendingWorkoutAdapter extends BaseSwipeAdapter {
     public TrendingWorkoutAdapter(Context context, List<ParseObject> workoutItems) {
         inflater = LayoutInflater.from(context);
         this.context = context;
-        this.trendingWorkouts = new ArrayList<ParseObject>();
-        this.trendingWorkouts.addAll(workoutItems);
+        this.trendingWorkouts= workoutItems;
     }
 
     @Override
