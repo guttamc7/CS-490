@@ -29,7 +29,7 @@ public class ChatMessaging {
             final ParseObject messageObject = new ParseObject("ChatMessages");
             messageObject.put("message", receivedMessage.getString("message"));
             messageObject.put("type", "received");
-            messageObject.saveEventually();
+
             messageObject.pinInBackground(new SaveCallback() {
                 @Override
                 public void done(ParseException e) {
@@ -80,7 +80,6 @@ public class ChatMessaging {
             if (chatUsers.get(n).getParseObject("userId").getObjectId().equals(userId)) {
                 chatUsers.get(n).getRelation("messages").add(messageObject);
                 chatUsers.get(n).pinInBackground();
-                chatUsers.get(n).saveEventually();
                 userExists = true;
                 break;
             }
@@ -95,14 +94,13 @@ public class ChatMessaging {
 
                         final ParseObject chatUser = new ParseObject("ChatUsers");
                         chatUser.put("userId", user);
-                        chatUser.saveEventually();
                         chatUser.pinInBackground(new SaveCallback() {
                             @Override
                             public void done(ParseException e) {
                                 if (e == null) {
                                     chatUser.getRelation("messages").add(messageObject);
                                     chatUser.pinInBackground();
-                                    chatUser.saveEventually();
+
                                     ChatMessaging.chatUsers.add(chatUser);
                                 }
                                 else{

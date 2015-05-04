@@ -119,7 +119,6 @@ public class ChatFragment extends Fragment {
         final ParseObject chatMessage = new ParseObject("ChatMessages");
         chatMessage.put("message", message);
         chatMessage.put("type", "sent");
-        chatMessage.saveEventually();
         chatMessage.pinInBackground(new SaveCallback() {
             @Override
             public void done(ParseException e) {
@@ -133,7 +132,7 @@ public class ChatFragment extends Fragment {
                         if (chatUsers.get(n).getParseObject("userId").getObjectId().equals(MessagesFragment.getSelectedUser().getObjectId())) {
                             chatUsers.get(n).getRelation("messages").add(chatMessage);
                             chatUsers.get(n).pinInBackground();
-                            chatUsers.get(n).saveEventually();
+
                             break;
                         }
                     }
