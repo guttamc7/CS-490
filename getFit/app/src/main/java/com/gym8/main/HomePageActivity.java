@@ -95,17 +95,10 @@ public class HomePageActivity extends FragmentActivity {
         // when the app opens for the first time
         if (savedInstanceState == null) {
             navigateTo(0);
-            Bundle extras = getIntent().getExtras();
-            if(extras != null) {
-                goToMessages = extras.getBoolean("Go to Messages");
-            }
-
         } else {
             homeFragment = (HomeFragment) getSupportFragmentManager().getFragments().get(0);
-            goToMessages = (Boolean) savedInstanceState.getSerializable("Go to Messages");
         }
-        if(goToMessages)
-            navigateTo(3);
+
     }
 
 
@@ -190,7 +183,7 @@ public class HomePageActivity extends FragmentActivity {
                         .beginTransaction()
                         .replace(R.id.content_frame, BaseWorkoutFragment.newInstance(), TAG_FRAGMENT).commit();
                 break;
-            case 2: //TODO
+            case 2:
                 getSupportFragmentManager()
                         .beginTransaction()
                         .replace(R.id.content_frame, CustomWorkoutFragment.newInstance(), TAG_FRAGMENT).commit();

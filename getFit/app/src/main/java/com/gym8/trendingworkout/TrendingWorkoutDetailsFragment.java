@@ -18,7 +18,6 @@ import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.ParseRelation;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -76,4 +75,3 @@ public class TrendingWorkoutDetailsFragment extends RootFragment {
         });
     }
 }
-

@@ -10,7 +10,6 @@ import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
 import android.net.Uri;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,8 +30,6 @@ import com.parse.ParseFile;
 import com.parse.ParseUser;
 
 import java.io.ByteArrayOutputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -160,10 +157,9 @@ public class EditProfileDialog extends DialogFragment {
     private void setUserAttributes() {
         ParseUser currentUser = ParseUser.getCurrentUser();
         ParseFile imageFile = currentUser.getParseFile("profilePic");
-        if(imageFile == null){
+        if (imageFile == null) {
             profilePictureImgView.setImageResource(R.drawable.no_user_logo);
-        }
-        else {
+        } else {
             imageFile.getDataInBackground(new GetDataCallback() {
                 public void done(byte[] data, ParseException e) {
                     if (e == null) {
@@ -209,8 +205,6 @@ public class EditProfileDialog extends DialogFragment {
             String dateString = Integer.toString(month) + "/" + Integer.toString(day) + "/" + Integer.toString(year);
             birthDate.setText(dateString);
         }
-
-
     }
 
     @Override

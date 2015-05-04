@@ -113,8 +113,11 @@ public class DiscoveryPreferencesDialog extends DialogFragment {
                 getDialog().dismiss();
             }
         });
-
         return rootView;
+    }
+
+    static String getGender() {
+        return DiscoveryPreferencesDialog.gender;
     }
 
     @Override
@@ -132,8 +135,12 @@ public class DiscoveryPreferencesDialog extends DialogFragment {
         return finalDistance;
     }
 
-    public static String getGender() {
-        return gender;
+    static int getMinimumAge() {
+        return DiscoveryPreferencesDialog.startAge;
+    }
+
+    static int getMaximumAge() {
+        return DiscoveryPreferencesDialog.endAge;
     }
 
 }

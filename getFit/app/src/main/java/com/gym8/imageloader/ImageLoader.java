@@ -3,11 +3,10 @@ package com.gym8.imageloader;
 /**
  * Created by Gurumukh on 3/26/15.
  */
+
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
@@ -28,13 +27,13 @@ import com.gym8.main.R;
 
 public class ImageLoader {
 
-    MemoryCache memoryCache = new MemoryCache();
-    FileCache fileCache;
+    private MemoryCache memoryCache = new MemoryCache();
+    private FileCache fileCache;
     private Map<ImageView, String> imageViews = Collections
             .synchronizedMap(new WeakHashMap<ImageView, String>());
-    ExecutorService executorService;
+    private ExecutorService executorService;
     // Handler to display images in UI thread
-    Handler handler = new Handler();
+    private Handler handler = new Handler();
     private int REQUIRED_SIZE;
 
     public ImageLoader(Context context, int requiredSize) {
@@ -85,7 +84,6 @@ public class ImageLoader {
             bitmap = decodeFile(f);
             return bitmap;
         } catch (Throwable ex) {
-            ex.printStackTrace();
             if (ex instanceof OutOfMemoryError)
                 memoryCache.clear();
             return null;
@@ -121,28 +119,26 @@ public class ImageLoader {
             Bitmap bitmap = BitmapFactory.decodeStream(stream2, null, o2);
             stream2.close();
             return bitmap;
-        } catch (FileNotFoundException e) {
-        } catch (IOException e) {
-            e.printStackTrace();
+        } catch (Exception e) {
         }
         return null;
     }
 
     // Task for the queue
     private class PhotoToLoad {
-        public String url;
-        public ImageView imageView;
+        private String url;
+        private ImageView imageView;
 
-        public PhotoToLoad(String u, ImageView i) {
+        private PhotoToLoad(String u, ImageView i) {
             url = u;
             imageView = i;
         }
     }
 
-    class PhotosLoader implements Runnable {
-        PhotoToLoad photoToLoad;
+    private class PhotosLoader implements Runnable {
+        private PhotoToLoad photoToLoad;
 
-        PhotosLoader(PhotoToLoad photoToLoad) {
+        private PhotosLoader(PhotoToLoad photoToLoad) {
             this.photoToLoad = photoToLoad;
         }
 
@@ -157,8 +153,7 @@ public class ImageLoader {
                     return;
                 BitmapDisplayer bd = new BitmapDisplayer(bmp, photoToLoad);
                 handler.post(bd);
-            } catch (Throwable th) {
-                th.printStackTrace();
+            } catch (Exception th) {
             }
         }
     }
@@ -171,9 +166,9 @@ public class ImageLoader {
     }
 
     // Used to display bitmap in the UI thread
-    class BitmapDisplayer implements Runnable {
-        Bitmap bitmap;
-        PhotoToLoad photoToLoad;
+    private class BitmapDisplayer implements Runnable {
+        private Bitmap bitmap;
+        private PhotoToLoad photoToLoad;
 
         public BitmapDisplayer(Bitmap b, PhotoToLoad p) {
             bitmap = b;

@@ -49,14 +49,6 @@ public class UserProfileAdapter extends BaseSwipeAdapter {
         View v = LayoutInflater.from(context).inflate(R.layout.user_likes_row, null);
         final SwipeLayout swipeLayout = (SwipeLayout) v.findViewById(getSwipeLayoutResourceId(position));
 
-        swipeLayout.addSwipeListener(
-                new SimpleSwipeListener() {
-                    @Override
-                    public void onOpen(SwipeLayout layout) {
-
-                    }
-                });
-
 
         swipeLayout.findViewById(R.id.schedule_imview_user_like).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -130,7 +122,5 @@ public class UserProfileAdapter extends BaseSwipeAdapter {
         ParseRelation<ParseObject> relation = user.getRelation("likedWorkout");
         relation.remove(workout);
         user.saveInBackground();
-
-
     }
 }

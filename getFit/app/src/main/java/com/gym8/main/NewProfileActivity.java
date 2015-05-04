@@ -11,7 +11,6 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
@@ -21,11 +20,11 @@ import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
-
-import com.gym8.main.R;
 import com.parse.ParseFile;
 import com.parse.ParseUser;
 import android.graphics.Matrix;
+import android.widget.Toast;
+
 import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -128,9 +127,9 @@ public class NewProfileActivity extends Activity {
                     profilePicText.setText("");
                     this.imageChanged = true;
                 } catch (FileNotFoundException e) {
-                    e.printStackTrace();
+                    Toast.makeText(this, "Error loading your profile picture", Toast.LENGTH_SHORT).show();
                 } catch (IOException e) {
-                    e.printStackTrace();
+                    Toast.makeText(this, "Error loading your profile picture", Toast.LENGTH_SHORT).show();
                 }
             }
         }

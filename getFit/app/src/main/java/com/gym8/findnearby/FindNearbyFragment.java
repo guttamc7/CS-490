@@ -3,6 +3,7 @@ package com.gym8.findnearby;
 /**
  * Created by Gurumukh on 2/4/15.
  */
+
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.app.DialogFragment;
@@ -15,6 +16,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.os.Handler;
 import android.view.View.OnClickListener;
+import android.widget.Toast;
+
 import com.getbase.floatingactionbutton.FloatingActionButton;
 import com.parse.GetDataCallback;
 import com.parse.ParseFile;
@@ -29,7 +32,7 @@ public class FindNearbyFragment extends RootFragment {
     private ImageView findNearbyImageView;
     private TextView tapMsgTextView;
     private GPSTracker gps;
-    private static double latitude,longitude;
+    private static double latitude, longitude;
     private FloatingActionButton discoverySettings;
     private RippleBackground rippleBackground;
 
@@ -38,7 +41,7 @@ public class FindNearbyFragment extends RootFragment {
                              Bundle savedInstanceState) {
 
         View rootView = inflater.inflate(R.layout.fragment_findnearby, container, false);
-        rippleBackground =(RippleBackground)rootView.findViewById(R.id.content_ripple);
+        rippleBackground = (RippleBackground) rootView.findViewById(R.id.content_ripple);
         findNearbyImageView = (ImageView) rootView.findViewById(R.id.imgViewfindNearby);
         discoverySettings = (FloatingActionButton) rootView.findViewById(R.id.discovery_settings);
         discoverySettings.setSize(FloatingActionButton.SIZE_MINI);
@@ -46,22 +49,19 @@ public class FindNearbyFragment extends RootFragment {
         discoverySettings.setColorPressedResId(R.color.button_yellow);
         discoverySettings.setIcon(R.drawable.ic_action_settings);
         tapMsgTextView = (TextView) rootView.findViewById(R.id.tap_msg);
-        ParseUser currentUser = ParseUser.getCurrentUser();
-        final Handler handler=new Handler();
-        ParseFile imageFile = currentUser.getParseFile("profilePic");
-        if(imageFile == null) {
+        final Handler handler = new Handler();
+        ParseFile imageFile = ParseUser.getCurrentUser().getParseFile("profilePic");
+        if (imageFile == null) {
             findNearbyImageView.setImageResource(R.drawable.no_user_logo);
-        }
-        else {
+        } else {
             imageFile.getDataInBackground(new GetDataCallback() {
                 public void done(byte[] data, ParseException e) {
                     if (e == null) {
                         Bitmap bmp = BitmapFactory.decodeByteArray(data, 0,
                                 data.length);
                         findNearbyImageView.setImageBitmap(bmp);
-                        // data has the bytes for the image
                     } else {
-                        // something went wrong
+                        Toast.makeText(getActivity(), "Connection error", Toast.LENGTH_SHORT).show();
                     }
                 }
             });
@@ -73,36 +73,35 @@ public class FindNearbyFragment extends RootFragment {
                 DialogFragment dialogFrag = new DiscoveryPreferencesDialog();
                 dialogFrag.show(getActivity().getFragmentManager().beginTransaction(), "dialog");
             }
-         });
+        });
 
         findNearbyImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 tapMsgTextView.setText("");
                 rippleBackground.startRippleAnimation();
-
                 handler.postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        foundUsers();
+                        findUsers();
                     }
                 }, 3000);
-
             }
         });
         return rootView;
     }
-    public static double getLatitude() {
+
+    static double getLatitude() {
         return latitude;
     }
 
-    public static double getLongitude() {
+    static double getLongitude() {
         return longitude;
     }
 
-    private void foundUsers() {
+    private void findUsers() {
         gps = new GPSTracker(getActivity());
-        if(gps.canGetLocation()) {
+        if (gps.canGetLocation()) {
             FindNearbyFragment.latitude = gps.getLatitude();
             FindNearbyFragment.longitude = gps.getLongitude();
         }

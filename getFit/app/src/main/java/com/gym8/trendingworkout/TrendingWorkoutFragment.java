@@ -14,15 +14,11 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import com.gym8.ErrorHandlingAlertDialogBox;
 import com.parse.FindCallback;
-import com.parse.Parse;
 import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
-import com.parse.ParseUser;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import com.gym8.main.R;

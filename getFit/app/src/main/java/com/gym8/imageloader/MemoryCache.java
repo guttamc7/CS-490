@@ -42,7 +42,6 @@ public class MemoryCache {
                 return null;
             return cache.get(id);
         } catch (NullPointerException ex) {
-            ex.printStackTrace();
             return null;
         }
     }
@@ -55,12 +54,10 @@ public class MemoryCache {
             size += getSizeInBytes(bitmap);
             checkSize();
         } catch (Throwable th) {
-            th.printStackTrace();
         }
     }
 
     private void checkSize() {
-        Log.i(TAG, "cache size=" + size + " length=" + cache.size());
         if (size > limit) {
             // Least recently accessed item will be the first one iterated
             Iterator<Entry<String, Bitmap>> iter = cache.entrySet().iterator();
@@ -71,7 +68,6 @@ public class MemoryCache {
                 if (size <= limit)
                     break;
             }
-            Log.i(TAG, "Clean cache. New size " + cache.size());
         }
     }
 
@@ -79,9 +75,7 @@ public class MemoryCache {
         try {
             cache.clear();
             size = 0;
-        } catch (NullPointerException ex) {
-            ex.printStackTrace();
-        }
+        } catch (NullPointerException ex) {}
     }
 
     long getSizeInBytes(Bitmap bitmap) {

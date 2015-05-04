@@ -33,6 +33,7 @@ public class ViewUserWorkoutAdapter extends BaseSwipeAdapter {
     private TextView description_findnearbyuser;
     private Button likes_findnearbyuser;
     private boolean liked_findnearbyuser = false;
+
     public ViewUserWorkoutAdapter(Context context, List<ParseObject> workoutItems) {
         inflater = LayoutInflater.from(context);
         this.context = context;
@@ -47,42 +48,29 @@ public class ViewUserWorkoutAdapter extends BaseSwipeAdapter {
     @Override
     public View generateView(final int position, ViewGroup parent) {
         View v = LayoutInflater.from(context).inflate(R.layout.find_nearby_matched_user_likes, null);
-
-        swipeLayout_findnearbyuser = (SwipeLayout)v.findViewById(getSwipeLayoutResourceId(position));
-
-        swipeLayout_findnearbyuser.addSwipeListener(new SimpleSwipeListener() {
-            @Override
-            public void onOpen(SwipeLayout layout) {
-
-
-            }
-        });
+        swipeLayout_findnearbyuser = (SwipeLayout) v.findViewById(getSwipeLayoutResourceId(position));
 
         final ImageView likeClicked = (ImageView) v.findViewById(R.id.like_imview_findnearby);
         swipeLayout_findnearbyuser.findViewById(R.id.like_imview_findnearby).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(v == likeClicked) {
-                    if(!liked_findnearbyuser) {
+                if (v == likeClicked) {
+                    if (!liked_findnearbyuser) {
                         Toast.makeText(context, "Liked", Toast.LENGTH_SHORT).show();
                         likeWorkout(workoutItems_findnearbyuser.get(position));
                         likes_findnearbyuser.setText(Integer.toString(workoutItems_findnearbyuser.get(position).getInt("likes") + 1));
                         likeClicked.setImageResource(R.drawable.ic_action_dontlike);
                         liked_findnearbyuser = true;
-
-                    }
-                    else {
+                    } else {
                         Toast.makeText(context, "Disliked", Toast.LENGTH_SHORT).show();
                         dislikeWorkout(workoutItems_findnearbyuser.get(position));
                         likes_findnearbyuser.setText(Integer.toString(workoutItems_findnearbyuser.get(position).getInt("likes") - 1));
                         likeClicked.setImageResource(R.drawable.ic_action_like_white);
                         liked_findnearbyuser = false;
-
                     }
                     notifyDataSetChanged();
                     swipeLayout_findnearbyuser.close(true);
                 }
-
             }
         });
 
@@ -95,11 +83,10 @@ public class ViewUserWorkoutAdapter extends BaseSwipeAdapter {
                 calIntent.setType("vnd.android.cursor.item/event");
                 calIntent.putExtra("title", title_findnearbyuser.getText().toString());
                 calIntent.putExtra("beginTime", cal.getTimeInMillis());
-                calIntent.putExtra("endTime", cal.getTimeInMillis()+60*60*1000);
+                calIntent.putExtra("endTime", cal.getTimeInMillis() + 60 * 60 * 1000);
                 calIntent.putExtra("description", description_findnearbyuser.getText().toString());
                 calIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 context.startActivity(calIntent);
-
             }
         });
         return v;
@@ -110,19 +97,17 @@ public class ViewUserWorkoutAdapter extends BaseSwipeAdapter {
         ImageView thumbNail = (ImageView) convertView
                 .findViewById(R.id.thumbnail_findnearbyuser);
         title_findnearbyuser = (TextView) convertView.findViewById(R.id.title_findnearbyusers);
-        description_findnearbyuser = (TextView)convertView.findViewById(R.id.description_findnearbyusers);
-        likes_findnearbyuser  = (Button) convertView.findViewById(R.id.nearby_userlikes_button);
+        description_findnearbyuser = (TextView) convertView.findViewById(R.id.description_findnearbyusers);
+        likes_findnearbyuser = (Button) convertView.findViewById(R.id.nearby_userlikes_button);
         ParseObject workout = workoutItems_findnearbyuser.get(position);
 
         // thumbnail image
-        if(workout.getInt("level") == 1){
+        if (workout.getInt("level") == 1) {
             thumbNail.setImageResource(R.drawable.ic_level1);
-        }
-        else if(workout.getInt("level") == 2){
+        } else if (workout.getInt("level") == 2) {
             thumbNail.setImageResource(R.drawable.ic_level2);
 
-        }
-        else {
+        } else {
             thumbNail.setImageResource(R.drawable.ic_level3);
         }
 
@@ -156,9 +141,9 @@ public class ViewUserWorkoutAdapter extends BaseSwipeAdapter {
         relation.add(workout);
         user.saveInBackground();
     }
-    private void dislikeWorkout(ParseObject workout)
-    {
-        if(workout.getInt("likes")>0) {
+
+    private void dislikeWorkout(ParseObject workout) {
+        if (workout.getInt("likes") > 0) {
             workout.put("likes", (workout.getInt("likes") - 1));
             workout.saveInBackground();
         }
@@ -168,7 +153,4 @@ public class ViewUserWorkoutAdapter extends BaseSwipeAdapter {
         user.saveInBackground();
 
     }
-
-
-
 }
