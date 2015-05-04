@@ -33,6 +33,7 @@ public class CreateWorkoutInformationDialog extends DialogFragment {
     private CheckedTextView checkedTextViewOnlyMe;
     private CheckedTextView checkedTextViewToAll;
     private boolean onlyMeChecked;
+    private boolean toAllChecked;
     private String levelText;
     private static String workoutName;
     private static String workoutDescription;
@@ -58,7 +59,6 @@ public class CreateWorkoutInformationDialog extends DialogFragment {
                 if(checkedTextViewOnlyMe.isChecked())
                 {
                     checkedTextViewOnlyMe.setChecked(false);
-                    onlyMeChecked = false;
                 }
                 else
                 {
@@ -77,11 +77,10 @@ public class CreateWorkoutInformationDialog extends DialogFragment {
                 if(checkedTextViewToAll.isChecked())
                 {
                     checkedTextViewToAll.setChecked(false);
-                    onlyMeChecked = true;
                 }
                 else
                 {
-                    onlyMeChecked = false;
+                    toAllChecked = true;
                     checkedTextViewToAll.setChecked(true);
                     checkedTextViewOnlyMe.setChecked(false);
                 }
@@ -119,12 +118,12 @@ public class CreateWorkoutInformationDialog extends DialogFragment {
                                         else
                                             workoutLevel = 3;
 
-                                        if (onlyMeChecked)
+                                        if (onlyMeChecked && !toAllChecked)
                                             visibility = false;
-                                        else
+                                        else if (toAllChecked && !onlyMeChecked)
                                             visibility = true;
                                         dismiss();
-                                        System.out.println("Visibility:" + onlyMeChecked);
+                                        System.out.println("Visibility:" + visibility);
                                         CreateWorkoutDialog f = new CreateWorkoutDialog().newInstance();
                                         f.show(getFragmentManager(), "dialog");
                                     }
