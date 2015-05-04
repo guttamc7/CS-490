@@ -14,6 +14,7 @@
         <item>Workout Library</item>
         <item>My Custom Workouts</item>
         <item>Messages</item>
+        <item>About</item>
         <item>Sign Out</item>
     </string-array>
 
@@ -51,8 +52,8 @@
     <string name="Title">Title</string>
     <string name="SampleDescription">Hi I am a sample workout Description</string>
     <string name="Filter_Your_Preferences">Filter Your Preferences</string>
-    <string name="One_Mile">1 Mile></string>
-    <string name="Hundred_Mile">100 Mile></string>
+    <string name="One_Mile">1 Mile</string>
+    <string name="Hundred_Mile">100 Miles</string>
     <string name="Cancel">Cancel</string>
     <string name="Submit">Submit</string>
     <string name="sampleUser">User Name</string>
@@ -64,6 +65,10 @@
     <string name="ltwo">Level 2</string>
     <string name="lthree">Level 3</string>
     <string name="Workout_Information">Workout Information</string>
-
-
+    <string name="version">Version 1.0.1</string>
+    <string name="copyright">Copyright &#169; Gym8 Team</string>
+    <string name="our_team">Our Team:</string>
+    <string name="team">Neeraj Agrawal  \n Rishabh Mittal \n Jai Nalwa \n Ishan Shah \n Gurumukh Uttamchandani</string>
+    <string name="help">Help us get Swole.</string>
+    <string name="contact">Contact us at <i><u>gym8team@gmail.com</u></i></string>
 </resources>

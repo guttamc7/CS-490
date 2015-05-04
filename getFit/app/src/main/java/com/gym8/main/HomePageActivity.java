@@ -7,8 +7,10 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.content.res.Configuration;
+import android.preference.PreferenceManager;
 import android.provider.MediaStore;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.app.FragmentActivity;
@@ -16,9 +18,11 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.gym8.baseworkout.BaseWorkoutFragment;
@@ -40,13 +44,15 @@ public class HomePageActivity extends FragmentActivity {
     private CharSequence mDrawerTitle;
     private CharSequence mTitle;
     private String[] mDrawerItems;
+    private Integer[] colorId = {R.color.action_bar_blue, R.color.schedule_color, R.color.button_red, R.color.button_yellow, R.color.primary_white,R.color.delete_color};
     private Integer[] imageId = {R.drawable.ic_action_home, R.drawable.ic_action_list, R.drawable.ic_action_pin,
-            R.drawable.ic_messages, R.drawable.ic_action_arrow_left};
+            R.drawable.ic_messages,R.drawable.ic_action_info, R.drawable.ic_action_arrow_left};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_page);
+
 
         mTitle = mDrawerTitle = getTitle();
 
@@ -58,7 +64,7 @@ public class HomePageActivity extends FragmentActivity {
         mDrawerLayout.setDrawerShadow(R.drawable.drawer_shadow, GravityCompat.START);
         mDrawerList.setBackgroundColor(getResources().getColor(R.color.navigation_drawer_color));
         // Add items to the ListView
-        mDrawerList.setAdapter(new DrawerListAdapter(this, mDrawerItems, imageId));
+        mDrawerList.setAdapter(new DrawerListAdapter(this, mDrawerItems, imageId,colorId));
         // Set the OnItemClickListener so something happens when a
         // user clicks on an item.
         mDrawerList.setOnItemClickListener(new DrawerItemClickListener());
@@ -95,6 +101,8 @@ public class HomePageActivity extends FragmentActivity {
         }
 
     }
+
+
 
     /*
      * If you do not have any menus, you still need this function
@@ -186,7 +194,12 @@ public class HomePageActivity extends FragmentActivity {
                         .beginTransaction()
                         .replace(R.id.content_frame, MessagesFragment.newInstance(), TAG_FRAGMENT).commit();
                 break;
-            case 4: //SignOut
+            case 4:
+                getSupportFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.content_frame, AboutFragment.newInstance(), TAG_FRAGMENT).commit();
+                break;
+            case 5: //SignOut
                 AlertDialog.Builder builder = new AlertDialog.Builder(this);
                 builder.setMessage("Signing Out. Have a Great Day. ");
                 builder.setTitle("Sign Out");
