@@ -52,8 +52,7 @@ public class HomePageActivity extends FragmentActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_page);
-
-
+        boolean goToMessages = false;
         mTitle = mDrawerTitle = getTitle();
 
         mDrawerItems = getResources().getStringArray(R.array.drawer_titles);
@@ -96,10 +95,17 @@ public class HomePageActivity extends FragmentActivity {
         // when the app opens for the first time
         if (savedInstanceState == null) {
             navigateTo(0);
+            Bundle extras = getIntent().getExtras();
+            if(extras != null) {
+                goToMessages = extras.getBoolean("Go to Messages");
+            }
+
         } else {
             homeFragment = (HomeFragment) getSupportFragmentManager().getFragments().get(0);
+            goToMessages = (Boolean) savedInstanceState.getSerializable("Go to Messages");
         }
-
+        if(goToMessages)
+            navigateTo(3);
     }
 
 
