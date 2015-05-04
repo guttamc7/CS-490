@@ -93,41 +93,7 @@ public class CreateWorkoutInformationDialog extends DialogFragment {
                 .setPositiveButton("Next",
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int whichButton) {
-                                if (workoutNameText.getText().toString() == null || workoutNameText.getText().toString().length() == 0) {
-                                    workoutNameText.setText("Please Enter a Workout Name");
 
-                                } else if (workoutDescriptionText.getText().toString() == null || workoutNameText.getText().toString().length() == 0) {
-                                    workoutDescriptionText.setError("Please Enter a Workout Description");
-
-                                } else {
-                                    workoutName = workoutNameText.getText().toString();
-                                    workoutDescription = workoutDescriptionText.getText().toString();
-                                    RadioButton selectRadio = null;
-                                    if (levels.getCheckedRadioButtonId() == -1) {
-                                        levels = null;
-                                        Toast.makeText(getActivity(), "Please Select A Workout Level", Toast.LENGTH_SHORT).show();
-                                    } else {
-                                        selectRadio = (RadioButton) rootView.findViewById(levels.getCheckedRadioButtonId());
-                                        if ((!selectRadio.getText().toString().equals("") && selectRadio.getText().toString().length() > 0))
-                                            levelText = selectRadio.getText().toString();
-
-                                        if (levelText.equals("Level 1"))
-                                            workoutLevel = 1;
-                                        else if (levelText.equals("Level 2"))
-                                            workoutLevel = 2;
-                                        else
-                                            workoutLevel = 3;
-
-                                        if (onlyMeChecked && !toAllChecked)
-                                            visibility = false;
-                                        else if (toAllChecked && !onlyMeChecked)
-                                            visibility = true;
-                                        dismiss();
-                                        System.out.println("Visibility:" + visibility);
-                                        CreateWorkoutDialog f = new CreateWorkoutDialog().newInstance();
-                                        f.show(getFragmentManager(), "dialog");
-                                    }
-                                }
                             }
                         }
                 )
@@ -160,6 +126,52 @@ public class CreateWorkoutInformationDialog extends DialogFragment {
         int dialogWidth = ViewGroup.LayoutParams.MATCH_PARENT;
         int dialogHeight =ViewGroup.LayoutParams.MATCH_PARENT;
         getDialog().getWindow().setLayout(dialogWidth, dialogHeight);
+        AlertDialog d = (AlertDialog)getDialog();
+        if(d != null)
+        {
+            Button positiveButton = (Button) d.getButton(Dialog.BUTTON_POSITIVE);
+            positiveButton.setOnClickListener(new View.OnClickListener()
+            {
+                @Override
+                public void onClick(View v)
+                {
+                    if (workoutNameText.getText().toString() == null || workoutNameText.getText().toString().length() == 0) {
+                        Toast.makeText(getActivity(), "Please Enter a Workout Name", Toast.LENGTH_SHORT).show();
+
+                    } else if (workoutDescriptionText.getText().toString() == null || workoutDescriptionText.getText().toString().length() == 0) {
+                        Toast.makeText(getActivity(), "Please Enter a Workout Description", Toast.LENGTH_SHORT).show();
+
+                    } else {
+                        workoutName = workoutNameText.getText().toString();
+                        workoutDescription = workoutDescriptionText.getText().toString();
+                        RadioButton selectRadio = null;
+                        if (levels.getCheckedRadioButtonId() == -1) {
+                            Toast.makeText(getActivity(), "Please Select A Workout Level", Toast.LENGTH_SHORT).show();
+                        } else {
+                            selectRadio = (RadioButton) rootView.findViewById(levels.getCheckedRadioButtonId());
+                            if ((!selectRadio.getText().toString().equals("") && selectRadio.getText().toString().length() > 0))
+                                levelText = selectRadio.getText().toString();
+
+                            if (levelText.equals("Level 1"))
+                                workoutLevel = 1;
+                            else if (levelText.equals("Level 2"))
+                                workoutLevel = 2;
+                            else
+                                workoutLevel = 3;
+
+                            if (onlyMeChecked && !toAllChecked)
+                                visibility = false;
+                            else if (toAllChecked && !onlyMeChecked)
+                                visibility = true;
+                            dismiss();
+                            CreateWorkoutDialog f = new CreateWorkoutDialog().newInstance();
+                            f.show(getFragmentManager(), "dialog");
+                        }
+                    }
+
+                }
+            });
+        }
     }
 
     public static String getWorkoutName() {
