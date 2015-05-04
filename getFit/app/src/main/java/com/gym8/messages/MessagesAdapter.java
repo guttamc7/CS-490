@@ -7,14 +7,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import com.daimajia.swipe.SimpleSwipeListener;
 import com.daimajia.swipe.SwipeLayout;
 import com.daimajia.swipe.adapters.BaseSwipeAdapter;
-import com.parse.ParseObject;
-
-import java.util.List;
-
 import com.gym8.main.R;
 import com.gym8.imageloader.ImageLoader;
 import com.parse.ParseUser;

@@ -41,7 +41,7 @@ public class ChatMessaging {
                 }
             });
         } catch (JSONException e) {
-            e.printStackTrace();
+            Toast.makeText(context, "Connection error", Toast.LENGTH_SHORT).show();
         }
     }
 

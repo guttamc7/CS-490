@@ -9,11 +9,9 @@ import android.widget.BaseAdapter;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-
 import com.gym8.imageloader.ImageLoader;
 import com.gym8.main.R;
 import com.parse.ParseObject;
-
 import java.util.List;
 
 

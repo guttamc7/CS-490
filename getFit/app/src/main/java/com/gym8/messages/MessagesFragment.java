@@ -9,13 +9,10 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
-
 import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseObject;
-
 import java.util.List;
-
 import com.gym8.main.R;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
