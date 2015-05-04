@@ -1,5 +1,7 @@
 package com.gym8.createworkout;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,6 +10,7 @@ import android.widget.Button;
 import android.support.v4.app.Fragment;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.getbase.floatingactionbutton.FloatingActionButton;
 import com.parse.ParseException;
@@ -59,10 +62,10 @@ public class CreateWorkoutExerciseFragment extends Fragment {
         doneButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                    addWorkout(CreateWorkoutInformationDialog.workoutName, CreateWorkoutInformationDialog.workoutDescription, CreateWorkoutInformationDialog.workoutLevel,ExerciseListDetailsDialog.exerciseWorkoutList,CreateWorkoutInformationDialog.visibility);
-                    CreateWorkoutDialog dialog = CreateWorkoutDialog.getInstance();
-                    dialog.dismiss();
+                addWorkout(CreateWorkoutInformationDialog.getWorkoutName(), CreateWorkoutInformationDialog.getWorkoutDescription(), CreateWorkoutInformationDialog.getWorkoutLevel(), ExerciseListDetailsDialog.exerciseWorkoutList, CreateWorkoutInformationDialog.getVisibility());
+                CreateWorkoutDialog dialog = CreateWorkoutDialog.getInstance();
+                dialog.dismiss();
+                Toast.makeText(getActivity(), "Your Workout Has Been Added! Please Select Custom Workouts Again to Refresh.",Toast.LENGTH_SHORT).show();
                 }
 
         });
