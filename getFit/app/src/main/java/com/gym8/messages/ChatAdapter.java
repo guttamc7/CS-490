@@ -56,7 +56,6 @@ public class ChatAdapter extends BaseAdapter {
             convertView = layoutInflater.inflate(R.layout.chat_row, null);
             holder = new ViewHolder1();
             holder.singleMessage = (TextView) convertView.findViewById(R.id.singleMessage);
-            holder.messageTimestamp = (TextView) convertView.findViewById(R.id.message_timeStamp);
             holder.wrapper = (LinearLayout) convertView.findViewById(R.id.singleMessageContainer);
             convertView.setTag(holder);
         } else {
@@ -64,20 +63,15 @@ public class ChatAdapter extends BaseAdapter {
         }
         //Set all the values in the list
         LinearLayout.LayoutParams lp = (LinearLayout.LayoutParams) holder.singleMessage.getLayoutParams();
-        LinearLayout.LayoutParams lp1 = (LinearLayout.LayoutParams) holder.messageTimestamp.getLayoutParams();
         if (message.getString("type").equals("received")) {
             holder.singleMessage.setBackgroundResource(R.drawable.speech_bubble_yellow);
             lp.gravity = Gravity.LEFT;
-            lp1.gravity = Gravity.LEFT;
         } else {
             holder.singleMessage.setBackgroundResource(R.drawable.speech_bubble_red);
             lp.gravity = Gravity.RIGHT;
-            lp1.gravity = Gravity.RIGHT;
         }
 
         holder.singleMessage.setText(message.getString("message"));
-        SimpleDateFormat df = new SimpleDateFormat("MMMM dd, yyyy, HH:mm");
-        holder.messageTimestamp.setText(df.format(message.getDate("createdAt")));
         return convertView;
     }
 
@@ -87,7 +81,6 @@ public class ChatAdapter extends BaseAdapter {
 
     static class ViewHolder1 {
         TextView singleMessage;
-        TextView messageTimestamp;
         LinearLayout wrapper;
     }
 }
