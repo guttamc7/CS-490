@@ -27,8 +27,7 @@ public class CustomWorkoutDetailsAdapter extends BaseAdapter {
     public CustomWorkoutDetailsAdapter(Context context, List<ParseObject> exercises) {
         this.layoutInflater = LayoutInflater.from(context);
         this.imageLoader = new ImageLoader(context, 100);
-        this.exercises = new ArrayList<ParseObject>();
-        this.exercises.addAll(exercises);
+        this.exercises = exercises;
     }
 
     @Override

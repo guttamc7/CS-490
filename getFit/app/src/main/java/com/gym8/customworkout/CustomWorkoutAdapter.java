@@ -13,36 +13,32 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-import com.daimajia.swipe.SimpleSwipeListener;
 import com.daimajia.swipe.SwipeLayout;
 import com.daimajia.swipe.adapters.BaseSwipeAdapter;
-import com.gym8.ErrorHandlingAlertDialogBox;
 import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseObject;
 
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
 import com.gym8.main.R;
 import com.parse.ParseQuery;
 import com.parse.ParseRelation;
-import com.parse.ParseUser;
 
 public class CustomWorkoutAdapter extends BaseSwipeAdapter
 {
     private LayoutInflater inflater;
-    private ArrayList<ParseObject> likedWorkouts;
+    private List<ParseObject> userWorkouts;
     private Context context;
     private TextView title, description;
     private SwipeLayout swipeLayout;
 
-    public CustomWorkoutAdapter(Context context, ArrayList<ParseObject> workoutItems)
+    public CustomWorkoutAdapter(Context context, List<ParseObject> userWorkouts)
     {
         inflater = LayoutInflater.from(context);
         this.context = context;
-        likedWorkouts = workoutItems;
+        this.userWorkouts = userWorkouts;
     }
 
     @Override
@@ -56,16 +52,6 @@ public class CustomWorkoutAdapter extends BaseSwipeAdapter
     {
         View v = LayoutInflater.from(context).inflate(R.layout.custom_workout_row, null);
         swipeLayout = (SwipeLayout)v.findViewById(getSwipeLayoutResourceId(position));
-
-        swipeLayout.addSwipeListener(
-                new SimpleSwipeListener()
-                {
-                    @Override
-                    public void onOpen(SwipeLayout layout)
-                    {
-
-                    }
-                });
         swipeLayout.setOnDoubleClickListener(new SwipeLayout.DoubleClickListener()
         {
             @Override
@@ -96,8 +82,8 @@ public class CustomWorkoutAdapter extends BaseSwipeAdapter
             @Override
             public void onClick(View v) {
                 Toast.makeText(context, "Workout Removed", Toast.LENGTH_SHORT).show();
-                removeWorkout(likedWorkouts.get(position));
-                likedWorkouts.remove(position);
+                removeWorkout(userWorkouts.get(position));
+                userWorkouts.remove(position);
                 notifyDataSetChanged();
                 swipeLayout.close(true);
 
@@ -114,7 +100,7 @@ public class CustomWorkoutAdapter extends BaseSwipeAdapter
         title = (TextView) convertView.findViewById(R.id.title_custom_workout);
         description = (TextView)convertView.findViewById(R.id.description_custom_workout);
         Button likes  = (Button) convertView.findViewById(R.id.like_custom_workout);
-        ParseObject m = likedWorkouts.get(position);
+        ParseObject m = userWorkouts.get(position);
         // thumbnail image
         if(m.getInt("level") == 1)
         {
@@ -141,13 +127,13 @@ public class CustomWorkoutAdapter extends BaseSwipeAdapter
     @Override
     public int getCount()
     {
-        return likedWorkouts.size();
+        return userWorkouts.size();
     }
 
     @Override
     public Object getItem(int location)
     {
-        return likedWorkouts.get(location);
+        return userWorkouts.get(location);
     }
 
     @Override
@@ -159,7 +145,6 @@ public class CustomWorkoutAdapter extends BaseSwipeAdapter
 
     private void removeWorkout(ParseObject workout)
     {
-        //TODO
         ParseRelation<ParseObject> relation = workout.getRelation("exercises");
         ParseQuery<ParseObject> query = relation.getQuery();
         query.findInBackground(new FindCallback<ParseObject>() {
@@ -171,14 +156,11 @@ public class CustomWorkoutAdapter extends BaseSwipeAdapter
                         obj.saveInBackground();
                     }
                 } else {
-                    ErrorHandlingAlertDialogBox.showDialogBox(context);
+                    Toast.makeText(context, "Connection error", Toast.LENGTH_SHORT).show();
                 }
-
             }
         });
         workout.deleteInBackground();
         workout.saveInBackground();
-
-
     }
 }

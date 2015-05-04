@@ -3,8 +3,7 @@ package com.gym8.customworkout;
 /**
  * Created by Gurumukh on 2/10/15.
  */
-import android.app.Activity;
-import android.content.Intent;
+
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -13,27 +12,25 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.getbase.floatingactionbutton.FloatingActionButton;
 import com.gym8.createworkout.CreateWorkoutInformationDialog;
-import com.gym8.userprofile.UserProfileFragment;
 import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import com.gym8.main.R;
 
 public class CustomWorkoutFragment extends Fragment {
     private FloatingActionButton createWorkoutButton;
-    private ArrayList<ParseObject> customWorkoutList = new ArrayList<>();
     private ListView listView;
     private CustomWorkoutAdapter adapter;
-    public static ParseObject selectedWorkout;
+    private static ParseObject selectedWorkout;
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
@@ -45,8 +42,6 @@ public class CustomWorkoutFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 showDialog();
-
-
             }
         });
         return rootView;
@@ -55,13 +50,7 @@ public class CustomWorkoutFragment extends Fragment {
     private void showDialog() {
         CreateWorkoutInformationDialog newFragment = CreateWorkoutInformationDialog.newInstance();
         newFragment.show(getFragmentManager(), "dialog");
-
     }
-
-    public CustomWorkoutFragment() {
-        // Auto-generated constructor stub
-    }
-
 
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
@@ -83,7 +72,6 @@ public class CustomWorkoutFragment extends Fragment {
 
     public void onResume() {
         super.onResume();
-
     }
 
     public static CustomWorkoutFragment newInstance() {
@@ -96,22 +84,19 @@ public class CustomWorkoutFragment extends Fragment {
             query.findInBackground(new FindCallback<ParseObject>() {
                 public void done(List<ParseObject> workoutList, ParseException e) {
                     if (e == null) {
-                        customWorkoutList.addAll(workoutList);
+                        adapter = new CustomWorkoutAdapter(getActivity().getApplicationContext(), workoutList);
+                        listView.setAdapter(adapter);
+                        adapter.notifyDataSetChanged();
                       }
                      else {
+                        Toast.makeText(getActivity(), "Connection error", Toast.LENGTH_SHORT).show();
                     }
-                    onPostExecute();
                 }
             });
 
         }
 
-        protected void onPostExecute() {
-            adapter = new CustomWorkoutAdapter(getActivity().getApplicationContext(), customWorkoutList);
-            listView.setAdapter(adapter);
-            adapter.notifyDataSetChanged();
-
-        }
-
-
+    static ParseObject getSelectedWorkout(){
+        return CustomWorkoutFragment.selectedWorkout;
+    }
 }
