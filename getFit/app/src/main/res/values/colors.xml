@@ -21,5 +21,6 @@
     <color name="secondary_text">#727272</color>
     <color name="divider_color">#B6B6B6</color>
     <color name="status_bar">#346789</color>
-    <color name="navigation_drawer_color">#23455C</color>
+    <color name="navigation_drawer_color">#3D4653</color>
+    <color name="action_bar_blue">#3E8193</color>
 </resources>

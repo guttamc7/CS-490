@@ -3,6 +3,8 @@ package com.gym8.customworkout;
 /**
  * Created by Gurumukh on 2/10/15.
  */
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -14,6 +16,7 @@ import android.widget.ListView;
 
 import com.getbase.floatingactionbutton.FloatingActionButton;
 import com.gym8.createworkout.CreateWorkoutInformationDialog;
+import com.gym8.userprofile.UserProfileFragment;
 import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseObject;
@@ -41,8 +44,7 @@ public class CustomWorkoutFragment extends Fragment {
         createWorkoutButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                CreateWorkoutInformationDialog newFragment = CreateWorkoutInformationDialog.newInstance();
-                newFragment.show(getFragmentManager(), "dialog");
+                showDialog();
 
 
             }
@@ -50,9 +52,17 @@ public class CustomWorkoutFragment extends Fragment {
         return rootView;
     }
 
+    private void showDialog() {
+        CreateWorkoutInformationDialog newFragment = CreateWorkoutInformationDialog.newInstance();
+        newFragment.show(getFragmentManager(), "dialog");
+
+    }
+
     public CustomWorkoutFragment() {
         // Auto-generated constructor stub
     }
+
+
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         getWorkouts();

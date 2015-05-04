@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/primary_white">
+
+    <ImageView xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/app_logo_about"
+        android:layout_width="fill_parent"
+        android:layout_marginLeft="25dp"
+        android:layout_marginRight="25dp"
+        android:layout_height="200dp"
+        android:src="@drawable/gym8_logo"
+        android:contentDescription="@string/com_parse_ui_logo_content_description"
+        android:scaleType="fitCenter"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"/>
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/version_about"
+        android:layout_centerHorizontal="true"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:layout_below="@id/app_logo_about"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:fontFamily="sans-serif-light"
+        android:padding="10dp"
+        android:text="@string/version"/>
+
+    <TextView android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:textStyle="bold"
+        android:text="@string/our_team"
+        android:id="@+id/about_team"
+        android:layout_below="@id/version_about"
+        android:gravity="center"
+        android:layout_marginTop="20dp"
+        android:padding="5dp"
+        android:textSize="18sp">
+        </TextView>
+
+    <TextView android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/about_description"
+        android:gravity="center"
+        android:textColor="@color/text_black"
+        android:layout_below="@id/about_team"
+        android:layout_marginTop="7dp"
+        android:ems="15"
+        android:padding="5dp"
+        android:textSize="16sp"
+        android:text="@string/team">
+        </TextView>
+
+    <TextView android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/help_about"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/about_description"
+        android:text="@string/help"
+        android:layout_marginTop="20dp"
+        android:ems="15"
+        android:gravity="center"
+        android:padding="5dp"
+        android:textSize="16sp">
+    </TextView>
+
+    <TextView android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/contact_about"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/help_about"
+        android:text="@string/contact"
+        android:ems="15"
+        android:textColor="@color/primary_blue"
+        android:gravity="center"
+        android:padding="5dp"
+        android:textSize="16sp">
+        </TextView>
+
+    <TextView android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
+        android:text="@string/copyright"
+        android:gravity="center"
+        android:id="@+id/copyright_about"
+        android:layout_marginBottom="20dp"
+        android:padding="5dp"
+        android:textSize="16sp">
+        </TextView>
+
+
+</RelativeLayout>

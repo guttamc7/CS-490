@@ -1,47 +1,42 @@
 package com.gym8.messages;
 
-        import android.content.Context;
-        import android.view.Gravity;
-        import android.view.LayoutInflater;
-        import android.view.View;
-        import android.view.ViewGroup;
-        import android.widget.BaseAdapter;
-        import android.widget.FrameLayout;
-        import android.widget.ImageView;
-        import android.widget.LinearLayout;
-        import android.widget.TextView;
-
-        import com.gym8.imageloader.ImageLoader;
-        import com.gym8.main.R;
-        import com.parse.ParseObject;
-
-        import java.util.ArrayList;
-        import java.util.List;
+import android.content.Context;
+import android.view.Gravity;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.BaseAdapter;
+import android.widget.FrameLayout;
+import android.widget.LinearLayout;
+import android.widget.TextView;
+import com.gym8.imageloader.ImageLoader;
+import com.gym8.main.R;
+import com.parse.ParseObject;
+import java.util.List;
 
 
 /**
  * Created by Gurumukh on 4/13/15.
  */
 public class ChatAdapter extends BaseAdapter {
-    private List<ParseObject> listData;
-    ImageLoader imageLoader;
+    private List<ParseObject> chatMessages;
+    private ImageLoader imageLoader;
     private LayoutInflater layoutInflater;
 
-    public ChatAdapter(Context context, List<ParseObject> listData) {
-        this.listData = listData;
+    public ChatAdapter(Context context, List<ParseObject> messages) {
         layoutInflater = LayoutInflater.from(context);
-        imageLoader = new ImageLoader(context,100);
+        imageLoader = new ImageLoader(context, 100);
+        this.chatMessages = messages;
     }
 
     @Override
     public int getCount() {
-        return listData.size();
+        return chatMessages.size();
     }
-
 
     @Override
     public Object getItem(int position) {
-        return listData.get(position);
+        return chatMessages.get(position);
     }
 
     @Override
@@ -52,7 +47,7 @@ public class ChatAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         ViewHolder1 holder;
-        ParseObject message = listData.get(position);
+        ParseObject message = chatMessages.get(position);
         if (convertView == null) {
             convertView = layoutInflater.inflate(R.layout.chat_row, null);
             holder = new ViewHolder1();
@@ -63,22 +58,21 @@ public class ChatAdapter extends BaseAdapter {
             holder = (ViewHolder1) convertView.getTag();
         }
         //Set all the values in the list
-
         FrameLayout.LayoutParams lp = (FrameLayout.LayoutParams) holder.singleMessage.getLayoutParams();
-        if(message.getString("type").equals("received")) {
+        if (message.getString("type").equals("received")) {
             holder.singleMessage.setBackgroundResource(R.drawable.speech_bubble_yellow);
-            lp.gravity= Gravity.LEFT;
-
-        }
-        else {
+            lp.gravity = Gravity.LEFT;
+        } else {
             holder.singleMessage.setBackgroundResource(R.drawable.speech_bubble_red);
-            lp.gravity= Gravity.RIGHT;
-
+            lp.gravity = Gravity.RIGHT;
         }
-
 
         holder.singleMessage.setText(message.getString("message"));
         return convertView;
+    }
+
+    List<ParseObject> getChatMessages() {
+        return this.chatMessages;
     }
 
     static class ViewHolder1 {

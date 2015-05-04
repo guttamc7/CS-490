@@ -1,24 +1,16 @@
 package com.gym8.messages;
 
-import android.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
-
-import com.gym8.main.R;
+import android.content.Context;
+import android.widget.Toast;
 import com.parse.FindCallback;
 import com.parse.GetCallback;
-import com.parse.Parse;
 import com.parse.ParseException;
-import com.parse.ParseInstallation;
 import com.parse.ParseObject;
-import com.parse.ParsePush;
 import com.parse.ParseQuery;
-import com.parse.ParseRelation;
 import com.parse.ParseUser;
 import com.parse.SaveCallback;
-
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,11 +20,11 @@ import java.util.List;
 
 public class ChatMessaging {
     private static List<ParseUser> chatUsersDetails = new ArrayList<ParseUser>();
-    private static List<ParseObject> chatUsers= new ArrayList<ParseObject>();
+    private static List<ParseObject> chatUsers = new ArrayList<ParseObject>();
     private static boolean chatRetrieved = false;
 
-     static void receiveMessage(JSONObject receivedMessage){
-        try{
+    static void receiveMessage(final Context context, JSONObject receivedMessage) {
+        try {
             final String senderId = receivedMessage.getString("senderId");
             final ParseObject messageObject = new ParseObject("ChatMessages");
             messageObject.put("message", receivedMessage.getString("message"));
@@ -42,72 +34,19 @@ public class ChatMessaging {
                 @Override
                 public void done(ParseException e) {
                     if (e == null) {
-                        ChatMessaging.saveReceivedUser(senderId, messageObject);
+                        ChatMessaging.saveReceivedUser(context, senderId, messageObject);
                     } else {
-                        e.printStackTrace();
+                        Toast.makeText(context, "Connection error", Toast.LENGTH_SHORT).show();
                     }
                 }
             });
-
-        }catch (JSONException e) {
-            e.printStackTrace();
-        }
-    }
-
-    static void sendMessage(ParseUser receiverUser, String message, final ChatFragment chat){
-        // Create our Installation query
-        ParseQuery pushQuery = ParseInstallation.getQuery();
-        pushQuery.whereEqualTo("user", receiverUser);
-
-        // Send push notification to query
-        ParsePush push = new ParsePush();
-        push.setQuery(pushQuery); // Set our Installation query
-        JSONObject messageData = new JSONObject();
-        try {
-            messageData.put("message",message);
-            messageData.put("senderId",ParseUser.getCurrentUser().getObjectId());
-            messageData.put("senderName",ParseUser.getCurrentUser().getString("name"));
-            push.setData(messageData);
-            push.sendInBackground();
-            ChatMessaging.saveSentMessage(receiverUser,message, chat);
         } catch (JSONException e) {
+            Toast.makeText(context, "Connection error", Toast.LENGTH_SHORT).show();
         }
     }
 
-    static void saveSentMessage(final ParseUser receiverUser, String msg, final ChatFragment chat){
-        final ParseObject message = new ParseObject("ChatMessages");
-        message.put("message", msg);
-        message.put("type","sent");
-        message.saveEventually();
-        message.pinInBackground(new SaveCallback() {
-            @Override
-            public void done(ParseException e) {
-                if (e == null) {
-                    chat.getChatMessages();
-                    for (int n = 0; n < ChatMessaging.chatUsers.size(); n++) {
-                        if (chatUsers.get(n).getParseObject("userId").getObjectId().equals(receiverUser.getObjectId())) {
-                            chatUsers.get(n).getRelation("messages").add(message);
-                            chatUsers.get(n).pinInBackground();
-                            chatUsers.get(n).saveEventually();
-                            break;
-                        }
-                    }
-                }
-            }
-        });
-    }
-
-    static ParseObject getChatUser(ParseUser chatUser) {
-        for (int n = 0; n < chatUsers.size(); n++) {
-            if (chatUsers.get(n).getParseUser("userId").getObjectId().equals(chatUser.getObjectId())) {
-                return ChatMessaging.chatUsers.get(n);
-            }
-        }
-        return null;
-    }
-
-    private static void saveReceivedUser(final String userId, final ParseObject messageObject){
-        if(ChatMessaging.chatRetrieved == false){ //Retrieve all the Chat
+    private static void saveReceivedUser(final Context context, final String userId, final ParseObject messageObject) {
+        if (ChatMessaging.chatRetrieved == false) { //Retrieve all the Chat
             ParseQuery<ParseObject> query = ParseQuery.getQuery("ChatUsers");
             query.fromLocalDatastore();
             query.findInBackground(new FindCallback<ParseObject>() {
@@ -119,131 +58,113 @@ public class ChatMessaging {
                                 chatUsers.get(n).getParseObject("userId").fetchFromLocalDatastore();
                                 ChatMessaging.chatUsersDetails.add(chatUsers.get(n).getParseUser("userId"));
                             } catch (ParseException e1) {
-                                e1.printStackTrace();
+                                Toast.makeText(context, "Connection error", Toast.LENGTH_SHORT).show();
                             }
                         }
                         ChatMessaging.chatUsers.addAll(chatUsers);
                         ChatMessaging.setChatRetrieved(true);
-
-                        boolean userExists = false;
-                        for (int n = 0; n < ChatMessaging.chatUsers.size(); n++) {
-                            if (chatUsers.get(n).getParseObject("userId").getObjectId().equals(userId)) {
-                                chatUsers.get(n).getRelation("messages").add(messageObject);
-                                chatUsers.get(n).pinInBackground();
-                                chatUsers.get(n).saveEventually();
-                                userExists = true;
-                                break;
-                            }
-                        }
-                        if(userExists == false){
-                            ParseQuery<ParseUser> query = ParseQuery.getQuery("_User");
-                            query.getInBackground(userId, new GetCallback<ParseUser>() {
-                                public void done(ParseUser user, ParseException e) {
-                                    if (e == null) {
-                                        user.pinInBackground();
-                                        ChatMessaging.chatUsersDetails.add(user);
-
-                                        final ParseObject chatUser = new ParseObject("ChatUsers");
-                                        chatUser.put("userId", user);
-                                        chatUser.saveEventually();
-                                        chatUser.pinInBackground(new SaveCallback() {
-                                            @Override
-                                            public void done(ParseException e) {
-                                                if(e==null) {
-                                                    chatUser.getRelation("messages").add(messageObject);
-                                                    chatUser.pinInBackground();
-                                                    chatUser.saveEventually();
-                                                    ChatMessaging.chatUsers.add(chatUser);
-                                                }
-                                            }
-                                        });
-                                    }
-                                }
-                            });
-                        }
-
+                        saveReceivedUserAfterChatRetrieved(context,userId,messageObject);
                     } else {
-                        e.printStackTrace();
+                        Toast.makeText(context, "Connection error", Toast.LENGTH_SHORT).show();
                     }
                 }
             });
-        }else{
-            boolean userExists = false;
-            for (int n = 0; n < ChatMessaging.chatUsers.size(); n++) {
-                if (chatUsers.get(n).getParseObject("userId").getObjectId().equals(userId)) {
-                    chatUsers.get(n).getRelation("messages").add(messageObject);
-                    chatUsers.get(n).pinInBackground();
-                    chatUsers.get(n).saveEventually();
-                    userExists = true;
-                    break;
-                }
-            }
-            if(userExists == false){
-                ParseQuery<ParseUser> query = ParseQuery.getQuery("_User");
-                query.getInBackground(userId, new GetCallback<ParseUser>() {
-                    public void done(ParseUser user, ParseException e) {
-                        if (e == null) {
-                            user.pinInBackground();
-                            ChatMessaging.chatUsersDetails.add(user);
-
-                            final ParseObject chatUser = new ParseObject("ChatUsers");
-                            chatUser.put("userId", user);
-                            chatUser.saveEventually();
-                            chatUser.pinInBackground(new SaveCallback() {
-                                @Override
-                                public void done(ParseException e) {
-                                    if(e==null) {
-                                        chatUser.getRelation("messages").add(messageObject);
-                                        chatUser.pinInBackground();
-                                        chatUser.saveEventually();
-                                        ChatMessaging.chatUsers.add(chatUser);
-                                    }
-                                }
-                            });
-                        }
-                    }
-                });
-            }
+        } else {
+            saveReceivedUserAfterChatRetrieved(context,userId,messageObject);
         }
     }
 
-    public static List<ParseObject> getChatUsers(){
+    private static void saveReceivedUserAfterChatRetrieved(final Context context, final String userId, final ParseObject messageObject){
+        boolean userExists = false;
+        for (int n = 0; n < ChatMessaging.chatUsers.size(); n++) {
+            if (chatUsers.get(n).getParseObject("userId").getObjectId().equals(userId)) {
+                chatUsers.get(n).getRelation("messages").add(messageObject);
+                chatUsers.get(n).pinInBackground();
+                chatUsers.get(n).saveEventually();
+                userExists = true;
+                break;
+            }
+        }
+        if (userExists == false) {
+            ParseQuery<ParseUser> query = ParseQuery.getQuery("_User");
+            query.getInBackground(userId, new GetCallback<ParseUser>() {
+                public void done(ParseUser user, ParseException e) {
+                    if (e == null) {
+                        user.pinInBackground();
+                        ChatMessaging.chatUsersDetails.add(user);
+
+                        final ParseObject chatUser = new ParseObject("ChatUsers");
+                        chatUser.put("userId", user);
+                        chatUser.saveEventually();
+                        chatUser.pinInBackground(new SaveCallback() {
+                            @Override
+                            public void done(ParseException e) {
+                                if (e == null) {
+                                    chatUser.getRelation("messages").add(messageObject);
+                                    chatUser.pinInBackground();
+                                    chatUser.saveEventually();
+                                    ChatMessaging.chatUsers.add(chatUser);
+                                }
+                                else{
+                                    Toast.makeText(context, "Connection error", Toast.LENGTH_SHORT).show();
+                                }
+                            }
+                        });
+                    }
+                    else{
+                        Toast.makeText(context, "Connection error", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            });
+        }
+    }
+
+    static ParseObject getChatUser(ParseUser chatUser) {
+        for (int n = 0; n < chatUsers.size(); n++) {
+            if (chatUsers.get(n).getParseUser("userId").getObjectId().equals(chatUser.getObjectId())) {
+                return ChatMessaging.chatUsers.get(n);
+            }
+        }
+        return null;
+    }
+
+    static List<ParseObject> getChatUsers() {
         return ChatMessaging.chatUsers;
     }
 
-    static void setChatUsers(List<ParseObject> chatUsers){
-        if(chatUsers!=null) {
+    static void setChatUsers(List<ParseObject> chatUsers) {
+        if (chatUsers != null) {
             ChatMessaging.chatUsers = chatUsers;
         }
     }
 
-    static void addToChatUser(ParseObject chatUser){
-        if(chatUser!=null){
+    static void addToChatUser(ParseObject chatUser) {
+        if (chatUser != null) {
             ChatMessaging.chatUsers.add(chatUser);
         }
     }
 
-    public static List<ParseUser> getChatUsersDetails(){
+    static List<ParseUser> getChatUsersDetails() {
         return ChatMessaging.chatUsersDetails;
     }
 
-    static void setChatUsersDetails(List<ParseUser> chatUsersDetails){
-        if(chatUsersDetails!=null) {
+    static void setChatUsersDetails(List<ParseUser> chatUsersDetails) {
+        if (chatUsersDetails != null) {
             ChatMessaging.chatUsersDetails = chatUsersDetails;
         }
     }
 
-    static void addToChatUserDetails(ParseUser user){
-        if(user!=null){
+    static void addToChatUserDetails(ParseUser user) {
+        if (user != null) {
             ChatMessaging.chatUsersDetails.add(user);
         }
     }
 
-    public static boolean isChatRetrieved(){
+    static boolean isChatRetrieved() {
         return ChatMessaging.chatRetrieved;
     }
 
-    static void setChatRetrieved(boolean chatRetrieved){
+    static void setChatRetrieved(boolean chatRetrieved) {
         ChatMessaging.chatRetrieved = chatRetrieved;
     }
 }

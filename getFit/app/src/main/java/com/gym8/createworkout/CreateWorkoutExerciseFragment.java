@@ -1,5 +1,7 @@
 package com.gym8.createworkout;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -37,9 +39,9 @@ public class CreateWorkoutExerciseFragment extends Fragment {
         listView = (ListView) rootView.findViewById(R.id.create_workout_exercises_list);
         emptyList = (TextView) rootView.findViewById(R.id.empty_list);
         doneButton = (Button) rootView.findViewById(R.id.createWorkout_doneButton);
-        if(ExerciseListDetailsDialog.getExerciseWorkoutList()!=null){
+        if(ExerciseListDetailsDialog.exerciseWorkoutList!=null){
             emptyList.setVisibility(View.INVISIBLE);
-            adapter = new CreateWorkoutExerciseAdapter(getActivity().getApplicationContext(),ExerciseListDetailsDialog.getExerciseWorkoutList());
+            adapter = new CreateWorkoutExerciseAdapter(getActivity().getApplicationContext(),ExerciseListDetailsDialog.exerciseWorkoutList);
             listView.setAdapter(adapter);
         }
         else {
@@ -60,10 +62,10 @@ public class CreateWorkoutExerciseFragment extends Fragment {
         doneButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                    addWorkout(CreateWorkoutInformationDialog.getWorkoutName(), CreateWorkoutInformationDialog.getWorkoutDescription(), CreateWorkoutInformationDialog.getWorkoutLevel(),ExerciseListDetailsDialog.getExerciseWorkoutList(),CreateWorkoutInformationDialog.getVisibility());
-                    CreateWorkoutDialog dialog = CreateWorkoutDialog.getInstance();
-                    dialog.dismiss();
+                addWorkout(CreateWorkoutInformationDialog.getWorkoutName(), CreateWorkoutInformationDialog.getWorkoutDescription(), CreateWorkoutInformationDialog.getWorkoutLevel(), ExerciseListDetailsDialog.exerciseWorkoutList, CreateWorkoutInformationDialog.getVisibility());
+                CreateWorkoutDialog dialog = CreateWorkoutDialog.getInstance();
+                dialog.dismiss();
+                Toast.makeText(getActivity(), "Your Workout Has Been Added! Please Select Custom Workouts Again to Refresh.",Toast.LENGTH_SHORT).show();
                 }
 
         });
@@ -110,7 +112,6 @@ public class CreateWorkoutExerciseFragment extends Fragment {
                     workout.saveInBackground();
 
                 } else {
-                    Toast.makeText(getActivity(), "Connection error", Toast.LENGTH_SHORT).show();
                 }
             }
         });

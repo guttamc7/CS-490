@@ -12,13 +12,22 @@
             android:id="@+id/drawer_txt"
             android:layout_width="wrap_content"
             android:layout_height="50dp"
-            android:text="Medium Text"
             android:layout_toRightOf="@id/drawer_img"
-            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textSize="16sp"
             android:layout_marginLeft="10dp"
             android:layout_marginTop="10dp"
             android:padding="2dp"
             android:textColor="#FFFFFF"/>
+
+    <View
+        android:layout_width="10dp"
+        android:layout_height="50dp"
+        android:id="@+id/color_view"
+        android:layout_marginLeft="5dp"
+        android:layout_alignParentRight="true"
+        android:background="#DADADC"
+        >
+        </View>
 
 
     </RelativeLayout>

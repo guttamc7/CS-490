@@ -11,6 +11,7 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.parse.ParseFile;
 import com.parse.ParseUser;
 
 import java.util.ArrayList;
@@ -90,7 +91,13 @@ public class FindNearbyUsersAdapter extends BaseAdapter {
 
         int distance = (int)ParseUser.getCurrentUser().getParseGeoPoint("location").distanceInMilesTo(listData.get(position).getParseGeoPoint("location"))+1;
         holder.userDistance.setText("Within "+distance+" miles, ");
-        imageLoader.DisplayImage(listData.get(position).getParseFile("profilePic").getUrl(),holder.userProfile);
+        ParseFile imageFile = listData.get(position).getParseFile("profilePic");
+        if(imageFile == null) {
+            holder.userProfile.setImageResource(R.drawable.no_user_logo);
+        }
+        else {
+            imageLoader.DisplayImage(listData.get(position).getParseFile("profilePic").getUrl(), holder.userProfile);
+        }
         return convertView;
 
     }

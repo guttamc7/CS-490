@@ -40,8 +40,7 @@ public class BaseWorkoutAdapter extends BaseSwipeAdapter {
     public BaseWorkoutAdapter(Context context, List<ParseObject> baseWorkouts) {
         inflater = LayoutInflater.from(context);
         this.context = context;
-        this.workouts = new ArrayList<ParseObject>();
-        workouts.addAll(baseWorkouts);
+        this.workouts = baseWorkouts;
     }
 
     @Override

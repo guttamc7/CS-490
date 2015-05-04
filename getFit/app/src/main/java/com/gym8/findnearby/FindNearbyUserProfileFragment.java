@@ -148,23 +148,27 @@ public class FindNearbyUserProfileFragment extends RootFragment {
         this.user = selectedUser;
     }
 
-    private void setUserDetails(){
+    private void setUserDetails() {
         nearbyUserName.setText(this.user.getString("name"));
         nearbyUserHeight.setText(String.valueOf(this.user.getInt("height")) + " cm");
         nearbyUserWeight.setText(String.valueOf(this.user.getInt("weight")) + " lbs");
         nearbyUserAge.setText(Integer.toString(UserProfileFragment.getAge(this.user.getDate("birthDate"))) + " years");
         ParseFile imageFile = user.getParseFile("profilePic");
-        imageFile.getDataInBackground(new GetDataCallback() {
-            public void done(byte[] data, ParseException e) {
-                if (e == null) {
-                    Bitmap bmp = BitmapFactory.decodeByteArray(data, 0,data.length);
-                    nearbyUserProfilePic.setImageBitmap(bmp);
-                    // data has the bytes for the image
-                } else {
-                    // something went wrong
+        if (imageFile == null) {
+            nearbyUserProfilePic.setImageResource(R.drawable.no_user_logo);
+        } else {
+            imageFile.getDataInBackground(new GetDataCallback() {
+                public void done(byte[] data, ParseException e) {
+                    if (e == null) {
+                        Bitmap bmp = BitmapFactory.decodeByteArray(data, 0, data.length);
+                        nearbyUserProfilePic.setImageBitmap(bmp);
+                        // data has the bytes for the image
+                    } else {
+                        // something went wrong
+                    }
                 }
-            }
-        });
+            });
+        }
     }
 
     private void moveToChat(){

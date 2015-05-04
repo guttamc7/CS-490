@@ -36,7 +36,6 @@ public class UserProfileAdapter extends BaseSwipeAdapter {
     public UserProfileAdapter(Context context, List<ParseObject> workoutItems) {
         inflater = LayoutInflater.from(context);
         this.context = context;
-        this.likedWorkouts = new ArrayList<ParseObject>();
         this.likedWorkouts = workoutItems;
     }
 
