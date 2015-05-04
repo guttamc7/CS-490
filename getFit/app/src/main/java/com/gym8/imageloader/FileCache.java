@@ -3,11 +3,12 @@ package com.gym8.imageloader;
 /**
  * Created by Gurumukh on 3/26/15.
  */
+
 import java.io.File;
+
 import android.content.Context;
 
 public class FileCache {
-
     private File cacheDir;
 
     public FileCache(Context context) {
@@ -25,10 +26,8 @@ public class FileCache {
 
     public File getFile(String url) {
         String filename = String.valueOf(url.hashCode());
-        // String filename = URLEncoder.encode(url);
         File f = new File(cacheDir, filename);
         return f;
-
     }
 
     public void clear() {
@@ -38,5 +37,4 @@ public class FileCache {
         for (File f : files)
             f.delete();
     }
-
 }

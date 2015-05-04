@@ -4,8 +4,7 @@ package com.gym8.userprofile;
  * Created by Gurumukh on 2/4/15.
  */
 
-import android.app.Activity;
-import android.content.Intent;
+
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
@@ -16,8 +15,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.View.MeasureSpec;
 
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -30,7 +27,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.getbase.floatingactionbutton.FloatingActionButton;
-import com.gym8.ErrorHandlingAlertDialogBox;
 import com.parse.FindCallback;
 import com.parse.GetDataCallback;
 import com.parse.ParseException;
@@ -54,7 +50,6 @@ public class UserProfileFragment extends RootFragment {
     private ListView listView;
     private UserProfileAdapter adapter;
     public static final int DIALOG_FRAGMENT = 1;
-
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_profile, container, false);
@@ -129,7 +124,6 @@ public class UserProfileFragment extends RootFragment {
                         Bitmap bmp = BitmapFactory.decodeByteArray(data, 0,
                                 data.length);
                         profilePic.setImageBitmap(bmp);
-                        // data has the bytes for the image
                     } else {
                         Toast.makeText(getActivity(), "Connection error", Toast.LENGTH_SHORT).show();
                     }
@@ -158,7 +152,6 @@ public class UserProfileFragment extends RootFragment {
         } else {
             userAge.setText(Integer.toString(getAge(date)) + " years old");
         }
-
     }
 
     private void showDialog() {
@@ -206,9 +199,9 @@ public class UserProfileFragment extends RootFragment {
         return age;
     }
 
+    @Override
     public void onResume() {
         super.onResume();
-        //adapter.notifyDataSetChanged();
     }
 
     private void getLikedWorkouts() {

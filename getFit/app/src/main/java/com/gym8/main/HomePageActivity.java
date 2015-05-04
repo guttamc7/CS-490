@@ -53,7 +53,6 @@ public class HomePageActivity extends FragmentActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_page);
 
-
         mTitle = mDrawerTitle = getTitle();
 
         mDrawerItems = getResources().getStringArray(R.array.drawer_titles);
@@ -184,7 +183,7 @@ public class HomePageActivity extends FragmentActivity {
                         .beginTransaction()
                         .replace(R.id.content_frame, BaseWorkoutFragment.newInstance(), TAG_FRAGMENT).commit();
                 break;
-            case 2: //TODO
+            case 2:
                 getSupportFragmentManager()
                         .beginTransaction()
                         .replace(R.id.content_frame, CustomWorkoutFragment.newInstance(), TAG_FRAGMENT).commit();

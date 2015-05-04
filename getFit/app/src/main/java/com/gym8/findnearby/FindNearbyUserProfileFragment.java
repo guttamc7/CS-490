@@ -12,23 +12,17 @@ import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.getbase.floatingactionbutton.FloatingActionButton;
-import com.getbase.floatingactionbutton.FloatingActionsMenu;
-import com.gym8.ErrorHandlingAlertDialogBox;
-import com.gym8.baseworkout.BaseWorkoutDetailsFragment;
 import com.gym8.main.HomePageActivity;
-import com.gym8.messages.ChatMessaging;
-import com.gym8.messages.MessagesFragment;
 import com.parse.FindCallback;
 import com.parse.GetCallback;
 import com.parse.GetDataCallback;
-import com.parse.Parse;
 import com.parse.ParseException;
 import com.parse.ParseFile;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
-import com.parse.ParseRelation;
 import com.parse.ParseUser;
 
 import com.gym8.main.R;
@@ -36,7 +30,6 @@ import com.gym8.userprofile.UserProfileFragment;
 import com.gym8.viewpager.RootFragment;
 import com.parse.SaveCallback;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -46,7 +39,6 @@ public class FindNearbyUserProfileFragment extends RootFragment {
     private ParseUser user;
     private TextView nearbyUserName,nearbyUserHeight,nearbyUserWeight,nearbyUserAge;
     private ImageView nearbyUserProfilePic;
-    private List<ParseObject> customWorkoutList = new ArrayList<>();
     private ListView listView;
     private ViewUserWorkoutAdapter adapter;
     private FloatingActionButton chatButton;
@@ -101,14 +93,12 @@ public class FindNearbyUserProfileFragment extends RootFragment {
     public void onActivityCreated(Bundle savedInstanceState)
     {
         super.onActivityCreated(savedInstanceState);
-       //TODO
         getCustomWorkoutsForUser(user);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener()
         {
             @Override
             public void onItemClick(AdapterView<?> parent, View view,
                                     int position, long id) {
-                //UserProfileWorkout data = (UserProfileWorkout)listView.getItemAtPosition(position);
                 FragmentTransaction ft = getChildFragmentManager().beginTransaction();
                 ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
                 ft.addToBackStack(null);
@@ -117,15 +107,7 @@ public class FindNearbyUserProfileFragment extends RootFragment {
         });
     }
 
-    private void onPostExecute(){
-        //Inform UI
-        adapter = new ViewUserWorkoutAdapter(getActivity().getApplicationContext(), customWorkoutList);
-        listView.setAdapter(adapter);
-        adapter.notifyDataSetChanged();
-    }
-
     private void getCustomWorkoutsForUser(ParseUser user){
-
         ParseQuery<ParseObject> query = ParseQuery.getQuery("Workout");
         query.whereEqualTo("visibility",true);
         query.whereEqualTo("workoutType","custom");
@@ -134,17 +116,17 @@ public class FindNearbyUserProfileFragment extends RootFragment {
 
             public void done(List<ParseObject> workoutList, ParseException e) {
                 if (e == null) {
-                    //All the base workouts retrieved
-                    customWorkoutList.addAll(workoutList);
+                    adapter = new ViewUserWorkoutAdapter(getActivity().getApplicationContext(), workoutList);
+                    listView.setAdapter(adapter);
+                    adapter.notifyDataSetChanged();
                 } else {
-                ErrorHandlingAlertDialogBox.showDialogBox(getActivity().getBaseContext());
-  //Exception
+                    Toast.makeText(getActivity(), "Connection error", Toast.LENGTH_SHORT).show();
                 }
-                onPostExecute();
             }
         });
     }
-    public void setParseUser(ParseUser selectedUser){
+
+    void setParseUser(ParseUser selectedUser){
         this.user = selectedUser;
     }
 
@@ -162,9 +144,8 @@ public class FindNearbyUserProfileFragment extends RootFragment {
                     if (e == null) {
                         Bitmap bmp = BitmapFactory.decodeByteArray(data, 0, data.length);
                         nearbyUserProfilePic.setImageBitmap(bmp);
-                        // data has the bytes for the image
                     } else {
-                        // something went wrong
+                        Toast.makeText(getActivity(), "Connection error", Toast.LENGTH_SHORT).show();
                     }
                 }
             });
@@ -175,7 +156,6 @@ public class FindNearbyUserProfileFragment extends RootFragment {
         getActivity().findViewById(R.id.drawer_layout);
         ((HomePageActivity)getActivity()).navigateTo(3);
         ((HomePageActivity)getActivity()).setTitle("Messsage");
-
     }
 
     private void goToUserChat(){
@@ -191,7 +171,11 @@ public class FindNearbyUserProfileFragment extends RootFragment {
                     chatUser.pinInBackground(new SaveCallback() {
                         @Override
                         public void done(ParseException e) {
-                            moveToChat();
+                            if(e==null){
+                                moveToChat();
+                            }else{
+                                Toast.makeText(getActivity(), "Connection error", Toast.LENGTH_SHORT).show();
+                            }
                         }
                     });
                 }
