@@ -42,7 +42,7 @@ public class MainActivity extends Activity {
                 ParseLoginBuilder builder = new ParseLoginBuilder(MainActivity.this);
                 startActivityForResult(builder.build(), 0);
             }
-        };
+        };//gg
         splashThread.start();
     }
 
