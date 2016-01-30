@@ -30,7 +30,7 @@ public class DiscoveryPreferencesDialog extends DialogFragment {
     private static double finalDistance = 100;
     private static int startAge = 16;
     private static int endAge = 75;
-    private static String gender;
+    private static String gender = "both";
     private TextView ageMinimum;
     private TextView ageMaximun;
     private TextView distanceMaximum;
@@ -87,8 +87,8 @@ public class DiscoveryPreferencesDialog extends DialogFragment {
             public void onRangeChangeListener(RangeBar rangeBar, int leftPinIndex, int rightPinIndex, String leftPinValue, String rightPinValue) {
                 ageMinimum.setText(leftPinValue + " years");
                 ageMaximun.setText(rightPinValue + " years");
-                DiscoveryPreferencesDialog.startAge = leftPinIndex;
-                DiscoveryPreferencesDialog.endAge = rightPinIndex;
+                DiscoveryPreferencesDialog.startAge = leftPinIndex + 16;
+                DiscoveryPreferencesDialog.endAge = rightPinIndex + 16;
 
             }
         });

@@ -38,7 +38,7 @@ public class CreateWorkoutInformationDialog extends DialogFragment {
     private static String workoutName;
     private static String workoutDescription;
     private static int workoutLevel;
-    private static boolean visibility;
+    private static boolean visibility = true;
     private static CreateWorkoutInformationDialog f;
 
     public Dialog onCreateDialog(Bundle savedInstanceState) {
@@ -62,7 +62,7 @@ public class CreateWorkoutInformationDialog extends DialogFragment {
                 }
                 else
                 {
-                    onlyMeChecked= true;
+                    visibility = false;
                     checkedTextViewOnlyMe.setChecked(true);
                     checkedTextViewToAll.setChecked(false);
                 }
@@ -80,7 +80,7 @@ public class CreateWorkoutInformationDialog extends DialogFragment {
                 }
                 else
                 {
-                    toAllChecked = true;
+                    visibility = true;
                     checkedTextViewToAll.setChecked(true);
                     checkedTextViewOnlyMe.setChecked(false);
                 }
@@ -159,10 +159,6 @@ public class CreateWorkoutInformationDialog extends DialogFragment {
                             else
                                 workoutLevel = 3;
 
-                            if (onlyMeChecked && !toAllChecked)
-                                visibility = false;
-                            else if (toAllChecked && !onlyMeChecked)
-                                visibility = true;
                             dismiss();
                             ExerciseListDetailsDialog.getExerciseWorkoutList().clear();
                             CreateWorkoutDialog f = new CreateWorkoutDialog().newInstance();

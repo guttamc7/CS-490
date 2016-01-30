@@ -77,7 +77,7 @@ public class FindNearbyUsersFragment extends RootFragment {
                     for (int n = 0; n < userList.size(); n++) {
                         if (userList.get(n).getDate("birthDate") != null) {
                             int userAge = UserProfileFragment.getAge(userList.get(n).getDate("birthDate"));
-                            if (userAge > DiscoveryPreferencesDialog.getMaximumAge() && userAge < DiscoveryPreferencesDialog.getMaximumAge()) {
+                            if (userAge > DiscoveryPreferencesDialog.getMinimumAge() && userAge <= DiscoveryPreferencesDialog.getMaximumAge()) {
                                 findNearbyUsersList.add(userList.get(n));
                             }
                         } else {
